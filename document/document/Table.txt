@@ -1,0 +1,17 @@
+﻿ACCOUNT // 회원정보
+
+ACCOMODATION // 숙소정보
+
+ROOM // 방정보
+
+NATION // 국가
+
+CITY // 도시
+
+CATEGORY_ACCOMODATION //숙소 종류
+
+CATEGORY_ROOM //방 종류
+
+FACILITY // 시설
+
+REVIEW // 이용 후기
