@@ -1,0 +1,76 @@
+﻿1.프로젝트 생성
+
+File -> new -> Spring Legacy Project
+
+Template : spring mvc project
+
+package name 입력
+
+2. DB 설정
+
+pom.xml
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		
+		<!-- oracle -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0</version>
+		</dependency>
+		
+		<!-- mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.2.3</version>
+		</dependency>
+		
+		
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
+
+
+src/main/webapp/WEB-INF/spring/root-context.xml
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>	
+		<property name="url">
+			<value>jdbc:oracle:thin:@데이터베이스 주소:1521:xe</value>
+		</property>	
+		<property name="username" value="java01"/>
+		<property name="password" value="java01"/>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="모델 패키지 경로(.구분자)"/> <!-- xml, dto 등의 작업파일 위치 -->
+							   ex)com.test.model
+		<property name="mapperLocations" value="classpath:모델 패키지 경로(/구분자)/*.xml"/>
+								  ex)com/test/model
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+
+3.
+
+src/main/java에 model, service package를 만들고
+
+model에는 DTO, Mapper.xml
+service에는 Mapper.java
+
+생성
