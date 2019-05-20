@@ -14,7 +14,7 @@ create sequence answercatesub_seq;
 create table answer
 (no number primary key,
 maincate varchar2(100),
-subcate varchar2(500),
+subcate number,
 answer varchar2(4000));
 
 create sequence answer_seq;
