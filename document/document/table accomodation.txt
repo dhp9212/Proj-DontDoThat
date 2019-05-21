@@ -19,6 +19,6 @@ rooms number default 1,
 adults number default 1,
 children number default 0,
 review_num number not null,
-foreign key(review_num) references review(num)
+foreign key(review_num) references review(num),
 grade_num number not null,
 foreign key(grade_num) references grade(num));
