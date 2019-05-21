@@ -1,5 +1,5 @@
 ﻿create table review
-(num number,
+(num number primary key,
 writer varchar2(30),
 subject varchar2(100),
 content_p varchar2(4000),
@@ -12,7 +12,7 @@ write_date varchar2(50));
 create sequence review_seq;
 
 create table grade
-(num number,
+(num number primary key,
 review number,
 clean number,
 comfortable number,
