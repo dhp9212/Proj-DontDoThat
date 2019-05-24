@@ -1,0 +1,19 @@
+create sequence reservation_seq;
+
+create table reservation(
+num number primary key,
+member_num number not null,
+accomodation_num number not null,
+room_num number not null,
+last_name varchar2(40),
+first_name varchar2(40),
+email varchar2(100),
+country varchar2(40),
+tel varchar2(20),
+guest_name varchar2(40),
+checkIn_date varchar2(50),
+checkOut_date varchar2(50),
+rooms number default 1,
+adults number default 1,
+children number default 0,
+payment varchar2(200));
