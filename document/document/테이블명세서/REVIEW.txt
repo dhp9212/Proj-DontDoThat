@@ -13,6 +13,7 @@ create sequence review_seq;
 
 create table grade
 (num number primary key,
+accommodation varchar2(50),
 review number,
 clean number,
 comfortable number,
@@ -38,6 +39,7 @@ ip
 grade  평점 테이블
 기본키
 review 테이블 기본키
+숙소테이블 기본키
 청결도
 편안함
 위치
