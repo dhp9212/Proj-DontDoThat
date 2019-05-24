@@ -1,0 +1,11 @@
+create sequence room_seq;
+
+create table room(
+num number primary key,
+accomodation_num number not null,
+roomname varchar2(50) not null,
+roomclass varchar2(50) not null,
+qty number default 1,
+people number default 1,
+price number not null,
+room_facility varchar2(500));
