@@ -165,3 +165,5 @@ insert into cardList values('Discover');
 insert into cardList values('UnionPay debit card');
 insert into cardList values('BC-Card');
 insert into cardList values('UnionPay credit card');
+
+commit;
