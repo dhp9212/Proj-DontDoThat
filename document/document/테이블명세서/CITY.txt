@@ -1,0 +1,20 @@
+create table city(
+country varchar2(2),
+city varchar2(30),
+city_image varchar2(50)
+);
+
+insert into city values('KR', '서울', 'seoul.jpg');
+insert into city values('KR', '부산', 'busan.jpg');
+insert into city values('KR', '대구', 'deagu.jpg');
+insert into city values('US', '로스 앤젤레스', 'los_angeles.jpg' );
+insert into city values('US', '뉴욕', 'new_york.jpg');
+insert into city values('US', '산 호세', 'san_hose.jpg');
+insert into city values('UK', '런던', 'london.jpg');
+insert into city values('JP', '도쿄', 'tokyo.jpg');
+insert into city values('JP', '교토', 'kyoto.jpg');
+insert into city values('JP', '오사카', 'oosaka.jpg');
+insert into city values('RU', '상트페테르부르크', 'saintpetersbrug.jpg');
+insert into city values('CN', '상하이', 'sanghai.jpg');
+insert into city values('BS', '바하마', 'bahama.jpg');
+

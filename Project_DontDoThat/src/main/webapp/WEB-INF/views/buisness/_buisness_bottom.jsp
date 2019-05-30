@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<div align="center">
+	<table>
+		<tr>
+			<td>회사소개</td>
+			<td>|</td>
+			<td>개인정보 보호정책</td>
+			<td>|</td>
+			<td>Copyright shalcom.co.kr</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

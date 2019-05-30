@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.temp.app.model">
+	
+	<insert id="insertAccount" parameterType="AccountDTO">
+		insert into ACCOUNT values
+		(ACCOUNT_seq.nextval
+		, #{email}
+		, #{password}
+		, #{name, jdbcType=VARCHAR}
+		, #{tel, jdbcType=INTEGER}
+		, #{profilePhoto, jdbcType=VARCHAR}
+		, #{nickName, jdbcType=VARCHAR}
+		, #{birthday, jdbcType=VARCHAR}
+		, #{country, jdbcType=VARCHAR}
+		, #{address, jdbcType=VARCHAR}
+		, #{payment, jdbcType=VARCHAR}
+		, #{smoke, jdbcType=VARCHAR}
+		, #{starRating, jdbcType=INTEGER}
+		, #{disabled, jdbcType=VARCHAR}
+		, #{preferredFacility, jdbcType=VARCHAR}
+		, #{reservationTarget, jdbcType=VARCHAR}
+		, #{currency, jdbcType=VARCHAR})
+	</insert><!-- 최초 회원가입시, 이메일과 비밀번호만으로 회원가입 가능. -->
+	
+	<update id="updateAccount" parameterType="AccountDTO">
+		update ACCOUNT set 
+		email = #{email, jdbcType=VARCHAR},
+		password = #{password, jdbcType=VARCHAR},
+		name = #{name, jdbcType=VARCHAR},
+		tel = #{tel, jdbcType=INTEGER},
+		profilePhoto = #{profilePhoto, jdbcType=VARCHAR},
+		nickName = #{nickName, jdbcType=VARCHAR},
+		birthday = #{birthday, jdbcType=VARCHAR},
+		country = #{country, jdbcType=VARCHAR},
+		address = #{address, jdbcType=VARCHAR},
+		payment = #{payment, jdbcType=VARCHAR},
+		smoke = #{smoke, jdbcType=VARCHAR},
+		starRating = #{starRating, jdbcType=INTEGER},
+		disabled = #{disabled, jdbcType=VARCHAR},
+		preferredFacility = #{preferredFacility, jdbcType=VARCHAR},
+		reservationTarget = #{reservationTarget, jdbcType=VARCHAR},
+		currency = #{currency, jdbcType=VARCHAR} 
+		weher num = ${num}
+		
+	</update>
+	
+	<select id="getAccount" resultType="AccountDTO" parameterType="int">
+		select * from ACCOUNT where num = #{num}
+	</select>
+	
+	<select id="memberList" resultType="AccountDTO">
+		select * from ACCOUNT
+	</select>
+	
+	<select id="checkEmail" resultType="AccountDTO" parameterType="String">
+		select * from ACCOUNT where email = #{email}
+	</select>
+	
+	<select id="checkPassword" resultType="AccountDTO" parameterType="String">
+		select * from ACCOUNT where password = #{password}
+	</select>
+	
+</mapper>

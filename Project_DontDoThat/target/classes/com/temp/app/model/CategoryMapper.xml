@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.temp.app.model">
+	<select id="selectCategoryAccomodation" resultType="CategoryAccomodationDTO">
+		SELECT *
+		FROM CATEGORY_ACCOMODATION
+	</select>
+	<select id="selectRoomCategory" resultType="RoomInfoDTO">
+		SELECT * 
+		FROM ROOM_CATEGORY
+	</select>
+	<select id="selectFacility" resultType="FacilityDTO">
+		SELECT * 
+		FROM FACILITY 
+		ORDER BY NUM
+	</select>
+	<select id="selectCardList" resultType="string">
+		SELECT CARD_NAME 
+		FROM CARDLIST
+	</select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.temp.app.model">
+	<insert id="insertAccomodation" parameterType="AccomodationDTO">
+		insert into accomodation 
+		values(accomodation_seq.nextval, 
+			   #{category_accomodation}, 
+			   #{homepage}, 
+			   #{headname}, 
+			   #{tel}, 
+			   #{accomodation_name},
+			   #{country}, 
+			   #{city}, 
+			   #{address}, 
+			   #{postalcode}, 
+			   #{accomodation_facility}, 
+			   #{image}, 
+			   #{content}, 
+			   #{policy}, 
+			   #{checkin_date}, 
+			   #{checkout_date}, 
+			   #{payment})
+		<selectKey keyProperty="num" resultType="int" order="AFTER">
+			select accomodation_seq.currval from dual
+		</selectKey>
+	</insert>
+	<insert id="insertRoom" parameterType="RoomDTO">
+		insert into room 
+		values(room_seq.nextval, 
+			   #{accomodation_num},
+			   #{roomname}, 
+			   #{roomclass}, 
+			   #{qty}, 
+			   #{people}, 
+			   #{price}, 
+			   #{room_facility})
+	</insert>
+	
+	<!-- 초기 설정 가져오기 -->
+	<!-- <select id="selectCountry" resultType="string">
+		select name from country
+	</select> -->
+	<!-- <select id="selectFacility" resultType="FacilityDTO">
+		select * from facility order by num
+	</select> -->
+	<!-- <select id="selectRoomCategory" resultType="RoomInfoDTO">
+		select * from room_category
+	</select> -->
+	<!-- <select id="selectCardList" resultType="string">
+		select card_name from cardList
+	</select> -->
+</mapper>

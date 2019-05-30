@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.temp.app.model">
+ 	<select id="selectCountry" resultType="CountryDTO">
+		SELECT *
+		FROM COUNTRY
+	</select>
+	<select id="selectCity" resultType="CityDTO">
+		SELECT *
+		FROM CITY
+	</select>
+	<select id="selectCurrency" resultType="CurrencyDTO">
+		SELECT *
+		FROM CURRENCY
+	</select>
+	<select id="selectLanguage" resultType="LanguageDTO">
+		SELECT *
+		FROM LANGUAGE
+	</select>
+	
+</mapper>
+	
+		

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.temp.app.model">
+	<select id="listReview" parameterType="String" resultType="ReviewGradeDTO">
+		SELECT review.num, review.writer, review.subject, review.content_p,
+			review.content_m, review.ip, review.accommodation, review.lodge_date,
+			review.write_date, grade.clean, grade.comfortable, grade.location,
+			grade.facilities, grade.kind, grade.value, grade.wifi
+			FROM review join grade
+		ON review.num = grade.review
+		WHERE review.accommodation=#{accommodation}
+	</select>
+	<select id="countReview" parameterType="String" resultType="int">
+		select count(*) from review where accommodation=#{accommodation}
+	</select>
+	<select id="averageReview" parameterType="String" resultType="GradeDTO">
+		select avg(clean) as clean, avg(comfortable) as comfortable,
+		avg(location) as location, avg(facilities) as facilities, avg(kind) as kind,
+		avg(value) as value, avg(wifi) as wifi from grade where accommodation=#{accommodation}
+	</select>
+	<insert id="insertReview" parameterType="ReviewDTO">
+		insert into review values(review_seq.nextval, #{writer}, #{subject},
+		#{content_p}, #{content_m}, #{ip}, #{accommodation}, #{lodge_date}, sysdate)
+		<selectKey keyProperty="num" resultType="int" order="AFTER"> 
+		select review_seq.currval from dual
+		</selectKey>
+	</insert>
+	<insert id="insertGrade" parameterType="GradeDTO">
+		insert into grade values(grade_seq.nextval, #{accommodation}, #{review}, #{clean}, 
+		#{comfortable}, #{location}, #{facilities}, #{kind}, #{value}, #{wifi})
+	</insert>
+</mapper>
