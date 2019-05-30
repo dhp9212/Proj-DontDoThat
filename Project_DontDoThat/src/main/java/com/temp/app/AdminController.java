@@ -158,7 +158,7 @@ public class AdminController {
 				List<QA_SubCateDTO> subcatelist = customServiceMapper.getSubCategory(r);
 				req.setAttribute(r, subcatelist);
 			}
-			List<QA_AnswerDTO> bcate = customServiceMapper.getAnswer(Integer.parseInt(m));
+			List<QA_AnswerDTO> bcate = customServiceMapper.getListAnswer(Integer.parseInt(m));
 			req.setAttribute("bcate", bcate);
 			req.setAttribute("hcate", h);
 			req.setAttribute("mcate", m);

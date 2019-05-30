@@ -21,6 +21,9 @@ public class CustomServiceMapper {
 	public List<QA_SubCateDTO> getSubCategory(String maincate){
 		return sqlSession.selectList("subCateList", maincate); 
 	}
+	public List<QA_SubCateDTO> getAllSubCate(){
+		return sqlSession.selectList("allSubCate");
+	}
 	public int insertMainCategory(String maincate) {
 		return sqlSession.insert("insertMainCate", maincate);
 	}
@@ -40,7 +43,11 @@ public class CustomServiceMapper {
 		return sqlSession.delete("deleteSubCate", no);
 	}
 	//´äº¯
-	public List<QA_AnswerDTO> getAnswer(int subcate){
+	public QA_AnswerDTO getAnswer(int subcate){
+		List<QA_AnswerDTO> list = sqlSession.selectList("getAnswer", subcate);
+		return list.get(0);
+	}
+	public List<QA_AnswerDTO> getListAnswer(int subcate){
 		return sqlSession.selectList("getAnswer", subcate);
 	}
 	public int inputAnswer(QA_AnswerDTO dto) {

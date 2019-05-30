@@ -9,6 +9,9 @@
 	<select id="subCateList" parameterType="String" resultType="QA_SubCateDTO">
 		select * from answercatesub where maincate=#{maincate} order by no asc
 	</select>
+	<select id="allSubCate" resultType="QA_SubCateDTO">
+		select * from answercatesub order by maincate
+	</select>
 	<insert id="insertMainCate" parameterType="String">
 		insert into answercate values(answercate_seq.nextval, #{maincate})
 	</insert>
@@ -24,10 +27,9 @@
 	<delete id="deleteSubCate" parameterType="String">
 		delete from answercatesub where no=#{no}
 	</delete>
-	
-	
+
 	<select id="getAnswer" parameterType="int" resultType="QA_AnswerDTO">
-		select * from answer where subcate=#{subcate}
+		select * from answer where subcate=#{subcate} order by no
 	</select>
 	<insert id="inputAnswer" parameterType="QA_AnswerDTO">
 		insert into answer values(answer_seq.nextval, #{maincate}, #{subcate}, #{answer})
@@ -35,5 +37,4 @@
 	<delete id="deleteAnswer" parameterType="int">
 		delete from answer where no=#{no}
 	</delete>
-
 </mapper>
