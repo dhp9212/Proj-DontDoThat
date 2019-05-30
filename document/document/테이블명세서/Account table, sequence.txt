@@ -1,0 +1,23 @@
+create table ACCOUNT(
+num number,
+email varchar2(30),
+password varchar2(50),
+name varchar2(10),
+tel number,
+profilePhoto varchar2(500),
+nickName varchar2(50),
+birthday varchar2(10),
+country varchar2(100),
+address varchar2(100),
+payment varchar2(50),
+smoke varchar2(10),
+starRating number,
+disabled varchar2(50),
+preferredFacility varchar2(100),
+reservationTarget varchar2(100),
+currency varchar2(100));
+
+
+create sequence ACCOUNT_seq
+start with 1
+increment by 1;
