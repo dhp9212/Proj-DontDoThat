@@ -12,16 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.temp.app.model.AccountDTO;
+import com.temp.app.model.AnswerDTO;
 import com.temp.app.model.CategoryAccomodationDTO;
 import com.temp.app.model.CityDTO;
 import com.temp.app.model.CountryDTO;
 import com.temp.app.model.CurrencyDTO;
 import com.temp.app.model.FacilityDTO;
 import com.temp.app.model.LanguageDTO;
+import com.temp.app.model.QA_AnswerDTO;
+import com.temp.app.model.QA_SubCateDTO;
 import com.temp.app.model.RoomInfoDTO;
 import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.CategoryMapper;
+import com.temp.app.service.CustomServiceMapper;
 import com.temp.app.service.StandardInformationMapper;
 
 /**
@@ -36,7 +39,8 @@ public class MainController {
 	private StandardInformationMapper standardInformationMapper;
 	@Autowired
 	private AccomodationMapper accomodationMapper;
-	
+	@Autowired
+	private CustomServiceMapper customServiceMapper;
 	
 	// session values
 	private static Hashtable<String, List<String>> categoryRoom = new Hashtable<String, List<String>>();
@@ -99,7 +103,43 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/customerService.do")
-	public String main_customService() throws Exception{
+	public String main_customService(HttpServletRequest req) throws Exception{
+		List<String> maincate = customServiceMapper.getMainCategory();
+		req.setAttribute("maincate", maincate);
+		
+		List<QA_SubCateDTO> list = customServiceMapper.getAllSubCate();
+		
+		Hashtable<String, List<AnswerDTO>> lhm = new Hashtable<String, List<AnswerDTO>>();
+		List<AnswerDTO> d = new ArrayList<AnswerDTO>();
+		String str = null;
+		for(QA_SubCateDTO mdto : list) {
+			QA_AnswerDTO dto;
+			if(str == null) {
+				str = mdto.getMaincate();
+			}
+			try {
+				dto = customServiceMapper.getAnswer(Integer.parseInt(mdto.getNo()));
+			}catch(Exception e) {dto = null;}
+			
+			if(dto != null) {
+				AnswerDTO adto = new AnswerDTO();
+				adto.setNo(dto.getNo());
+				adto.setMaincate(dto.getMaincate());
+				adto.setSubcate(mdto.getSubcate());
+				adto.setAnswer(dto.getAnswer());
+				
+				if(str.equals(mdto.getMaincate())) {
+					d.add(adto);
+				}else if(!str.equals(mdto.getMaincate())) {
+					lhm.put(str, d);
+					str = mdto.getMaincate();
+					d = new ArrayList<AnswerDTO>();
+					d.add(adto);
+				}
+			}
+		}
+		lhm.put(str, d);
+	    req.setAttribute("lhm", lhm);
 		return "custom/cstm";
 	}
 	

@@ -2,31 +2,24 @@
     pageEncoding="UTF-8" import="java.util.*, com.temp.app.model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="top.jsp"%>
-Q&A 
-<div align="center">
-	전체카테고리등록
-	<table align="center" border="1">
-		<form name="fh" action="inputMainCate_Ok.admin" method="post">
-		<tr>
-			<th>메인카테고리</th>
-			<td><input type="text" name="hcate" size="20" maxlength="20" value="추가할 메인카테고리명을 적어주세요">
-			&nbsp;<input type="submit" value="추가"></td>
-		</tr>
-		</form>
-		<tr>
-		<form name="fm" action="inputMainCate_Ok.admin" method="post">
-			<td>
-			<select name="hcate">
-			<c:forEach var="cate" items="${hcatelist}">
-				<option value="${cate}">${cate}</option>
-			</c:forEach>
-			</select>
-			</td>
-				<td><input type="text" name="mcate" size="20" maxlength="20">
-				&nbsp;<input type="submit" value="추가"></td>	
-		</tr>
-		</form>
-	</table>
+<style>
+	body {
+	  height: 100vh;
+	  margin: 0;
+	  background-color: #EBF1FA;
+	}
+	th, td {
+	  vertical-align: middle;
+	  height: 10px;
+	  margin: 0px;
+	  padding: 0px;
+	  border: 1px solid #BDBDBD;
+	  background-color: white;
+	}
+	table{
+	  border: 1px solid #BDBDBD;
+	}
+</style>
 <script type="text/javascript">
  	function deletecate(){
  		if(confirm("삭제하시겠습니까?")){
@@ -56,8 +49,32 @@ Q&A
 <input type="hidden" id="fhcate" name="hcate">
 <input type="hidden" id="fmcaten" name="mcate">
 </form>
-<div style="width:50%;float:left;">
-<table border="1" width="90%">
+<div style="width:30%;float:left;">
+<table>
+	<tr><td>
+		<table align="center">
+			<form name="fh" action="inputMainCate_Ok.admin" method="post">
+			<tr>
+				<th>Q&A 카테고리</th>
+				<td><input type="text" name="hcate" size="20" maxlength="20" value="추가할 메인카테고리명을 적어주세요">
+				&nbsp;<input type="submit" value="추가"></td>
+			</tr>
+			</form>
+			<tr>
+			<form name="fm" action="inputMainCate_Ok.admin" method="post">
+				<td>
+				<select name="hcate">
+				<c:forEach var="cate" items="${hcatelist}">
+					<option value="${cate}">${cate}</option>
+				</c:forEach>
+				</select>
+				</td>
+					<td><input type="text" name="mcate" size="20" maxlength="20">
+					&nbsp;<input type="submit" value="추가"></td>	
+			</tr>
+			</form>
+		</table>
+	</td></tr>
 <% List<String> hcatelist = (List)request.getAttribute("hcatelist"); 
 		for(String hcate : hcatelist){%>
 			<tr align="center">
@@ -67,14 +84,12 @@ Q&A
 					<%=hcate%>&nbsp;<input type="submit" value="삭제">
 					</form>
 				</th>
-			</tr>	
-			<tr>		
-<% 
+			</tr>				
+<%
 			List<QA_SubCateDTO> mcatelist = (List)request.getAttribute(hcate); 
-				int cnt = 0;
-				for(QA_SubCateDTO mdto : mcatelist){
-			cnt++;
+				for(QA_SubCateDTO mdto : mcatelist){		
 		%>
+			<tr>
 				<td>
 					<form method="post" action="deleteCate.admin" onsubmit="return deletecate()">
 					<input type="hidden" name="no" value="<%=mdto.getNo()%>">
@@ -82,19 +97,17 @@ Q&A
 					&nbsp;<input type="submit" value="삭제">
 					</form>
 				</td>
-<%		if(cnt%2 == 0){		%>
-				</tr><tr>		
-<%			}
+			</tr>
+<%		
 			}
 		}
-%>
-		</tr>
+%>	
 	</table>
 </div>
-<div style="width:50%;float:right;">
-<table border="1" width="90%">
+<div style="width:70%; float:right">
+<table width="90%">
 	<tr>
-		<th>게시판 카테고리 목록</th>
+		<th>답변 목록</th>
 	</tr>
 	<tr>
 	<c:if test="${hcate == null}">
@@ -105,7 +118,8 @@ Q&A
 		<form name="addcate" action="inputAnswer.admin" method="post">
 		<input type="hidden" name="hcate" value="${hcate}">
 		<input type="hidden" name="mcate" value="${mcate}">
-		<td><input type="text" name="answer" maxlength="17" size="17">&nbsp;<input type="submit" value="추가"></td>
+		<td><textarea name="answer" rows="8" cols="50" class="box"></textarea>
+		&nbsp;<input type="submit" value="추가"></td>
 		</form>
 	</tr>
 		<c:if test="${empty bcate}">
@@ -119,7 +133,6 @@ Q&A
 			</tr>
 		</c:forEach>
 </table>
-</div>
 </div>
 
 <%@ include file="bottom.jsp"%>
