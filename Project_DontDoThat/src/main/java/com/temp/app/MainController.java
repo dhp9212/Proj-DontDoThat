@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.temp.app.model.AccountDTO;
 import com.temp.app.model.AnswerDTO;
 import com.temp.app.model.CategoryAccomodationDTO;
 import com.temp.app.model.CityDTO;
@@ -60,6 +61,11 @@ public class MainController {
 	public ModelAndView main_home(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		
+		if(session.getAttribute("userSession")!=null) {
+			if(session.getAttribute("accomodation_list")!=null) {
+				session.setAttribute("accomodation_list", accomodationMapper.getAccomodation(((AccountDTO)(session.getAttribute("userSession"))).getNum()));
+			}
+		}
 		List<CategoryAccomodationDTO> categoryAccomodationList = categoryMapper.selectCategodyAccomodation();
 		List<CountryDTO> countryList = standardInformationMapper.selectCountry();
 		List<CityDTO> cityList = standardInformationMapper.selectCity();
