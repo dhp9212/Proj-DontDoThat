@@ -96,6 +96,7 @@
 	<tr>
 		<td width="550">
 		<form name="f" action="insertRoomPro.do" method="post" enctype="multipart/form-data" onsubmit="return check_clause()">
+			<input type="hidden" name="account_num" value="${userSession.num}">
 			<input type="hidden" name="category_accomodation" value="${param.category}">
 			<input type="hidden" name="facility">
 			<input type="hidden" name="policy">

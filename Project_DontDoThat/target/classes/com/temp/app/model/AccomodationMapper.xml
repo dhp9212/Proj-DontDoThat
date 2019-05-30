@@ -4,6 +4,7 @@
 	<insert id="insertAccomodation" parameterType="AccomodationDTO">
 		insert into accomodation 
 		values(accomodation_seq.nextval, 
+			   #{account_num},
 			   #{category_accomodation}, 
 			   #{homepage}, 
 			   #{headname}, 
@@ -42,7 +43,7 @@
 		where num=${num}
 	</update>
 	<select id="getAccomodation" parameterType="string" resultType="AccomodationDTO">
-		select * from accomodation where headname=#{name}
+		select * from accomodation where account_num=#{account_num}
 	</select>
 	<update id="updateAccomodation_facility" parameterType="Map">
 		update accomodation set accomodation_facility=#{accomodation_facility} where num=#{accomodation_num}

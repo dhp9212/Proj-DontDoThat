@@ -2,6 +2,7 @@ package com.temp.app.model;
 
 public class AccomodationDTO {
 	private int num;
+	private int account_num;
 	private String category_accomodation;
 	private String homepage;
 	private String headname;
@@ -21,6 +22,12 @@ public class AccomodationDTO {
 	
 	public int getNum() {
 		return num;
+	}
+	public int getAccount_num() {
+		return account_num;
+	}
+	public void setAccount_num(int account_num) {
+		this.account_num = account_num;
 	}
 	public void setNum(int num) {
 		this.num = num;

@@ -190,6 +190,7 @@
 	<tr>
 		<td width="550">
 		<form name="f" action="insertRoomPro2.do" method="post" enctype="multipart/form-data" onsubmit="return check_clause()">
+			<input type="hidden" name="account_num" value="${userSession.num}">
 			<input type="hidden" name="category_accomodation" value="${param.category}">
 			<input type="hidden" name="roominit">
 			<input type="hidden" name="accomodation_facility">
