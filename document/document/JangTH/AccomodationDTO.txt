@@ -1,4 +1,4 @@
-public class AccomodationDTO {
+ppublic class AccomodationDTO {
 	private int num;
 	private String category_accomodation;
 	private String homepage;

@@ -18,3 +18,4 @@ policy varchar2(500),
 checkIn_date varchar2(50),
 checkOut_date varchar2(50),
 payment varchar2(200));
+ontheway varchar2

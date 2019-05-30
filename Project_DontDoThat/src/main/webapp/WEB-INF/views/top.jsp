@@ -38,6 +38,9 @@
 						<li id="myAccount" style=""><a href="#">나의 계정</a>
 							<ul>
 								<li><a href="adminMain.do">마이페이지</a></li>
+							<c:if test="${!empty accomodation_dto}">
+								<li><a href="buisness_index.do">사업자 홈페이지</a></li>
+							</c:if>
 								<li><a href="#">예약</a></li>
 								<li><a href="#">내 Wallet</a></li>
 								<li><a href="#">보고서</a></li>

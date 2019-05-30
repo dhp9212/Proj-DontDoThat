@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/basic_style.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/basic_style.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 </head>
@@ -12,9 +13,9 @@
 				$('#'+i).hide()
 			}
 			switch($(this).text()){
-			case '±×·ì È¨' : $('#1').show(); break;
-			case '¿¹¾à' : $('#2').show(); break;
-			case 'ÀÌ¿ë ÈÄ±â' : $('#3').show(); break;
+			case 'ê·¸ë£¹ í™ˆ' : $('#1').show(); break;
+			case 'ì˜ˆì•½' : $('#2').show(); break;
+			case 'ì´ìš© í›„ê¸°' : $('#3').show(); break;
 			}
 		})
 		$('.menu').on('mouseenter', function(){
@@ -24,10 +25,10 @@
 			$('#payMenu').attr('class', 'hide')
 			$('#menu').show()
 			switch($(this).text()){
-			case '¿ä±İ ¹× Ä¶¸°´õ' : visible('calenderMenu'); break;
-			case '¼÷¼Ò' : visible('accomodationMenu'); break;
-			case '¸Ş¼¼Áö' : visible('messageMenu'); break;
-			case 'Àç¹«' : visible('payMenu'); break;
+			case 'ìš”ê¸ˆ ë° ìº˜ë¦°ë”' : visible('calenderMenu'); break;
+			case 'ìˆ™ì†Œ' : visible('accomodationMenu'); break;
+			case 'ë©”ì„¸ì§€' : visible('messageMenu'); break;
+			case 'ì¬ë¬´' : visible('payMenu'); break;
 			}
 		})
 	})
@@ -43,26 +44,33 @@
 </script>
 <body>
 	<div>
-		<table>
+		<table class="dark_blue">
 			<tr>
-				<td width="75%"><a href="index.do">ÀÎµ¦½º·Î</a></td>
+				<td width="75%">
+					<a href="home.do">ì¸ë±ìŠ¤ë¡œ</a><br>
+					<a href="buisness_index.do">ì‚¬ì—…ì í™ˆìœ¼ë¡œ</a>
+				</td>
 				<td><input name="search" type="text" size="10"></td>
 				<td><input type="button" class="search"></td>
-				<td>¾îÄ«¿îÆ®</td>
-				<td>¼÷¼Ò</td>
+				<td>ì–´ì¹´ìš´íŠ¸</td>
+				<td>ìˆ™ì†Œ</td>
 			</tr>		
 		</table>
 	</div>
 	<div>
 		<table class="blue">
 			<tr>
-				<td class="table">±×·ì È¨</td>
-				<td class="table">¿¹¾à</td>
-				<td class="table">ÀÌ¿ë ÈÄ±â</td>
-				<td class="menu">¿ä±İ ¹× Ä¶¸°´õ</td>
-				<td class="menu">¼÷¼Ò</td>
-				<td class="menu">¸Ş¼¼Áö</td>
-				<td class="menu">Àç¹«</td>
+				<td class="table" width="30%"><a href="buisness_index.do">ê·¸ë£¹ í™ˆ</a></td>
+			<c:if test="${!empty accomodation_num}">
+				<td class="table"><a href="general_info.do">ìˆ™ì†Œ ì •ë³´</a></td>
+			</c:if>
+				<td class="table">ì˜ˆì•½</td>
+				<td class="table">ì´ìš© í›„ê¸°</td>
+				<td class="menu">ìš”ê¸ˆ ë° ìº˜ë¦°ë”</td>
+				<td class="menu">ìˆ™ì†Œ</td>
+				<td class="menu">ë©”ì„¸ì§€</td>
+				<td class="menu">ì¬ë¬´</td>
+
 			</tr>
 		</table>
 		<table>
@@ -71,73 +79,69 @@
 				<td id="calenderMenu" class="menuHide">
 					<table>
 						<tr>
-							<td><a href="calender.do">Ä¶¸°´õ</a></td>
-							<td><a href="open_close.do">°´½Ç ¿­±â/´İ±â</a></td>
+							<td><a href="calender.do">ìº˜ë¦°ë”</a></td>
+							<td><a href="open_close.do">ê°ì‹¤ ì—´ê¸°/ë‹«ê¸°</a></td>
 						</tr>
 						<tr>
-							<td><a href="qty_control.do">ÆÇ¸Å °¡´É °´½Ç ¼ö Á¶Á¤</a></td>
-							<td><a href="payment.do">¿ä±İÁ¦</a></td>
+							<td><a href="qty_control.do">íŒë§¤ ê°€ëŠ¥ ê°ì‹¤ ìˆ˜ ì¡°ì •</a></td>
+							<td><a href="payment.do">ìš”ê¸ˆì œ</a></td>
 						</tr>
 						<tr>
-							<td><a href="pay_control.do">¿¬°£ ¿ä±İ º¹»çÇÏ±â</a></td>
-							<td><a href="pay_policy.do">È¯ºÒ ºÒ°¡ ¿ä±İ Ãß°¡</a></td>
+							<td><a href="pay_control.do">ì—°ê°„ ìš”ê¸ˆ ë³µì‚¬í•˜ê¸°</a></td>
+							<td></td>
 						</tr>
 					</table>
 				</td>
 				<td id="accomodationMenu" class="menuHide">
 					<table>
 						<tr>
-							<td><a href="homepage.do">¼÷¼Ò ÆäÀÌÁö Á¡¼ö</a></td>
-							<td><a href="accomodation_facility.do">½Ã¼³ ¹× ¼­ºñ½º</a></td>
-							<td><a href="nearby.do">¼÷¼Ò ±ÙÃ³¿¡´Â ¹«¾ùÀÌ ÀÖ³ª¿ä?</a></td>
+							<td><a href="homepage.do">ìˆ™ì†Œ í˜ì´ì§€ ì ìˆ˜</a></td>
+							<td><a href="nearby.do">ìˆ™ì†Œ ê·¼ì²˜ì—ëŠ” ë¬´ì—‡ì´ ìˆë‚˜ìš”?</a></td>
 						</tr>
 						<tr>
-							<td><a href="general_info.do">ÀÏ¹İ Á¤º¸</a></td>
-							<td><a href="room_content.do">°´½Ç »ó¼¼ Á¤º¸</a></td>
-							<td><a href="accomodation_content.do">³» ¼÷¼Ò ¼³¸í º¸±â</a></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td><a href="tax.do">VAT/¼¼±İ/¿ä±İ</a></td>
-							<td><a href="room_facility.do">°´½Ç ÆíÀÇ ½Ã¼³</a></td>
-							<td><a href="message_setting.do">¸Ş¼¼Áö ¼³Á¤</a></td>
+							<td><a href="message_setting.do">ë©”ì„¸ì§€ ì„¤ì •</a></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td><a href="picture.do">»çÁø</a></td>
-							<td><a href="onTheWay.do">${dto.name}±îÁö Ã£¾Æ¿À´Â ±æ</a></td>
-						</tr>
-						<tr>
-							<td><a href="policy.do">Á¤Ã¥</a></td>
-							<td><a href="profile.do">ÇÁ·ÎÇÊ</a></td>
+							<td></td>
+							<td></td>
+							<td><a href="profile.do">í”„ë¡œí•„</a></td>
 						</tr>
 					</table>
 				</td>
 				<td id="messageMenu" class="menuHide">
 					<table>
 						<tr>
-							<td><a href="custom_message.do">°í°´ ¸Ş¼¼Áö</a></td>
+							<td><a href="custom_message.do">ê³ ê° ë©”ì„¸ì§€</a></td>
 						</tr>
 						<tr>
-							<td><a href="admin_message.do">dontDoThat ¸Ş¼¼Áö</a></td>
+							<td><a href="admin_message.do">dontDoThat ë©”ì„¸ì§€</a></td>
 						</tr>
 					</table>
 				</td>
 				<td id="payMenu" class="menuHide">
 					<table>
 						<tr>
-							<td><a href="bill.do">Ã»±¸¼­</a></td>
+							<td><a href="bill.do">ì²­êµ¬ì„œ</a></td>
 						</tr>
 						<tr>
-							<td><a href="reservation_specification.do">¿¹¾à ¸í¼¼¼­</a></td>
+							<td><a href="reservation_specification.do">ì˜ˆì•½ ëª…ì„¸ì„œ</a></td>
 						</tr>
 						<tr>
-							<td><a href="financial_overview.do">Àç¹« °³¿ä</a></td>
+							<td><a href="financial_overview.do">ì¬ë¬´ ê°œìš”</a></td>
 						</tr>
 						<tr>
-							<td><a href="account_info.do">ÀºÇà °èÁÂ Á¤º¸</a></td>
+							<td><a href="account_info.do">ì€í–‰ ê³„ì¢Œ ì •ë³´</a></td>
 						</tr>
 					</table>
 				</td>
 			</tr>
 		</table>
 	</div>
+	<div style="height:90%; overflow:scroll;">
 	

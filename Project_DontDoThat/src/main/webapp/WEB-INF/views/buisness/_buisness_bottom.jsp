@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    </div>
 <div align="center">
 	<table>
 		<tr>
-			<td>х╦╩Г╪р╟Ё</td>
+			<td>М ▄Л┌╛Л├▄Й╟°</td>
 			<td>|</td>
-			<td>╟Ёюна╓╨╦ ╨╦хёа╓ц╔</td>
+			<td>Й╟°Л²╦Л═∙КЁ╢ КЁ╢М≤╦Л═∙Л╠┘</td>
 			<td>|</td>
 			<td>Copyright shalcom.co.kr</td>
 		</tr>

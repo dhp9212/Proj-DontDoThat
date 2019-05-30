@@ -48,6 +48,10 @@ public class MainController {
 	 * move to main homepage with values 
 	 * @return page with values
 	 */
+	@RequestMapping(value="home.do")
+	public void home_command(HttpServletRequest req) {
+		main_home(req);
+	}
 	@RequestMapping(value = "/")
 	public ModelAndView main_home(HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -66,7 +70,6 @@ public class MainController {
 		session.setAttribute("facilities", facilities);
 		session.setAttribute("cardList", cardList);
 		session.setAttribute("countryList", countryList);
-		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("categoryAccomodationList", categoryAccomodationList);

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
 
 import com.temp.app.model.AccountDTO;
+import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.AccountMapper;
 
 @Controller
@@ -21,7 +21,8 @@ public class AccountController {
 
 	@Autowired
 	private AccountMapper accountMapper;
-	
+	@Autowired
+	private AccomodationMapper accomodationMapper; 
 	
 	@RequestMapping(value = "/signUp.do")
 	public String signUpForm() {//회원 가입 폼
@@ -99,6 +100,8 @@ public class AccountController {
 				
 		if(dto.getPassword().equals(password)) {
 			session.setAttribute("userSession", dto);
+			//자기 이름에 맞는 숙소 리스트 세션등록
+			session.setAttribute("accomodation_dto", accomodationMapper.getAccomodation("내이름"));
 			mv.setViewName("forward:/");
 		}else {
 			//dto = accountMapper.checkEmail(email);

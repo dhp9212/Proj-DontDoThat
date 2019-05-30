@@ -36,17 +36,24 @@
 			   #{room_facility})
 	</insert>
 	
-	<!-- 초기 설정 가져오기 -->
-	<!-- <select id="selectCountry" resultType="string">
-		select name from country
-	</select> -->
-	<!-- <select id="selectFacility" resultType="FacilityDTO">
-		select * from facility order by num
-	</select> -->
-	<!-- <select id="selectRoomCategory" resultType="RoomInfoDTO">
-		select * from room_category
-	</select> -->
-	<!-- <select id="selectCardList" resultType="string">
-		select card_name from cardList
-	</select> -->
+	<update id="updateRoom" parameterType="RoomDTO">
+		update room
+		set roomname=#{roomname}, roomclass=#{roomclass}, qty=#{qty}, people=#{people}, price=#{price}, room_facility=#{room_facility}
+		where num=${num}
+	</update>
+	<select id="getAccomodation" parameterType="string" resultType="AccomodationDTO">
+		select * from accomodation where headname=#{name}
+	</select>
+	<update id="updateAccomodation_facility" parameterType="Map">
+		update accomodation set accomodation_facility=#{accomodation_facility} where num=#{accomodation_num}
+	</update>
+	<update id="updateContent" parameterType="Map">
+		update accomodation set content=#{content} where num=#{accomodation_num}
+	</update>
+	<update id="updatePolicy" parameterType="Map">
+		update accomodation set content=#{policy} where num=#{accomodation_num}
+	</update>
+	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
+		select * from room where accomodation_num=#{num}
+	</select>
 </mapper>
