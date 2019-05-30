@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Service;
 
 import com.temp.app.model.AccomodationDTO;
@@ -40,10 +41,14 @@ public class AccomodationMapper {
 	
 	//이름에 맞는 숙소 가져오기
 	public Hashtable<String, AccomodationDTO> getAccomodation(String name){
-		List<AccomodationDTO> list = sqlSession.selectList("getAccomodation", name);
 		Hashtable<String, AccomodationDTO> table = new Hashtable<String, AccomodationDTO>();
-		for(AccomodationDTO dto : list) {
-			table.put(String.valueOf(dto.getNum()), dto);
+		try {
+			List<AccomodationDTO> list = sqlSession.selectList("getAccomodation", name);
+			for(AccomodationDTO dto : list) {
+				table.put(String.valueOf(dto.getNum()), dto);
+			}
+		}catch(UncategorizedSQLException e) {
+			System.out.println("no data");
 		}
 		return table;
 	}

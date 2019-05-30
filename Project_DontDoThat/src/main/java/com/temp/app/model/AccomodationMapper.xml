@@ -19,7 +19,8 @@
 			   #{policy}, 
 			   #{checkin_date}, 
 			   #{checkout_date}, 
-			   #{payment})
+			   #{payment},
+			   #{account_num})
 		<selectKey keyProperty="num" resultType="int" order="AFTER">
 			select accomodation_seq.currval from dual
 		</selectKey>
