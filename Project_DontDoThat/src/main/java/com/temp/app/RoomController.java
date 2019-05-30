@@ -106,7 +106,7 @@ public class RoomController {
 		dto2.setQty(1);
 		dto2.setRoom_facility(req.getParameter("facility"));
 		accomodationMapper.insertRoom(dto2);
-		return "index";
+		return "forward:/";
 	}
 	
 	@RequestMapping(value="insertRoomPro2.do")
@@ -134,6 +134,7 @@ public class RoomController {
 			aDTO.setContent("");
 		}
 		int num = accomodationMapper.insertAccomodation(aDTO);
+		System.out.println("등록성공");
 		//룸 등록
 		ArrayList<RoomDTO> list = new ArrayList<RoomDTO>();
 		String name = req.getParameter("roominit");
@@ -150,6 +151,6 @@ public class RoomController {
 			list.add(dto);
 		}
 		accomodationMapper.insertRoom(list);
-		return "index";
+		return "forward:/";
 	}
 }
