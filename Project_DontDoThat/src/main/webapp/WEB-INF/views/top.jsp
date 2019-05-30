@@ -64,8 +64,8 @@
 								<li><a href="#">마이리스트</a></li>
 								<li><a href="#">앱 받으러 가기</a></li>
 								<li><a href="customerService.do">고객 서비스 지원</a></li>
-								<li><a href="#">설정</a></li>
-								<li><a href="#">로그 아웃</a></li>
+								<li><a href="mySettings.do">설정</a></li>
+								<li><a href="logoutOk.do">로그 아웃</a></li>
 							</ul>
 						</li>
 						</c:if>

@@ -119,9 +119,8 @@ public class AccountController {
 	@RequestMapping(value="logoutOk.do")
 	public ModelAndView logout(HttpServletRequest req) throws Exception{
 		req.getSession().removeAttribute("email");
-		
+		req.getSession().removeAttribute("userSession");
 		ModelAndView mav = new ModelAndView("account/login");
-		
 		return mav;
 	}
 	
