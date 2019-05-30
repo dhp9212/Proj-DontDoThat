@@ -26,8 +26,24 @@
 			<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="#">c</a></li>
-						<li><a href="#">N</a></li>
+						<li><a href="#">Currency</a>
+							<ul>
+							<c:forEach var="currency" items="${currencyList}">
+								<li>
+									<a href="#">${currency.symbol} ${currency.currency_name}</a>
+								</li>
+							</c:forEach>
+							</ul>
+						</li>
+						<li><a href="#">Country</a>
+							<ul>
+							<c:forEach var="country" items="${countryList}">
+								<li>
+									<a href="#">${country.name}</a>
+								</li>
+							</c:forEach>
+							</ul>
+						</li>
 						<li><a href="insertRoom.do">내 숙소 등록</a></li>
 						<c:if test="${userSession == null}">
 						<li id="signon"><a href="signUp.do">가입하기</a></li>
