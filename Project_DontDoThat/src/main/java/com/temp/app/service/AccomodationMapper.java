@@ -40,10 +40,10 @@ public class AccomodationMapper {
 	}
 	
 	//이름에 맞는 숙소 가져오기
-	public Hashtable<String, AccomodationDTO> getAccomodation(String name){
+	public Hashtable<String, AccomodationDTO> getAccomodation(int num){
 		Hashtable<String, AccomodationDTO> table = new Hashtable<String, AccomodationDTO>();
 		try {
-			List<AccomodationDTO> list = sqlSession.selectList("getAccomodation", name);
+			List<AccomodationDTO> list = sqlSession.selectList("getAccomodation", num);
 			for(AccomodationDTO dto : list) {
 				table.put(String.valueOf(dto.getNum()), dto);
 			}
