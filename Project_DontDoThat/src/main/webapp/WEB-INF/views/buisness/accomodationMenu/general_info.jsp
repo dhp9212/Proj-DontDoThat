@@ -28,6 +28,7 @@
 				<tr>
 					<td><a href="onTheWay.do">${accomodation_dto.accomodation_name}까지 찾아오는 길</a></td>
 					<td><a href="picture.do">사진 변경</a>
+					<td><a href="nearby.do">숙소 근처에는 무엇이 있나요?</a></td>
 				</tr>
 			</table>
 		</td>

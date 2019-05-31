@@ -17,7 +17,7 @@
 			var str = ''
 			if(i<4) str = 'internet'
 			else if(i<7) str = 'parking'
-			else if(i<10) str = 'breakfase'
+			else if(i<10) str = 'breakfast'
 			else if(i>=10) str = 'language'
 			if(i%3==1){
 				$("select[name=" + str + "]").val(list[i]).prop("selected", true)

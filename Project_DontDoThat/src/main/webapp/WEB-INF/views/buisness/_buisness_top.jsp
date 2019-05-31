@@ -96,7 +96,7 @@
 					<table>
 						<tr>
 							<td><a href="homepage.do">숙소 페이지 점수</a></td>
-							<td><a href="nearby.do">숙소 근처에는 무엇이 있나요?</a></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td></td>

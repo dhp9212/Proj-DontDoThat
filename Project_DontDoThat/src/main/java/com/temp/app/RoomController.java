@@ -87,7 +87,7 @@ public class RoomController {
 		String filename = mf.getOriginalFilename();
 		//경로지정
 		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("/image");
+		String upPath = session.getServletContext().getRealPath("/resources/img");
 		//서버에 파일쓰기
 		File file = new File(upPath, filename);
 		try {
@@ -117,7 +117,7 @@ public class RoomController {
 		String filename = mf.getOriginalFilename();
 		//경로지정
 		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("/image");
+		String upPath = session.getServletContext().getRealPath("/resources/img");
 		//서버에 파일쓰기
 		File file = new File(upPath, filename);
 		try {
@@ -136,7 +136,6 @@ public class RoomController {
 			aDTO.setNearby("");
 		}
 		int num = accomodationMapper.insertAccomodation(aDTO);
-		System.out.println("등록성공");
 		//룸 등록
 		ArrayList<RoomDTO> list = new ArrayList<RoomDTO>();
 		String name = req.getParameter("roominit");
