@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.AccomodationDTO;
+import com.temp.app.model.AccountDTO;
 import com.temp.app.model.RoomDTO;
 import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.CategoryMapper;
@@ -69,19 +70,19 @@ public class RoomController {
 	@RequestMapping(value="insertRoomPro.do")
 	public String insertOne(HttpServletRequest req, @ModelAttribute AccomodationDTO dto, BindingResult result1, @ModelAttribute RoomDTO dto2, BindingResult result2) {
 		if(result1.hasErrors()) {
-			dto.setNum(0);
-			//headname과 tel은 로그인정보에서 가져옴
-			dto.setHeadname("사장");
-			dto.setTel("02-123-1234");
-			dto.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-			dto.setContent("");
-			dto.setCheckin_date("제공자와 직접 연락 후 협의");
-			dto.setCheckout_date("제공자와 직접 연락 후 협의");
-			dto.setPayment("제공자와 직접 연락 후 협의");
-			dto.setAccomodation_facility(req.getParameter("facility"));
-			dto.setNearby("");
 		}
-
+		//브족한 정보처리
+		//headname과 tel은 로그인정보에서 가져옴
+		dto.setHeadname("사장");
+		dto.setTel("02-123-1234");
+		dto.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
+		dto.setContent("");
+		dto.setCheckin_date("제공자와 직접 연락 후 협의");
+		dto.setCheckout_date("제공자와 직접 연락 후 협의");
+		dto.setPayment("제공자와 직접 연락 후 협의");
+		dto.setAccomodation_facility(req.getParameter("facility"));
+		dto.setNearby("");
+		
 		HttpSession session = req.getSession();
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
@@ -101,6 +102,8 @@ public class RoomController {
 				e.printStackTrace();
 			}
 		}
+		AccountDTO accountDTO = (AccountDTO)session.getAttribute("userSession");
+		dto.setAccount_num(accountDTO.getNum());
 		dto.setImage(image);
 		//숙소등록
 		int num = accomodationMapper.insertAccomodation(dto);
@@ -114,6 +117,10 @@ public class RoomController {
 		return "forward:/";
 	}
 	
+	private void setAccount_num(int num) {
+		// TODO Auto-generated method stub
+		
+	}
 	@RequestMapping(value="insertRoomPro2.do")
 	public String insertMany(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result) {
 		HttpSession session = req.getSession();
@@ -138,11 +145,14 @@ public class RoomController {
 		
 		//숙소 먼저 등록
 		if(result.hasErrors()) {
-			aDTO.setImage(image);
-			aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-			aDTO.setContent("");
-			aDTO.setNearby("");
+			
 		}
+		//부족한 정보입력
+		aDTO.setImage(image);
+		aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
+		aDTO.setContent("");
+		aDTO.setNearby("");
+		
 		int num = accomodationMapper.insertAccomodation(aDTO);
 		//룸 등록
 		ArrayList<RoomDTO> list = new ArrayList<RoomDTO>();
