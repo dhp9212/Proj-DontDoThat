@@ -1,4 +1,4 @@
-create sequence reservation_seq;
+drop table reservation;
 
 create table reservation(
 num number primary key,
