@@ -19,6 +19,7 @@ public class AccomodationDTO {
 	private String checkin_date;
 	private String checkout_date;
 	private String payment;
+	private String nearby;
 	
 	public int getNum() {
 		return num;
@@ -127,5 +128,11 @@ public class AccomodationDTO {
 	}
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+	public String getNearby() {
+		return nearby;
+	}
+	public void setNearby(String nearby) {
+		this.nearby = nearby;
 	}
 }
