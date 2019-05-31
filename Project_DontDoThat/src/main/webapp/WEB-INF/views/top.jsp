@@ -41,7 +41,7 @@
 							<c:set var="count" value="1"/>
 							<c:forEach var="country" items="${countryList}">
 									<a href="#">
-									<img src="${pageContext.request.contextPath}/resources/img/flags/${country.flag}.png" style="width:12px; height:11px;">
+									<%-- <img src="${pageContext.request.contextPath}/resources/img/flags/${country.flag}.png" style="width:12px; height:11px;"> --%>
 									${country.name}</a>
 								<c:set var="count" value="${count + 1}" />
 								<c:if test="${count % 10 == 0 }">

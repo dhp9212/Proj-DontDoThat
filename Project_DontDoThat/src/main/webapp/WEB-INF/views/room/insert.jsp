@@ -50,6 +50,7 @@
 			</tr>
 		</table>
 	</div>
+	<a href="test.do">템플릿페이지 테스트</a>
 </form>
 </body>
 </html>

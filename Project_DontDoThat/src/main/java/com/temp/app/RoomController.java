@@ -82,22 +82,26 @@ public class RoomController {
 			dto.setNearby("");
 		}
 
-		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		MultipartFile mf = mr.getFile("image");
-		String filename = mf.getOriginalFilename();
-		//경로지정
 		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("/resources/img");
-		//서버에 파일쓰기
-		File file = new File(upPath, filename);
-		try {
-			mf.transferTo(file);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		String upPath = session.getServletContext().getRealPath("resources/img");
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		List<MultipartFile> files = mr.getFiles("files");
+		String image = "";
+		for(MultipartFile mf : files) {
+			//서버에 파일쓰기
+			String filename = mf.getOriginalFilename();
+			if(image.equals("")) image = filename;
+			else image += "," + filename;
+			File file = new File(upPath, mf.getOriginalFilename());
+			try {
+				mf.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		dto.setImage(filename);
+		dto.setImage(image);
 		//숙소등록
 		int num = accomodationMapper.insertAccomodation(dto);
 		//룸 등록
@@ -112,25 +116,29 @@ public class RoomController {
 	
 	@RequestMapping(value="insertRoomPro2.do")
 	public String insertMany(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result) {
-		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		MultipartFile mf = mr.getFile("image");
-		String filename = mf.getOriginalFilename();
-		//경로지정
 		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("/resources/img");
-		//서버에 파일쓰기
-		File file = new File(upPath, filename);
-		try {
-			mf.transferTo(file);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		String upPath = session.getServletContext().getRealPath("resources/img");
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		List<MultipartFile> files = mr.getFiles("files");
+		String image = "";
+		for(MultipartFile mf : files) {
+			//서버에 파일쓰기
+			String filename = mf.getOriginalFilename();
+			if(image.equals("")) image = filename;
+			else image += "," + filename;
+			File file = new File(upPath, mf.getOriginalFilename());
+			try {
+				mf.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		//숙소 먼저 등록
 		if(result.hasErrors()) {
-			aDTO.setImage(filename);
+			aDTO.setImage(image);
 			aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
 			aDTO.setContent("");
 			aDTO.setNearby("");

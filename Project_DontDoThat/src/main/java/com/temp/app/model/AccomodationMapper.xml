@@ -58,6 +58,9 @@
 	<update id="updateNearby" parameterType="Map">
 		update accomodation set nearby=#{nearby} where num=#{accomodation_num}
 	</update>
+	<update id="updateImage" parameterType="Map">
+		update accomodation set image=#{image} where num=#{accomodation_num}
+	</update>
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}
 	</select>

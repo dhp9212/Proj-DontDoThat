@@ -5,48 +5,58 @@
 	$(document).ready(function() {
 		$('input[name=files]').change(function(){
 			var reader = new FileReader();
+			var target_name = $(this).attr('id')
 		    reader.onload = function (e) {
 		        // get loaded data and render thumbnail.
-		        if($('img[name=image]').length%5==0)  $('#back').before('<br><br>')
-		        $('#back').before('<img name="' + $('img[name=image]').length + '" width="150" height="120" style="padding:20px;" src="' + e.target.result + '">')
+		        $('img[name=' + target_name + ']').attr('src', e.target.result)
+		        target_name = Number(target_name)
 		    }
+			$('img[name=' + target_name + ']').next().removeAttr('class')
 		    // read the image file as a data URL.
 		    reader.readAsDataURL(this.files[0]);
-		    for(var i=0; i<20; ++i){
-		    	if(i==$(this).attr('id')){
-		    		$(this).attr('class', 'hide')
-		    		$('#'+(i+1)).removeAttr('class')
-		    		return
-		    	}
-		    }
 		})
+		
 		var images = "${accomodation_dto.image}"
 		var image_split = images.split(',')
 		for(var i=0; i<image_split.length; ++i){
-			if(image_split[i]!='') $('#back').before('<img name="image" width="150" height="120" style="padding:20px;" onclick="javascript:fileUploadAction(this)" src="${pageContext.request.contextPath}/resources/img/' + image_split[i] + '">')
+			if(image_split[i]!='') {
+				$('img[name=' + i + ']').attr('src', '${pageContext.request.contextPath}/resources/img/' + image_split[i])
+				$('img[name=' + i + ']').removeAttr('class')
+				$('img[name=' + i + ']').next().removeAttr('class')
+			}
 		}
 	})
 	function image_total(){
 		var files = $('input[name=files]')
+		var image_split = "${accomodation_dto.image}".split(',')
+		var images = ''
 		for(var i=0; i<files.length; ++i){
 			if(files[i].value=='') files[i].remove()
+			else{
+				if(image_split[i]!=$('#' + i).val().substring(12)) image_split[i] = $('#' + i).val().substring(12)
+			}
 		}
+		for(var i=0; i<image_split.length; ++i){
+			if(images=='') images = image_split[i]
+			else images += ',' + image_split[i]
+		}
+		$('input[name=image]').attr('value', images)
 	}
 	function fileUploadAction(select) {
-		alert(select.name)
 	    console.log("fileUploadAction");
-	    $("img[name=" + $(this).attr('name') + "]").trigger('click');  
+	    $("#" + select.name).trigger('click');
 	}
 
 </script>
 <font size="5">사진 등록</font><br><br>
-<div id="now_image">
-	<img src="${pageContext.request.contextPath}/resources/img/${accomodation_dto.image}">
-</div>
 <form name="f" action="updateImage.do" method="post" enctype="multipart/form-data" onsubmit="return image_total()">
-	<input id="0" type="file" name="files">
-<c:forEach begin="1" end="19" varStatus="num">
-	<input id="${num.count}" type="file" name="files" class="hide">
+<input type="hidden" name="image">
+<c:forEach begin="0" end="19" varStatus="num">
+	<input id="${num.count-1}" type="file" name="files" class="hide">
+</c:forEach>
+<c:forEach begin="0" end="19" varStatus="num">
+	<c:if test="${num.count-1%5==0}"><br></c:if>
+	<img name="${num.count-1}" width="150" height="120" style="padding:20px;" onclick="javascript:fileUploadAction(this)" class="hide">
 </c:forEach>
 	<font size="5" id=20 class="hide">이미지는 20개까지 등록 할 수 있습니다.</font>
 	<div id="back">

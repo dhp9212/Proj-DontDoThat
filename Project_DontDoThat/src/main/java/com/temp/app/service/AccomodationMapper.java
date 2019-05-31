@@ -89,7 +89,12 @@ public class AccomodationMapper {
 		map.put("nearby", nearby);
 		sqlSession.update("updateNearby", map);
 	}
-	
+	public void updateImage(String accomodation_num, String image) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("accomodation_num", accomodation_num);
+		map.put("image", image);
+		sqlSession.update("updateImage", map);
+	}
 	//¼÷¼Ò ¸ñ·Ï
 		public List<AccomodationDTO> listAccomodation() {
 			Map<String, Integer> map = new HashMap<String, Integer>();

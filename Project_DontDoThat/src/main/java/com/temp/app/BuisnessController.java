@@ -220,9 +220,8 @@ public class BuisnessController {
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
 		List<MultipartFile> files = mr.getFiles("files");
-		String image = "";
+		String image = req.getParameter("image");
 		for(MultipartFile mf : files) {
-			image += mf.getOriginalFilename() + ",";
 			//서버에 파일쓰기
 			File file = new File(upPath, mf.getOriginalFilename());
 			try {
@@ -235,11 +234,15 @@ public class BuisnessController {
 		}
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		accomodationMapper.updateImage(accomodation_num, image);
-		//변경사항 서버에 저장
+		//변경사항 세션 저장
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setImage(image);
 		table.put(accomodation_num, dto);
 		return "forward:general_info.do";
+	}
+	@RequestMapping(value="test.do")
+	public String test(HttpServletRequest req) {
+		return "room/insertImage_include";
 	}
 }

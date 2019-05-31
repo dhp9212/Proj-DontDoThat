@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 	<title>호텔류 입력</title>
@@ -17,7 +17,6 @@
 			}
 		})
 	})
-	
 	function view_facility(){
 		$('#room_facility').toggle()
 	}
@@ -501,7 +500,7 @@
 				<table>
 					<tr>
 						<td>
-							<input name="image" type="file"/>
+							<%@ include file="insertImage_include.jsp"%>
 							<p/>
 							<input type="button" value="계속" onclick="javascript:clickEvent7()" style="width:400;"/>
 						</td>

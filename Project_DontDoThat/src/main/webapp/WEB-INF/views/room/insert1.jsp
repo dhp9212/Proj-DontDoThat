@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -175,9 +174,11 @@
 				<h3>숙소 모습을 보여주세요.</h3>
 				<table>
 					<tr>
-						<td><input name="image" type="file" />
+						<td>
+							<%@ include file="insertImage_include.jsp"%>
 							<p /> <input type="button" value="계속"
-							onclick="javascript:clickEvent7()" style="width: 400;" /></td>
+							onclick="javascript:clickEvent7()" style="width: 400;" />
+						</td>
 					</tr>
 				</table>
 			</div>
