@@ -61,4 +61,40 @@
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}
 	</select>
+	
+	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="Map">
+		select * from accomodation
+		<!-- select * from (select rownum rn, * from accomodation) where rn between #{startRow} and #{endRow} -->
+	</select>
+	<select id="getRoom" resultType="RoomDTO" parameterType="int">
+		select * from room where num = #{num}
+	</select>
+	<select id="getReservation" resultType="ReservationDTO" parameterType="int">
+		select * from reservation where room_num = #{num}
+	</select>
+	<insert id="insertReservation" parameterType="ReservationDTO">
+		insert into reservation 
+		values (reservation_seq.nextval, 
+				account_seq.nextval, 
+				accomodation_seq.nextval,
+				room_seq.nextval, 
+				#{last_name, jdbcType=VARCHAR}, 
+				#{first_name, jdbcType=VARCHAR}, 
+				#{email, jdbcType=VARCHAR}, 
+				#{country, jdbcType=VARCHAR}, 
+				#{tel, jdbcType=VARCHAR}, 
+				#{guest_name, jdbcType=VARCHAR}, 
+				#{checkIn_date, jdbcType=VARCHAR}, 
+				#{checkOut_date, jdbcType=VARCHAR}, 
+				#{rooms, jdbcType=VARCHAR}, 
+				#{adults, jdbcType=VARCHAR}, 
+				#{children, jdbcType=VARCHAR}, 
+				#{payment, jdbcType=VARCHAR})
+	</insert>
+	<delete id="deleteReservation" parameterType="ReservationDTO">
+		delete from reservation where num = #{num}
+	</delete>
+	<select id="getCount" resultType="AccomodationDTO" parameterType="int">
+		select count(*) from accomodation
+	</select>
 </mapper>

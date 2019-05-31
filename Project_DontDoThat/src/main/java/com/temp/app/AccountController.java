@@ -58,7 +58,9 @@ public class AccountController {
 		String email = req.getParameter("email");
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
+		System.out.println("email : " + email);
 		if(email != null) {
+			System.out.println("jf;lkasdjflk;asjd;lfajs;df");
 			AccountDTO dto = accountMapper.checkEmail(email);
 			req.setAttribute("email", dto.getEmail());
 			req.setAttribute("email", email);
@@ -236,5 +238,20 @@ public class AccountController {
 	@RequestMapping(value = "/testPage.do")
 	public String testPage() {
 		return "test/testPage";
+	}
+	
+	
+	
+	
+	/***************************************
+	 * Modified Date : 2019.05.31
+	 * Writer : Park
+	 * Function : 
+	 * 예약 화면에서 로그인 화면 이동
+	 * email null 체크 없이 무조건 로그인 화면으로 이동
+	 ***************************************/
+	@RequestMapping(value = "/loginFromReservation.do")
+	public String loginFromReservation(HttpServletRequest req) {
+		return "account/login";
 	}
 }

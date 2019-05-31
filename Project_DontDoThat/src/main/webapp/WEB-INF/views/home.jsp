@@ -6,7 +6,7 @@
 		<div class="inner">
 			<h3>Search</h3>
 		</div>
-		<form name="search_form" method="post" action="search.do">
+		<form name="search_form" method="post" action="accomodation_list.do">
 			<div>
 				<input autocomplete="off" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:35%; height:50px;" >
 			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
@@ -197,11 +197,9 @@
 	<!-- Footer -->
 	<div class="footer-wrapper">
 					<footer class="wrapper style1 align-center">
-						
+						All Right Reserved. 
 					</footer>
 	</div>
-	
-
 			<!-- Scripts -->
 			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -242,6 +240,7 @@
 						speed: 300
 					});
 			});
+
 			</script>
 
 			

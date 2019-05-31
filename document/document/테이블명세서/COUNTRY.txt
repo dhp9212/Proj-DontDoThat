@@ -2,7 +2,9 @@ create table country(
 code_2 varchar2(2),
 code_3 varchar2(3),
 code_n number,
-name varchar2(20));
+name varchar2(20)
+flag varchar2(20)
+);
 
 insert into country values (	'GH'	,	'GHA'	,	288	,	'°¡³ª'	);
 insert into country values (	'GA'	,	'GAB'	,	266	,	'°¡ºÀ'	);

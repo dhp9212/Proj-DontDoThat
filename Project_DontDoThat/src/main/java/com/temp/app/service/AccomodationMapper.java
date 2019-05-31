@@ -11,6 +11,7 @@ import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Service;
 
 import com.temp.app.model.AccomodationDTO;
+import com.temp.app.model.ReservationDTO;
 import com.temp.app.model.RoomDTO;
 
 @Service
@@ -88,4 +89,19 @@ public class AccomodationMapper {
 		map.put("nearby", nearby);
 		sqlSession.update("updateNearby", map);
 	}
+	
+	//숙소 목록
+		public List<AccomodationDTO> listAccomodation() {
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			return sqlSession.selectList("listAccomodation", map);
+		}
+		//예약 등록
+		public int insertReservation(ReservationDTO dto) {
+			int res = sqlSession.insert("insertReservation", dto);
+			return res;
+		}
+		public RoomDTO getRoom(int num) {
+			RoomDTO dto = sqlSession.selectOne("getRoom", num);
+			return dto;
+		}
 }
