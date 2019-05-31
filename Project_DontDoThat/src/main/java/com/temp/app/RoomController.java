@@ -79,6 +79,7 @@ public class RoomController {
 			dto.setCheckout_date("제공자와 직접 연락 후 협의");
 			dto.setPayment("제공자와 직접 연락 후 협의");
 			dto.setAccomodation_facility(req.getParameter("facility"));
+			dto.setNearby("");
 		}
 
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
@@ -132,6 +133,7 @@ public class RoomController {
 			aDTO.setImage(filename);
 			aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
 			aDTO.setContent("");
+			aDTO.setNearby("");
 		}
 		int num = accomodationMapper.insertAccomodation(aDTO);
 		System.out.println("등록성공");

@@ -82,4 +82,10 @@ public class AccomodationMapper {
 		map.put("policy", policy);
 		sqlSession.update("updatePolicy", map);
 	}
+	public void updateNearby(String accomodation_num, String nearby) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("accomodation_num", accomodation_num);
+		map.put("nearby", nearby);
+		sqlSession.update("updateNearby", map);
+	}
 }

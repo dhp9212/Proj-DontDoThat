@@ -2,14 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../_buisness_top.jsp"%>
 <script type="text/javascript">
+	var str = ['restaurant', 'cafe', 'market', 'mountain', 'lake', 'river', 'sea', 'beach', 'ski']
 	$(document).ready(function() {
 		$('.image').click(function(){
 			var obj = $(this).attr('id')
 			$(this).parents('tr').prev().after('<tr><td><input type="text" name="' + obj + '"></td><td><input type="text" name="' + obj +'_length"></td></tr>')
 		})
+		var nearby = "${accomodation_dto.nearby}"
+		var split = nearby.split(',')
+		for(var i=0; i<split.length; ++i){
+			var split2 = split[i].split('|')
+			for(var j=0; j<split2.length; j=j+2){
+				if(j>0) $('#' + str[i]).parents('tr').prev().after('<tr><td><input type="text" name="' + str[i] + '"></td><td><input type="text" name="' + str[i] +'_length"></td></tr>')
+				var inputs = $('input[name=' + str[i] + ']')
+				var inputs_length = $('input[name=' + str[i] + '_length]')
+				var su = j/2
+				inputs[su].value = split2[j]
+				inputs_length[su].value = split2[j+1]
+			}
+		}
 	})
 	function makeNearby(){
-		var str = ['restaurant', 'cafe', 'market', 'mountain', 'lake', 'river', 'sea', 'beach', 'ski']
 		var nearby = ''
 		for(var i=0; i<str.length; ++i){
 			var inputs = $('input[name=' + str[i] + ']')
@@ -24,8 +37,6 @@
 			nearby += ','
 		}
 		$('input[name=nearby]').val(nearby)
-		alert($('input[name=nearby]').val())
-		return false
 	}
 </script>
 

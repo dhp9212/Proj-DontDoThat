@@ -89,10 +89,6 @@ public class BuisnessController {
 	public String accomodation_content() {
 		return accomodationPath + "accomodation_content";
 	}
-	@RequestMapping(value="tax.do")
-	public String tax() {
-		return accomodationPath + "tax";
-	}
 	@RequestMapping(value="room_facility.do")
 	public String room_facility(HttpServletRequest req) {
 		String room_num = req.getParameter("room_num");
@@ -150,7 +146,7 @@ public class BuisnessController {
 		session = req.getSession();
 		Hashtable<String, RoomDTO> table = (Hashtable)session.getAttribute("room_list");
 		table.put(String.valueOf(dto.getNum()), dto);
-		return "redirect:general_info.do";
+		return "forward:general_info.do";
 	}
 	@RequestMapping(value="updateAccomodation_facility")
 	public String updateAccomodation_facility(HttpServletRequest req) {
@@ -165,7 +161,7 @@ public class BuisnessController {
 		dto.setAccomodation_facility(accomodation_facility);
 		table.put(accomodation_num, dto);
 		
-		return "redirect:general_info.do";
+		return "forward:general_info.do";
 	}
 	@RequestMapping(value="updateContent")
 	public String updateContent(HttpServletRequest req) {
@@ -180,7 +176,7 @@ public class BuisnessController {
 		dto.setContent(content);
 		table.put(accomodation_num, dto);
 		
-		return "redirect:general_info.do";
+		return "forward:general_info.do";
 	}
 	@RequestMapping(value="updatePolicy")
 	public String updatePolicy(HttpServletRequest req) {
@@ -195,6 +191,21 @@ public class BuisnessController {
 		dto.setPolicy(policy);
 		table.put(accomodation_num, dto);
 		
-		return "redirect:general_info.do";
+		return "forward:general_info.do";
+	}
+	@RequestMapping(value="updateNearby")
+	public String updateNearby(HttpServletRequest req) {
+		session = req.getSession();
+		String accomodation_num = (String)session.getAttribute("accomodation_num");
+		String nearby = req.getParameter("nearby");
+		//데이터베이스 저장
+		accomodationMapper.updateNearby(accomodation_num, nearby);
+		//변경사항 서버에 저장
+		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
+		AccomodationDTO dto = table.get(accomodation_num);
+		dto.setNearby(nearby);
+		table.put(accomodation_num, dto);
+		
+		return "forward:general_info.do";
 	}
 }

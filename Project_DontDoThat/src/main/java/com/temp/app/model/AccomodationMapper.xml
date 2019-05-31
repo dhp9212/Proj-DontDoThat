@@ -20,7 +20,8 @@
 			   #{checkin_date}, 
 			   #{checkout_date}, 
 			   #{payment},
-			   #{account_num})
+			   #{account_num},
+			   #{nearby})
 		<selectKey keyProperty="num" resultType="int" order="AFTER">
 			select accomodation_seq.currval from dual
 		</selectKey>
@@ -52,7 +53,10 @@
 		update accomodation set content=#{content} where num=#{accomodation_num}
 	</update>
 	<update id="updatePolicy" parameterType="Map">
-		update accomodation set content=#{policy} where num=#{accomodation_num}
+		update accomodation set policy=#{policy} where num=#{accomodation_num}
+	</update>
+	<update id="updateNearby" parameterType="Map">
+		update accomodation set nearby=#{nearby} where num=#{accomodation_num}
 	</update>
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}
