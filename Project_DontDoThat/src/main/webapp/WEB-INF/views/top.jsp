@@ -70,7 +70,7 @@
 								<li><a href="#">내 Wallet</a></li>
 								<li><a href="#">보고서</a></li>
 								<li><a href="reviewMain.do">이용 후기</a></li>
-								<li><a href="#">마이리스트</a></li>
+								<li><a href="myList.do">마이리스트</a></li>
 								<li><a href="#">앱 받으러 가기</a></li>
 								<li><a href="customerService.do">고객 서비스 지원</a></li>
 								<li><a href="mySettings.do">설정</a></li>
