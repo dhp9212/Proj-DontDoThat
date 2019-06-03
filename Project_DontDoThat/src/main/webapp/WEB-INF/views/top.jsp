@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/datepicker.css">
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/noscript.css" />
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.auto-complete.css" />
 </head>
 <body class="is-preload homepage">
 	<div id="page-wrapper">
@@ -41,7 +43,7 @@
 							<c:set var="count" value="1"/>
 							<c:forEach var="country" items="${countryList}">
 									<a href="#">
-									<%-- <img src="${pageContext.request.contextPath}/resources/img/flags/${country.flag}.png" style="width:12px; height:11px;"> --%>
+									<img src="${pageContext.request.contextPath}/resources/img/flags/${country.flag}.png" style="width:12px; height:11px;">
 									${country.name}</a>
 								<c:set var="count" value="${count + 1}" />
 								<c:if test="${count % 10 == 0 }">

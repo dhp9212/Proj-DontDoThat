@@ -8,7 +8,7 @@
 		</div>
 		<form name="search_form" method="post" action="accomodation_list.do">
 			<div>
-				<input autocomplete="off" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:35%; height:50px;" >
+				<input autocomplete="off" id="input_place" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:35%; height:50px;" >
 			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
 			    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
 				<input autocomplete="off" name="people" id="people_form" type="text" placeholder="성인:2명 · 아동:1명 · 객실:1개" style="width:20%; height:50px;" size="0" >
@@ -200,9 +200,11 @@
 						All Right Reserved. 
 					</footer>
 	</div>
+
 			<!-- Scripts -->
 			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.auto-complete.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.scrollex.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.scrolly.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
@@ -212,6 +214,7 @@
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.dropotron.min.js"></script>
 		  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 		  	<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
+		  	
 			<script>
 			$(function() {
 			    var $startDate = $('.start-date');
@@ -240,7 +243,26 @@
 						speed: 300
 					});
 			});
-
+			
+			$(function(){
+				$('#input_place').autoComplete({
+	                minChars: 1,
+	                source: function(term, suggest){
+	                	var str = new Array();
+	                	<c:forEach var="country" items="${countryList}">
+	    				str += '${country.name}' + '/'
+	                	</c:forEach>     	
+	                    term = term.toLowerCase();
+	                    /* var choices = ['썅', 'ActionScript', 'AppleScript', 'Asp', 'Assembly', 'BASIC', 'Batch', 'C', 'C++', 'CSS', 'Clojure', 'COBOL', 'ColdFusion', 'Erlang', 'Fortran', 'Groovy', 'Haskell', 'HTML', 'Java', 'JavaScript', 'Lisp', 'Perl', 'PHP', 'PowerShell', 'Python', 'Ruby', 'Scala', 'Scheme', 'SQL', 'TeX', 'XML']; */
+	                    var choices = str.split("/");
+	                    var suggestions = [];
+	                    
+	                    for (i=0;i<choices.length;i++)
+	                        if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+	                    suggest(suggestions);
+	                }
+	            });
+			});
 			</script>
 
 			
