@@ -5,6 +5,7 @@ public class CountryDTO {
 	private String code_3;
 	private String code_n;
 	private String name;
+	private String flag;
 	
 	public String getCode_2() {
 		return code_2;
@@ -29,6 +30,12 @@ public class CountryDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 	
 	

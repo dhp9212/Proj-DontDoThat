@@ -120,12 +120,11 @@ public class AccomodationMapper {
 	}
 	//예약 등록
 	public int insertReservation(ReservationDTO dto) {
-		int res = sqlSession.insert("insertReservation", dto);
-		return res;
+		return sqlSession.insert("insertReservation", dto);
 	}
+	//방 하나 정보 가져오기
 	public RoomDTO getRoom(int num) {
-		RoomDTO dto = sqlSession.selectOne("getRoom", num);
-		return dto;
+		return sqlSession.selectOne("getRoom", num);
 	}
 		
 }
