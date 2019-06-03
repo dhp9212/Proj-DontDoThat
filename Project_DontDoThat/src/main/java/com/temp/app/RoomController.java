@@ -76,23 +76,18 @@ public class RoomController {
 		dto.setHeadname("사장");
 		dto.setTel("02-123-1234");
 		dto.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-		dto.setContent("");
 		dto.setCheckin_date("제공자와 직접 연락 후 협의");
 		dto.setCheckout_date("제공자와 직접 연락 후 협의");
 		dto.setPayment("제공자와 직접 연락 후 협의");
 		dto.setAccomodation_facility(req.getParameter("facility"));
-		dto.setNearby("");
 		
 		HttpSession session = req.getSession();
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
 		List<MultipartFile> files = mr.getFiles("files");
-		String image = "";
+		String image = req.getParameter("image");
 		for(MultipartFile mf : files) {
 			//서버에 파일쓰기
-			String filename = mf.getOriginalFilename();
-			if(image.equals("")) image = filename;
-			else image += "," + filename;
 			File file = new File(upPath, mf.getOriginalFilename());
 			try {
 				mf.transferTo(file);
@@ -110,29 +105,21 @@ public class RoomController {
 		//룸 등록
 		dto2.setAccomodation_num(num);
 		dto2.setRoomname(dto.getAccomodation_name());
-		dto2.setRoomclass(" ");
 		dto2.setQty(1);
 		dto2.setRoom_facility(req.getParameter("facility"));
 		accomodationMapper.insertRoom(dto2);
 		return "forward:/";
 	}
 	
-	private void setAccount_num(int num) {
-		// TODO Auto-generated method stub
-		
-	}
 	@RequestMapping(value="insertRoomPro2.do")
 	public String insertMany(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result) {
 		HttpSession session = req.getSession();
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
 		List<MultipartFile> files = mr.getFiles("files");
-		String image = "";
+		String image = req.getParameter("image");
 		for(MultipartFile mf : files) {
 			//서버에 파일쓰기
-			String filename = mf.getOriginalFilename();
-			if(image.equals("")) image = filename;
-			else image += "," + filename;
 			File file = new File(upPath, mf.getOriginalFilename());
 			try {
 				mf.transferTo(file);
@@ -150,8 +137,6 @@ public class RoomController {
 		//부족한 정보입력
 		aDTO.setImage(image);
 		aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-		aDTO.setContent("");
-		aDTO.setNearby("");
 		
 		int num = accomodationMapper.insertAccomodation(aDTO);
 		//룸 등록

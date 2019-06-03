@@ -14,6 +14,7 @@ public class RoomDTO {
 	private int price;
 	//½Ã¼³
 	private String room_facility;
+	private String room_image;
 	
 	public int getNum() {
 		return num;
@@ -62,5 +63,11 @@ public class RoomDTO {
 	}
 	public void setQty(int qty) {
 		this.qty = qty;
+	}
+	public String getRoom_image() {
+		return room_image;
+	}
+	public void setRoom_image(String room_image) {
+		this.room_image = room_image;
 	}
 }

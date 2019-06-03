@@ -1,4 +1,4 @@
-body, td, input, select, textarea, p, th{
+body, td, input[type=text], select, textarea, p, th{
 	align:center;
 	font-size:13px;
 	font-family:verdana;
@@ -12,6 +12,34 @@ a:visited{
 	color:#c0c0c0; text-decoration:none;
 	font-size:13px; font-family:verdana;
 }
+
+
+.box{
+	width:1060;
+	bgcolor:#80ff00;
+	border:1;
+	border-coler:#000000;
+	border-style:solid;
+}
+.box2{
+	width:720;
+	bgcolor:#80ff00;
+	border:1;
+	border-coler:#000000;
+	border-style:solid;
+}
+.my_button {
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    background-color: #006BCC;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
 .search{
 	background-image:url("${pageContext.request.contextPath}/resources/image/search.jpg");
 	width:40; height:30;

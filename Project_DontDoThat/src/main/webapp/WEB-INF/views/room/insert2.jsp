@@ -132,6 +132,7 @@
 		document.getElementById('7table').style.display = 'block'
 	}
 	function clickEvent7(){
+		image_total()
 		document.getElementById('7table').style.display = 'none'
 		document.getElementById('8table').style.display = 'block'
 	}
@@ -146,6 +147,7 @@
 		$('input[name=checkout_date]').attr('value', $('input[name=check_out_stime]').val() + ' ~ ' + $('input[name=check_out_etime]').val())
 		document.getElementById('8table').style.display = 'none'
 		document.getElementById('9table').style.display = 'block'
+		
 	}
 	function viewPay(select){
 			var id = ''

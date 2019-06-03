@@ -4,24 +4,24 @@
 	<insert id="insertAccomodation" parameterType="AccomodationDTO">
 		insert into accomodation 
 		values(accomodation_seq.nextval, 
-			   #{category_accomodation}, 
-			   #{homepage}, 
-			   #{headname}, 
-			   #{tel}, 
-			   #{accomodation_name},
-			   #{country}, 
-			   #{city}, 
-			   #{address}, 
-			   #{postalcode}, 
-			   #{accomodation_facility}, 
-			   #{image}, 
-			   #{content}, 
-			   #{policy}, 
-			   #{checkin_date}, 
-			   #{checkout_date}, 
-			   #{payment},
-			   #{account_num},
-			   #{nearby})
+			   #{category_accomodation, jdbcType=VARCHAR}, 
+			   #{homepage, jdbcType=VARCHAR}, 
+			   #{headname, jdbcType=VARCHAR}, 
+			   #{tel, jdbcType=VARCHAR}, 
+			   #{accomodation_name, jdbcType=VARCHAR},
+			   #{country, jdbcType=VARCHAR}, 
+			   #{city, jdbcType=VARCHAR}, 
+			   #{address, jdbcType=VARCHAR}, 
+			   #{postalcode, jdbcType=VARCHAR}, 
+			   #{accomodation_facility, jdbcType=VARCHAR}, 
+			   #{image, jdbcType=VARCHAR}, 
+			   #{content, jdbcType=VARCHAR}, 
+			   #{policy, jdbcType=VARCHAR}, 
+			   #{checkin_date, jdbcType=VARCHAR}, 
+			   #{checkout_date, jdbcType=VARCHAR}, 
+			   #{payment, jdbcType=VARCHAR},
+			   #{account_num, jdbcType=VARCHAR},
+			   #{nearby, jdbcType=VARCHAR})
 		<selectKey keyProperty="num" resultType="int" order="AFTER">
 			select accomodation_seq.currval from dual
 		</selectKey>
@@ -29,13 +29,14 @@
 	<insert id="insertRoom" parameterType="RoomDTO">
 		insert into room 
 		values(room_seq.nextval, 
-			   #{accomodation_num},
-			   #{roomname}, 
-			   #{roomclass}, 
-			   #{qty}, 
-			   #{people}, 
-			   #{price}, 
-			   #{room_facility})
+			   #{accomodation_num, jdbcType=VARCHAR},
+			   #{roomname, jdbcType=VARCHAR}, 
+			   #{roomclass, jdbcType=VARCHAR}, 
+			   #{qty, jdbcType=VARCHAR}, 
+			   #{people, jdbcType=VARCHAR}, 
+			   #{price, jdbcType=VARCHAR}, 
+			   #{room_facility, jdbcType=VARCHAR},
+			   #{room_image, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updateRoom" parameterType="RoomDTO">
@@ -60,6 +61,9 @@
 	</update>
 	<update id="updateImage" parameterType="Map">
 		update accomodation set image=#{image} where num=#{accomodation_num}
+	</update>
+	<update id="updateRoom_image" parameterType="Map">
+		update room set room_image=#{room_image} where num=#{room_num}
 	</update>
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}

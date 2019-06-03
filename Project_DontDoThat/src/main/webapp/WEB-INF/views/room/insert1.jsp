@@ -49,6 +49,7 @@
 		$('#7table').show()
 	}
 	function clickEvent7() {
+		image_total()
 		$('#7table').hide()
 		$('#8table').show()
 	}

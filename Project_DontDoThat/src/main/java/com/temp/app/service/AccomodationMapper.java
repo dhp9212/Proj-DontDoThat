@@ -95,6 +95,12 @@ public class AccomodationMapper {
 		map.put("image", image);
 		sqlSession.update("updateImage", map);
 	}
+	public void updateRoom_image(String room_num, String room_image) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("room_num", room_num);
+		map.put("room_image", room_image);
+		sqlSession.update("updateRoom_image", map);
+	}
 	//¼÷¼Ò ¸ñ·Ï
 		public List<AccomodationDTO> listAccomodation() {
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -109,4 +115,5 @@ public class AccomodationMapper {
 			RoomDTO dto = sqlSession.selectOne("getRoom", num);
 			return dto;
 		}
+		
 }
