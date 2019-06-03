@@ -32,9 +32,12 @@ public class AccomodationController {
 	
 	@RequestMapping(value="/accomodation_list.do")
 	public String listAccomodation(HttpServletRequest req, @RequestParam(defaultValue="1") int currentPage) throws Exception {
-		List<AccomodationDTO> list = null;
+		String input_place = req.getParameter("input_place").trim();
+		String start_date = req.getParameter("start_date").trim();
+		String end_date = req.getParameter("end_date").trim();
+		String people = req.getParameter("people").trim();
 
-		list = accomodationMapper.listAccomodation();
+		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people);
 		req.setAttribute("listAccomodation", list);
 
 		return "accomodation/list";

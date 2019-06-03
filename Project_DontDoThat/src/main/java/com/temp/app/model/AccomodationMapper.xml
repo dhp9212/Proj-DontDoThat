@@ -69,10 +69,18 @@
 		select * from room where accomodation_num=#{num}
 	</select>
 	
-	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="Map">
+	<!-- 2019.06.03 DHP 추가 -->
+	<select id="listAccomodationAll" resultType="AccomodationDTO">
 		select * from accomodation
 		<!-- select * from (select rownum rn, * from accomodation) where rn between #{startRow} and #{endRow} -->
 	</select>
+	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
+		select * 
+		from accomodation
+		${condition}
+	</select>
+	<!-- ---------------- -->
+	
 	<select id="getRoom" resultType="RoomDTO" parameterType="int">
 		select * from room where num = #{num}
 	</select>

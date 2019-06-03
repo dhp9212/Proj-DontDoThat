@@ -102,18 +102,30 @@ public class AccomodationMapper {
 		sqlSession.update("updateRoom_image", map);
 	}
 	//숙소 목록
-		public List<AccomodationDTO> listAccomodation() {
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			return sqlSession.selectList("listAccomodation", map);
+	public List<AccomodationDTO> listAccomodation(String place, String start_date, String end_date, String people){
+		HashMap<String, String> map = new HashMap<String, String>();
+		String condition = "";
+		if(place != null && !place.equals("")) {
+			condition += " where country = '" + place + "' ";
+			if(start_date != null && !start_date.equals("")) {
+				condition += " and checkin_date <= " + start_date;
+				condition += " and checkout_date >= " + end_date;
+			}
 		}
-		//예약 등록
-		public int insertReservation(ReservationDTO dto) {
-			int res = sqlSession.insert("insertReservation", dto);
-			return res;
-		}
-		public RoomDTO getRoom(int num) {
-			RoomDTO dto = sqlSession.selectOne("getRoom", num);
-			return dto;
-		}
+		map.put("condition", condition);
+		return sqlSession.selectList("listAccomodation", map);
+	}
+	public List<AccomodationDTO> listAccomodation() {
+		return sqlSession.selectList("listAccomodationAll");
+	}
+	//예약 등록
+	public int insertReservation(ReservationDTO dto) {
+		int res = sqlSession.insert("insertReservation", dto);
+		return res;
+	}
+	public RoomDTO getRoom(int num) {
+		RoomDTO dto = sqlSession.selectOne("getRoom", num);
+		return dto;
+	}
 		
 }
