@@ -24,7 +24,7 @@
 <body>
 <form name="f" action="insertRoomPro.do" method="post" enctype="multipart/form-data" onsubmit="return check_clause()">
 	<input type="hidden" name="category">
-	<div align="left" id="1table">
+	<div align="left" id="1table" class="hide">
 		<h2>dontDoThat.com에 숙소를 등록하고 바로 고객을 맞이해보세요!</h2>
 		<p>
 		<h3>제일 먼저 dontDoThat.com에 등록하려는 숙소 유형을 선택해주세요</h3>
@@ -50,7 +50,7 @@
 			</tr>
 		</table>
 	</div>
-	<a href="test.do">템플릿페이지 테스트</a>
 </form>
+
 </body>
 </html>

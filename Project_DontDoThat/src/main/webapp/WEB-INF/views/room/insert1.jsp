@@ -17,64 +17,86 @@
 			}
 		})
 	})
+	function check_value(list){
+		for(var index in list){
+			if(list[index]!='facility'){
+				var input = $('input[name=' + list[index] + ']').val()
+				if(input=='') {
+					alert(list[index] + '칸을 입력해 주세요.')
+					input.focus()
+					return false
+				}
+			}else{
+				if(addFacility()=='') {
+					alert('시설을 선택해 주세요.')
+					return false
+				}
+			}
+		}
+		return true
+	}
+	function hideTable(num){
+		$('#' + num + 'table').hide()
+		$('#' + num + 'table').next().show()
+		CompleteTable(num)
+	}
+	function CompleteTable(num){
+		var go = $('.go')
+		if(go[num-3].style.color=='red') return
+		go[num-3].value += '(완)'
+		go[num-3].style.color = 'red'
+	}
+	function value_insert(check){
+		var str = ''
+		for (var i = 0; i < check.length; i++) {
+			if (check[i].checked == true){
+				if(str=='') str = check[i].value
+				else str += ',' + check[i].value
+			}
+		}
+		return str
+	}
 	function clickEvent2(a) {
 		if (a.value == '계속하기') {
-			$('#2table').hide()
-			$('#3table').show()
+			hideTable(2)
 		} else {
 			location.href = 'insertRoom.do'
 		}
 	}
 	function clickEvent3() {
-		$('#3table').hide()
-		$('#4table').show()
+		hideTable(3)
 	}
 	function clickEvent4() {
-		$('#4table').hide()
-		$('#5table').show()
+		hideTable(4)
 	}
 	function clickEvent5() {
-		$('#5table').hide()
-		$('#6table').show()
+		hideTable(5)
 	}
 	function clickEvent6() {
 		var check = document.getElementsByName('facilities')
-		var str = ''
-		for (var i = 0; i < check.length; i++) {
-			if (check[i].checked == true)
-				str += check[i].value + ','
-		}
+		var str = value_insert(check)
 		document.f.facility.value = str
-		$('#6table').hide()
-		$('#7table').show()
+		hideTable(6)
 	}
-	function clickEvent7() {
-		image_total()
-		$('#7table').hide()
-		$('#8table').show()
+	function clickEvent7(){
+		var check = image_total()
+		if(!check) return
+		hideTable(7)
 	}
 	function clickEvent8() {
-		$('#8table').hide()
-		$('#9table').show()
+		hideTable(8)
 	}
 	function clickEvent9() {
-		$('#9table').hide()
-		$('#10table').show()
+		hideTable(9)
 	}
 	function clickEvent10() {
 		var check = document.getElementsByName('policies')
-		var str = ''
-		for (var i = 0; i < check.length; i++) {
-			if (check[i].checked == true)
-				str += check[i].value + ','
-		}
+		var str = value_insert(check)
 		document.f.policy.value = str
-		$('#10table').hide()
-		$('#11table').show()
+		hideTable(10)
 	}
 	function clickEvent11() {
-		$('#11table').hide()
-		$('#12table').show()
+		hideTable(11)
 	}
 	function clause() {
 		window.open("https://admin.booking.com/hotelreg/terms-and-conditions.html?language=ko;cc1=kr", "width=800; height=700;")
@@ -93,6 +115,21 @@
 </script>
 <body>
 <table>
+	<tr>
+		<td><a href="home.do">메인으로</a></td>
+	</tr>
+	<tr>
+		<td width="100%" style="white-space: nowrap;">
+			<input style="width:130;" class="go" type="button" value="웹페이지 입력">
+			<input style="width:130;" class="go" type="button" value="숙소 위치 입력">
+			<input style="width:150;" class="go" type="button" value="수용가능 인원 입력">
+			<input style="width:140;" class="go" type="button" value="숙소 시설들 입력">
+			<input style="width:140;" class="go" type="button" value="숙소 이미지 입력">
+			<input style="width:130;" class="go" type="button" value="숙소 이름 입력">
+			<input style="width:130;" class="go" type="button" value="숙소 가격 입력">
+			<input style="width:130;" class="go" type="button" value="숙소 정책 입력">
+		</td>
+	</tr>
 	<tr>
 		<td width="550">
 		<form name="f" action="insertRoomPro.do" method="post" enctype="multipart/form-data" onsubmit="return check_clause()">
@@ -127,12 +164,12 @@
 				<table>
 					<tr>
 						<td>국가/지역<br> <select name="country">
-								<c:forEach var="str" items="${country}">
-									<c:if test="${str.name == '대한민국'}">
-										<option selected>${str.name}</option>
+								<c:forEach var="dto" items="${countryList}">
+									<c:if test="${dto.name == '대한민국'}">
+										<option selected>${dto.name}</option>
 									</c:if>
-									<c:if test="${str.name != '대한민국'}">
-										<option>${str.name}</option>
+									<c:if test="${dto.name != '대한민국'}">
+										<option>${dto.name}</option>
 									</c:if>
 								</c:forEach>
 						</select><br> 도시명<br> <input name="city" type="text"><br>
@@ -266,16 +303,6 @@
 				<input type="submit" value="입력완료" style="width: 400;" />
 			</div>
 		</form>
-		</td>
-		<td valign="top">
-			<input style="width:120;" class="go" type="button" value="웹페이지 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="숙소 위치 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="수용가능 인원 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="숙소 시설들 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="숙소 이미지 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="숙소 이름 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="숙소 가격 입력"><p/>
-			<input style="width:120;" class="go" type="button" value="숙소 정책 입력">
 		</td>
 	</tr>
 </table>

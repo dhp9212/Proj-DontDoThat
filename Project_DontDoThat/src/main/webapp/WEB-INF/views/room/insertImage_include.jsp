@@ -28,7 +28,12 @@
 			if(images=='') images = accomodation_img[i].name
 			else images += ',' + accomodation_img[i].name
 		}
+		if(images=='') {
+			alert('이미지를 추가해주세요.')
+			return false
+		}
 		$('input[name=image]').attr('value', images)
+		return true
 	}
 	function fileUploadAction(select) {
 		$(select).after('<input multiple type="file" name="files" class="hide">')
