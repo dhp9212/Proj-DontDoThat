@@ -36,22 +36,17 @@ public class AccomodationController {
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
 		String people = req.getParameter("people").trim();
-
 		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people);
 		req.setAttribute("listAccomodation", list);
-
 		return "accomodation/list";
 	}
 	@RequestMapping(value="/search_accomodation_content.do")
 	public String contentAccomodation(HttpServletRequest req, @RequestParam int num) throws Exception {
-		Hashtable<String, AccomodationDTO> table = accomodationMapper.getAccomodation(num);
-		req.setAttribute("getAccomodation", table);
+		AccomodationDTO dto = accomodationMapper.getAccomodationInfo(num);
+		req.setAttribute("getAccomodationInfo", dto);
 		String numStr = Integer.toString(num);
 		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
 		req.setAttribute("getRoomList", list);
-		
-		
-		
 		return "accomodation/content";
 	}
 	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.GET)
@@ -74,5 +69,4 @@ public class AccomodationController {
 		}
 		return new ModelAndView("redirect:home.do");
 	}
-
 }

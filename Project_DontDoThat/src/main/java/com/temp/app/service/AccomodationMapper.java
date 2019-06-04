@@ -132,12 +132,7 @@ public class AccomodationMapper {
 		return sqlSession.selectOne("getRoom", num);
 	}
 	//숙소 정보 가져오기
-	public Hashtable<String, AccomodationDTO> getAccomodationInfo(int num) {
-		List<AccomodationDTO> list = sqlSession.selectList("getAccomodationInfo", num);
-		Hashtable<String, AccomodationDTO> table = new Hashtable<String, AccomodationDTO>();
-		for(AccomodationDTO dto : list) {
-			table.put(String.valueOf(dto.getNum()), dto);
-		}
-		return table;
+	public AccomodationDTO getAccomodationInfo(int num) {
+		return sqlSession.selectOne("getAccomodationInfo", num);
 	}
 }

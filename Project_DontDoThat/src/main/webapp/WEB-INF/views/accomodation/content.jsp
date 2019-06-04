@@ -65,7 +65,7 @@
 					<table border="0" width="100%">
 						<tr>
 							<td>
-								[${getAccomodationInfoInfo.category_accomodation}]<h3><b>${getAccomodationInfoInfo.accomodation_name}</b></h3>
+								[${getAccomodationInfo.category_accomodation}]<h3><b>${getAccomodationInfo.accomodation_name}</b></h3>
 							</td>
 						</tr>
 						<tr>
