@@ -44,7 +44,7 @@
 						<input autocomplete="off" name="checkOut_date" type="text" placeholder="Ã¼Å©¾Æ¿ô" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
 					</td>
 					<td>
-						<input type="button" value="°´½Ç È®ÀÎ" onClick="location.href='search.do'">
+						<input type="button" value="°´½Ç È®ÀÎ" onClick="location.href=''">
 					</td>
 				</tr>
 				<tr>

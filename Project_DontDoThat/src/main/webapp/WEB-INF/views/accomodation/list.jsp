@@ -2,22 +2,7 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
-	<div class="bodyconstraint">
-		<div id="subheader-wrapper">
-			<nav>
-				<ol>
-					<li>a</li>
-					<li>b</li>
-					<li>c</li>
-				</ol>
-			</nav>
-		</div>
-		<div id="bodyconstraint-inner">
-		test text
-		
-		</div>
-	
-	<%-- <c:choose>
+	<c:choose>
 		<c:when test="${empty listAccomodation}">
 		<table border="0" width="100%">
 	  		<tr>
@@ -37,11 +22,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="left">
-					좌측 검색창 사용<br>
-					<a href="">검색 조건 변경</a><br>
-					<a href="">다른 날짜로 검색</a>
-				</td>
+				<td>좌측 검색창 사용</td>
 			</tr>
 		</table>
 		</c:when>
@@ -98,7 +79,7 @@
 		</table>
 			</c:forEach>
 		</c:otherwise>
-	</c:choose> --%>
+	</c:choose>
 	</div>
 	</div>
 </body>

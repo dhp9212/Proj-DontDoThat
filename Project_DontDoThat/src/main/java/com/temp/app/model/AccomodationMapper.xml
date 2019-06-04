@@ -89,9 +89,9 @@
 	<insert id="insertReservation" parameterType="ReservationDTO">
 		insert into reservation 
 		values (reservation_seq.nextval, 
-				account_seq.nextval, 
-				accomodation_seq.nextval,
-				room_seq.nextval, 
+				#{account_num, jdbcType=INTEGER}, 
+				#{accomodation_num, jdbcType=INTEGER}, 
+				#{room_num, jdbcType=INTEGER}, 
 				#{last_name, jdbcType=VARCHAR}, 
 				#{first_name, jdbcType=VARCHAR}, 
 				#{email, jdbcType=VARCHAR}, 
@@ -100,9 +100,9 @@
 				#{guest_name, jdbcType=VARCHAR}, 
 				#{checkIn_date, jdbcType=VARCHAR}, 
 				#{checkOut_date, jdbcType=VARCHAR}, 
-				#{rooms, jdbcType=VARCHAR}, 
-				#{adults, jdbcType=VARCHAR}, 
-				#{children, jdbcType=VARCHAR}, 
+				#{rooms, jdbcType=INTEGER}, 
+				#{adults, jdbcType=INTEGER}, 
+				#{children, jdbcType=INTEGER}, 
 				#{payment, jdbcType=VARCHAR})
 	</insert>
 	<delete id="deleteReservation" parameterType="ReservationDTO">

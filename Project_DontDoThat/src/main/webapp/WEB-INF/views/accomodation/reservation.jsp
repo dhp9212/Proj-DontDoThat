@@ -47,33 +47,48 @@
 							</tr>
 						</table>
 						<h3>상세 정보 입력</h3>
-						<table border="0" width="100%" bgcolor="skyblue">
+						<table border="0" bgcolor="skyblue">
 							<tr>
 								<td>성(영문)<br><input type="text" name="last_name" class="box"></td>
 								<td>이름(영문)<br><input type="text" name="first_name" class="box"></td>
 							</tr>
 							<tr>
-								<td>이메일 주소<br><input type="text" name="email" class="box">예약 확인서가 전송될 이메일 주소 입력</td>
+								<td colspan="2">이메일 주소<br>
+							<c:choose>
+								<c:when test="${empty userSession}">
+									<input type="text" name="email" class="box">예약 확인서가 전송될 이메일 주소 입력
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="email" class="box" value="${getAccount.email}">예약 확인서가 전송될 이메일 주소 입력
+								</c:otherwise>
+							</c:choose>
+								</td>
 							</tr>
 							<tr>
-								<td>이메일 주소 확인<br><input type="text" name="email_check" class="box"></td>
-							</tr>
-							<tr>
-								<td>
+								<td colspan="2">
 									국가/지역<br>
 									<select name="country">
 										<option value="default">-- --국가/지역 선택-- --</option>
-									<c:forEach var="country" items="${countryList}">
+									<c:forEach var="country" items="${selectCountry}">
 										<option>${country.name}</option>
 									</c:forEach>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<td>전화번호 (가능한 경우 휴대폰)<br><input type="text" name="tel" class="box"></td>
+								<td colspan="2">전화번호 (가능한 경우 휴대폰)<br>
+							<c:choose>
+								<c:when test="${empty userSession}">
+									<input type="text" name="tel" class="box" maxlength="11">
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="tel" class="box" maxlength="11" value="${getAccount.tel}">
+								</c:otherwise>
+							</c:choose>
+								</td>
 							</tr>
 							<tr>
-								<td>
+								<td colspan="2">
 									<table>
 										<tr>
 											<td><h4><b>${getRoom.roomname}</b></h4></td>
@@ -84,9 +99,6 @@
 										</tr>
 										<tr>
 											<td colspan="2">최대 투숙 인원 : ${getRoom.people}명</td>
-										</tr>
-										<tr>
-											<td colspan="2">투숙객 성명<br><input type="text" name="guest_name" class="box"></td>
 										</tr>
 									</table>
 								</td>
@@ -102,7 +114,6 @@
 	<script type="text/javascript">
 	function check(){
 		var session = '${userSession}'
-		
 		if(session == ''){
 			document.reservation.action = 'loginFromReservation.do'
 			document.reservation.submit();
@@ -110,10 +121,7 @@
 		else{
 			document.reservation.submit();
 		}
-		
 	}
-	
 	</script>
-	
 </body>
 </html>
