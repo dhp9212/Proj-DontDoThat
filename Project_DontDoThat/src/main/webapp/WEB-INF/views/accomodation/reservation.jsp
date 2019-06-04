@@ -13,8 +13,8 @@
 							</tr>
 							<tr>
 								<td>
-									체크인 :<br>${getAccomodation.checkIn_date}<br>
-									체크아웃 :<br>${getAccomodation.checkOut_date}<br>
+									체크인 :<br>${start_date}<br>
+									체크아웃 :<br>${end_date}<br>
 									<a href="">날짜 변경</a>
 								</td>
 							</tr>
@@ -39,10 +39,10 @@
 					<div>
 						<table border="0" width="100%">
 							<tr>
-								<td><img src="image/${getAccomodation.image}" width="200" height="200" border="0"></td>
+								<td><img src="image/${image}" width="200" height="200" border="0"></td>
 								<td>
-									<h3><b>${getAccomodation.accomodation_name}</b></h3><br>
-									${getAccomodation.address}, ${getAccomodation.city}, ${getAccomodation.country}
+									<h3><b>${accomodation_name}</b></h3><br>
+									${address}, ${city}, ${country}
 								</td>
 							</tr>
 						</table>

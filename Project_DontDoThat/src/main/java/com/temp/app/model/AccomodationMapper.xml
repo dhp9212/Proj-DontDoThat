@@ -111,4 +111,7 @@
 	<select id="getCount" resultType="AccomodationDTO" parameterType="int">
 		select count(*) from accomodation
 	</select>
+	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">
+		select * from accomodation where num = #{num}
+	</select>
 </mapper>
