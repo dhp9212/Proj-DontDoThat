@@ -152,10 +152,10 @@ public class MainController {
 		return "custom/cstm";
 	}
 	
-    @RequestMapping(value="/myList.do")
-    public String main_myList(HttpServletRequest req) {
-        return "custom/mylist";
-    }
+	@RequestMapping(value="/myList.do")
+	public String main_myList(HttpServletRequest req) {
+		return "custom/mylist";
+	}
 
 	public void setCardList() {
 		if(cardList.size() == 0) {
