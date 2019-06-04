@@ -1,0 +1,8 @@
+diff a/Project_DontDoThat/.project b/Project_DontDoThat/.project	(rejected hunks)
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <projectDescription>
+-	<name>Project_DontDoThat</name>
+ 	<name>proj</name>
+ 	<comment></comment>
+ 	<projects>
