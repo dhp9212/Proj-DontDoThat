@@ -8,30 +8,40 @@
 	}
 </style>
 <script type="text/javascript">
-
 	var image_path = "${pageContext.request.contextPath}/resources/img/"
 	$(document).ready(function() {
 		$(document).on('change', $('input[name=files]'), function(e){
 			var className = e.target.className
 			var files = e.target.files
 			var filesArr = Array.prototype.slice.call(files)
-			var index = 0
 			filesArr.forEach(function(f){
 				if(!f.type.match('image.*')) alert("리턴 확인")
 				var reader = new FileReader()
 				reader.onload = function(e){
 					var html = "<img width='180' class='" + className + "' name='" + f.name + "' height='150' style='margin:15px' src='" + e.target.result + "' onclick='javascript:deleteImage(this)'>"
 					$('#' + className).append(html)
-					index++
 				}
 				reader.readAsDataURL(f)
 			})
 		})
-		var saved_image = "${accomodation_dto.image}".split(',')
-		for(var i=0; i<saved_image.length; ++i){
-			var html = "<img width='180' name='" + saved_image[i] + "' height='150' style='margin:15px' src='" + image_path + saved_image[i] + "' onclick='javascript:deleteImage(this)'>"
-			$('#accomodation_div').append(html)
+		var inputs = $('input[type=hidden]')
+		for(var i in inputs){
+			var room_images = inputs[i].value.split(',')
+			var id = inputs[i].name.substring(0, inputs[i].name.length-10)
+			if(i==0){
+				for(var j in room_images){
+					var html = "<img width='180' class='accomodation_div' name='" + room_images[j] + "' height='150' style='margin:15px' src='" + image_path + room_images[j] + "' onclick='javascript:deleteImage(this)'>"
+					$('#accomodation_div').append(html)
+				}
+			}else{
+				for(var j in room_images){
+					if(room_images[j]=='') continue
+					var html = "<img width='180' class='" + id + "room_div' name='" + room_images[j] + "' height='150' style='margin:15px' src='" + image_path + room_images[j] + "' onclick='javascript:deleteImage(this)'>"
+					$('#' + id + 'room_div').append(html)
+				}
+			}
 		}
+		alert(inputs.length)
 	})
 	function image_total(){
 		//accomodation_image 설정
@@ -41,8 +51,11 @@
 			if(images=='') images = accomodation_img[i].name
 			else images += ',' + accomodation_img[i].name
 		}
+		if(images==''){
+			alert('숙소이미지는 1개이상 등록되어야 합니다.')
+			return false
+		}
 		$('input[name=accomodation_image]').attr('value', images)
-		
 		//room_image 설정
 		<c:forEach var="roomDTO" items="${room_list}">
 			images = ''
@@ -53,6 +66,7 @@
 			}
 			$('input[name=${roomDTO.value.num}room_image]').attr('value', images)
 		</c:forEach>
+		return true
 	}
 	function fileUploadAction(select) {
 		var str
@@ -70,13 +84,13 @@
 <p>
 <form name="f" action="updateImage.do" method="post" enctype="multipart/form-data" onsubmit="return image_total()">
 	<div id="accomodation_div" class="box">
-		<input type="hidden" name="accomodation_image">
+		<input type="hidden" name="accomodation_image" value="${accomodation_dto.image}">
 	</div>
 <c:forEach var="roomDTO" items="${room_list}">
 	<p>
 	${roomDTO.key}번 <input name="${roomDTO.key}" class="my_button" type="button" onclick="fileUploadAction(this)" value="${roomDTO.value.roomname} 이미지 추가">
 	<div id="${roomDTO.key}room_div" class="box">
-		<input type="hidden" name="${roomDTO.key}room_image">
+		<input type="hidden" name="${roomDTO.key}room_image" value="${roomDTO.value.room_image}">
 	</div>
 </c:forEach>
 	<div style="margin:20px">

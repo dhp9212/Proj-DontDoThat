@@ -110,7 +110,18 @@
 				return false
 			}
 		}
-		return true
+		return check_level()
+	}
+	function check_level(){
+		var level = $('.go')
+		for(var i in level){
+			alert(level[i].style)
+			if(level[i].style.color!='red'){
+				alert('상단의 완료되지 않은 단계를 완성해 주세요.')
+				return false
+			}
+		}
+		return false
 	}
 </script>
 <body>

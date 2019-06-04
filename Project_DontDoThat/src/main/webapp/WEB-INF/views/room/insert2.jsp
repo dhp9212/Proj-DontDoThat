@@ -234,7 +234,7 @@
 				return false
 			}
 		}
-		return true
+		return check_level()
 	}
 	function inputPayment(){
 		var str = 'card,'
@@ -248,6 +248,16 @@
 		}
 		str += cardStr + ',' + 'VAT,' + $("input:radio[name='vat']:checked").val()
 		$('input[name=payment]').attr('value', str)
+	}
+	function check_level(){
+		var level = $('.go')
+		for(var i; i<level.length-1; ++i){
+			if(level[i].style.color!='red'){
+				alert('상단의 완료되지 않은 단계를 완성해 주세요.')
+				return false
+			}
+		}
+		return true
 	}
 </script>
 <body>
