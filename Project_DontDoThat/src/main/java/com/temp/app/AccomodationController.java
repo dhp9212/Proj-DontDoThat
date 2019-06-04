@@ -49,7 +49,9 @@ public class AccomodationController {
 		String numStr = Integer.toString(num);
 		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
 		req.setAttribute("getRoomList", list);
-
+		
+		
+		
 		return "accomodation/content";
 	}
 	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.GET)
@@ -64,11 +66,13 @@ public class AccomodationController {
 		if (result.hasErrors()) {
 			dto.setNum(0);
 		}
-		System.out.println(req.getAttribute("last_name"));
-		
 		int res = accomodationMapper.insertReservation(dto);
-		
-		return new ModelAndView("redirect:accomodation_list.do");
+		if (res > 0) {
+			System.out.println("예약 성공");
+		} else {
+			System.out.println("예약 실패");
+		}
+		return new ModelAndView("redirect:home.do");
 	}
 
 }

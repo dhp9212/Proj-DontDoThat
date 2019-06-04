@@ -100,6 +100,18 @@
 										<tr>
 											<td colspan="2">ÃÖ´ë Åõ¼÷ ÀÎ¿ø : ${getRoom.people}¸í</td>
 										</tr>
+										<tr>
+											<td colspan="2">Åõ¼÷°´ ¼º¸í<br>
+										<c:choose>
+											<c:when test="${empty userSession}">
+												<input type="text" name="tel" class="box">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="tel" class="box" value="${getAccount.name}">
+											</c:otherwise>
+										</c:choose>
+											</td>
+										</tr>
 									</table>
 								</td>
 							</tr>

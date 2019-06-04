@@ -102,11 +102,11 @@ public class AccomodationMapper {
 		sqlSession.update("updateRoom_image", map);
 	}
 	//¼÷¼Ò ¸ñ·Ï
-	public List<AccomodationDTO> listAccomodation(String place, String start_date, String end_date, String people){
+	public List<AccomodationDTO> listAccomodation(String input_place, String start_date, String end_date, String people){
 		HashMap<String, String> map = new HashMap<String, String>();
 		String condition = "";
-		if(place != null && !place.equals("")) {
-			condition += " where country = '" + place + "' ";
+		if(input_place != null && !input_place.equals("")) {
+			condition += " where country = '" + input_place + "' ";
 			if(start_date != null && !start_date.equals("")) {
 				condition += " and checkin_date <= " + start_date;
 				condition += " and checkout_date >= " + end_date;
