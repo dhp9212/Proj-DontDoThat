@@ -49,9 +49,7 @@ public class AccomodationController {
 		String numStr = Integer.toString(num);
 		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
 		req.setAttribute("getRoomList", list);
-		
-		
-		
+
 		return "accomodation/content";
 	}
 	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.GET)

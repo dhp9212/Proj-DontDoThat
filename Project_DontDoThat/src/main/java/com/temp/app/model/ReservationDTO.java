@@ -2,8 +2,7 @@ package com.temp.app.model;
 
 public class ReservationDTO {
 	private int num;
-	private int account_num;
-	private int accomodation_num;
+	private int member_num;
 	private int room_num;
 	private String last_name;
 	private String first_name;
@@ -13,9 +12,9 @@ public class ReservationDTO {
 	private String guest_name;
 	private String checkIn_date;
 	private String checkOut_date;
-	private int rooms;
-	private int adults;
-	private int children;
+	private String rooms;
+	private String adults;
+	private String children;
 	private String payment;
 	public int getNum() {
 		return num;
@@ -23,17 +22,11 @@ public class ReservationDTO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getAccount_num() {
-		return account_num;
+	public int getMember_num() {
+		return member_num;
 	}
-	public void setAccount_num(int account_num) {
-		this.account_num = account_num;
-	}
-	public int getAccomodation_num() {
-		return accomodation_num;
-	}
-	public void setAccomodation_num(int accomodation_num) {
-		this.accomodation_num = accomodation_num;
+	public void setMember_num(int member_num) {
+		this.member_num = member_num;
 	}
 	public int getRoom_num() {
 		return room_num;
@@ -89,22 +82,22 @@ public class ReservationDTO {
 	public void setCheckOut_date(String checkOut_date) {
 		this.checkOut_date = checkOut_date;
 	}
-	public int getRooms() {
+	public String getRooms() {
 		return rooms;
 	}
-	public void setRooms(int rooms) {
+	public void setRooms(String rooms) {
 		this.rooms = rooms;
 	}
-	public int getAdults() {
+	public String getAdults() {
 		return adults;
 	}
-	public void setAdults(int adults) {
+	public void setAdults(String adults) {
 		this.adults = adults;
 	}
-	public int getChildren() {
+	public String getChildren() {
 		return children;
 	}
-	public void setChildren(int children) {
+	public void setChildren(String children) {
 		this.children = children;
 	}
 	public String getPayment() {

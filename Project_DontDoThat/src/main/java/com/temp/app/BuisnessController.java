@@ -1,10 +1,6 @@
 package com.temp.app;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.AccomodationDTO;
 import com.temp.app.model.RoomDTO;
@@ -213,50 +207,5 @@ public class BuisnessController {
 		table.put(accomodation_num, dto);
 		
 		return "forward:general_info.do";
-	}
-	@RequestMapping(value="updateImage.do")
-	public String updateImage(HttpServletRequest req) {
-		//경로지정
-		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("resources/img");
-		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		List<MultipartFile> files = mr.getFiles("files");
-		for(MultipartFile mf : files) {
-			//서버에 파일쓰기
-			File file = new File(upPath, mf.getOriginalFilename());
-			try {
-				mf.transferTo(file);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
-		Enumeration<String> key = room_list.keys();
-		while(key.hasMoreElements()) {
-			//데이터베이스에 저장(Room)
-			String room_num = key.nextElement();
-			String room_image = req.getParameter(room_num + "room_image");
-			accomodationMapper.updateRoom_image(room_num, room_image);
-			//변경내용 세션저장(Room)
-			RoomDTO dto = room_list.get(room_num);
-			dto.setRoom_image(room_image);
-			room_list.put(room_num, dto);
-		}
-		//데이터베이스에 저장(Accomodation)
-		String accomodation_image = req.getParameter("accomodation_image");
-		String accomodation_num = (String)session.getAttribute("accomodation_num");
-		accomodationMapper.updateImage(accomodation_num, accomodation_image);
-		//변경사항 세션 저장(Accomodation)
-		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
-		AccomodationDTO dto = table.get(accomodation_num);
-		dto.setImage(accomodation_image);
-		table.put(accomodation_num, dto);
-		return "forward:general_info.do";
-	}
-	@RequestMapping(value="test.do")
-	public String test(HttpServletRequest req) {
-		return "room/insertImage_include";
 	}
 }

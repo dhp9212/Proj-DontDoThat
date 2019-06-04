@@ -43,7 +43,7 @@
 		preferredFacility = #{preferredFacility, jdbcType=VARCHAR},
 		reservationTarget = #{reservationTarget, jdbcType=VARCHAR},
 		currency = #{currency, jdbcType=VARCHAR} 
-		where num = ${num}
+		weher num = ${num}
 		
 	</update>
 	

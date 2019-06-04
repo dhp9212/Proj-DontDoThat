@@ -6,6 +6,7 @@
  	<select id="selectCountry" resultType="CountryDTO">
 		SELECT *
 		FROM COUNTRY
+		WHERE FLAG IS NOT NULL
 	</select>
 	<select id="selectCity" resultType="CityDTO">
 		SELECT *

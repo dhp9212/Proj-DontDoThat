@@ -2,8 +2,22 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
-	<div>
-	<c:choose>
+	<div class="bodyconstraint">
+		<div id="subheader-wrapper">
+			<nav>
+				<ol>
+					<li>a</li>
+					<li>b</li>
+					<li>c</li>
+				</ol>
+			</nav>
+		</div>
+		<div id="bodyconstraint-inner">
+		test text
+		
+		</div>
+	
+	<%-- <c:choose>
 		<c:when test="${empty listAccomodation}">
 		<table border="0" width="100%">
 	  		<tr>
@@ -84,7 +98,8 @@
 		</table>
 			</c:forEach>
 		</c:otherwise>
-	</c:choose>
+	</c:choose> --%>
+	</div>
 	</div>
 </body>
 </html>
