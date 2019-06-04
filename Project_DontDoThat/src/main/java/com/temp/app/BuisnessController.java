@@ -1,6 +1,10 @@
 package com.temp.app;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.AccomodationDTO;
 import com.temp.app.model.RoomDTO;
@@ -16,7 +22,7 @@ import com.temp.app.service.AccomodationMapper;
 
 @Controller
 public class BuisnessController {
-	//°æ·Î
+	//ê²½ë¡œ
 	String calenderPath = "buisness/calenderMenu/";
 	String accomodationPath = "buisness/accomodationMenu/";
 	String payPath = "buisness/payMenu/";
@@ -24,7 +30,7 @@ public class BuisnessController {
 	@Autowired
 	AccomodationMapper accomodationMapper;
 	
-	//¼¼¼Ç ¸íÄª
+	//ì„¸ì…˜ ëª…ì¹­
 	HttpSession session;
 	
 	@RequestMapping(value="buisness_index.do")
@@ -153,9 +159,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String accomodation_facility = req.getParameter("accomodation_facility");
-		//µ¥ÀÌÅÍº£ÀÌ½º ÀúÀå
+		//ë°ì´í„°ë² ì´ìŠ¤ ì €ì¥
 		accomodationMapper.updateAccomodation_facility(accomodation_num, accomodation_facility);
-		//º¯°æ»çÇ× ¼­¹ö¿¡ ÀúÀå
+		//ë³€ê²½ì‚¬í•­ ì„œë²„ì— ì €ì¥
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setAccomodation_facility(accomodation_facility);
@@ -168,9 +174,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String content = req.getParameter("content");
-		//µ¥ÀÌÅÍº£ÀÌ½º ÀúÀå
+		//ë°ì´í„°ë² ì´ìŠ¤ ì €ì¥
 		accomodationMapper.updateContent(accomodation_num, content);
-		//º¯°æ»çÇ× ¼­¹ö¿¡ ÀúÀå
+		//ë³€ê²½ì‚¬í•­ ì„œë²„ì— ì €ì¥
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setContent(content);
@@ -183,9 +189,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String policy = req.getParameter("policy");
-		//µ¥ÀÌÅÍº£ÀÌ½º ÀúÀå
+		//ë°ì´í„°ë² ì´ìŠ¤ ì €ì¥
 		accomodationMapper.updatePolicy(accomodation_num, policy);
-		//º¯°æ»çÇ× ¼­¹ö¿¡ ÀúÀå
+		//ë³€ê²½ì‚¬í•­ ì„œë²„ì— ì €ì¥
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setPolicy(policy);
@@ -198,14 +204,57 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String nearby = req.getParameter("nearby");
-		//µ¥ÀÌÅÍº£ÀÌ½º ÀúÀå
+		//ë°ì´í„°ë² ì´ìŠ¤ ì €ì¥
 		accomodationMapper.updateNearby(accomodation_num, nearby);
-		//º¯°æ»çÇ× ¼­¹ö¿¡ ÀúÀå
+		//ë³€ê²½ì‚¬í•­ ì„œë²„ì— ì €ì¥
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setNearby(nearby);
 		table.put(accomodation_num, dto);
 		
+		return "forward:general_info.do";
+	}
+	@RequestMapping(value="updateImage.do")
+	public String updateImage(HttpServletRequest req) {
+		//ê²½ë¡œì§€ì •
+		HttpSession session = req.getSession();
+		String upPath = session.getServletContext().getRealPath("resources/img");
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		List<MultipartFile> files = mr.getFiles("files");
+		for(MultipartFile mf : files) {
+			//ì„œë²„ì— íŒŒì¼ì“°ê¸°
+			File file = new File(upPath, mf.getOriginalFilename());
+			try {
+				mf.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		//ë°ì´í„°ë² ì´ìŠ¤ì— ì €ì¥(Accomodation)
+		String accomodation_image = req.getParameter("accomodation_image");
+		String accomodation_num = (String)session.getAttribute("accomodation_num");
+		accomodationMapper.updateImage(accomodation_num, accomodation_image);
+		//ë³€ê²½ì‚¬í•­ ì„¸ì…˜ ì €ì¥(Accomodation)
+		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
+		AccomodationDTO adto = table.get(accomodation_num);
+		adto.setImage(accomodation_image);
+		table.put(accomodation_num, adto);
+		
+		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
+		Enumeration<String> key = room_list.keys();
+		while(key.hasMoreElements()) {
+			//ë°ì´í„°ë² ì´ìŠ¤ì— ì €ì¥(Room)
+			String room_num = key.nextElement();
+			String room_image = req.getParameter(room_num + "room_image");
+			if(room_image=="") continue;
+			accomodationMapper.updateRoom_image(room_num, room_image);
+			//ë³€ê²½ë‚´ìš© ì„¸ì…˜ì €ì¥(Room)
+			RoomDTO rdto = room_list.get(room_num);
+			rdto.setRoom_image(room_image);
+			room_list.put(room_num, rdto);
+		}
 		return "forward:general_info.do";
 	}
 }
