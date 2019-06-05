@@ -1,29 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
 	<table width="100%">
 		<tr>
-			<th colspan="2">Áö¿ª</th><td><div id="map"></div></td>
+			<th colspan="2">ì§€ì—­</th><td><div id="map"></div></td>
 		</tr>
 		<tr>
 			<td width="30%;">
 				<div>
 					<table border="2">
 						<tr>
-							<tr><th>°Ë»ö</th></tr>
-							<tr><td>¿©ÇàÁö/¼÷¼ÒÀÌ¸§</td></tr>
+							<tr><th>ê²€ìƒ‰</th></tr>
+							<tr><td>ì—¬í–‰ì§€/ìˆ™ì†Œì´ë¦„</td></tr>
 							<tr><td><input type="text" value="${input_place}"></td></tr>
-							<tr><td>Ã¼Å©ÀÎ ³¯Â¥</td></tr>
+							<tr><td>ì²´í¬ì¸ ë‚ ì§œ</td></tr>
 							<tr><td><input type="text" value="${start_date}"></td></tr>
-							<tr><td>Ã¼Å©¾Æ¿ô ³¯Â¥</td></tr>
+							<tr><td>ì²´í¬ì•„ì›ƒ ë‚ ì§œ</td></tr>
 							<tr><td><input type="text" value="${end_date}"></td></tr>
 							<tr></tr>
 							<tr>
 								<td>
 									<select name="adults">
 									<c:forEach var="i" begin="1" end="30">
-										<option value="i">¼ºÀÎ ${i}¸í</option>
+										<option value="i">ì„±ì¸ ${i}ëª…</option>
 									</c:forEach>
 									</select>
 								</td>
@@ -31,9 +31,9 @@
 							<tr>
 								<td>
 									<select name="children">
-										<option value="0">µ¿¹Ý ¾Æµ¿ ¾øÀ½</option>
+										<option value="0">ë™ë°˜ ì•„ë™ ì—†ìŒ</option>
 									<c:forEach var="i" begin="1" end="10">
-										<option value="i">¾Æµ¿ ${i}¸í</option>
+										<option value="i">ì•„ë™ ${i}ëª…</option>
 									</c:forEach>
 									</select>
 								</td>
@@ -42,12 +42,12 @@
 								<td>
 									<select name="rooms">
 									<c:forEach var="i" begin="1" end="30">
-										<option value="i">°´½Ç ${i}°³</option>
+										<option value="i">ê°ì‹¤ ${i}ê°œ</option>
 									</c:forEach>
 									</select>
 								</td>
 							</tr>
-							<tr><td><input type="button" value="°Ë »ö" onClick="location.href=''"></td></tr>
+							<tr><td><input type="button" value="ê²€ ìƒ‰" onClick="location.href=''"></td></tr>
 					</table>
 				</div>
 			</td>
@@ -56,21 +56,21 @@
 				<div>
 					<table border="1" width="100%">
 						<tr>
-							<th width="35%">¿É¼Ç Á¤º¸ & ¿ä±Ý</th>
-							<th width="10%">½Ã¼³</th>
-							<th width="20%">ÇÏ¿ì½º ·ê</th>
-							<th width="35%">°í°´ ÈÄ±â</th>
+							<th width="35%">ì˜µì…˜ ì •ë³´ & ìš”ê¸ˆ</th>
+							<th width="10%">ì‹œì„¤</th>
+							<th width="20%">í•˜ìš°ìŠ¤ ë£°</th>
+							<th width="35%">ê³ ê° í›„ê¸°</th>
 						</tr>
 					</table>
 					<table border="0" width="100%">
 						<tr>
 							<td>
-								[${getAccomodationInfo.category_accomodation}]<h3><b>${getAccomodationInfo.accomodation_name}</b></h3>
+								<h3><b>[${getAccomodationInfo.category_accomodation}]${getAccomodationInfo.accomodation_name}</b></h3>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">ÁÁÀº À§Ä¡ - Áöµµ¿¡¼­ º¸±â</a>
+								${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">ì¢‹ì€ ìœ„ì¹˜ - ì§€ë„ì—ì„œ ë³´ê¸°</a>
 							</td>
 						</tr>
 					</table>
@@ -79,39 +79,39 @@
 						<tr>
 							<td width="70%" rowspan="2">${getAccomodationInfo.content}</td>
 							<td width="30%" bgcolor="skyblue">
-								<h4>ÀÌ¿ë ÈÄ±â</h4><br>
+								<h4>ì´ìš© í›„ê¸°</h4><br>
 							</td>
 						</tr>
 					</table>
-					<h3><b>¿¹¾à °¡´É ¿©ºÎ</b></h3>
+					<h3><b>ì˜ˆì•½ ê°€ëŠ¥ ì—¬ë¶€</b></h3>
 					<table border="0" width="100%">
 						<tr>
-							<td>Ã¼Å©ÀÎ ³¯Â¥<br>
-								<input value="${start_date}" autocomplete="off" name="checkIn_date" type="text" placeholder="Ã¼Å©ÀÎ" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
+							<td>ì²´í¬ì¸ ë‚ ì§œ<br>
+								<input value="${start_date}" autocomplete="off" name="checkIn_date" type="text" placeholder="ì²´í¬ì¸" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
 						    </td>
-							<td>Ã¼Å©¾Æ¿ô ³¯Â¥<br>
-								<input value="${end_date}" autocomplete="off" name="checkOut_date" type="text" placeholder="Ã¼Å©¾Æ¿ô" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
+							<td>ì²´í¬ì•„ì›ƒ ë‚ ì§œ<br>
+								<input value="${end_date}" autocomplete="off" name="checkOut_date" type="text" placeholder="ì²´í¬ì•„ì›ƒ" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
 							</td>
 							<td>
-								<input type="button" value="°´½Ç È®ÀÎ" onClick="location.href=''">
+								<input type="button" value="ê°ì‹¤ í™•ì¸" onClick="location.href=''">
 							</td>
 						</tr>
 						<tr>
-							<td>°´½Ç
+							<td>ê°ì‹¤
 								<select name="rooms">
 								<c:forEach var="i" begin="1" end="30">
 									<option value="i">${i}</option>
 								</c:forEach>
 								</select>
 							</td>
-							<td>¼ºÀÎ
+							<td>ì„±ì¸
 								<select name="adults">
 								<c:forEach var="i" begin="1" end="30">
 									<option value="i">${i}</option>
 								</c:forEach>
 								</select>
 							</td>
-							<td>¾î¸°ÀÌ
+							<td>ì–´ë¦°ì´
 								<select name="children">
 								<c:forEach var="i" begin="0" end="10">
 									<option value="i">${i}</option>
@@ -122,29 +122,29 @@
 					</table>
 					<table border="1" width="100%">
 						<tr>
-							<td>Á¤¿ø</td>
-							<td>°´½Ç À¯Çü</td>
+							<td>ì •ì›</td>
+							<td>ê°ì‹¤ ìœ í˜•</td>
 							<td></td>
 						</tr>
 				<c:choose>
 					<c:when test="${empty getRoomList}">
 						<tr>
 							<td>
-								ÇöÀç ¿¹¾à °¡´ÉÇÑ ¹æÀÌ ¾ø½À´Ï´Ù.
+								í˜„ìž¬ ì˜ˆì•½ ê°€ëŠ¥í•œ ë°©ì´ ì—†ìŠµë‹ˆë‹¤.
 							</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="dto" items="${getRoomList}">
 						<tr>
-							<td>ÃÖ´ë ${dto.value.people}¸í</td>
+							<td>ìµœëŒ€ ${dto.value.people}ëª…</td>
 							<td>
 								<a href="accomodation_reservation.do?num=${dto.value.num}">
 									${dto.value.roomname} - ${dto.value.roomclass}
 								</a><br>${dto.value.room_facility}
 							</td>
 							<td>
-								<input type="button" value="Áö±Ý ¿¹¾à" onClick="location.href='accomodation_reservation.do?num=${dto.value.num}'">
+								<input type="button" value="ì§€ê¸ˆ ì˜ˆì•½" onClick="location.href='accomodation_reservation.do?num=${dto.value.num}'">
 								<input type="hidden" name="category_accomodation" value="${getAccomodationInfo.category_accomodation}" />
 								<input type="hidden" name="accomodation_name" value="${getAccomodationInfo.accomodation_name}" />
 								<input type="hidden" name="address" value="${getAccomodationInfo.address}" />
@@ -159,7 +159,7 @@
 					</c:otherwise>
 				</c:choose>
 					</table>
-					<h3><b>ÇÏ¿ì½º ·ê</b></h3><br>${getAccomodationInfo.policy}
+					<h3><b>í•˜ìš°ìŠ¤ ë£°</b></h3><br>${getAccomodationInfo.policy}
 				</div>
 			</td>
 		</tr>

@@ -1,29 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
 	<table width="100%">
 		<tr>
-			<th colspan="2">Áö¿ª</th><td><div id="map"></div></td>
+			<th colspan="2">ì§€ì—­</th><td><div id="map"></div></td>
 		</tr>
 		<tr>
 			<td width="30%;">
 				<div>
 					<table border="2">
 						<tr>
-							<tr><th>°Ë»ö</th></tr>
-							<tr><td>¿©ÇàÁö/¼÷¼ÒÀÌ¸§</td></tr>
+							<tr><th>ê²€ìƒ‰</th></tr>
+							<tr><td>ì—¬í–‰ì§€/ìˆ™ì†Œì´ë¦„</td></tr>
 							<tr><td><input type="text" value="${input_place}"></td></tr>
-							<tr><td>Ã¼Å©ÀÎ ³¯Â¥</td></tr>
+							<tr><td>ì²´í¬ì¸ ë‚ ì§œ</td></tr>
 							<tr><td><input type="text" value="${start_date}"></td></tr>
-							<tr><td>Ã¼Å©¾Æ¿ô ³¯Â¥</td></tr>
+							<tr><td>ì²´í¬ì•„ì›ƒ ë‚ ì§œ</td></tr>
 							<tr><td><input type="text" value="${end_date}"></td></tr>
 							<tr></tr>
 							<tr>
 								<td>
 									<select name="adults">
 									<c:forEach var="i" begin="1" end="30">
-										<option value="i">¼ºÀÎ ${i}¸í</option>
+										<option value="i">ì„±ì¸ ${i}ëª…</option>
 									</c:forEach>
 									</select>
 								</td>
@@ -31,9 +31,9 @@
 							<tr>
 								<td>
 									<select name="children">
-										<option value="0">µ¿¹Ý ¾Æµ¿ ¾øÀ½</option>
+										<option value="0">ë™ë°˜ ì•„ë™ ì—†ìŒ</option>
 									<c:forEach var="i" begin="1" end="10">
-										<option value="i">¾Æµ¿ ${i}¸í</option>
+										<option value="i">ì•„ë™ ${i}ëª…</option>
 									</c:forEach>
 									</select>
 								</td>
@@ -42,14 +42,14 @@
 								<td>
 									<select name="rooms">
 									<c:forEach var="i" begin="1" end="30">
-										<option value="i">°´½Ç ${i}°³</option>
+										<option value="i">ê°ì‹¤ ${i}ê°œ</option>
 									</c:forEach>
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<input type="button" value="°Ë »ö" onClick="location.href=''">
+									<input type="button" value="ê²€ ìƒ‰" onClick="location.href=''">
 								</td>
 							</tr>
 					</table>
@@ -62,34 +62,34 @@
 		<c:when test="${empty listAccomodation}">
 					<table border="0" width="70%">
 				  		<tr>
-				  			<td><h1>ÀÌ Áö¿ª ³», È¤Àº ÀÎ±Ù ¿¹¾à °¡´ÉÇÑ ¼÷¼Ò 0°³</h1></td>
-							<td align="right"><a href="">Áöµµ·Î º¸±â</a></td>
+				  			<td><h1>ì´ ì§€ì—­ ë‚´, í˜¹ì€ ì¸ê·¼ ì˜ˆì•½ ê°€ëŠ¥í•œ ìˆ™ì†Œ 0ê°œ</h1></td>
+							<td align="right"><a href="">ì§€ë„ë¡œ ë³´ê¸°</a></td>
 						</tr>
 					</table>
 					<table border="1" width="100%">
 				  		<tr>
 							<td align="center">
-								<h2>¿øÇÏ´Â °Ë»ö°á°ú¸¦ ¾ò´Â ¹æ¹ý</h2><br>
-								<h3>´ÙÀ½ ¿É¼ÇÀ» »ç¿ëÇÏ¿© ¿øÇÏ´Â ¼÷¼Ò¸¦ Ã£¾Æº¸¼¼¿ä :</h3>
+								<h2>ì›í•˜ëŠ” ê²€ìƒ‰ê²°ê³¼ë¥¼ ì–»ëŠ” ë°©ë²•</h2><br>
+								<h3>ë‹¤ìŒ ì˜µì…˜ì„ ì‚¬ìš©í•˜ì—¬ ì›í•˜ëŠ” ìˆ™ì†Œë¥¼ ì°¾ì•„ë³´ì„¸ìš” :</h3>
 							</td>
 						</tr>
-						<tr><td>ÁÂÃø °Ë»öÃ¢ »ç¿ë</td></tr>
+						<tr><td>ì¢Œì¸¡ ê²€ìƒ‰ì°½ ì‚¬ìš©</td></tr>
 					</table>
 		</c:when>
 		<c:otherwise>
 					<table border="0" width="100%">
 						<tr>
-							<td><h1>°Ë»öµÈ ¼÷¼Ò</h1></td>
-							<td align="right"><a href="">Áöµµ·Î º¸±â</a></td>
+							<td><h1>ê²€ìƒ‰ëœ ìˆ™ì†Œ</h1></td>
+							<td align="right"><a href="">ì§€ë„ë¡œ ë³´ê¸°</a></td>
 						</tr>
 					</table>
 					<table border="1" width="100%">
 						<tr>
-							<th width="15%">¿ä±Ý</th>
-							<th width="20%">ÈÄ±â ÆòÁ¡</th>
-							<th width="30%">ÈÄ±â ÆòÁ¡ + ¿ä±Ý</th>
-							<th width="15%">¼º±Þ</th>
-							<th width="20%">¼º±Þ + ¿ä±Ý</th>
+							<th width="15%">ìš”ê¸ˆ</th>
+							<th width="20%">í›„ê¸° í‰ì </th>
+							<th width="30%">í›„ê¸° í‰ì  + ìš”ê¸ˆ</th>
+							<th width="15%">ì„±ê¸‰</th>
+							<th width="20%">ì„±ê¸‰ + ìš”ê¸ˆ</th>
 						</tr>
 					</table>
 			<c:forEach var="dto" items="${listAccomodation}">
@@ -103,18 +103,18 @@
 									<h3>[${dto.category_accomodation}]${dto.accomodation_name}</h3>
 								</a>
 							</td>
-							<td width="25%" align="right">ÀÌ¿ë ÈÄ±â ÆòÁ¡</td>
+							<td width="25%" align="right">ì´ìš© í›„ê¸° í‰ì </td>
 						</tr>
 						<tr>
-							<td width="50%"><a href="">${dto.city} - Áöµµ¿¡¼­ Ç¥½Ã</a></td>
+							<td width="50%"><a href="">${dto.city} - ì§€ë„ì—ì„œ í‘œì‹œ</a></td>
 							<td width="25%" align="right" rowspan="2">
-								<input type="button" value="¿ä±Ý Ç¥½Ã" onClick="location.href=''">
+								<input type="button" value="ìš”ê¸ˆ í‘œì‹œ" onClick="location.href=''">
 							</td>
 						</tr>
 						<tr><td width="50%">${dto.content}</td></tr>
 						<tr>
 							<td colspan="2" align="right">
-								<input type="button" value="¿¹¾à °¡´É ¿É¼Ç º¸±â" onClick="location.href='search_accomodation_content.do?num=${dto.num}'">
+								<input type="button" value="ì˜ˆì•½ ê°€ëŠ¥ ì˜µì…˜ ë³´ê¸°" onClick="location.href='search_accomodation_content.do?num=${dto.num}'">
 								<input type="hidden" name="start_date" value="${start_date}" />
 								<input type="hidden" name="end_date" value="${end_date}" />
 							</td>
