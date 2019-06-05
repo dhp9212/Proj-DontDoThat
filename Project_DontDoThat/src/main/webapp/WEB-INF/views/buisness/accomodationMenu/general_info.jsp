@@ -2,50 +2,43 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../_buisness_top.jsp"%>
-<table style="height:70%">
-	<tr>
-		<td class="m1">일반 정보</td>
-	</tr>
-	<tr>
-		<td>
-			<table>
-				<tr>
-					<td>${accomodation_dto.image}</td>
-				</tr>
-				<tr>
-					<td>숙소 이름</td>
-					<td>${accomodation_dto.accomodation_name}</td>
-				</tr>
-				<tr>
-					<td>숙소 주소</td>
-					<td>${accomodation_dto.city} ${accomodation_dto.address}</td>
-				</tr>
-				<tr>
-					<td><a href="accomodation_facility.do">시설 및 서비스</a></td>
-					<td><a href="accomodation_content.do">내 숙소 설명 보기</a></td>
-					<td><a href="policy.do">정책 변경</a></td>
-				</tr>
-				<tr>
-					<td><a href="onTheWay.do">${accomodation_dto.accomodation_name}까지 찾아오는 길</a></td>
-					<td><a href="picture.do">사진 변경</a>
-					<td><a href="nearby.do">숙소 근처에는 무엇이 있나요?</a></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<table>
-				<c:forEach var="table" items="${room_list}" varStatus="num">
-				<tr>
-					<td>${table.value.roomname}</td>
-					<td>${table.value.roomclass}</td>
-					<td>${table.value.qty}</td>
-					<td><a href="room_facility.do?room_num=${table.value.num}">방 설정 변경</a></td>
-				</tr>
-				</c:forEach>
-			</table>
-		</td>
-	</tr>
-</table>
+<div class="container-fluid" style="background-color:#fafafa; height:80%; overflow:auto;">
+	<div class="row" style="height:100;">
+		<div class="col-sm-11"><font size="5">숙소 정보</font></div>
+	</div>
+	<div class="row" style="height:50; margin:0 0 0 15;">
+		<div><font>숙소 이름 : </font></div>
+		<div class="col-sm-2"><font>${accomodation_dto.accomodation_name}</font></div>
+		<div><font>숙소 주소 : </font></div>
+		<div class="col-sm-5"><font>${accomodation_dto.city} ${accomodation_dto.address}</font></div>
+	</div>
+	<div class="row" style="height:250">
+		<div>
+			<div class="dropdown dropright" style="height:100; margin:0 0 0 15;">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					숙소 수정메뉴
+				</button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="accomodation_facility.do">시설 및 서비스</a>
+					<a class="dropdown-item" href="accomodation_content.do">내 숙소 설명 보기</a>
+					<a class="dropdown-item" href="policy.do">정책 변경</a>
+					<a class="dropdown-item" href="onTheWay.do">${accomodation_dto.accomodation_name} 까지 찾아오는 길</a>
+					<a class="dropdown-item" href="picture.do">사진 변경</a>
+					<a class="dropdown-item" href="nearby.do">숙소 근처에는 무엇이 있나요?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-7"></div>
+	</div>
+	<c:forEach var="table" items="${room_list}" varStatus="num">
+	<div class="row">
+		<div class="col-sm-2">방 이름 : ${table.value.roomname}</div>
+		<div class="col-sm-3">방 종류 : ${table.value.roomclass}</div>
+		<div class="col-sm-4">수량 : ${table.value.qty}</div>
+		<div class="col-sm-2"><a href="room_facility.do?room_num=${table.value.num}">방 설정 변경</a></div>
+	</div>
+	</c:forEach>	
+</div>
 <%@ include file="../_buisness_bottom.jsp"%>
