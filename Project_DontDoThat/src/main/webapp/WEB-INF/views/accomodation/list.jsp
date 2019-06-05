@@ -123,6 +123,18 @@
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
+	<c:if test="${count > 0}">
+		<c:set var="pageBlock" value="3" />
+		<c:if test="${startPage > pageBlock}">
+			<a href="accomodation_list.do?pageNum=${startPage - 1},input_place=${input_place},start_date=${start_date},end_date=${end_date},people=${people}"><</a>
+		</c:if>	
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<a href="accomodation_list.do?pageNum=${i},input_place=${input_place},start_date=${start_date},end_date=${end_date},people=${people}"><c:out value="${i}" /></a>
+		</c:forEach>
+		<c:if test="${endPage < pageCount}">
+			<a href="accomodation_list.do?pageNum=${startPage + pageBlock},input_place=${input_place},start_date=${start_date},end_date=${end_date},people=${people}">></a>
+		</c:if>
+	</c:if>
 				</div>
 			</td>
 		</tr>

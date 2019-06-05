@@ -36,8 +36,27 @@ public class AccomodationController {
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
 		String people = req.getParameter("people").trim();
-		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people);
+		int pageSize = 10;
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int count = accomodationMapper.getCount();
+		int endRow = currentPage * pageSize;
+		if (endRow > count) endRow = count;
+		int number = count - (currentPage - 1) * pageSize;
+		System.out.println(count);
+		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people, startRow, endRow);
 		req.setAttribute("listAccomodation", list);
+		if (count > 0) {
+			int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+			int pageBlock = 3;
+			int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+			int endPage = startPage + pageBlock - 1;
+			if (endPage > pageCount) endPage = pageCount;
+			req.setAttribute("count", count);
+			req.setAttribute("number", number);
+			req.setAttribute("pageCount", pageCount);
+			req.setAttribute("startPage", startPage);
+			req.setAttribute("endPage", endPage);
+		}
 		return "accomodation/list";
 	}
 	@RequestMapping(value="/search_accomodation_content.do")

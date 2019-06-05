@@ -71,12 +71,14 @@
 	
 	
 	<select id="listAccomodationAll" resultType="AccomodationDTO">
-		select * from accomodation
-		<!-- select * from (select rownum rn, * from accomodation) where rn between #{startRow} and #{endRow} -->
+		<!-- select * from accomodation -->
+		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
-		select * 
+		<!-- select * 
 		from accomodation
+		${condition} -->
+		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
 		${condition}
 	</select>
 	
@@ -108,7 +110,7 @@
 	<delete id="deleteReservation" parameterType="ReservationDTO">
 		delete from reservation where num = #{num}
 	</delete>
-	<select id="getCount" resultType="AccomodationDTO" parameterType="int">
+	<select id="getCount" resultType="int">
 		select count(*) from accomodation
 	</select>
 	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">

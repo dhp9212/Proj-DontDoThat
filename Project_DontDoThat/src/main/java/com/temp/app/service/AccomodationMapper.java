@@ -102,7 +102,7 @@ public class AccomodationMapper {
 		sqlSession.update("updateRoom_image", map);
 	}
 	//숙소 목록
-	public List<AccomodationDTO> listAccomodation(String input_place, String start_date, String end_date, String people){
+	public List<AccomodationDTO> listAccomodation(String input_place, String start_date, String end_date, String people, int startRow, int endRow){
 		HashMap<String, String> map = new HashMap<String, String>();
 		String condition = "";
 		if(input_place != null && !input_place.equals("")) {
@@ -112,11 +112,18 @@ public class AccomodationMapper {
 				condition += " and checkout_date >= " + end_date;
 			}
 		}
+		String startRowStr = Integer.toString(startRow);
+		String endRowStr = Integer.toString(endRow);
 		map.put("condition", condition);
+		map.put("startRow", startRowStr);
+		map.put("endRow", endRowStr);
 		return sqlSession.selectList("listAccomodation", map);
 	}
 	//숙소 전체 목록
-	public List<AccomodationDTO> listAccomodation() {
+	public List<AccomodationDTO> listAccomodation(int startRow, int endRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 		return sqlSession.selectList("listAccomodationAll");
 	}
 	//예약 등록
@@ -134,5 +141,9 @@ public class AccomodationMapper {
 	//숙소 정보 가져오기
 	public AccomodationDTO getAccomodationInfo(int num) {
 		return sqlSession.selectOne("getAccomodationInfo", num);
+	}
+	//숙소 갯수 가져오기
+	public int getCount() {
+		return sqlSession.selectOne("getCount");
 	}
 }
