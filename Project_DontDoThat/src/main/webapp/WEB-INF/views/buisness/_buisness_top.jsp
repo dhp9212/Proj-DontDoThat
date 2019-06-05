@@ -1,82 +1,65 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/basic_style.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<style>
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
-<script>
-	$(document).ready(function() {
-		$('.table').on('click', function(){
-			for(var i=1; i<4; ++i){
-				$('#'+i).hide()
-			}
-			switch($(this).text()){
-			case '그룹 홈' : $('#1').show(); break;
-			case '예약' : $('#2').show(); break;
-			case '이용 후기' : $('#3').show(); break;
-			}
-		})
-		$('.menu').on('mouseenter', function(){
-			$('#calenderMenu').attr('class', 'hide')
-			$('#accomodationMenu').attr('class', 'hide')
-			$('#messageMenu').attr('class', 'hide')
-			$('#payMenu').attr('class', 'hide')
-			$('#menu').show()
-			switch($(this).text()){
-			case '요금 및 캘린더' : visible('calenderMenu'); break;
-			case '숙소' : visible('accomodationMenu'); break;
-			case '메세지' : visible('messageMenu'); break;
-			case '재무' : visible('payMenu'); break;
-			}
-		})
-	})
-	function visible(id){
-		$('#blank').attr('class', id);
-		if($('#'+id).attr('class')=='hide') $('#'+id).attr('class', 'show')
-		else $('#'+id).attr('class', 'hide')
-		$('#'+id).on('mouseleave', function(){
-			$('#'+id).attr('class', 'hide')
-			$('#menu').hide()
-		})
-	}
-</script>
 <body>
-	<div>
-		<table class="dark_blue">
-			<tr>
-				<td width="75%">
-					<a href="home.do">인덱스로</a><br>
-					<a href="buisness_index.do">사업자 홈으로</a>
-				</td>
-				<td><input name="search" type="text" size="10"></td>
-				<td><input type="button" class="search"></td>
-				<td>어카운트</td>
-				<td>숙소</td>
-			</tr>		
-		</table>
+<div>
+	<div class="row" style="background-color:#000080;">
+		<div style="margin:5 0 0 30;" class="col-sm-7"><a href="home.do"><font class="text-white">인덱스로</font></a></div>
+		<div class="col-sm-2"><input type="text" style="height:25; margin:5 0 0 0;" name="search" class="form-control"></div>
+		<div style="margin:5 0 0 0;" class="col-sm-1"><font class="text-white">어카운트</font></div>
+		<div style="margin:5 0 0 0;" class="col-sm-1"><font class="text-white">숙소</font></div>
 	</div>
-	<div>
-		<table class="blue">
-			<tr>
-				<td class="table" width="30%"><a href="buisness_index.do">그룹 홈</a></td>
-			<c:if test="${!empty accomodation_num}">
-				<td class="table"><a href="general_info.do">숙소 정보</a></td>
-			</c:if>
-				<td class="table">예약</td>
-				<td class="table">이용 후기</td>
-				<td class="menu">요금 및 캘린더</td>
-				<td class="menu">숙소</td>
-				<td class="menu">메세지</td>
-				<td class="menu">재무</td>
-
-			</tr>
-		</table>
+	<div class="row" style="background-color:#000080;">
+		<div style="margin:0 0 0 30;" class="col-sm-11"><a href="buisness_index.do"><font class="text-white">사업자 홈으로</font></a></div>
+	</div>
+	<c:if test="${!empty accomodation_num}">
+	<div class="row" style="background-color:#000080;">
+		<div style="margin:0 10 0 30;" class="col-sm-11"><a href="general_info.do"><font class="text-white">숙소 정보</font></a></div>
+	</div>
+	</c:if>
+	<div class="row" style="background-color:blue;">
+		<div style="margin:5 0 0 30;" class="col-sm-1"><font class="text-white">예약</font></div>
+		<div style="margin:5 0 0 30;" class="col-sm-5"><font class="text-white">이용 후기</font></div>
+		<div class="col-sm-1">
+			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">숙소</button>
+			<div class="dropdown-menu">
+			<c:forEach var="dto" items="${accomodation_list}" varStatus="num">
+		      <a class="dropdown-item" href="general_info.do?accomodation_num=${dto.value.num}">${dto.value.accomodation_name}</a>
+		    </c:forEach>
+		    </div>
+		</div>
+		<div class="col-sm-1">
+			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">메세지</button>
+			<div class="dropdown-menu">
+		      <a class="dropdown-item" href="custom_message.do">고객 메세지</a>
+		      <a class="dropdown-item" href="admin_message.do">dontDoThat 메세지</a>
+		    </div>
+		</div>
+		<div class="col-sm-1">
+			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">재무</button>
+			<div class="dropdown-menu">
+		      <a class="dropdown-item" href="bill.do">청구서</a>
+		      <a class="dropdown-item" href="reservation_specification.do">예약 명세서</a>
+		      <a class="dropdown-item" href="financial_overview.do">재무 개요</a>
+		      <a class="dropdown-item" href="account_info">은행 계좌 정보</a>
+		    </div>
+		</div>
+	</div>
+</div>
+	<!-- 				미구현
 		<table>
 			<tr id="menu" class="hide">
 				<td id="blank"></td>
-				<td id="calenderMenu" class="menuHide">
+
+					<td id="calenderMenu" class="menuHide">
 					<table>
 						<tr>
 							<td><a href="calender.do">캘린더</a></td>
@@ -92,56 +75,6 @@
 						</tr>
 					</table>
 				</td>
-				<td id="accomodationMenu" class="menuHide">
-					<table>
-						<tr>
-							<td><a href="homepage.do">숙소 페이지 점수</a></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><a href="message_setting.do">메세지 설정</a></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td><a href="profile.do">프로필</a></td>
-						</tr>
-					</table>
-				</td>
-				<td id="messageMenu" class="menuHide">
-					<table>
-						<tr>
-							<td><a href="custom_message.do">고객 메세지</a></td>
-						</tr>
-						<tr>
-							<td><a href="admin_message.do">dontDoThat 메세지</a></td>
-						</tr>
-					</table>
-				</td>
-				<td id="payMenu" class="menuHide">
-					<table>
-						<tr>
-							<td><a href="bill.do">청구서</a></td>
-						</tr>
-						<tr>
-							<td><a href="reservation_specification.do">예약 명세서</a></td>
-						</tr>
-						<tr>
-							<td><a href="financial_overview.do">재무 개요</a></td>
-						</tr>
-						<tr>
-							<td><a href="account_info.do">은행 계좌 정보</a></td>
-						</tr>
-					</table>
-				</td>
 			</tr>
 		</table>
-	</div>
-	<div style="height:90%; overflow:scroll;">
-	
+	-->	
