@@ -3,8 +3,10 @@ package com.temp.app;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +24,7 @@ import com.temp.app.service.AccomodationMapper;
 
 @Controller
 public class BuisnessController {
-	//경로
+	//寃쎈줈
 	String calenderPath = "buisness/calenderMenu/";
 	String accomodationPath = "buisness/accomodationMenu/";
 	String payPath = "buisness/payMenu/";
@@ -30,7 +32,7 @@ public class BuisnessController {
 	@Autowired
 	AccomodationMapper accomodationMapper;
 	
-	//세션 명칭
+	//�꽭�뀡 紐낆묶
 	HttpSession session;
 	
 	@RequestMapping(value="buisness_index.do")
@@ -159,9 +161,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String accomodation_facility = req.getParameter("accomodation_facility");
-		//데이터베이스 저장
+		//�뜲�씠�꽣踰좎씠�뒪 ���옣
 		accomodationMapper.updateAccomodation_facility(accomodation_num, accomodation_facility);
-		//변경사항 서버에 저장
+		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setAccomodation_facility(accomodation_facility);
@@ -174,9 +176,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String content = req.getParameter("content");
-		//데이터베이스 저장
+		//�뜲�씠�꽣踰좎씠�뒪 ���옣
 		accomodationMapper.updateContent(accomodation_num, content);
-		//변경사항 서버에 저장
+		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setContent(content);
@@ -187,14 +189,26 @@ public class BuisnessController {
 	@RequestMapping(value="updatePolicy")
 	public String updatePolicy(HttpServletRequest req) {
 		session = req.getSession();
+		Map<String, String> map = new HashMap<String, String>();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String policy = req.getParameter("policy");
-		//데이터베이스 저장
-		accomodationMapper.updatePolicy(accomodation_num, policy);
-		//변경사항 서버에 저장
+		String payment = req.getParameter("payment");
+		String checkin_date = req.getParameter("checkin_date");
+		String checkout_date = req.getParameter("checkout_date");
+		map.put("policy" ,req.getParameter("policy"));
+		map.put("payment" ,req.getParameter("payment"));
+		map.put("checkin_date" ,req.getParameter("checkin_date"));
+		map.put("checkout_date" ,req.getParameter("checkout_date"));
+		map.put("accomodation_num", accomodation_num);
+		//�뜲�씠�꽣踰좎씠�뒪 ���옣
+		accomodationMapper.updatePolicy(accomodation_num, map);
+		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setPolicy(policy);
+		dto.setPayment(payment);
+		dto.setCheckin_date(checkin_date);
+		dto.setCheckout_date(checkout_date);
 		table.put(accomodation_num, dto);
 		
 		return "forward:general_info.do";
@@ -204,9 +218,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String nearby = req.getParameter("nearby");
-		//데이터베이스 저장
+		//�뜲�씠�꽣踰좎씠�뒪 ���옣
 		accomodationMapper.updateNearby(accomodation_num, nearby);
-		//변경사항 서버에 저장
+		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setNearby(nearby);
@@ -216,13 +230,13 @@ public class BuisnessController {
 	}
 	@RequestMapping(value="updateImage.do")
 	public String updateImage(HttpServletRequest req) {
-		//경로지정
+		//寃쎈줈吏��젙
 		HttpSession session = req.getSession();
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
 		List<MultipartFile> files = mr.getFiles("files");
 		for(MultipartFile mf : files) {
-			//서버에 파일쓰기
+			//�꽌踰꾩뿉 �뙆�씪�벐湲�
 			File file = new File(upPath, mf.getOriginalFilename());
 			try {
 				mf.transferTo(file);
@@ -232,11 +246,11 @@ public class BuisnessController {
 				e.printStackTrace();
 			}
 		}
-		//데이터베이스에 저장(Accomodation)
+		//�뜲�씠�꽣踰좎씠�뒪�뿉 ���옣(Accomodation)
 		String accomodation_image = req.getParameter("accomodation_image");
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		accomodationMapper.updateImage(accomodation_num, accomodation_image);
-		//변경사항 세션 저장(Accomodation)
+		//蹂�寃쎌궗�빆 �꽭�뀡 ���옣(Accomodation)
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO adto = table.get(accomodation_num);
 		adto.setImage(accomodation_image);
@@ -245,12 +259,12 @@ public class BuisnessController {
 		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
 		Enumeration<String> key = room_list.keys();
 		while(key.hasMoreElements()) {
-			//데이터베이스에 저장(Room)
+			//�뜲�씠�꽣踰좎씠�뒪�뿉 ���옣(Room)
 			String room_num = key.nextElement();
 			String room_image = req.getParameter(room_num + "room_image");
 			if(room_image=="") continue;
 			accomodationMapper.updateRoom_image(room_num, room_image);
-			//변경내용 세션저장(Room)
+			//蹂�寃쎈궡�슜 �꽭�뀡���옣(Room)
 			RoomDTO rdto = room_list.get(room_num);
 			rdto.setRoom_image(room_image);
 			room_list.put(room_num, rdto);

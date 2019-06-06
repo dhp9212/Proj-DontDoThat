@@ -690,7 +690,6 @@
 								<input name="check_in_e" type="button" value="24:00" onclick="javascript:checkTime(this)">
 								<select class="select" name="check_in_e" onchange="javascript:checkTime(this)">
 									<option>기타</option>
-									<option>00:00</option>
 									<option>01:00</option>
 									<option>02:00</option>
 									<option>03:00</option>
@@ -714,6 +713,7 @@
 									<option>21:00</option>
 									<option>22:00</option>
 									<option>23:00</option>
+									<option>24:00</option>
 								</select>
 							</td>
 							<td>
@@ -755,7 +755,6 @@
 								<input name="check_out_e" type="button" value="12:00" onclick="javascript:checkTime(this)">
 								<select class="select" name="check_out_e" onchange="javascript:checkTime(this)">
 									<option>기타</option>
-									<option>00:00</option>
 									<option>01:00</option>
 									<option>02:00</option>
 									<option>03:00</option>
@@ -779,6 +778,7 @@
 									<option>21:00</option>
 									<option>22:00</option>
 									<option>23:00</option>
+									<option>24:00</option>
 								</select>
 							</td>
 						</tr>

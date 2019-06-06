@@ -34,7 +34,7 @@
 	<div class="row">
 		<div class="col-sm-2">방 사양</div>
 		<div class="col-sm-3">
-			<select class="form-control">
+			<select name="roomclass" class="form-control">
 			<c:forEach var="list" items="${categoryRoom}">
 				<c:forEach var="str" items="${list.value}">
 					<option>${str}</option>

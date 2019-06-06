@@ -54,7 +54,7 @@
 		update accomodation set content=#{content} where num=#{accomodation_num}
 	</update>
 	<update id="updatePolicy" parameterType="Map">
-		update accomodation set policy=#{policy} where num=#{accomodation_num}
+		update accomodation set policy=#{policy}, payment=#{payment}, checkin_date=#{checkin_date}, checkout_date=#{checkout_date} where num=#{accomodation_num}
 	</update>
 	<update id="updateNearby" parameterType="Map">
 		update accomodation set nearby=#{nearby} where num=#{accomodation_num}

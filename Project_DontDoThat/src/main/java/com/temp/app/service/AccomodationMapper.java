@@ -77,10 +77,7 @@ public class AccomodationMapper {
 		sqlSession.update("updateContent", map);
 	}
 	//업데이트 정책
-	public void updatePolicy(String accomodation_num, String policy) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("accomodation_num", accomodation_num);
-		map.put("policy", policy);
+	public void updatePolicy(String accomodation_num, Map<String, String> map) {
 		sqlSession.update("updatePolicy", map);
 	}
 	public void updateNearby(String accomodation_num, String nearby) {

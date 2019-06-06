@@ -57,13 +57,11 @@ public class RoomController {
 	public String insertManyForm(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		Hashtable<String, List<String>> categoryRoom = (Hashtable<String, List<String>>) session.getAttribute("categoryRoom");
-		Hashtable<String, List<String>> facilities = (Hashtable<String, List<String>>) session.getAttribute("facilities");
 		
 		req.setAttribute("country", standardInformationMapper.selectCountry());
 		req.setAttribute("sin" , categoryRoom.get("ΩÃ±€∑Î"));
 		req.setAttribute("dou" , categoryRoom.get("¥ı∫Ì∑Î"));
 		req.setAttribute("dor" , categoryRoom.get("µµπÃ≈‰∏Æ∑Î"));
-		req.setAttribute("facilities", facilities);
 		req.setAttribute("card", categoryMapper.selectCardList());
 		return "room/insert2";
 	}
