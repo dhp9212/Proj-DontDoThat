@@ -3,6 +3,8 @@ package com.temp.app.service;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -96,8 +98,10 @@ public class AccomodationMapper {
 		HttpSession session = mr.getSession();
 		String accomodation_image = mr.getParameter("accomodation_image");
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
-		//이번 등록동안 사용할 카운트
-		int count = 0;
+		//이번 등록동안 사용할 맵, 카운터
+		Integer count = 0;
+		Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
+		
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
 		String image = "";
@@ -105,9 +109,22 @@ public class AccomodationMapper {
 			for(MultipartFile mf : accomodatation_files) {
 				//파일이 이미지 타입이 아닌경우 다음파일로
 				if(!mf.getContentType().substring(0, 5).equals("image")) continue;
-				//파라메터 값 분석후 image값 넣음 + 파일쓰기
-				image = imageCheck(mf, accomodation_image, upPath, image, count);
-			}	
+				//파라메터 값 분석후 바뀐 값 맵에 저장  + 파일쓰기
+				count = count+1;
+				imageCheck(mf, accomodation_image, upPath, count, change_index);
+			}
+			if(change_index.size()!=0) {
+				Enumeration<Integer> change_index_key = change_index.keys();
+				ArrayList<String> list = new ArrayList<String>(Arrays.asList(accomodation_image.split(",")));
+				while(change_index_key.hasMoreElements()) {
+					Integer index = change_index_key.nextElement();
+					list.set(index, change_index.get(index));
+				}
+				for(String str : list) {
+					if(image.equals("")) image = str;
+					else image += "," + str;
+				}
+			}
 		}else {
 			//만약 변경사항이 없는경우(지우기만 한 경우)
 			image = accomodation_image;
@@ -126,7 +143,7 @@ public class AccomodationMapper {
 		updateRoom_image(mr, count);
 	}
 	//방 이미지 변경
-	public void updateRoom_image(MultipartHttpServletRequest mr, int count) {
+	public void updateRoom_image(MultipartHttpServletRequest mr, Integer count) {
 		HttpSession session = mr.getSession();
 		String upPath = session.getServletContext().getRealPath("resources/img");
 		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
@@ -135,11 +152,29 @@ public class AccomodationMapper {
 			String room_num = key.nextElement();
 			String room_image = mr.getParameter(room_num + "room_image");
 			List<MultipartFile> room_files = mr.getFiles(room_num + "room_files");
+			//이번 등록동안 사용할 맵, 카운터
+			Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
+			count = count+100;
 			String image = "";
 			if(room_files.size()!=0) {
 				for(MultipartFile mf : room_files) {
-					//파라메터 값 분석후 image값 넣음  + 파일쓰기
-					image = imageCheck(mf, room_image, upPath, image, count);
+					//파일이 이미지 타입이 아닌경우 다음파일로
+					if(!mf.getContentType().substring(0, 5).equals("image")) continue;
+					//파라메터 값 분석후 바뀐 값 맵에 저장  + 파일쓰기
+					count = count+1;
+					imageCheck(mf, room_image, upPath, count, change_index);
+				}
+				if(change_index.size()!=0) {
+					Enumeration<Integer> change_index_key = change_index.keys();
+					ArrayList<String> list = new ArrayList<String>(Arrays.asList(room_image.split(",")));
+					while(change_index_key.hasMoreElements()) {
+						Integer index = change_index_key.nextElement();
+						list.set(index, change_index.get(index));
+					}
+					for(String str : list) {
+						if(image.equals("")) image = str;
+						else image += "," + str;
+					}
 				}
 			}else {
 				//만약 변경사항이 없는경우(지우기만 한 경우)
@@ -157,24 +192,27 @@ public class AccomodationMapper {
 		}
 	}
 	//파라메터값과 현재파일값 분석 및 저장
-	private String imageCheck(MultipartFile mf, String target_image, String upPath, String save_name, int count) {
+	private synchronized void imageCheck(MultipartFile mf, String target_image, String upPath, Integer count, Hashtable<Integer, String> change_index) {
 		String[] images = target_image.split(",");
-		for(String image : images) {
-			count++;
+		for(int i=0; i<images.length; ++i) {
+			String image = images[i];
 			//파일이름이 여기 이름과 같은지 비교
-			if(mf.getOriginalFilename().equals(image)) {
+			boolean check = false;
+			String filename = mf.getOriginalFilename();
+			if(filename.equals(image)) {
+				Enumeration<Integer> change_index_key = change_index.keys();
+				while(change_index_key.hasMoreElements()) {
+					Integer index = change_index_key.nextElement();
+					if(i==index) check = true;
+				}
+				if(check) continue;
 				//만약 파일이 이미 있다면  이름을 적어두고 다음파일로
-				if(new File(upPath, image).exists()) {
-					if(save_name=="") save_name = image;
-					else save_name += "," + image;
-					continue;
-				}else {
+				if(!new File(upPath, image).exists()) {
+					count = count+1;
 					//없는 파일이라면 시간 + count + 확장자 저장
 					String extension = image.substring(image.lastIndexOf('.'));
 					String time = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + count + extension;
 					File file = new File(upPath, time);
-					if(save_name=="") save_name = time;
-					else save_name += "," + time;
 					try {
 						mf.transferTo(file);
 					} catch (IllegalStateException e) {
@@ -182,10 +220,11 @@ public class AccomodationMapper {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					change_index.put(i, time);
+					return;
 				}
 			}else continue;
 		}
-		return save_name;
 	}
 	//���� ���
 	public List<AccomodationDTO> listAccomodation(String input_place, String start_date, String end_date, String people, int startRow, int endRow){
