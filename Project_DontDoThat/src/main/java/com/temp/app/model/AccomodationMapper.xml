@@ -63,7 +63,7 @@
 		update accomodation set image=#{image} where num=#{accomodation_num}
 	</update>
 	<update id="updateRoom_image" parameterType="Map">
-		update room set room_image=#{room_image} where num=#{room_num}
+		update room set room_image=#{room_image, jdbcType=VARCHAR} where num=#{room_num}
 	</update>
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}

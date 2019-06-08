@@ -24,7 +24,7 @@ import com.temp.app.service.AccomodationMapper;
 
 @Controller
 public class BuisnessController {
-	//寃쎈줈
+	//편의상의 경로
 	String calenderPath = "buisness/calenderMenu/";
 	String accomodationPath = "buisness/accomodationMenu/";
 	String payPath = "buisness/payMenu/";
@@ -32,7 +32,6 @@ public class BuisnessController {
 	@Autowired
 	AccomodationMapper accomodationMapper;
 	
-	//�꽭�뀡 紐낆묶
 	HttpSession session;
 	
 	@RequestMapping(value="buisness_index.do")
@@ -161,9 +160,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String accomodation_facility = req.getParameter("accomodation_facility");
-		//�뜲�씠�꽣踰좎씠�뒪 ���옣
+		//데이터베이스 내용 개변
 		accomodationMapper.updateAccomodation_facility(accomodation_num, accomodation_facility);
-		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
+		//서버내용 개변
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setAccomodation_facility(accomodation_facility);
@@ -176,9 +175,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String content = req.getParameter("content");
-		//�뜲�씠�꽣踰좎씠�뒪 ���옣
+		//데이터베이스 내용 개변
 		accomodationMapper.updateContent(accomodation_num, content);
-		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
+		//서버내용 개변
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setContent(content);
@@ -200,9 +199,9 @@ public class BuisnessController {
 		map.put("checkin_date" ,req.getParameter("checkin_date"));
 		map.put("checkout_date" ,req.getParameter("checkout_date"));
 		map.put("accomodation_num", accomodation_num);
-		//�뜲�씠�꽣踰좎씠�뒪 ���옣
+		//데이터베이스 내용 개변
 		accomodationMapper.updatePolicy(accomodation_num, map);
-		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
+		//서버내용 개변
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setPolicy(policy);
@@ -218,9 +217,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String nearby = req.getParameter("nearby");
-		//�뜲�씠�꽣踰좎씠�뒪 ���옣
+		//데이터베이스 내용 개변
 		accomodationMapper.updateNearby(accomodation_num, nearby);
-		//蹂�寃쎌궗�빆 �꽌踰꾩뿉 ���옣
+		//서버내용 개변
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setNearby(nearby);
@@ -230,45 +229,10 @@ public class BuisnessController {
 	}
 	@RequestMapping(value="updateImage.do")
 	public String updateImage(HttpServletRequest req) {
-		//寃쎈줈吏��젙
-		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("resources/img");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		List<MultipartFile> files = mr.getFiles("files");
-		for(MultipartFile mf : files) {
-			//�꽌踰꾩뿉 �뙆�씪�벐湲�
-			File file = new File(upPath, mf.getOriginalFilename());
-			try {
-				mf.transferTo(file);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		//�뜲�씠�꽣踰좎씠�뒪�뿉 ���옣(Accomodation)
-		String accomodation_image = req.getParameter("accomodation_image");
-		String accomodation_num = (String)session.getAttribute("accomodation_num");
-		accomodationMapper.updateImage(accomodation_num, accomodation_image);
-		//蹂�寃쎌궗�빆 �꽭�뀡 ���옣(Accomodation)
-		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
-		AccomodationDTO adto = table.get(accomodation_num);
-		adto.setImage(accomodation_image);
-		table.put(accomodation_num, adto);
+		//숙소 이미지 데이터베이스 등록(Accomodation)
+		accomodationMapper.updateImage(mr);
 		
-		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
-		Enumeration<String> key = room_list.keys();
-		while(key.hasMoreElements()) {
-			//�뜲�씠�꽣踰좎씠�뒪�뿉 ���옣(Room)
-			String room_num = key.nextElement();
-			String room_image = req.getParameter(room_num + "room_image");
-			if(room_image=="") continue;
-			accomodationMapper.updateRoom_image(room_num, room_image);
-			//蹂�寃쎈궡�슜 �꽭�뀡���옣(Room)
-			RoomDTO rdto = room_list.get(room_num);
-			rdto.setRoom_image(room_image);
-			room_list.put(room_num, rdto);
-		}
 		return "forward:general_info.do";
 	}
 }

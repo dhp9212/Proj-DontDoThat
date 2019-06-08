@@ -3,7 +3,7 @@
 <%@ include file="../_buisness_top.jsp"%>
 <style>
 	.hide{
-		visibility: hidden;
+		display: none;
 	}
 	.pay{
 		margin:20 20 0 15;
@@ -12,6 +12,7 @@
 		cursor:pointer;
 	}
 	.border{
+		background-color: white;
 		padding: 20;
 		margin: 10;
 	}
@@ -20,13 +21,14 @@
 	$(document).ready(function() {
 		$('select').change(function(){
 			if($(this).attr('name')!='cancel'){
-				if($(this).val()=='pay') $('#' + $(this).attr('name') + '_pay').removeAttr('class')
+				if($(this).val()=='pay') $('#' + $(this).attr('name') + '_pay').show()
 				else {
 					$('input[name="' + $(this).attr('name') + '_pay"]').val('0')
-					$('#' + $(this).attr('name') + '_pay').attr('class', 'hide')
+					$('#' + $(this).attr('name') + '_pay').hide()
 				}
 			}
 		})
+		<%@ include file="../onlyNumber.jsp"%>
 		$('.cardCheck').click(function(){
 			$(this).children('input').trigger('click')
 		})
@@ -50,11 +52,13 @@
 			else if(i<9) str = 'pet'
 			if(i%3==1){
 				$("select[name=" + str + "]").val(list[i]).prop("selected", true)
-				if($("select[name=" + str + "]").val()=="pay") $('#' + str + '_pay').removeAttr('class')
+				if($("select[name=" + str + "]").val()=="pay") $('#' + str + '_pay').show()
 			}
 			if(i%3==2){
 				if(i<3) $("select[name=" + str + "_pay]").val(list[i]).prop("selected", true)
-				else $("input[name='" + str + "_pay']").val(list[i])
+				else {
+					if(list[i]!='0') $("input[name='" + str + "_pay']").val(list[i]/1000)
+				}
 			}
 		}
 		var checkin_date = '${accomodation_dto.checkin_date}'.split(' ~ ')
@@ -77,9 +81,9 @@
 	function checkPay(name){
 		if($('select[name="' + name + '"]').val()=='pay'){
 			var pay = $('input[name="' + name + '_pay"]').val()
-			if(pay<1000){
-				if(name=='children') var str = 'no-kid정책이'
-				else var str = '반려동물 정책이'
+			if(pay==0){
+				if(name=='children') var str = 'no-kid 가격 정책이'
+				else var str = '반려동물 가격 정책이'
 				alert('1000원 미만은 설정 할 수 없습니다.\n' + str + ' 무료정책으로 취급됩니다.')
 				$('select[name="' + name + '"]').val('free')
 				return '0'
@@ -87,7 +91,7 @@
 		}else{
 			return '0'
 		}
-		return pay
+		return pay*1000
 	}
 	function policyInput(){
 		var children = checkPay('children')
@@ -114,8 +118,8 @@
 		$('input[name=checkout_date]').val($('#check_out_s').val() + ' ~ ' + $('#check_out_e').val())
 	}
 	function addCard(value){
-		if(value=='yes') $('#card_list').attr('class', 'row')
-		else $('#card_list').attr('class', 'row hide')
+		if(value=='yes') $('#card_list').show(100)
+		else $('#card_list').hide(100)
 	}
 	function checkTime(select){
 		var check = time_contradictionCheck(select)
@@ -203,7 +207,7 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-6 pay">
-					<span id="children_pay" class="hide">가격 : <input type="text" name="children_pay">원</span>
+					<span id="children_pay" class="hide">가격 : <input type="text"name="children_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
 				</div>
 			</div>
 		</div>
@@ -220,7 +224,7 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-6 pay">
-					<span id="pet_pay" class="hide">가격 : <input type="text" name="pet_pay">원</span>
+					<span id="pet_pay" class="hide">가격 : <input type="text" name="pet_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
 				</div>
 			</div>
 		</div>
@@ -237,7 +241,7 @@
 		</div>
 	</div>
 	<div id="card_list" class="row hide">
-		<div class="col-sm-8 border">
+		<div class="col-sm-12 border">
 			<div class="row pay">
 				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="American Express">American Express</div>
 				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Visa">Visa</div>

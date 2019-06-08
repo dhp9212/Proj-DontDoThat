@@ -1,20 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../_buisness_top.jsp"%>
-<div class="container-fluid" style="background-color:#fafafa; height:80%; overflow:auto;">
-	<div class="row" style="height:100;">
-		<div class="col-sm-11"><font size="5">숙소 정보</font></div>
+<style>
+	.border{
+		margin: 15;
+		padding: 10;
+		background-color: white;
+	}
+	.menu{
+		margin: 15;
+		padding: 10;
+	}
+</style>
+<div class="container">
+	<div class="row" style="height:70;">
+		<div class="col-sm-12  border"><font size="5">숙소 정보</font></div>
 	</div>
-	<div class="row" style="height:50; margin:0 0 0 15;">
-		<div><font>숙소 이름 : </font></div>
-		<div class="col-sm-2"><font>${accomodation_dto.accomodation_name}</font></div>
-		<div><font>숙소 주소 : </font></div>
-		<div class="col-sm-5"><font>${accomodation_dto.city} ${accomodation_dto.address}</font></div>
+	<div class="row" style="height:50;">
+		<div class="col-sm-12 border">
+			<div class="row">
+				<div class="col-sm-4"><font>숙소 이름 : ${accomodation_dto.accomodation_name}</font></div>
+				<div class="col-sm-8"><font>숙소 주소 : ${accomodation_dto.city} ${accomodation_dto.address}</font></div>
+			</div>
+		</div>
 	</div>
-	<div class="row" style="height:250">
-		<div>
-			<div class="dropdown dropright" style="height:100; margin:0 0 0 15;">
+	<div class="row" style="height:270">
+		<div class="col-sm-12 menu">
+			<div class="dropdown dropright" style="height:100;">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					숙소 수정메뉴
 				</button>
@@ -34,11 +46,15 @@
 	</div>
 	<c:forEach var="table" items="${room_list}" varStatus="num">
 	<div class="row">
-		<div class="col-sm-2">방 이름 : ${table.value.roomname}</div>
-		<div class="col-sm-3">방 종류 : ${table.value.roomclass}</div>
-		<div class="col-sm-4">수량 : ${table.value.qty}</div>
-		<div class="col-sm-2"><a href="room_facility.do?room_num=${table.value.num}">방 설정 변경</a></div>
+		<div class="col-sm-12 border">
+			<div class="row">
+				<div class="col-sm-2">방 이름 : ${table.value.roomname}</div>
+				<div class="col-sm-3">방 종류 : ${table.value.roomclass}</div>
+				<div class="col-sm-4">수량 : ${table.value.qty}</div>
+				<div class="col-sm-2"><a href="room_facility.do?room_num=${table.value.num}">방 설정 변경</a></div>
+			</div>
+		</div>
 	</div>
-	</c:forEach>	
+	</c:forEach>
 </div>
 <%@ include file="../_buisness_bottom.jsp"%>

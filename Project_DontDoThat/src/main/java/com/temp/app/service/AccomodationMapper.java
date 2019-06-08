@@ -1,14 +1,23 @@
 package com.temp.app.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.AccomodationDTO;
 import com.temp.app.model.ReservationDTO;
@@ -19,28 +28,23 @@ public class AccomodationMapper {
 	@Autowired
 	private SqlSession sqlSession;
 
-	//¼÷¼Òµî·Ï
 	public int insertAccomodation(AccomodationDTO dto) {
 		sqlSession.insert("insertAccomodation", dto);
 		return dto.getNum();
 	}
-	//¹æ ¿©·Á°³ µî·Ï
 	public void insertRoom(List<RoomDTO> list) {
 		for(RoomDTO dto : list) {
 			sqlSession.insert("insertRoom", dto);
 		}
 	}
-	//¹æ ÇÏ³ª µî·Ï
 	public void insertRoom(RoomDTO dto) {
 		sqlSession.insert("insertRoom", dto);
 	}
 	
-	//¹æ ¾÷µ¥ÀÌÆ®
 	public void updateRoom(RoomDTO dto) {
 		sqlSession.update("updateRoom", dto);
 	}
 	
-	//ÀÌ¸§¿¡ ¸Â´Â ¼÷¼Ò °¡Á®¿À±â
 	public Hashtable<String, AccomodationDTO> getAccomodation(int num){
 		Hashtable<String, AccomodationDTO> table = new Hashtable<String, AccomodationDTO>();
 		try {
@@ -53,7 +57,7 @@ public class AccomodationMapper {
 		}
 		return table;
 	}
-	//¹æ Á¤º¸ °¡Á®¿À±â
+	//ìœ ì €ì— ë§ëŠ” ìˆ™ì†Œ ê°€ì ¸ì˜¤ê¸°
 	public Hashtable<String, RoomDTO> getRoomList(String num){
 		List<RoomDTO> list = sqlSession.selectList("getRoomList", num);
 		Hashtable<String, RoomDTO> table = new Hashtable<String, RoomDTO>();
@@ -62,43 +66,128 @@ public class AccomodationMapper {
 		}
 		return table;
 	}
-	//¾÷µ¥ÀÌÆ® ¼÷¼Ò½Ã¼³
+	//ìˆ™ì†Œ ì‹œì„¤ ì—…ë°ì´íŠ¸
 	public void updateAccomodation_facility(String accomodation_num, String accomodation_facility) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("accomodation_facility", accomodation_facility);
 		sqlSession.update("updateAccomodation_facility", map);
 	}
-	//¾÷µ¥ÀÌÆ® ³»¿ë
+	//ìˆ™ì†Œ ë‚´ìš© ì—…ë°ì´íŠ¸
 	public void updateContent(String accomodation_num, String content) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("content", content);
 		sqlSession.update("updateContent", map);
 	}
-	//¾÷µ¥ÀÌÆ® Á¤Ã¥
+	//ìˆ™ì†Œ ì •ì±… ì—…ë°ì´íŠ¸
 	public void updatePolicy(String accomodation_num, Map<String, String> map) {
 		sqlSession.update("updatePolicy", map);
 	}
+	//ì£¼ë³€ì‹œì„¤
 	public void updateNearby(String accomodation_num, String nearby) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("nearby", nearby);
 		sqlSession.update("updateNearby", map);
 	}
-	public void updateImage(String accomodation_num, String image) {
+	//ìˆ™ì†Œ ì´ë¯¸ì§€ ë³€ê²½
+	public void updateImage(MultipartHttpServletRequest mr) {
+		HttpSession session = mr.getSession();
+		String accomodation_image = mr.getParameter("accomodation_image");
+		String accomodation_num = (String)session.getAttribute("accomodation_num");
+		//ì´ë²ˆ ë“±ë¡ë™ì•ˆ ì‚¬ìš©í•  ì¹´ìš´íŠ¸
+		int count = 0;
+		String upPath = session.getServletContext().getRealPath("resources/img");
+		List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
+		String image = "";
+		if(accomodatation_files.size()!=0) {
+			for(MultipartFile mf : accomodatation_files) {
+				//íŒŒì¼ì´ ì´ë¯¸ì§€ íƒ€ì…ì´ ì•„ë‹Œê²½ìš° ë‹¤ìŒíŒŒì¼ë¡œ
+				if(!mf.getContentType().substring(0, 5).equals("image")) continue;
+				//íŒŒë¼ë©”í„° ê°’ ë¶„ì„í›„ imageê°’ ë„£ìŒ + íŒŒì¼ì“°ê¸°
+				image = imageCheck(mf, accomodation_image, upPath, image, count);
+			}	
+		}else {
+			//ë§Œì•½ ë³€ê²½ì‚¬í•­ì´ ì—†ëŠ”ê²½ìš°(ì§€ìš°ê¸°ë§Œ í•œ ê²½ìš°)
+			image = accomodation_image;
+		}
+		//sqlì „ì†¡(updateImage)
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("image", image);
 		sqlSession.update("updateImage", map);
+		//ì„œë²„ í…Œì´ë¸”ì— ë“±ë¡(Accomodation)
+		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
+		AccomodationDTO adto = table.get(accomodation_num);
+		adto.setImage(image);
+		table.put(accomodation_num, adto);
+		//ë°© ë“±ë¡ ì‹œì‘
+		updateRoom_image(mr, count);
 	}
-	public void updateRoom_image(String room_num, String room_image) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("room_num", room_num);
-		map.put("room_image", room_image);
-		sqlSession.update("updateRoom_image", map);
+	//ë°© ì´ë¯¸ì§€ ë³€ê²½
+	public void updateRoom_image(MultipartHttpServletRequest mr, int count) {
+		HttpSession session = mr.getSession();
+		String upPath = session.getServletContext().getRealPath("resources/img");
+		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
+		Enumeration<String> key = room_list.keys();
+		while(key.hasMoreElements()) {
+			String room_num = key.nextElement();
+			String room_image = mr.getParameter(room_num + "room_image");
+			List<MultipartFile> room_files = mr.getFiles(room_num + "room_files");
+			String image = "";
+			if(room_files.size()!=0) {
+				for(MultipartFile mf : room_files) {
+					//íŒŒë¼ë©”í„° ê°’ ë¶„ì„í›„ imageê°’ ë„£ìŒ  + íŒŒì¼ì“°ê¸°
+					image = imageCheck(mf, room_image, upPath, image, count);
+				}
+			}else {
+				//ë§Œì•½ ë³€ê²½ì‚¬í•­ì´ ì—†ëŠ”ê²½ìš°(ì§€ìš°ê¸°ë§Œ í•œ ê²½ìš°)
+				image = room_image;
+			}
+			//sqlì „ì†¡(updateRoom_image)
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("room_num", room_num);
+			map.put("room_image", image);
+			sqlSession.update("updateRoom_image", map);
+			//ì„œë²„ í…Œì´ë¸”ì— ë“±ë¡(Room)
+			RoomDTO rdto = room_list.get(room_num);
+			rdto.setRoom_image(image);
+			room_list.put(room_num, rdto);
+		}
 	}
-	//¼÷¼Ò ¸ñ·Ï
+	//íŒŒë¼ë©”í„°ê°’ê³¼ í˜„ì¬íŒŒì¼ê°’ ë¶„ì„ ë° ì €ì¥
+	private String imageCheck(MultipartFile mf, String target_image, String upPath, String save_name, int count) {
+		String[] images = target_image.split(",");
+		for(String image : images) {
+			count++;
+			//íŒŒì¼ì´ë¦„ì´ ì—¬ê¸° ì´ë¦„ê³¼ ê°™ì€ì§€ ë¹„êµ
+			if(mf.getOriginalFilename().equals(image)) {
+				//ë§Œì•½ íŒŒì¼ì´ ì´ë¯¸ ìˆë‹¤ë©´  ì´ë¦„ì„ ì ì–´ë‘ê³  ë‹¤ìŒíŒŒì¼ë¡œ
+				if(new File(upPath, image).exists()) {
+					if(save_name=="") save_name = image;
+					else save_name += "," + image;
+					continue;
+				}else {
+					//ì—†ëŠ” íŒŒì¼ì´ë¼ë©´ ì‹œê°„ + count + í™•ì¥ì ì €ì¥
+					String extension = image.substring(image.lastIndexOf('.'));
+					String time = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + count + extension;
+					File file = new File(upPath, time);
+					if(save_name=="") save_name = time;
+					else save_name += "," + time;
+					try {
+						mf.transferTo(file);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}else continue;
+		}
+		return save_name;
+	}
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public List<AccomodationDTO> listAccomodation(String input_place, String start_date, String end_date, String people, int startRow, int endRow){
 		HashMap<String, String> map = new HashMap<String, String>();
 		String condition = "";
@@ -116,30 +205,30 @@ public class AccomodationMapper {
 		map.put("endRow", endRowStr);
 		return sqlSession.selectList("listAccomodation", map);
 	}
-	//¼÷¼Ò ÀüÃ¼ ¸ñ·Ï
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½
 	public List<AccomodationDTO> listAccomodation(int startRow, int endRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		return sqlSession.selectList("listAccomodationAll");
 	}
-	//¿¹¾à µî·Ï
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public int insertReservation(ReservationDTO dto) {
 		return sqlSession.insert("insertReservation", dto);
 	}
-	//¿¹¾à Ãë¼Ò
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public int deleteReservation(int num) {
 		return sqlSession.delete("deleteReservation", num);
 	}
-	//¹æ ÇÏ³ª Á¤º¸ °¡Á®¿À±â
+	//ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public RoomDTO getRoom(int num) {
 		return sqlSession.selectOne("getRoom", num);
 	}
-	//¼÷¼Ò Á¤º¸ °¡Á®¿À±â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public AccomodationDTO getAccomodationInfo(int num) {
 		return sqlSession.selectOne("getAccomodationInfo", num);
 	}
-	//¼÷¼Ò °¹¼ö °¡Á®¿À±â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int getCount() {
 		return sqlSession.selectOne("getCount");
 	}
