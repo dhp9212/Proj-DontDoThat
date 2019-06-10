@@ -15,7 +15,7 @@
 							<tr><td>여행지/숙소이름</td></tr>
 							<tr><td><input type="text" value="${input_place}"></td></tr>
 							<tr><td>체크인 날짜</td></tr>
-							<tr><td><input type="text" value="${start_date}"></td></tr>
+							<tr><td id="start_date"><input type="text" value="${start_date}"></td></tr>
 							<tr><td>체크아웃 날짜</td></tr>
 							<tr><td><input type="text" value="${end_date}"></td></tr>
 							<tr></tr>
@@ -49,7 +49,7 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="button" value="검 색" onClick="location.href=''">
+									<input type="button" value="검 색" onClick="location.href='accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${adults + children}&rooms=${rooms}'">
 								</td>
 							</tr>
 					</table>
@@ -79,7 +79,7 @@
 		<c:otherwise>
 					<table border="0" width="100%">
 						<tr>
-							<td><h1>검색된 숙소</h1></td>
+							<td><h1>검색된 숙소 ${listCount}개</h1></td>
 							<td align="right"><a href="">지도로 보기</a></td>
 						</tr>
 					</table>
@@ -108,31 +108,28 @@
 						<tr>
 							<td width="50%"><a href="">${dto.city} - 지도에서 표시</a></td>
 							<td width="25%" align="right" rowspan="2">
-								<input type="button" value="요금 표시" onClick="location.href=''">
+								<input type="button" value="요금 표시" onClick="location.href='#start_date'">
 							</td>
 						</tr>
 						<tr><td width="50%">${dto.content}</td></tr>
 						<tr>
 							<td colspan="2" align="right">
-								<input type="button" value="예약 가능 옵션 보기" onClick="location.href='search_accomodation_content.do?num=${dto.num}'">
-								<input type="hidden" name="start_date" value="${start_date}" />
-								<input type="hidden" name="end_date" value="${end_date}" />
+								<input type="button" value="예약 가능 옵션 보기" onClick="location.href='search_accomodation_content.do?num=${dto.num}&start_date=${start_date}&end_date=${end_date}'">
 							</td>
 						</tr>
 					</table>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-	<c:if test="${count > 0}">
-		<c:set var="pageBlock" value="3" />
+	<c:if test="${listCount > 0}">
 		<c:if test="${startPage > pageBlock}">
-			<a href="accomodation_list.do?pageNum=${startPage - 1},input_place=${input_place},start_date=${start_date},end_date=${end_date},people=${people}"><</a>
-		</c:if>	
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${people}&pageNum=${startPage - 1}" title="이전 페이지"><</a>
+		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<a href="accomodation_list.do?pageNum=${i},input_place=${input_place},start_date=${start_date},end_date=${end_date},people=${people}"><c:out value="${i}" /></a>
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${people}&pageNum=${i}"><c:out value="${i}" /></a>
 		</c:forEach>
 		<c:if test="${endPage < pageCount}">
-			<a href="accomodation_list.do?pageNum=${startPage + pageBlock},input_place=${input_place},start_date=${start_date},end_date=${end_date},people=${people}">></a>
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${people}&pageNum=${startPage + pageBlock}" title="다음 페이지">></a>
 		</c:if>
 	</c:if>
 				</div>
