@@ -47,7 +47,7 @@
 									</select>
 								</td>
 							</tr>
-							<tr><td><input type="button" value="검 색" onClick="location.href=''"></td></tr>
+							<tr><td><input type="button" value="검 색" onClick="location.href='accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${adults + children}&rooms=${rooms}'"></td></tr>
 					</table>
 				</div>
 			</td>
@@ -64,14 +64,13 @@
 					</table>
 					<table border="0" width="100%">
 						<tr>
-							<td>
-								<h3><b>[${getAccomodationInfo.category_accomodation}]${getAccomodationInfo.accomodation_name}</b></h3>
+							<td><h3><b>[${getAccomodationInfo.category_accomodation}]${getAccomodationInfo.accomodation_name}</b></h3></td>
+							<td align="right">
+								<input type="button" value="지금 예약" onClick="location.href='#reservation'">
 							</td>
 						</tr>
 						<tr>
-							<td>
-								${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기</a>
-							</td>
+							<td colspan="2">${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기</a></td>
 						</tr>
 					</table>
 					<img src="image/${getAccomodationInfo.image}" width="200" height="200" border="0">
@@ -83,7 +82,7 @@
 							</td>
 						</tr>
 					</table>
-					<h3><b>예약 가능 여부</b></h3>
+					<h3 id="reservation"><b>예약 가능 여부</b></h3>
 					<table border="0" width="100%">
 						<tr>
 							<td>체크인 날짜<br>
@@ -93,7 +92,7 @@
 								<input value="${end_date}" autocomplete="off" name="checkOut_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
 							</td>
 							<td>
-								<input type="button" value="객실 확인" onClick="location.href=''">
+								<input type="button" value="객실 확인" onClick="location.href='accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${adults + children}&rooms=${rooms}'">
 							</td>
 						</tr>
 						<tr>
@@ -129,9 +128,7 @@
 				<c:choose>
 					<c:when test="${empty getRoomList}">
 						<tr>
-							<td>
-								현재 예약 가능한 방이 없습니다.
-							</td>
+							<td>현재 예약 가능한 방이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -139,20 +136,10 @@
 						<tr>
 							<td>최대 ${dto.value.people}명</td>
 							<td>
-								<a href="accomodation_reservation.do?num=${dto.value.num}">
-									${dto.value.roomname} - ${dto.value.roomclass}
-								</a><br>${dto.value.room_facility}
+								<a href="accomodation_reservation.do?num=${dto.value.num}&accomodation_num=${getAccomodationInfo.num}&start_date=${start_date}&end_date=${end_date}">${dto.value.roomname} - ${dto.value.roomclass}</a><br>${dto.value.room_facility}
 							</td>
 							<td>
-								<input type="button" value="지금 예약" onClick="location.href='accomodation_reservation.do?num=${dto.value.num}'">
-								<input type="hidden" name="category_accomodation" value="${getAccomodationInfo.category_accomodation}" />
-								<input type="hidden" name="accomodation_name" value="${getAccomodationInfo.accomodation_name}" />
-								<input type="hidden" name="address" value="${getAccomodationInfo.address}" />
-								<input type="hidden" name="city" value="${getAccomodationInfo.city}" />
-								<input type="hidden" name="country" value="${getAccomodationInfo.country}" />
-								<input type="hidden" name="image" value="${getAccomodationInfo.image}" />
-								<input type="hidden" name="start_date" value="${start_date}" />
-								<input type="hidden" name="end_date" value="${end_date}" />
+								<input type="button" value="지금 예약" onClick="location.href='accomodation_reservation.do?num=${dto.value.num}&accomodation_num=${getAccomodationInfo.num}&start_date=${start_date}&end_date=${end_date}'">
 							</td>
 						</tr>
 						</c:forEach>

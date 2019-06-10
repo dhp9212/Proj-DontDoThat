@@ -39,10 +39,10 @@
 					<div>
 						<table border="0" width="100%">
 							<tr>
-								<td><img src="image/${image}" width="200" height="200" border="0"></td>
+								<td><img src="image/${getAccomodationInfo.image}" width="200" height="200" border="0"></td>
 								<td>
-									<h3><b>${accomodation_name}</b></h3><br>
-									${address}, ${city}, ${country}
+									<h3><b>${getAccomodationInfo.accomodation_name}</b></h3><br>
+									${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country}
 								</td>
 							</tr>
 						</table>
