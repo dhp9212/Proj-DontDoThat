@@ -85,7 +85,7 @@ input, select, textarea {
 		background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
 		background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
 		background-image: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
-		background-color: #f7f7f7;
+		background-color: #FFFFFF;
 		background-position: top left, top left;
 		background-repeat: repeat-x, repeat;
 		background-size: 100% 30em, auto;
@@ -1781,3 +1781,30 @@ input, select, textarea {
 #map{
 	height:100%;
 }
+
+
+
+/**********************************************************/]
+
+.bodyconstraint {
+    background-color: transparent;
+    margin: 0 auto;
+    min-width: 620px;
+    max-width: 1110px;
+    padding: 0;
+    display: block;
+    color: #383838;
+    font-size: small;
+    line-height: 1.2;
+}
+
+	.bodyconstraint #bodyconstraint-inner{
+		background-color: white;
+		min-width: 980px;
+		position: relative;
+	}
+	
+	.bodyconstraint #subheader-wrapper{
+		clear: both;
+		position: relative;
+	}

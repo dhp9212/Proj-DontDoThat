@@ -1,11 +1,20 @@
 package com.temp.app.model;
 
-public class CountryDTO {
+import java.io.Serializable;
+
+public class CountryDTO implements Serializable {
 	private String code_2;
 	private String code_3;
 	private String code_n;
 	private String name;
+	private String flag;
 	
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 	public String getCode_2() {
 		return code_2;
 	}

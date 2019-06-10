@@ -4,23 +4,24 @@
 	<insert id="insertAccomodation" parameterType="AccomodationDTO">
 		insert into accomodation 
 		values(accomodation_seq.nextval, 
-			   #{account_num},
-			   #{category_accomodation}, 
-			   #{homepage}, 
-			   #{headname}, 
-			   #{tel}, 
-			   #{accomodation_name},
-			   #{country}, 
-			   #{city}, 
-			   #{address}, 
-			   #{postalcode}, 
-			   #{accomodation_facility}, 
-			   #{image}, 
-			   #{content}, 
-			   #{policy}, 
-			   #{checkin_date}, 
-			   #{checkout_date}, 
-			   #{payment})
+			   #{category_accomodation, jdbcType=VARCHAR}, 
+			   #{homepage, jdbcType=VARCHAR}, 
+			   #{headname, jdbcType=VARCHAR}, 
+			   #{tel, jdbcType=VARCHAR}, 
+			   #{accomodation_name, jdbcType=VARCHAR},
+			   #{country, jdbcType=VARCHAR}, 
+			   #{city, jdbcType=VARCHAR}, 
+			   #{address, jdbcType=VARCHAR}, 
+			   #{postalcode, jdbcType=VARCHAR}, 
+			   #{accomodation_facility, jdbcType=VARCHAR}, 
+			   #{image, jdbcType=VARCHAR}, 
+			   #{content, jdbcType=VARCHAR}, 
+			   #{policy, jdbcType=VARCHAR}, 
+			   #{checkin_date, jdbcType=VARCHAR}, 
+			   #{checkout_date, jdbcType=VARCHAR}, 
+			   #{payment, jdbcType=VARCHAR},
+			   #{account_num, jdbcType=VARCHAR},
+			   #{nearby, jdbcType=VARCHAR})
 		<selectKey keyProperty="num" resultType="int" order="AFTER">
 			select accomodation_seq.currval from dual
 		</selectKey>
@@ -28,13 +29,14 @@
 	<insert id="insertRoom" parameterType="RoomDTO">
 		insert into room 
 		values(room_seq.nextval, 
-			   #{accomodation_num},
-			   #{roomname}, 
-			   #{roomclass}, 
-			   #{qty}, 
-			   #{people}, 
-			   #{price}, 
-			   #{room_facility})
+			   #{accomodation_num, jdbcType=VARCHAR},
+			   #{roomname, jdbcType=VARCHAR}, 
+			   #{roomclass, jdbcType=VARCHAR}, 
+			   #{qty, jdbcType=VARCHAR}, 
+			   #{people, jdbcType=VARCHAR}, 
+			   #{price, jdbcType=VARCHAR}, 
+			   #{room_facility, jdbcType=VARCHAR},
+			   #{room_image, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updateRoom" parameterType="RoomDTO">
@@ -42,8 +44,8 @@
 		set roomname=#{roomname}, roomclass=#{roomclass}, qty=#{qty}, people=#{people}, price=#{price}, room_facility=#{room_facility}
 		where num=${num}
 	</update>
-	<select id="getAccomodation" parameterType="string" resultType="AccomodationDTO">
-		select * from accomodation where account_num=#{account_num}
+	<select id="getAccomodation" parameterType="int" resultType="AccomodationDTO">
+		select * from accomodation where account_num=#{num}
 	</select>
 	<update id="updateAccomodation_facility" parameterType="Map">
 		update accomodation set accomodation_facility=#{accomodation_facility} where num=#{accomodation_num}
@@ -52,9 +54,61 @@
 		update accomodation set content=#{content} where num=#{accomodation_num}
 	</update>
 	<update id="updatePolicy" parameterType="Map">
-		update accomodation set content=#{policy} where num=#{accomodation_num}
+		update accomodation set policy=#{policy} where num=#{accomodation_num}
+	</update>
+	<update id="updateNearby" parameterType="Map">
+		update accomodation set nearby=#{nearby} where num=#{accomodation_num}
+	</update>
+	<update id="updateImage" parameterType="Map">
+		update accomodation set image=#{image} where num=#{accomodation_num}
+	</update>
+	<update id="updateRoom_image" parameterType="Map">
+		update room set room_image=#{room_image} where num=#{room_num}
 	</update>
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}
+	</select>
+	
+	
+	<select id="listAccomodationAll" resultType="AccomodationDTO">
+		select * from accomodation
+		<!-- select * from (select rownum rn, * from accomodation) where rn between #{startRow} and #{endRow} -->
+	</select>
+	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
+		select * 
+		from accomodation
+		${condition}
+	</select>
+	
+	<select id="getRoom" resultType="RoomDTO" parameterType="int">
+		select * from room where num = #{num}
+	</select>
+	<select id="getReservation" resultType="ReservationDTO" parameterType="int">
+		select * from reservation where room_num = #{num}
+	</select>
+	<insert id="insertReservation" parameterType="ReservationDTO">
+		insert into reservation 
+		values (reservation_seq.nextval, 
+				account_seq.nextval, 
+				accomodation_seq.nextval,
+				room_seq.nextval, 
+				#{last_name, jdbcType=VARCHAR}, 
+				#{first_name, jdbcType=VARCHAR}, 
+				#{email, jdbcType=VARCHAR}, 
+				#{country, jdbcType=VARCHAR}, 
+				#{tel, jdbcType=VARCHAR}, 
+				#{guest_name, jdbcType=VARCHAR}, 
+				#{checkIn_date, jdbcType=VARCHAR}, 
+				#{checkOut_date, jdbcType=VARCHAR}, 
+				#{rooms, jdbcType=VARCHAR}, 
+				#{adults, jdbcType=VARCHAR}, 
+				#{children, jdbcType=VARCHAR}, 
+				#{payment, jdbcType=VARCHAR})
+	</insert>
+	<delete id="deleteReservation" parameterType="ReservationDTO">
+		delete from reservation where num = #{num}
+	</delete>
+	<select id="getCount" resultType="AccomodationDTO" parameterType="int">
+		select count(*) from accomodation
 	</select>
 </mapper>

@@ -25,13 +25,39 @@
 <input type="hidden" name="num" value="${roomDTO.num}">
 <input type="hidden" name="accomodation_num" value="${roomDTO.accomodation_num}">
 <input type="hidden" name="room_facility">
-	방이름 : <input type="text" name="roomname" value="${roomDTO.roomname}"><br>
-	방 사양 : <input type="text" name="roomclass" value="${roomDTO.roomclass}"><br>
-	방 갯수 : <input type="text" name="qty" size="1" value="${roomDTO.qty}"><br>
-	수용가능  인원 : <input type="text" name="people" size="1" value="${roomDTO.people}"><br>
-	가격 : <input type="text" name="price" size="5" value="${roomDTO.price}"><br><br>
-	<font size="7">시설 변경</font><br><br>
-	<c:forEach var="table" items="${facility}">
+<div class="container">
+	<p><font size="6">기본정보 변경</font></p>
+	<div class="row">
+		<div class="col-sm-2">방이름</div>
+		<div class="col-sm-3"><input type="text" name="roomname" class="form-control" value="${roomDTO.roomname}"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">방 사양</div>
+		<div class="col-sm-3">
+			<select name="roomclass" class="form-control">
+			<c:forEach var="list" items="${categoryRoom}">
+				<c:forEach var="str" items="${list.value}">
+					<option>${str}</option>
+				</c:forEach>
+			</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">방 갯수</div>
+		<div class="col-sm-3"><input type="text" name="qty" size="1" class="form-control" value="${roomDTO.qty}"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">수용가능  인원</div>
+		<div class="col-sm-3"><input type="text" name="people" size="1" class="form-control" value="${roomDTO.people}"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">가격</div>
+		<div class="col-sm-3"><input type="text" name="price" size="5" class="form-control" value="${roomDTO.price}"></div>
+	</div>
+	<br>
+	<p><font size="6">시설 변경</font></p>
+	<c:forEach var="table" items="${facilities}">
 	<c:if test="${table.key!='인기있는 시설'}">
 		<font size="5">${table.key}<br></font>
 		<c:forEach var="str" items="${table.value}" varStatus="num">
@@ -50,5 +76,6 @@
 	</c:forEach>
 	<br><br>
 	<input type="submit" value="변경하기">
+</div>
 </form>
 <%@ include file="../_buisness_bottom.jsp"%>

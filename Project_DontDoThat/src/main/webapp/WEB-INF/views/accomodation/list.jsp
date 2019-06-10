@@ -1,90 +1,151 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
-	<div>
+	<table width="100%">
+		<tr>
+			<th colspan="2">ì§€ì—­</th><td><div id="map"></div></td>
+		</tr>
+		<tr>
+			<td width="30%;">
+				<div>
+					<table border="2">
+						<tr>
+							<tr><th>ê²€ìƒ‰</th></tr>
+							<tr><td>ì—¬í–‰ì§€/ìˆ™ì†Œì´ë¦„</td></tr>
+							<tr><td><input type="text" value="${input_place}"></td></tr>
+							<tr><td>ì²´í¬ì¸ ë‚ ì§œ</td></tr>
+							<tr><td id="start_date"><input type="text" value="${start_date}"></td></tr>
+							<tr><td>ì²´í¬ì•„ì›ƒ ë‚ ì§œ</td></tr>
+							<tr><td><input type="text" value="${end_date}"></td></tr>
+							<tr></tr>
+							<tr>
+								<td>
+									<select name="adults">
+									<c:forEach var="i" begin="1" end="30">
+										<option value="i">ì„±ì¸ ${i}ëª…</option>
+									</c:forEach>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<select name="children">
+										<option value="0">ë™ë°˜ ì•„ë™ ì—†ìŒ</option>
+									<c:forEach var="i" begin="1" end="10">
+										<option value="i">ì•„ë™ ${i}ëª…</option>
+									</c:forEach>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<select name="rooms">
+									<c:forEach var="i" begin="1" end="30">
+										<option value="i">ê°ì‹¤ ${i}ê°œ</option>
+									</c:forEach>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="button" value="ê²€ ìƒ‰" onClick="location.href='accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${adults + children}&rooms=${rooms}'">
+								</td>
+							</tr>
+					</table>
+				</div>
+			</td>
+	<!-- datalist -->
+			<td width="70%;">
+				<div>
 	<c:choose>
 		<c:when test="${empty listAccomodation}">
-		<table border="0" width="100%">
-	  		<tr>
-				<td align="left">
-					<h1>ÀÌ Áö¿ª ³», È¤Àº ÀÎ±Ù ¿¹¾à °¡´ÉÇÑ ¼÷¼Ò 0°³</h1>
-				</td>
-				<td align="right">
-					<a href="">Áöµµ·Î º¸±â</a>
-				</td>
-			</tr>
-		</table>
-		<table border="1" width="100%">
-	  		<tr>
-				<td align="center">
-					<h2>¿øÇÏ´Â °Ë»ö°á°ú¸¦ ¾ò´Â ¹æ¹ý</h2><br>
-					<h3>´ÙÀ½ ¿É¼ÇÀ» »ç¿ëÇÏ¿© ¿øÇÏ´Â ¼÷¼Ò¸¦ Ã£¾Æº¸¼¼¿ä :</h3>
-				</td>
-			</tr>
-			<tr>
-				<td align="left">
-					ÁÂÃø °Ë»öÃ¢ »ç¿ë<br>
-					<a href="">°Ë»ö Á¶°Ç º¯°æ</a><br>
-					<a href="">´Ù¸¥ ³¯Â¥·Î °Ë»ö</a>
-				</td>
-			</tr>
-		</table>
+					<table border="0" width="70%">
+				  		<tr>
+				  			<td><h1>ì´ ì§€ì—­ ë‚´, í˜¹ì€ ì¸ê·¼ ì˜ˆì•½ ê°€ëŠ¥í•œ ìˆ™ì†Œ 0ê°œ</h1></td>
+							<td align="right"><a href="">ì§€ë„ë¡œ ë³´ê¸°</a></td>
+						</tr>
+					</table>
+					<table border="1" width="100%">
+				  		<tr>
+							<td align="center">
+								<h2>ì›í•˜ëŠ” ê²€ìƒ‰ê²°ê³¼ë¥¼ ì–»ëŠ” ë°©ë²•</h2><br>
+								<h3>ë‹¤ìŒ ì˜µì…˜ì„ ì‚¬ìš©í•˜ì—¬ ì›í•˜ëŠ” ìˆ™ì†Œë¥¼ ì°¾ì•„ë³´ì„¸ìš” :</h3>
+							</td>
+						</tr>
+						<tr><td>ì¢Œì¸¡ ê²€ìƒ‰ì°½ ì‚¬ìš©</td></tr>
+					</table>
 		</c:when>
 		<c:otherwise>
-		<table border="0" width="100%">
-			<tr>
-				<td align="left">
-					<h1>°Ë»öµÈ ¼÷¼Ò</h1>
-				</td>
-				<td align="right">
-					<a href="">Áöµµ·Î º¸±â</a>
-				</td>
-			</tr>
-		</table>
-		<table border="1" width="100%">
-			<tr>
-				<th width="20%">ÀúÈñ°¡ ÃßÃµÇÏ´Â ¼÷¼Ò</th>
-				<th width="15%">¿ä±Ý(³·Àº ¼ø)</th>
-				<th width="10%">¼º±Þ</th>
-				<th width="15%">¼º±Þ + ¿ä±Ý ¼ø</th>
-				<th width="20%">µµ½Ã Áß½ÉÀ¸·ÎºÎÅÍÀÇ °Å¸®</th>
-				<th width="20%">°íÆòÁ¡ ÈÄ±â°¡ ¸¹Àº ¼ø</th>
-			</tr>
-		</table>
+					<table border="0" width="100%">
+						<tr>
+							<td><h1>ê²€ìƒ‰ëœ ìˆ™ì†Œ ${listCount}ê°œ</h1></td>
+							<td align="right"><a href="">ì§€ë„ë¡œ ë³´ê¸°</a></td>
+						</tr>
+					</table>
+					<table border="1" width="100%">
+						<tr>
+							<th width="15%">ìš”ê¸ˆ</th>
+							<th width="20%">í›„ê¸° í‰ì </th>
+							<th width="30%">í›„ê¸° í‰ì  + ìš”ê¸ˆ</th>
+							<th width="15%">ì„±ê¸‰</th>
+							<th width="20%">ì„±ê¸‰ + ìš”ê¸ˆ</th>
+						</tr>
+					</table>
 			<c:forEach var="dto" items="${listAccomodation}">
-		<table border="0" width="100%">
-			<tr>
-				<td width="25%" rowspan="4">
-					<img src="image/${dto.image}" width="200" height="200" border="0">
-				</td>
-				<td width="50%">
-					<a href="search_accomodation_content.do?num=${dto.num}">
-						<h3>[${dto.category_accomodation}]${dto.accomodation_name}</h3>
-					</a>
-				</td>
-				<td width="25%" align="right">ÀÌ¿ë ÈÄ±â ÆòÁ¡</td>
-			</tr>
-			<tr>
-				<td width="50%">
-					<a href="">${dto.city} - Áöµµ¿¡¼­ Ç¥½Ã</a>
-				</td>
-				<td width="25%" align="right" rowspan="2">
-					<input type="button" value="¿ä±Ý Ç¥½Ã" onClick="location.href=''">
-				</td>
-			</tr>
-			<tr>
-				<td width="50%">${dto.content}</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="right">
-					<input type="button" value="¿¹¾à °¡´É ¿É¼Ç º¸±â" onClick="location.href='search_accomodation_content.do?num=${dto.num}'">
-				</td>
-			</tr>
-		</table>
+					<table border="0" width="100%">
+						<tr>
+							<td width="25%" rowspan="4">
+								<img src="image/${dto.image}" width="200" height="200" border="0">
+							</td>
+							<td width="50%">
+								<a href="search_accomodation_content.do?num=${dto.num}">
+									<h3>[${dto.category_accomodation}]${dto.accomodation_name}</h3>
+								</a>
+							</td>
+							<td width="25%" align="right">ì´ìš© í›„ê¸° í‰ì </td>
+						</tr>
+						<tr>
+							<td width="50%"><a href="">${dto.city} - ì§€ë„ì—ì„œ í‘œì‹œ</a></td>
+							<td width="25%" align="right" rowspan="2">
+								<input type="button" value="ìš”ê¸ˆ í‘œì‹œ" onClick="location.href='#start_date'">
+							</td>
+						</tr>
+						<tr><td width="50%">${dto.content}</td></tr>
+						<tr>
+							<td colspan="2" align="right">
+								<input type="button" value="ì˜ˆì•½ ê°€ëŠ¥ ì˜µì…˜ ë³´ê¸°" onClick="location.href='search_accomodation_content.do?num=${dto.num}&start_date=${start_date}&end_date=${end_date}'">
+							</td>
+						</tr>
+					</table>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-	</div>
+	<c:if test="${listCount > 0}">
+		<c:if test="${startPage > pageBlock}">
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${people}&pageNum=${startPage - 1}" title="ì´ì „ íŽ˜ì´ì§€"><</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${people}&pageNum=${i}"><c:out value="${i}" /></a>
+		</c:forEach>
+		<c:if test="${endPage < pageCount}">
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${people}&pageNum=${startPage + pageBlock}" title="ë‹¤ìŒ íŽ˜ì´ì§€">></a>
+		</c:if>
+	</c:if>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7jiKyn69S94Q7zgR4IOgQ4-BJ4sL6B4&callback=initMap"
+    async defer></script>
 </body>
 </html>

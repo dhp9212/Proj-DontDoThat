@@ -54,7 +54,7 @@
 		update accomodation set content=#{content} where num=#{accomodation_num}
 	</update>
 	<update id="updatePolicy" parameterType="Map">
-		update accomodation set policy=#{policy} where num=#{accomodation_num}
+		update accomodation set policy=#{policy}, payment=#{payment}, checkin_date=#{checkin_date}, checkout_date=#{checkout_date} where num=#{accomodation_num}
 	</update>
 	<update id="updateNearby" parameterType="Map">
 		update accomodation set nearby=#{nearby} where num=#{accomodation_num}
@@ -63,23 +63,24 @@
 		update accomodation set image=#{image} where num=#{accomodation_num}
 	</update>
 	<update id="updateRoom_image" parameterType="Map">
-		update room set room_image=#{room_image} where num=#{room_num}
+		update room set room_image=#{room_image, jdbcType=VARCHAR} where num=#{room_num}
 	</update>
 	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
 		select * from room where accomodation_num=#{num}
 	</select>
 	
-	<!-- 2019.06.03 DHP 추가 -->
+	
 	<select id="listAccomodationAll" resultType="AccomodationDTO">
-		select * from accomodation
-		<!-- select * from (select rownum rn, * from accomodation) where rn between #{startRow} and #{endRow} -->
+		<!-- select * from accomodation -->
+		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
-		select * 
+		<!-- select * 
 		from accomodation
+		${condition} -->
+		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
 		${condition}
 	</select>
-	<!-- ---------------- -->
 	
 	<select id="getRoom" resultType="RoomDTO" parameterType="int">
 		select * from room where num = #{num}
@@ -90,9 +91,9 @@
 	<insert id="insertReservation" parameterType="ReservationDTO">
 		insert into reservation 
 		values (reservation_seq.nextval, 
-				account_seq.nextval, 
-				accomodation_seq.nextval,
-				room_seq.nextval, 
+				#{account_num, jdbcType=INTEGER}, 
+				#{accomodation_num, jdbcType=INTEGER}, 
+				#{room_num, jdbcType=INTEGER}, 
 				#{last_name, jdbcType=VARCHAR}, 
 				#{first_name, jdbcType=VARCHAR}, 
 				#{email, jdbcType=VARCHAR}, 
@@ -101,15 +102,18 @@
 				#{guest_name, jdbcType=VARCHAR}, 
 				#{checkIn_date, jdbcType=VARCHAR}, 
 				#{checkOut_date, jdbcType=VARCHAR}, 
-				#{rooms, jdbcType=VARCHAR}, 
-				#{adults, jdbcType=VARCHAR}, 
-				#{children, jdbcType=VARCHAR}, 
+				#{rooms, jdbcType=INTEGER}, 
+				#{adults, jdbcType=INTEGER}, 
+				#{children, jdbcType=INTEGER}, 
 				#{payment, jdbcType=VARCHAR})
 	</insert>
 	<delete id="deleteReservation" parameterType="ReservationDTO">
 		delete from reservation where num = #{num}
 	</delete>
-	<select id="getCount" resultType="AccomodationDTO" parameterType="int">
+	<select id="getCount" resultType="int">
 		select count(*) from accomodation
+	</select>
+	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">
+		select * from accomodation where num = #{num}
 	</select>
 </mapper>

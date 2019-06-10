@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp" %>
 	<div>
 		<form name="reservation" action="accomodation_reservation.do" method="post" >
@@ -9,25 +9,25 @@
 					<div>
 						<table border="1" width="100%">
 							<tr>
-								<td bgcolor="skyblue">³» ¿¹¾à Á¤º¸</td>
+								<td bgcolor="skyblue">ë‚´ ì˜ˆì•½ ì •ë³´</td>
 							</tr>
 							<tr>
 								<td>
-									Ã¼Å©ÀÎ :<br>${getAccomodation.checkIn_date}<br>
-									Ã¼Å©¾Æ¿ô :<br>${getAccomodation.checkOut_date}<br>
-									<a href="">³¯Â¥ º¯°æ</a>
+									ì²´í¬ì¸ :<br>${start_date}<br>
+									ì²´í¬ì•„ì›ƒ :<br>${end_date}<br>
+									<a href="">ë‚ ì§œ ë³€ê²½</a>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									¼±ÅÃ °´½Ç :<br>${getRoom.roomname}<br>
-									<a href="">´Ù¸¥ °´½Ç·Î º¯°æ</a>
+									ì„ íƒ ê°ì‹¤ :<br>${getRoom.roomname}<br>
+									<a href="">ë‹¤ë¥¸ ê°ì‹¤ë¡œ ë³€ê²½</a>
 								</td>
 							</tr>
 						</table>
 						<table border="1" width="100%">
 							<tr>
-								<td bgcolor="skyblue">°áÁ¦ ¿ä±İ ³»¿ª</td>
+								<td bgcolor="skyblue">ê²°ì œ ìš”ê¸ˆ ë‚´ì—­</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -39,60 +39,84 @@
 					<div>
 						<table border="0" width="100%">
 							<tr>
-								<td><img src="image/${getAccomodation.image}" width="200" height="200" border="0"></td>
+								<td><img src="image/${image}" width="200" height="200" border="0"></td>
 								<td>
-									<h3><b>${getAccomodation.accomodation_name}</b></h3><br>
-									${getAccomodation.address}, ${getAccomodation.city}, ${getAccomodation.country}
+									<h3><b>${accomodation_name}</b></h3><br>
+									${address}, ${city}, ${country}
 								</td>
 							</tr>
 						</table>
-						<h3>»ó¼¼ Á¤º¸ ÀÔ·Â</h3>
-						<table border="0" width="100%" bgcolor="skyblue">
+						<h3>ìƒì„¸ ì •ë³´ ì…ë ¥</h3>
+						<table border="0" bgcolor="skyblue">
 							<tr>
-								<td>¼º(¿µ¹®)<br><input type="text" name="last_name" class="box"></td>
-								<td>ÀÌ¸§(¿µ¹®)<br><input type="text" name="first_name" class="box"></td>
+								<td>ì„±(ì˜ë¬¸)<br><input type="text" name="last_name" class="box"></td>
+								<td>ì´ë¦„(ì˜ë¬¸)<br><input type="text" name="first_name" class="box"></td>
 							</tr>
 							<tr>
-								<td>ÀÌ¸ŞÀÏ ÁÖ¼Ò<br><input type="text" name="email" class="box">¿¹¾à È®ÀÎ¼­°¡ Àü¼ÛµÉ ÀÌ¸ŞÀÏ ÁÖ¼Ò ÀÔ·Â</td>
+								<td colspan="2">ì´ë©”ì¼ ì£¼ì†Œ<br>
+							<c:choose>
+								<c:when test="${empty userSession}">
+									<input type="text" name="email" class="box">ì˜ˆì•½ í™•ì¸ì„œê°€ ì „ì†¡ë  ì´ë©”ì¼ ì£¼ì†Œ ì…ë ¥
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="email" class="box" value="${getAccount.email}">ì˜ˆì•½ í™•ì¸ì„œê°€ ì „ì†¡ë  ì´ë©”ì¼ ì£¼ì†Œ ì…ë ¥
+								</c:otherwise>
+							</c:choose>
+								</td>
 							</tr>
 							<tr>
-								<td>ÀÌ¸ŞÀÏ ÁÖ¼Ò È®ÀÎ<br><input type="text" name="email_check" class="box"></td>
-							</tr>
-							<tr>
-								<td>
-									±¹°¡/Áö¿ª<br>
+								<td colspan="2">
+									êµ­ê°€/ì§€ì—­<br>
 									<select name="country">
-										<option value="default">-- --±¹°¡/Áö¿ª ¼±ÅÃ-- --</option>
-									<c:forEach var="country" items="${countryList}">
+										<option value="default">-- --êµ­ê°€/ì§€ì—­ ì„ íƒ-- --</option>
+									<c:forEach var="country" items="${selectCountry}">
 										<option>${country.name}</option>
 									</c:forEach>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<td>ÀüÈ­¹øÈ£ (°¡´ÉÇÑ °æ¿ì ÈŞ´ëÆù)<br><input type="text" name="tel" class="box"></td>
+								<td colspan="2">ì „í™”ë²ˆí˜¸ (ê°€ëŠ¥í•œ ê²½ìš° íœ´ëŒ€í°)<br>
+							<c:choose>
+								<c:when test="${empty userSession}">
+									<input type="text" name="tel" class="box" maxlength="11">
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="tel" class="box" maxlength="11" value="${getAccount.tel}">
+								</c:otherwise>
+							</c:choose>
+								</td>
 							</tr>
 							<tr>
-								<td>
+								<td colspan="2">
 									<table>
 										<tr>
 											<td><h4><b>${getRoom.roomname}</b></h4></td>
 											<td>${getRoom.price}</td>
 										</tr>
 										<tr>
-											<td colspan="2">ÀÌ¿ë ÈÄ±â</td>
+											<td colspan="2">ì´ìš© í›„ê¸°</td>
 										</tr>
 										<tr>
-											<td colspan="2">ÃÖ´ë Åõ¼÷ ÀÎ¿ø : ${getRoom.people}¸í</td>
+											<td colspan="2">ìµœëŒ€ íˆ¬ìˆ™ ì¸ì› : ${getRoom.people}ëª…</td>
 										</tr>
 										<tr>
-											<td colspan="2">Åõ¼÷°´ ¼º¸í<br><input type="text" name="guest_name" class="box"></td>
+											<td colspan="2">íˆ¬ìˆ™ê° ì„±ëª…<br>
+										<c:choose>
+											<c:when test="${empty userSession}">
+												<input type="text" name="tel" class="box">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="tel" class="box" value="${getAccount.name}">
+											</c:otherwise>
+										</c:choose>
+											</td>
 										</tr>
 									</table>
 								</td>
 							</tr>
 						</table>
-						<input type="button" value="¿¹¾à ¿Ï·á" onClick="javascript:check();">
+						<input type="button" value="ì˜ˆì•½ ì™„ë£Œ" onClick="javascript:check();">
 					</div>
 				</td>
 			</tr>
@@ -102,7 +126,6 @@
 	<script type="text/javascript">
 	function check(){
 		var session = '${userSession}'
-		
 		if(session == ''){
 			document.reservation.action = 'loginFromReservation.do'
 			document.reservation.submit();
@@ -110,10 +133,7 @@
 		else{
 			document.reservation.submit();
 		}
-		
 	}
-	
 	</script>
-	
 </body>
 </html>

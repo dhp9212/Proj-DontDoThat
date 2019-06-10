@@ -17,7 +17,6 @@
 		</form>
 	</div>
 	
-				
 	<!-- Linear menu -->
 	<div id="linear-wrapper" class="divided">
 			<section class="wrapper style1 align-center">
@@ -34,10 +33,6 @@
 									</a>
 									<div class="caption">
 										<h3><a href="#">${dto.name}</a></h3>
-										<!-- <p>Lorem ipsum dolor amet, consectetur magna etiam elit. Etiam sed ultrices.</p> -->
-										<%-- <ul class="actions fixed">
-											<li><span class="button small">${dto.name}</span></li>
-										</ul> --%>
 									</div>
 								</article>
 								</c:forEach>

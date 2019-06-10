@@ -31,27 +31,44 @@ public class AccomodationController {
 	private AccomodationMapper accomodationMapper;
 	
 	@RequestMapping(value="/accomodation_list.do")
-	public String listAccomodation(HttpServletRequest req, @RequestParam(defaultValue="1") int currentPage) throws Exception {
+	public String listAccomodation(HttpServletRequest req) throws Exception {
 		String input_place = req.getParameter("input_place").trim();
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
 		String people = req.getParameter("people").trim();
-
-		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people);
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 5;
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int listCount = accomodationMapper.getCount();
+		int endRow = currentPage * pageSize;
+		if (endRow > listCount) endRow = listCount;
+		System.out.println(listCount);
+		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people, startRow, endRow);
 		req.setAttribute("listAccomodation", list);
-
+		if (listCount > 0) {
+			int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
+			int pageBlock = 10;
+			int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+			int endPage = startPage + pageBlock - 1;
+			if (endPage > pageCount) endPage = pageCount;
+			req.setAttribute("listCount", listCount);
+			req.setAttribute("pageCount", pageCount);
+			req.setAttribute("startPage", startPage);
+			req.setAttribute("endPage", endPage);
+		}
 		return "accomodation/list";
 	}
 	@RequestMapping(value="/search_accomodation_content.do")
 	public String contentAccomodation(HttpServletRequest req, @RequestParam int num) throws Exception {
-		Hashtable<String, AccomodationDTO> table = accomodationMapper.getAccomodation(num);
-		req.setAttribute("getAccomodation", table);
+		AccomodationDTO dto = accomodationMapper.getAccomodationInfo(num);
+		req.setAttribute("getAccomodationInfo", dto);
 		String numStr = Integer.toString(num);
 		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
 		req.setAttribute("getRoomList", list);
-		
-		
-		
 		return "accomodation/content";
 	}
 	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.GET)
@@ -66,11 +83,12 @@ public class AccomodationController {
 		if (result.hasErrors()) {
 			dto.setNum(0);
 		}
-		System.out.println(req.getAttribute("last_name"));
-		
 		int res = accomodationMapper.insertReservation(dto);
-		
-		return new ModelAndView("redirect:accomodation_list.do");
+		if (res > 0) {
+			System.out.println("예약 성공");
+		} else {
+			System.out.println("예약 실패");
+		}
+		return new ModelAndView("redirect:home.do");
 	}
-
 }
