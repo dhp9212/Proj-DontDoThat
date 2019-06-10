@@ -44,65 +44,28 @@ public class RoomController {
 	}
 	@RequestMapping(value="insertRoom1.do")
 	public String insertOneForm(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Hashtable<String, List<String>> categoryRoom = (Hashtable<String, List<String>>) session.getAttribute("categoryRoom");
-		
-		req.setAttribute("country", standardInformationMapper.selectCountry());
-		req.setAttribute("sin" , categoryRoom.get("½Ì±Û·ë"));
-		req.setAttribute("dou" , categoryRoom.get("´õºí·ë"));
-		req.setAttribute("dor" , categoryRoom.get("µµ¹ÌÅä¸®·ë"));
 		return "room/insert1";
 	}
 	@RequestMapping(value="insertRoom2.do")
 	public String insertManyForm(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Hashtable<String, List<String>> categoryRoom = (Hashtable<String, List<String>>) session.getAttribute("categoryRoom");
-		
-		req.setAttribute("country", standardInformationMapper.selectCountry());
-		req.setAttribute("sin" , categoryRoom.get("½Ì±Û·ë"));
-		req.setAttribute("dou" , categoryRoom.get("´õºí·ë"));
-		req.setAttribute("dor" , categoryRoom.get("µµ¹ÌÅä¸®·ë"));
 		req.setAttribute("card", categoryMapper.selectCardList());
 		return "room/insert2";
 	}
 	@RequestMapping(value="insertRoomPro.do")
-	public String insertOne(HttpServletRequest req, @ModelAttribute AccomodationDTO dto, BindingResult result1, @ModelAttribute RoomDTO dto2, BindingResult result2) {
-		if(result1.hasErrors()) {
-		}
-		//ºêÁ·ÇÑ Á¤º¸Ã³¸®
-		//headname°ú telÀº ·Î±×ÀÎÁ¤º¸¿¡¼­ °¡Á®¿È
-		dto.setHeadname("»çÀå");
-		dto.setTel("02-123-1234");
-		dto.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-		dto.setCheckin_date("Á¦°øÀÚ¿Í Á÷Á¢ ¿¬¶ô ÈÄ ÇùÀÇ");
-		dto.setCheckout_date("Á¦°øÀÚ¿Í Á÷Á¢ ¿¬¶ô ÈÄ ÇùÀÇ");
-		dto.setPayment("Á¦°øÀÚ¿Í Á÷Á¢ ¿¬¶ô ÈÄ ÇùÀÇ");
-		dto.setAccomodation_facility(req.getParameter("facility"));
-		
-		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("resources/img");
+	public String accomodation_insert(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result1, @ModelAttribute RoomDTO dto2, BindingResult result2) {
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		List<MultipartFile> files = mr.getFiles("files");
-		String image = req.getParameter("image");
-		for(MultipartFile mf : files) {
-			//¼­¹ö¿¡ ÆÄÀÏ¾²±â
-			File file = new File(upPath, mf.getOriginalFilename());
-			try {
-				mf.transferTo(file);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		AccountDTO accountDTO = (AccountDTO)session.getAttribute("userSession");
-		dto.setAccount_num(accountDTO.getNum());
-		dto.setImage(image);
-		//¼÷¼Òµî·Ï
-		int num = accomodationMapper.insertAccomodation(dto);
-		//·ë µî·Ï
+		aDTO.setHeadname("ï¿½ï¿½ï¿½ï¿½");
+		aDTO.setTel("02-123-1234");
+		aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
+		aDTO.setCheckin_date("ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+		aDTO.setCheckout_date("ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+		aDTO.setPayment("ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+		aDTO.setAccomodation_facility(req.getParameter("facility"));
+		//ï¿½ï¿½ï¿½Òµï¿½ï¿½
+		int num = accomodationMapper.insertAccomodation(mr, aDTO);
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½
 		dto2.setAccomodation_num(num);
-		dto2.setRoomname(dto.getAccomodation_name());
+		dto2.setRoomname(aDTO.getAccomodation_name());
 		dto2.setQty(1);
 		dto2.setRoom_facility(req.getParameter("facility"));
 		accomodationMapper.insertRoom(dto2);
@@ -110,34 +73,10 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value="insertRoomPro2.do")
-	public String insertMany(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result) {
-		HttpSession session = req.getSession();
-		String upPath = session.getServletContext().getRealPath("resources/img");
+	public String room_insert(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result) {
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		List<MultipartFile> files = mr.getFiles("files");
-		String image = req.getParameter("image");
-		for(MultipartFile mf : files) {
-			//¼­¹ö¿¡ ÆÄÀÏ¾²±â
-			File file = new File(upPath, mf.getOriginalFilename());
-			try {
-				mf.transferTo(file);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		//¼÷¼Ò ¸ÕÀú µî·Ï
-		if(result.hasErrors()) {
-			
-		}
-		//ºÎÁ·ÇÑ Á¤º¸ÀÔ·Â
-		aDTO.setImage(image);
-		aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-		
-		int num = accomodationMapper.insertAccomodation(aDTO);
-		//·ë µî·Ï
+		int num = accomodationMapper.insertAccomodation(mr, aDTO);
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½
 		ArrayList<RoomDTO> list = new ArrayList<RoomDTO>();
 		String name = req.getParameter("roominit");
 		String[] splitName = name.split(",");

@@ -31,6 +31,7 @@
 					숙소 수정메뉴
 				</button>
 				<div class="dropdown-menu">
+					<a class="dropdown-item" href="homepage.do">개인 홈페이지</a>
 					<a class="dropdown-item" href="accomodation_facility.do">시설 및 서비스</a>
 					<a class="dropdown-item" href="accomodation_content.do">내 숙소 설명 보기</a>
 					<a class="dropdown-item" href="policy.do">정책 변경</a>
@@ -48,9 +49,9 @@
 	<div class="row">
 		<div class="col-sm-12 border">
 			<div class="row">
-				<div class="col-sm-2">방 이름 : ${table.value.roomname}</div>
+				<div class="col-sm-4">방 이름 : ${table.value.roomname}</div>
 				<div class="col-sm-3">방 종류 : ${table.value.roomclass}</div>
-				<div class="col-sm-4">수량 : ${table.value.qty}</div>
+				<div class="col-sm-2">수량 : ${table.value.qty}</div>
 				<div class="col-sm-2"><a href="room_facility.do?room_num=${table.value.num}">방 설정 변경</a></div>
 			</div>
 		</div>

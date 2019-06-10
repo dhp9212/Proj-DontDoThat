@@ -28,7 +28,6 @@
 				}
 			}
 		})
-		<%@ include file="../onlyNumber.jsp"%>
 		$('.cardCheck').click(function(){
 			$(this).children('input').trigger('click')
 		})
@@ -135,7 +134,7 @@
 	}
 	function time_contradictionCheck(select){
 		var value = 0
-		if(select.id.charAt(9)=='s' || select.name.charAt(10)=='s'){
+		if(select.id.charAt(9)=='s' || select.id.charAt(10)=='s'){
 			if(select.id.charAt(9)=='s') value = $('input[name="check_in_etime"]').val().split(':')[0]
 			else if(select.id.charAt(10)=='s') value = $('input[name="check_out_etime"]').val().split(':')[0]
 			if(value>select.value.split(':')[0]) return true
@@ -182,8 +181,8 @@
 					<font size="4">까지 무료취소 됩니다.</font>
 				</div>
 			</div>
-			<div class="row pay" style="height:100;">
-				<div class="col-sm-3"><font size="4">그렇지 않은 경우 예약자는</font> </div>
+			<div class="row pay" style="height:70;">
+				<div class="col-sm-5"><font size="4">그렇지 않은 경우 예약자는</font> </div>
 				<div class="col-sm-6">
 					<select name="cancel_time_pay" class="form-control">
 						<option value="all">숙박료 전액을 지불합니다.</option>
@@ -197,7 +196,7 @@
 		<div class="col-sm-5 border">
 			<div class="row">
 				<div class="col-sm-4"><font size="5">어린이</font></div>
-				<div class="col-sm-3">
+				<div class="col-sm-5">
 					<select name="children" class="form-control">
 						<option value="no">금지</option>
 						<option value="pay">유료</option>
@@ -207,14 +206,14 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-6 pay">
-					<span id="children_pay" class="hide">가격 : <input type="text"name="children_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
+					<span id="children_pay" class="hide">가격 : <input type="text" class="onlyNumber" name="children_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-5 border">
 			<div class="row">
 				<div class="col-sm-4"><font size="5">반려동물</font></div>
-				<div class="col-sm-3">
+				<div class="col-sm-5">
 					<select name="pet" class="form-control">
 						<option value="no">금지</option>
 						<option value="pay">유료</option>
@@ -224,7 +223,7 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-6 pay">
-					<span id="pet_pay" class="hide">가격 : <input type="text" name="pet_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
+					<span id="pet_pay" class="hide">가격 : <input type="text" class="onlyNumber"  name="pet_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
 				</div>
 			</div>
 		</div>
@@ -235,8 +234,8 @@
 				<div class="col-sm-12 pay"><font size="5">카드 설정</font></div>
 			</div>
 			<div class="row pay">
-				<div class="col-sm-1 radioCheck"><input type="radio" name="card" class="form-check-input" value="yes">예</div>
-				<div class="col-sm-1 radioCheck"><input type="radio" name="card" class="form-check-input" value="no">아니오</div>
+				<div class="col-sm-2 radioCheck"><input type="radio" name="card" class="form-check-input" value="yes">예</div>
+				<div class="col-sm-2 radioCheck"><input type="radio" name="card" class="form-check-input" value="no">아니오</div>
 			</div>
 		</div>
 	</div>

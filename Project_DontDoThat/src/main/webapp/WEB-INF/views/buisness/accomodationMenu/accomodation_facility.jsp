@@ -25,7 +25,6 @@
 				$('input[name=' + $(this).attr('name') + '_pay]').attr('value', '0')
 			}
 		})
-		<%@ include file="../onlyNumber.jsp"%>
 		var list = new Array()
 		var accomodation_facilities = "${accomodation_dto.accomodation_facility}"
 		list = accomodation_facilities.split(',')
@@ -96,7 +95,7 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-10 pay">
-					<span id="internet_pay" class="hide">가격 : <input type="text" size="1" maxlength="2"style="padding: 0 0 0 10;" name="internet_pay" value="0"> ,000 원</span>
+					<span id="internet_pay" class="hide">가격 : <input type="text" class="onlyNumber" size="1" maxlength="2"style="padding: 0 0 0 10;" name="internet_pay" value="0"> ,000 원</span>
 				</div>
 			</div>
 		</div>
@@ -113,7 +112,7 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-10 pay">
-					<span id="parking_pay" class="hide">가격 : <input type="text" size="1" maxlength="2" style="padding: 0 0 0 10;" name="parking_pay" value="0"> ,000원</span>
+					<span id="parking_pay" class="hide">가격 : <input type="text" class="onlyNumber" size="1" maxlength="2" style="padding: 0 0 0 10;" name="parking_pay" value="0"> ,000원</span>
 				</div>
 			</div>
 		</div>
@@ -132,7 +131,7 @@
 			</div>
 			<div class="row" style="height:100;">
 				<div class="col-sm-10 pay">
-					<span id="breakfast_pay" class="hide">가격 : <input type="text" size="1" maxlength="2" style="padding: 0 0 0 10;" name="breakfast_pay" value="0"> ,000원</span>
+					<span id="breakfast_pay" class="hide">가격 : <input type="text" class="onlyNumber" size="1" maxlength="2" style="padding: 0 0 0 10;" name="breakfast_pay" value="0"> ,000원</span>
 				</div>
 			</div>
 		</div>

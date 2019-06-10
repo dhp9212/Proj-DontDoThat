@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 	<title>호텔류 입력</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/pattern.js"></script>
 </head>
 <style>
+	.box{
+		padding: 0 0 0 20;
+	}
 	.facility{
 		display: none;
 		position: absolute;
@@ -13,8 +21,28 @@
 		overflow: auto;
 	}
 </style>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
+	var rgx1 = /\D/g;  // /[^0-9]/g 와 같은 표현
+	var rgx2 = /(\d+)(\d{3})/; 
+	
+	function getNumber(obj){
+	     var num01;
+	     var num02;
+	     num01 = obj.value;
+	     num02 = num01.replace(rgx1,"");
+	     num01 = setComma(num02);
+	     obj.value =  num01;
+	}
+	function setComma(inNum){
+	     var outNum;
+	     outNum = inNum; 
+	     while (rgx2.test(outNum)) {
+	          outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
+	      }
+	     return outNum;
+	}
+	
+	
 	$(document).ready(function() {
 		$('.go').on('click', function(){
 			for(var i=1; i<13; ++i){
@@ -37,18 +65,18 @@
 			}
 		})
 	})
+	function addHomepage(value){
+		if(value=='yes') $('#homepage').show()
+		else $('#homepage').hide()
+	}
 	function addForm(){
 		$('#room').hide()
 		$('#addForm').show()
 		$('#room > tbody:last > tr:last').remove()
 	}
-	function addOption(select){
-		$('#sin').attr('style', 'display:none')
-		$('#dou').attr('style', 'display:none')
-		$('#dor').attr('style', 'display:none')
-		if(select=='sin') $('#sin').attr('style', 'display:block')
-		else if(select=='dou') $('#dou').attr('style', 'display:block')
-		else $('#dor').attr('style', 'display:block')
+	function addOption(value){
+		$('.roomCate').hide()
+		$('#' + value).show()
 	}
 	function clearRoom(){
 		$('#room').children().empty()
@@ -143,16 +171,29 @@
 		go[num-3].style.color = 'red'
 	}
 	function check_value(list){
+		var check_list = new Array()
+		check_list['homepage'] = '웹사이트';
+		check_list['accomodation_name'] = '숙소이름';
+		check_list['headname'] = '담당자이름';
+		check_list['tel'] = '연락처';
+		check_list['city'] = '도시';
+		check_list['roadname'] = '도로명';
+		check_list['detail'] = '상세주소';
+		check_list['postalcode'] = '우편번호';
+		check_list['roomname'] = '객실이름'
+		check_list['qty'] = '객실수량';
+		check_list['people'] = '수용인원';
+		check_list['price'] = '가격';
 		for(var index in list){
 			if(list[index]!='facility'){
 				var input = $('input[name=' + list[index] + ']').val()
-				if(input=='') {
-					alert(list[index] + '칸을 입력해 주세요.')
+				if(input.trim()=='') {
+					alert(check_list[list[index]] + ' 칸을 입력해 주세요.')
 					input.focus()
 					return false
 				}
 			}else{
-				if(addFacility()=='') {
+				if(addFacility.trim()=='') {
 					alert('시설을 선택해 주세요.')
 					return false
 				}
@@ -187,11 +228,30 @@
 	function clickEvent5(){
 		hideTable(5)
 	}
+	function checkPay(name){
+		if($('select[name="' + name + '"]').val()=='pay'){
+			var pay = $('input[name="' + name + '_pay"]').val()
+			if(pay==0){
+				if(name=='children') var str = 'no-kid 가격 정책이'
+				else var str = '반려동물 가격 정책이'
+				alert('1000원 미만은 설정 할 수 없습니다.\n' + str + ' 무료정책으로 취급됩니다.')
+				$('select[name="' + name + '"]').val('free')
+				$('#' + name + '_pay').attr('class', 'hide')
+				return '0'
+			}
+		}else{
+			return '0'
+		}
+		return pay*1000
+	}
 	function clickEvent6(){
+		var internet = checkPay('internet')
+		var parking = checkPay('parking')
+		var breakfast = checkPay('breakfast')
 		var accomodation_facility = ''
-		accomodation_facility += '인터넷,' + $('select[name=internet]').val() + ',' + $('input[name=internet_pay]').val() + ','
-		accomodation_facility += '주차,' + $('select[name=parking]').val() + ',' + $('input[name=parking_pay]').val() + ','
-		accomodation_facility += '조식,' + $('select[name=breakfast]').val() + ',' + $('input[name=breakfast_pay]').val() + ','
+		accomodation_facility += '인터넷,' + $('select[name=internet]').val() + ',' + internet*1000 + ','
+		accomodation_facility += '주차,' + $('select[name=parking]').val() + ',' + parking*1000 + ','
+		accomodation_facility += '조식,' + $('select[name=breakfast]').val() + ',' + breakfast*1000 + ','
 		accomodation_facility += '언어,' + $('select[name=language]').val()
 		$('input[name=accomodation_facility]').attr('value', accomodation_facility)
 		hideTable(6)
@@ -203,9 +263,11 @@
 	}
 	function clickEvent8(){
 		var policy = ''
+		var children = checkPay('children')
+		var pet = checkPay('pet')
 		policy += 'cancel,' + $('select[name=cancel_time] option:selected').val() + ',' + $('select[name=cancel_pay] option:selected').val() + ','
-		policy += 'children,' + $('select[name=children] option:selected').val() + ',' + $('input[name=children_pay]').val() + ','
-		policy += 'pet,' + $('select[name=pet] option:selected').val() + ',' + $('input[name=pet_pay]').val()
+		policy += 'children,' + $('select[name=children] option:selected').val() + ',' + children*1000 + ','
+		policy += 'pet,' + $('select[name=pet] option:selected').val() + ',' + pet*1000
 		$('input[name=policy]').attr('value', policy)
 		
 		$('input[name=checkin_date]').attr('value', $('input[name=check_in_stime]').val() + ' ~ ' + $('input[name=check_in_etime]').val())
@@ -216,7 +278,7 @@
 		var obj = $('#' + select.name + '_pay')
 		if(select.value=='pay') obj.removeAttr('class')
 		else{
-			$('input[name=' + select.name + '_pay]').attr('value', '0')
+			$('input[name="' + select.name + '_pay"]').val('0')
 			obj.attr('class', 'hide')
 		}
 	}
@@ -261,7 +323,7 @@
 	}
 </script>
 <body>
-<div style="width:90%; height:70%;">
+<div class="container-fluid full_color">
 	<table>
 		<tr>
 			<td><a href="home.do">메인으로</a></td>
@@ -277,7 +339,7 @@
 				<input style="width:140;" class="go" type="button" value="결제 정보 입력">
 			</td>
 		</tr>
-		<tr>
+		<tr style="padding: 50 50 0 100; margin: 30;">
 			<td width="80%">
 			<form name="f" action="insertRoomPro2.do" method="post" enctype="multipart/form-data" onsubmit="return check_clause()">
 				<input type="hidden" name="account_num" value="${userSession.num}">
@@ -310,7 +372,9 @@
 					<table>
 						<tr>
 							<td>
-								<input type="text" name="homepage">
+								<input type="radio" name="homepageAdd" value="yes" onchange="javascript:addHomepage(this.value)" checked>등록하겠습니다.
+								<input type="radio" name="homepageAdd" value="no" onchange="javascript:addHomepage(this.value)">홈페이지가 없습니다.<br>
+								<span id="homepage" style="display:inline-block;"><input type="text" name="homepage"></span>
 								<p/>
 								<input type="button" value="계속" onclick="javascript:clickEvent3()" style="width:400;"/>
 							</td>
@@ -345,12 +409,12 @@
 							<td>
 								국가/지역<br>
 								<select name="country">
-								<c:forEach var="dto" items="${countryList}">
-								<c:if test="${dto.name=='대한민국'}">
-									<option selected>${dto.name}</option>
+								<c:forEach var="contry" items="${countryList}">
+								<c:if test="${contry.name=='대한민국'}">
+									<option selected>${contry.name}</option>
 								</c:if>
-								<c:if test="${dto.name!='대한민국'}">
-									<option>${dto.name}</option>
+								<c:if test="${contry.name!='대한민국'}">
+									<option>${contry.name}</option>
 								</c:if>
 								</c:forEach>
 								</select><br>
@@ -393,28 +457,21 @@
 								<tr>
 									<td>
 										객실유형<br>
-										<select id="roomC" onchange="javascript:addOption(this.options[this.selectedIndex].value)">
-											<option value="sin">싱글룸</option>
-											<option value="dou">더블룸</option>
-											<option value="dor">도미토리룸</option>
+										<select id="roomC" onchange="javascript:addOption(this.value)">
+											<option>싱글룸</option>
+											<option>더블룸</option>
+											<option>도미토리룸</option>
 										</select>
 										<p/>
 										객실종류<br>
-										<select id="sin" style="display:block;">
-											<c:forEach var="str" items="${sin}">
+										<c:forEach var="roomCate" items="${categoryRoom}" varStatus="numb">
+										<c:if test="${numb.index==2}"><select id="${roomCate.key}" class="roomCate"></c:if>
+										<c:if test="${numb.index!=2}"><select id="${roomCate.key}" class="roomCate hide"></c:if>
+											<c:forEach var="str" items="${roomCate.value}">
 											<option>${str}</option>
 											</c:forEach>
 										</select>
-										<select id="dou" style="display:none;">
-											<c:forEach var="str" items="${dou}">
-											<option>${str}</option>
-											</c:forEach>
-										</select>
-										<select id="dor" style="display:none;">
-											<c:forEach var="str" items="${dor}">
-											<option>${str}</option>
-											</c:forEach>
-										</select>
+										</c:forEach>
 									</td>
 								</tr>
 								<tr>
@@ -425,12 +482,12 @@
 								</tr>
 								<tr>
 									<td>
-										이 유형에 해당하는 룸 갯수 : <input type="text" name="qty" size="2">
+										이 유형에 해당하는 룸 갯수 : <input type="text" class="onlyNumber" maxlength="2" size="1" name="qty"> 개
 									</td>
 								</tr>
 								<tr>
 									<td>
-										수용가능 인원 : <input type="text" name="people" size="2">
+										수용가능 인원 : <input type="text" class="onlyNumber" maxlength="2" size="1" name="people"> 명
 									</td>
 								</tr>
 								<tr>
@@ -448,7 +505,7 @@
 								<tr>
 									<td class="m3">
 										1인 숙박요금<br>
-										KRW/1박 : <input type="text" name="price">
+										KRW/1박 : <input type="text" class="onlyNumber" onkeyup="getNumber(this)" style="text-align:right;" maxlength="5" size="4" name="price">,000원
 									</td>
 								</tr>
 							</table>
@@ -504,7 +561,7 @@
 							<td>
 								<table id="internet_pay" class="hide">
 									<tr>
-										<td>추가 가격 : <input type="text" name="internet_pay" value="0"></td>
+										<td>추가 가격 : <input type="text" name="internet_pay" value="0" class="onlyNumber" maxlength="2" size="1">,000원</td>
 									</tr>
 								</table>
 							</td>
@@ -533,7 +590,7 @@
 							<td>
 								<table id="parking_pay" class="hide">
 									<tr>
-										<td>추가 가격 : <input type="text" name="parking_pay" value="0"></td>
+										<td>추가 가격 : <input type="text" name="parking_pay" value="0" class="onlyNumber" maxlength="2" size="1">,000원</td>
 									</tr>
 								</table>
 							</td>
@@ -559,7 +616,7 @@
 							<td>
 								<table id="breakfast_pay" class="hide">
 									<tr>
-										<td>추가 가격 : <input type="text" name="breakfast_pay" value="0"></td>
+										<td>추가 가격 : <input type="text" name="breakfast_pay" value="0" class="onlyNumber" maxlength="2" size="1">,000원</td>
 									</tr>
 								</table>
 							</td>
@@ -574,7 +631,7 @@
 						</tr>
 						<tr>
 							<td class="m3">
-								<select name="language" onchange="javascript:addOption(this.options[this.selectedIndex].value)">
+								<select name="language">
 									<option value="kor">한국어</option>
 									<option value="eng">영어</option>
 									<option value="chn">중국어</option>
@@ -642,8 +699,10 @@
 					</table>
 					<table>
 						<tr><td>실수로 진행된 예약 처리 간소화</td></tr>
-						<tr><td>실수로 진행된 예약에 대한 후속 조치에 소모되는 시간을 최소화 하기 위해 예약이 이뤄진 시점으로부터
-						24시간 내에 취소 시 위약금이 자동 면제되도록 설정하였습니다.취소 위약금 면제 시점은 숙소 관리 플랫폼에서 변경하실 수 있습니다.</td></tr>
+						<tr><td>실수로 진행된 예약에 대한 후속 조치에 소모되는 시간을
+						<br>최소화 하기 위해 예약이 이뤄진 시점으로부터
+						24시간 내에 취소 시 위약금이 자동 면제되도록 설정하였습니다.
+						<br>취소 위약금 면제 시점은 숙소 관리 플랫폼에서 변경하실 수 있습니다.</td></tr>
 					</table>
 					<table>
 						<tr>
@@ -803,7 +862,7 @@
 							<td>
 								<table id="children_pay" class="hide">
 									<tr>
-										<td>추가 가격 : <input type="text" name="children_pay" value="0"></td>
+										<td>추가 가격 : <input type="text" name="children_pay" value="0" class="onlyNumber" maxlength="2" size="1">,000원</td>
 									</tr>
 								</table>
 							</td>
@@ -832,7 +891,7 @@
 							<td>
 								<table id="pet_pay" class="hide">
 									<tr>
-										<td>추가 가격 : <input type="text" name="pet_pay" value="0"></td>
+										<td>추가 가격 : <input type="text" name="pet_pay" value="0" class="onlyNumber" maxlength="2" size="1">,000원</td>
 									</tr>
 								</table>
 							</td>

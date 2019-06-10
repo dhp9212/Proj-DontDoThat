@@ -46,14 +46,17 @@
 	<div class="row">
 		<div class="col-sm-2">방 갯수</div>
 		<div class="col-sm-3"><input type="text" name="qty" size="1" class="form-control" value="${roomDTO.qty}"></div>
+		<div class="col-sm-1">개</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2">수용가능  인원</div>
 		<div class="col-sm-3"><input type="text" name="people" size="1" class="form-control" value="${roomDTO.people}"></div>
+		<div class="col-sm-1">명</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2">가격</div>
 		<div class="col-sm-3"><input type="text" name="price" size="5" class="form-control" value="${roomDTO.price}"></div>
+		<div class="col-sm-1">,000원</div>
 	</div>
 	<br>
 	<p><font size="6">시설 변경</font></p>

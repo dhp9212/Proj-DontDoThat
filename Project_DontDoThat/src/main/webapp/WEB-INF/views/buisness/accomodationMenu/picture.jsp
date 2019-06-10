@@ -24,7 +24,7 @@
 	}
 </style>
 <script type="text/javascript">
-	var image_path = "${pageContext.request.contextPath}/resources/img/"
+	var image_path = "resources/img/"
 	$(document).ready(function() {
 		$(document).on('change', $('input[type=file]'), function(e){
 			var className = e.target.className
@@ -115,7 +115,6 @@
 				<div class="col-sm-12"><input type="hidden" name="accomodation_image" value="${accomodation_dto.image}"></div>
 			</div>
 		</div>
-		
 	</div>
 	
 <c:forEach var="roomDTO" items="${room_list}">
