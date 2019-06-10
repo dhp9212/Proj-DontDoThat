@@ -1,19 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<!-- bootstrap -->
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-  	
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.auto-complete.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.scrollex.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.scrolly.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.dropotron.min.js"></script>
+<!-- --------- -->
 	<title>Hacking.com</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/datepicker.css">
-  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"/>
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/noscript.css" />
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.auto-complete.css" />
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_reservation.css"/>
 </head>
 <body class="is-preload homepage">
 	<div id="page-wrapper">
@@ -22,7 +38,7 @@
 		<header id="header" class="container">
 			<!-- Logo -->
 				<div id="logo">
-					<h1><a href="">Hacking.com</a></h1>
+					<h1><a href="home.do">Hacking.com</a></h1>
 				</div>
 
 			<!-- Nav -->

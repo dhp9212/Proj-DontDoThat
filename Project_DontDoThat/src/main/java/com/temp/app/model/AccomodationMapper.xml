@@ -75,11 +75,14 @@
 		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
-		<!-- select * 
-		from accomodation
-		${condition} -->
-		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
-		${condition}
+		select * 
+		from (select rownum rn, A.* 
+			  from accomodation A) 
+		where rn between #{startRow} and #{endRow}
+		and country = #{country}
+		and checkin_date = #{start_date}
+		and checkout_date = #{end_date}
+		
 	</select>
 	
 	<select id="getRoom" resultType="RoomDTO" parameterType="int">

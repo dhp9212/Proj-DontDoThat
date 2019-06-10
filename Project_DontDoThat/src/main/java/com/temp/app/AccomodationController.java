@@ -1,8 +1,8 @@
 package com.temp.app;
 
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,26 +35,58 @@ public class AccomodationController {
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
 		String people = req.getParameter("people").trim();
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null) {
-			pageNum = "1";
+		
+		
+		
+		req.setAttribute("input_place", input_place);
+		if(start_date == null || start_date.equals("")) {
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(cal.YEAR);
+			int month = (cal.get(cal.MONTH)+1);
+			String monthStr;
+			if(month < 10) monthStr = "0" + month;
+			else monthStr = month + "";
+			int day = cal.get(cal.DATE);
+			String dayStr;
+			if(day < 10) dayStr = "0" + day;
+			else dayStr = day + "";
+			
+			start_date = year + "/" + monthStr + "/" + dayStr;
+			
+			if(end_date == null || end_date.equals("")) {
+				cal.add(Calendar.DATE, 1);
+				int nextday = cal.get(cal.DATE);
+				String nextdayStr;
+				if(day < 10) nextdayStr = "0" + nextday;
+				else nextdayStr = nextday + "";
+				end_date = year + "/" + monthStr + "/" + nextdayStr;
+			}
 		}
-		int currentPage = Integer.parseInt(pageNum);
-		int pageSize = 5;
-		int startRow = (currentPage - 1) * pageSize + 1;
-		int listCount = accomodationMapper.getCount();
-		int endRow = currentPage * pageSize;
-		if (endRow > listCount) endRow = listCount;
-		System.out.println(listCount);
-		List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people, startRow, endRow);
-		req.setAttribute("listAccomodation", list);
-		if (listCount > 0) {
-			int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
-			int pageBlock = 10;
-			int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
-			int endPage = startPage + pageBlock - 1;
-			if (endPage > pageCount) endPage = pageCount;
-			req.setAttribute("listCount", listCount);
+		req.setAttribute("start_date", start_date);
+		req.setAttribute("end_date", end_date);
+		
+        String pageNum = req.getParameter("pageNum");
+        if (pageNum == null) {
+            pageNum = "1";
+        }
+        int currentPage = Integer.parseInt(pageNum);
+        int pageSize = 5;
+        
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int listCount = accomodationMapper.getCount();
+        int endRow = currentPage * pageSize;
+        
+        if (endRow > listCount) endRow = listCount;
+        System.out.println(listCount);
+        List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people, startRow, endRow);
+        req.setAttribute("listAccomodation", list);
+        if (listCount > 0) {
+            int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
+            int pageBlock = 10;
+            int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+            int endPage = startPage + pageBlock - 1;
+            if (endPage > pageCount) endPage = pageCount;
+            req.setAttribute("listCount", listCount);
 			req.setAttribute("pageCount", pageCount);
 			req.setAttribute("startPage", startPage);
 			req.setAttribute("endPage", endPage);
