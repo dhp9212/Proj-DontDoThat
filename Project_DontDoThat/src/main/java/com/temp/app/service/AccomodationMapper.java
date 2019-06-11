@@ -30,9 +30,39 @@ public class AccomodationMapper {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insertAccomodation(AccomodationDTO dto) {
-		sqlSession.insert("insertAccomodation", dto);
-		return dto.getNum();
+	public int insertAccomodation(MultipartHttpServletRequest mr, AccomodationDTO aDTO) {
+		HttpSession session = mr.getSession();
+		String upPath = session.getServletContext().getRealPath("resources/img");
+		String accomodation_image = mr.getParameter("image");
+		List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
+		
+		//이번 등록동안 사용할 맵, 카운터
+		Integer count = 0;
+		Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
+		String image = "";
+		
+		for(MultipartFile mf : accomodatation_files) {
+			//파일이 이미지 타입이 아닌경우 다음파일로
+			if(!mf.getContentType().substring(0, 5).equals("image")) continue;
+			//파라메터 값 분석후 바뀐 값 맵에 저장  + 파일쓰기
+			count = count+1;
+			imageCheck(mf, accomodation_image, upPath, count, change_index);
+		}
+		Enumeration<Integer> change_index_key = change_index.keys();
+		ArrayList<String> list = new ArrayList<String>(Arrays.asList(accomodation_image.split(",")));
+		while(change_index_key.hasMoreElements()) {
+			Integer index = change_index_key.nextElement();
+			list.set(index, change_index.get(index));
+		}
+		for(String str : list) {
+			if(image.equals("")) image = str;
+			else image += "," + str;
+		}
+		aDTO.setImage(image);
+		aDTO.setAddress(mr.getParameter("roadname") + mr.getParameter("detail"));
+		
+		sqlSession.insert("insertAccomodation", aDTO);
+		return aDTO.getNum();
 	}
 	public void insertRoom(List<RoomDTO> list) {
 		for(RoomDTO dto : list) {
