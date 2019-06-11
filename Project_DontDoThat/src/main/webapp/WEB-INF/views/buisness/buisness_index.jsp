@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="_buisness_top.jsp"%>
-<!DOCTYPE html>
+<div class="container-fluid" style="background-color:#fafafa">
 	<div>
 		<table id="1" style="height:70%;">
 		<c:forEach var="dto" items="${accomodation_list}">
@@ -27,4 +27,5 @@
 			</tr>		
 		</table>
 	</div>
+</div>
 <%@ include file="_buisness_bottom.jsp"%>

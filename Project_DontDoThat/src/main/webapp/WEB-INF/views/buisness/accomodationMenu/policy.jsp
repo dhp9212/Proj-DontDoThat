@@ -155,255 +155,257 @@
 <input type="hidden" name="payment" value="${accomodation_dto.payment}">
 <input type="hidden" name="checkin_date">
 <input type="hidden" name="checkout_date">
-<div class="container">
-	<div class="row" style="height:150;">
-		<div class="col-sm-12" align="center">
-			<font size="6">여기서는 귀하의 숙소 정책에 대해 설정할 수 있습니다.<br>취소부담금, no-kid설정, 사용카드변경, 체크타임 설정이 가능합니다.</font>
+<div class="container-fluid" style="background-color:#fafafa">
+	<div class="container">
+		<div class="row" style="height:150;">
+			<div class="col-sm-12" align="center">
+				<font size="6">여기서는 귀하의 숙소 정책에 대해 설정할 수 있습니다.<br>취소부담금, no-kid설정, 사용카드변경, 체크타임 설정이 가능합니다.</font>
+			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm-12 border">
+				<div class="row">
+					<div class="col-sm-11"><font size="5">취소정책</font></div>
+				</div>
+				<div class="row pay">
+					<div class="col-sm-4">
+						<select name="cancel_time" class="form-control">
+							<option value="0">도착일(18:00)</option>
+							<option value="1">1일</option>
+							<option value="2">2일</option>
+							<option value="3">3일</option>
+							<option value="7">7일</option>
+							<option value="14">14일</option>
+						</select>
+					</div>
+					<div class="col-sm-6">
+						<font size="4">까지 무료취소 됩니다.</font>
+					</div>
+				</div>
+				<div class="row pay" style="height:70;">
+					<div class="col-sm-5"><font size="4">그렇지 않은 경우 예약자는</font> </div>
+					<div class="col-sm-6">
+						<select name="cancel_time_pay" class="form-control">
+							<option value="all">숙박료 전액을 지불합니다.</option>
+							<option value="one">첫 1박 요금을 지불합니다.</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-5 border">
+				<div class="row">
+					<div class="col-sm-4"><font size="5">어린이</font></div>
+					<div class="col-sm-5">
+						<select name="children" class="form-control">
+							<option value="no">금지</option>
+							<option value="pay">유료</option>
+							<option value="free">무료</option>
+						</select>
+					</div>
+				</div>
+				<div class="row" style="height:100;">
+					<div class="col-sm-6 pay">
+						<span id="children_pay" class="hide">가격 : <input type="text" class="onlyNumber" name="children_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5 border">
+				<div class="row">
+					<div class="col-sm-4"><font size="5">반려동물</font></div>
+					<div class="col-sm-5">
+						<select name="pet" class="form-control">
+							<option value="no">금지</option>
+							<option value="pay">유료</option>
+							<option value="free">무료</option>
+						</select>
+					</div>
+				</div>
+				<div class="row" style="height:100;">
+					<div class="col-sm-6 pay">
+						<span id="pet_pay" class="hide">가격 : <input type="text" class="onlyNumber"  name="pet_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 border">
+				<div class="row">
+					<div class="col-sm-12 pay"><font size="5">카드 설정</font></div>
+				</div>
+				<div class="row pay">
+					<div class="col-sm-2 radioCheck"><input type="radio" name="card" class="form-check-input" value="yes">예</div>
+					<div class="col-sm-2 radioCheck"><input type="radio" name="card" class="form-check-input" value="no">아니오</div>
+				</div>
+			</div>
+		</div>
+		<div id="card_list" class="row hide">
+			<div class="col-sm-12 border">
+				<div class="row pay">
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="American Express">American Express</div>
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Visa">Visa</div>
+				</div>
+				<div class="row pay">
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Euro/Mastercard">Euro/Mastercard</div>
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Diners Club">Diners Club</div>
+				</div>
+				<div class="row pay">
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="JCB">JCB</div>
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Maestro">Maestro</div>
+				</div>
+				<div class="row pay">
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Discover">Discover</div>
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="UnionPay debit card">UnionPay debit card</div>
+				</div>
+				<div class="row pay">
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="BC-Card">BC-Card</div>
+					<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="UnionPay credit card">UnionPay credit card</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10"><font size="5">체크인, 체크아웃 설정</font></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-5 border">
+				<div class="row">
+					<div class="col-sm-6"><font size="4">체크인 시작</font></div>
+					<div class="col-sm-5"><font size="4">체크인 마감</font></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-5">
+						<select id="check_in_s" class="form-control check_in" onchange="javascript:checkTime(this)">
+							<option>00:00</option>
+							<option>01:00</option>
+							<option>02:00</option>
+							<option>03:00</option>
+							<option>04:00</option>
+							<option>05:00</option>
+							<option>06:00</option>
+							<option>07:00</option>
+							<option>08:00</option>
+							<option>09:00</option>
+							<option>10:00</option>
+							<option>11:00</option>
+							<option>12:00</option>
+							<option>13:00</option>
+							<option>14:00</option>
+							<option>15:00</option>
+							<option>16:00</option>
+							<option>17:00</option>
+							<option>18:00</option>
+							<option>19:00</option>
+							<option>20:00</option>
+							<option>21:00</option>
+							<option>22:00</option>
+							<option>23:00</option>
+						</select>
+					</div>
+					<div class="col-sm-1">~</div>
+					<div class="col-sm-5">
+						<select id="check_in_e" class="form-control check_in" onchange="javascript:checkTime(this)">
+							<option>01:00</option>
+							<option>02:00</option>
+							<option>03:00</option>
+							<option>04:00</option>
+							<option>05:00</option>
+							<option>06:00</option>
+							<option>07:00</option>
+							<option>08:00</option>
+							<option>09:00</option>
+							<option>10:00</option>
+							<option>11:00</option>
+							<option>12:00</option>
+							<option>13:00</option>
+							<option>14:00</option>
+							<option>15:00</option>
+							<option>16:00</option>
+							<option>17:00</option>
+							<option>18:00</option>
+							<option>19:00</option>
+							<option>20:00</option>
+							<option>21:00</option>
+							<option>22:00</option>
+							<option>23:00</option>
+							<option>24:00</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5 border">
+				<div class="row">
+					<div class="col-sm-6"><font size="4">체크아웃 시작</font></div>
+					<div class="col-sm-5"><font size="4">체크아웃 마감</font></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-5">
+						<select id="check_out_s" class="form-control check_out" onchange="javascript:checkTime(this)">
+							<option>00:00</option>
+							<option>01:00</option>
+							<option>02:00</option>
+							<option>03:00</option>
+							<option>04:00</option>
+							<option>05:00</option>
+							<option>06:00</option>
+							<option>07:00</option>
+							<option>08:00</option>
+							<option>09:00</option>
+							<option>10:00</option>
+							<option>11:00</option>
+							<option>12:00</option>
+							<option>13:00</option>
+							<option>14:00</option>
+							<option>15:00</option>
+							<option>16:00</option>
+							<option>17:00</option>
+							<option>18:00</option>
+							<option>19:00</option>
+							<option>20:00</option>
+							<option>21:00</option>
+							<option>22:00</option>
+							<option>23:00</option>
+						</select>
+					</div>
+					<div class="col-sm-1">~</div>
+					<div class="col-sm-5">
+						<select id="check_out_e" class="form-control check_out" onchange="javascript:checkTime(this)">
+							<option>01:00</option>
+							<option>02:00</option>
+							<option>03:00</option>
+							<option>04:00</option>
+							<option>05:00</option>
+							<option>06:00</option>
+							<option>07:00</option>
+							<option>08:00</option>
+							<option>09:00</option>
+							<option>10:00</option>
+							<option>11:00</option>
+							<option>12:00</option>
+							<option>13:00</option>
+							<option>14:00</option>
+							<option>15:00</option>
+							<option>16:00</option>
+							<option>17:00</option>
+							<option>18:00</option>
+							<option>19:00</option>
+							<option>20:00</option>
+							<option>21:00</option>
+							<option>22:00</option>
+							<option>23:00</option>
+							<option>24:00</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" name="check_in_stime">
+		<input type="hidden" name="check_in_etime">
+		<input type="hidden" name="check_out_stime">
+		<input type="hidden" name="check_out_etime">
+		<div class="row" style="height:50;"></div>
+		<p><input type="submit" value="변경하기"></p>
 	</div>
-	<div class="row">
-		<div class="col-sm-12 border">
-			<div class="row">
-				<div class="col-sm-11"><font size="5">취소정책</font></div>
-			</div>
-			<div class="row pay">
-				<div class="col-sm-4">
-					<select name="cancel_time" class="form-control">
-						<option value="0">도착일(18:00)</option>
-						<option value="1">1일</option>
-						<option value="2">2일</option>
-						<option value="3">3일</option>
-						<option value="7">7일</option>
-						<option value="14">14일</option>
-					</select>
-				</div>
-				<div class="col-sm-6">
-					<font size="4">까지 무료취소 됩니다.</font>
-				</div>
-			</div>
-			<div class="row pay" style="height:70;">
-				<div class="col-sm-5"><font size="4">그렇지 않은 경우 예약자는</font> </div>
-				<div class="col-sm-6">
-					<select name="cancel_time_pay" class="form-control">
-						<option value="all">숙박료 전액을 지불합니다.</option>
-						<option value="one">첫 1박 요금을 지불합니다.</option>
-					</select>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-5 border">
-			<div class="row">
-				<div class="col-sm-4"><font size="5">어린이</font></div>
-				<div class="col-sm-5">
-					<select name="children" class="form-control">
-						<option value="no">금지</option>
-						<option value="pay">유료</option>
-						<option value="free">무료</option>
-					</select>
-				</div>
-			</div>
-			<div class="row" style="height:100;">
-				<div class="col-sm-6 pay">
-					<span id="children_pay" class="hide">가격 : <input type="text" class="onlyNumber" name="children_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-5 border">
-			<div class="row">
-				<div class="col-sm-4"><font size="5">반려동물</font></div>
-				<div class="col-sm-5">
-					<select name="pet" class="form-control">
-						<option value="no">금지</option>
-						<option value="pay">유료</option>
-						<option value="free">무료</option>
-					</select>
-				</div>
-			</div>
-			<div class="row" style="height:100;">
-				<div class="col-sm-6 pay">
-					<span id="pet_pay" class="hide">가격 : <input type="text" class="onlyNumber"  name="pet_pay" size="1" maxlength="2" style="padding: 0 0 0 10;" value="0"> ,000 원</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-12 border">
-			<div class="row">
-				<div class="col-sm-12 pay"><font size="5">카드 설정</font></div>
-			</div>
-			<div class="row pay">
-				<div class="col-sm-2 radioCheck"><input type="radio" name="card" class="form-check-input" value="yes">예</div>
-				<div class="col-sm-2 radioCheck"><input type="radio" name="card" class="form-check-input" value="no">아니오</div>
-			</div>
-		</div>
-	</div>
-	<div id="card_list" class="row hide">
-		<div class="col-sm-12 border">
-			<div class="row pay">
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="American Express">American Express</div>
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Visa">Visa</div>
-			</div>
-			<div class="row pay">
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Euro/Mastercard">Euro/Mastercard</div>
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Diners Club">Diners Club</div>
-			</div>
-			<div class="row pay">
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="JCB">JCB</div>
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Maestro">Maestro</div>
-			</div>
-			<div class="row pay">
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="Discover">Discover</div>
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="UnionPay debit card">UnionPay debit card</div>
-			</div>
-			<div class="row pay">
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="BC-Card">BC-Card</div>
-				<div class="col-sm-5 cardCheck"><input type="checkbox" name="card" class="form-check-input" value="UnionPay credit card">UnionPay credit card</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-10"><font size="5">체크인, 체크아웃 설정</font></div>
-	</div>
-	<div class="row">
-		<div class="col-sm-5 border">
-			<div class="row">
-				<div class="col-sm-6"><font size="4">체크인 시작</font></div>
-				<div class="col-sm-5"><font size="4">체크인 마감</font></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-5">
-					<select id="check_in_s" class="form-control check_in" onchange="javascript:checkTime(this)">
-						<option>00:00</option>
-						<option>01:00</option>
-						<option>02:00</option>
-						<option>03:00</option>
-						<option>04:00</option>
-						<option>05:00</option>
-						<option>06:00</option>
-						<option>07:00</option>
-						<option>08:00</option>
-						<option>09:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
-						<option>15:00</option>
-						<option>16:00</option>
-						<option>17:00</option>
-						<option>18:00</option>
-						<option>19:00</option>
-						<option>20:00</option>
-						<option>21:00</option>
-						<option>22:00</option>
-						<option>23:00</option>
-					</select>
-				</div>
-				<div class="col-sm-1">~</div>
-				<div class="col-sm-5">
-					<select id="check_in_e" class="form-control check_in" onchange="javascript:checkTime(this)">
-						<option>01:00</option>
-						<option>02:00</option>
-						<option>03:00</option>
-						<option>04:00</option>
-						<option>05:00</option>
-						<option>06:00</option>
-						<option>07:00</option>
-						<option>08:00</option>
-						<option>09:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
-						<option>15:00</option>
-						<option>16:00</option>
-						<option>17:00</option>
-						<option>18:00</option>
-						<option>19:00</option>
-						<option>20:00</option>
-						<option>21:00</option>
-						<option>22:00</option>
-						<option>23:00</option>
-						<option>24:00</option>
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-5 border">
-			<div class="row">
-				<div class="col-sm-6"><font size="4">체크아웃 시작</font></div>
-				<div class="col-sm-5"><font size="4">체크아웃 마감</font></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-5">
-					<select id="check_out_s" class="form-control check_out" onchange="javascript:checkTime(this)">
-						<option>00:00</option>
-						<option>01:00</option>
-						<option>02:00</option>
-						<option>03:00</option>
-						<option>04:00</option>
-						<option>05:00</option>
-						<option>06:00</option>
-						<option>07:00</option>
-						<option>08:00</option>
-						<option>09:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
-						<option>15:00</option>
-						<option>16:00</option>
-						<option>17:00</option>
-						<option>18:00</option>
-						<option>19:00</option>
-						<option>20:00</option>
-						<option>21:00</option>
-						<option>22:00</option>
-						<option>23:00</option>
-					</select>
-				</div>
-				<div class="col-sm-1">~</div>
-				<div class="col-sm-5">
-					<select id="check_out_e" class="form-control check_out" onchange="javascript:checkTime(this)">
-						<option>01:00</option>
-						<option>02:00</option>
-						<option>03:00</option>
-						<option>04:00</option>
-						<option>05:00</option>
-						<option>06:00</option>
-						<option>07:00</option>
-						<option>08:00</option>
-						<option>09:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
-						<option>15:00</option>
-						<option>16:00</option>
-						<option>17:00</option>
-						<option>18:00</option>
-						<option>19:00</option>
-						<option>20:00</option>
-						<option>21:00</option>
-						<option>22:00</option>
-						<option>23:00</option>
-						<option>24:00</option>
-					</select>
-				</div>
-			</div>
-		</div>
-	</div>
-	<input type="hidden" name="check_in_stime">
-	<input type="hidden" name="check_in_etime">
-	<input type="hidden" name="check_out_stime">
-	<input type="hidden" name="check_out_etime">
-	<div class="row" style="height:50;"></div>
-	<p><input type="submit" value="변경하기"></p>
 </div>
 </form>
 <%@ include file="../_buisness_bottom.jsp"%>

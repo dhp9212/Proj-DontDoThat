@@ -62,7 +62,6 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid full_color">
 	<!-- 				미구현
 		<table>
 			<tr id="menu" class="hide">
