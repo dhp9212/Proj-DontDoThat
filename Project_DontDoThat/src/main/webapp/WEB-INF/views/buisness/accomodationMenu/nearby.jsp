@@ -74,91 +74,93 @@
 		return true
 	}
 </script>
-<div class="container">
-<form name="f" action="updateNearby.do" method="post" onsubmit="return makeNearby()">
-<input type="hidden" name="nearby">
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="row">
-				<div class="col-sm-6"><font size="5">쇼핑 및 식당가</font></div>
+<div class="container-fluid" style="background-color:#fafafa">
+	<div class="container">
+	<form name="f" action="updateNearby.do" method="post" onsubmit="return makeNearby()">
+	<input type="hidden" name="nearby">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-6"><font size="5">쇼핑 및 식당가</font></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">레스토랑<br><input class="form-control" maxlength="30" type="text" name="restaurant"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="restaurant_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="restaurant" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">카페/바<br><input class="form-control" maxlength="30" type="text" name="cafe"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="cafe_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="cafe" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">식품점/슈퍼마켓<br><input class="form-control" maxlength="30" type="text" name="market"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="market_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="market" type="button" class="my_button" value="추가하기"></div>
+				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-9">레스토랑<br><input class="form-control" maxlength="30" type="text" name="restaurant"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="restaurant_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="restaurant" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">카페/바<br><input class="form-control" maxlength="30" type="text" name="cafe"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="cafe_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="cafe" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">식품점/슈퍼마켓<br><input class="form-control" maxlength="30" type="text" name="market"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="market_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="market" type="button" class="my_button" value="추가하기"></div>
+			
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-6"><font size="5">관광명소</font></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">산<br><input class="form-control" maxlength="30" type="text" name="mountain"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="mountain_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="mountain" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">호수<br><input class="form-control" maxlength="30" type="text" name="lake"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="lake_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="lake" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">강<br><input class="form-control" maxlength="30" type="text" name="river"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="river_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="river" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">바다/대양<br><input class="form-control" maxlength="30" type="text" name="sea"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="sea_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="sea" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">해변<br><input class="form-control" maxlength="30" type="text" name="beach"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="beach_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="beach" type="button" class="my_button" value="추가하기"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9">스키리프트<br><input class="form-control" maxlength="30" type="text" name="ski"></div>
+					<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="ski_length"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input id="ski" type="button" class="my_button" value="추가하기"></div>
+				</div>
 			</div>
 		</div>
-		
-		<div class="col-sm-6">
-			<div class="row">
-				<div class="col-sm-6"><font size="5">관광명소</font></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">산<br><input class="form-control" maxlength="30" type="text" name="mountain"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="mountain_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="mountain" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">호수<br><input class="form-control" maxlength="30" type="text" name="lake"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="lake_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="lake" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">강<br><input class="form-control" maxlength="30" type="text" name="river"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="river_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="river" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">바다/대양<br><input class="form-control" maxlength="30" type="text" name="sea"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="sea_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="sea" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">해변<br><input class="form-control" maxlength="30" type="text" name="beach"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="beach_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="beach" type="button" class="my_button" value="추가하기"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-9">스키리프트<br><input class="form-control" maxlength="30" type="text" name="ski"></div>
-				<div class="col-sm-3">거리(m)<br><input class="form-control onlyNumber" maxlength="3" type="text" name="ski_length"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12"><input id="ski" type="button" class="my_button" value="추가하기"></div>
-			</div>
+		<div class="row">
+			<div class="col-sm-12"><font size="4">잘못된 정보는 숙소에 대한 신뢰도를 떨어뜨립니다. 허위정보를 적는경우 사이트 이용에 불이익이 있을수도 있습니다.</font></div>
 		</div>
+		<div class="row">
+			<div class="col-sm-6"><input type="submit" value="추가하기"></div>
+		</div>
+	</form>
 	</div>
-	<div class="row">
-		<div class="col-sm-12"><font size="4">잘못된 정보는 숙소에 대한 신뢰도를 떨어뜨립니다. 허위정보를 적는경우 사이트 이용에 불이익이 있을수도 있습니다.</font></div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6"><input type="submit" value="추가하기"></div>
-	</div>
-</form>
 </div>
 <%@ include file="../_buisness_bottom.jsp"%>

@@ -101,37 +101,39 @@
 		select.remove()
 	}
 </script>
-<div class="container">
-<form name="f" action="updateImage.do" method="post" enctype="multipart/form-data" onsubmit="return image_total()" accept-charset="UTF-8">
-	<div class="row border">
-		<div class="col-sm-12"><font size="5">사진 등록<br><br></font></div>
-	</div>
-	<div class="row border">
-		<div class="col-sm-12">
-			<div class="row">
-				<div class="col-sm-12"><input class="my_button" type="button" onclick="fileUploadAction(this)" value="숙소 이미지 추가"></div>
-			</div>
-			<div id="accomodation_div" class="row box">
-				<div class="col-sm-12"><input type="hidden" name="accomodation_image" value="${accomodation_dto.image}"></div>
+<div class="container-fluid" style="background-color:#fafafa">
+	<div class="container">
+	<form name="f" action="updateImage.do" method="post" enctype="multipart/form-data" onsubmit="return image_total()" accept-charset="UTF-8">
+		<div class="row border">
+			<div class="col-sm-12"><font size="5">사진 등록<br><br></font></div>
+		</div>
+		<div class="row border">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-12"><input class="my_button" type="button" onclick="fileUploadAction(this)" value="숙소 이미지 추가"></div>
+				</div>
+				<div id="accomodation_div" class="row box">
+					<div class="col-sm-12"><input type="hidden" name="accomodation_image" value="${accomodation_dto.image}"></div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-<c:forEach var="roomDTO" items="${room_list}">
-	<div class="row border">
-		<div class="col-sm-12">
-			<div class="row">
-				<div class="col-sm-12"><input name="${roomDTO.key}" class="my_button" type="button" onclick="fileUploadAction(this)" value="${roomDTO.value.roomname} 이미지 추가"></div>
-			</div>
-			<div id="${roomDTO.key}room_div" class="row box">
-				<div class="col-sm-12"><input type="hidden" name="${roomDTO.key}room_image" value="${roomDTO.value.room_image}"></div>
+		
+	<c:forEach var="roomDTO" items="${room_list}">
+		<div class="row border">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-12"><input name="${roomDTO.key}" class="my_button" type="button" onclick="fileUploadAction(this)" value="${roomDTO.value.roomname} 이미지 추가"></div>
+				</div>
+				<div id="${roomDTO.key}room_div" class="row box">
+					<div class="col-sm-12"><input type="hidden" name="${roomDTO.key}room_image" value="${roomDTO.value.room_image}"></div>
+				</div>
 			</div>
 		</div>
+	</c:forEach>
+		<div class="row" style="margin: 10;">
+			<div class="col-sm-12"><input type="submit" value="등록하기"></div>
+		</div>
+	</form>
 	</div>
-</c:forEach>
-	<div class="row" style="margin: 10;">
-		<div class="col-sm-12"><input type="submit" value="등록하기"></div>
-	</div>
-</form>
 </div>
 <%@ include file="../_buisness_bottom.jsp"%>
