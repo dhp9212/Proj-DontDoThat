@@ -78,6 +78,10 @@
 		and checkout_date = #{end_date} -->
 		
 	</select>
+	<select id="getAccomodationList" resultType="AccomodationDTO">
+		select * 
+		from accomodation
+	</select>
 	
 	<select id="getRoom" resultType="RoomDTO" parameterType="int">
 		select * from room where num = #{num}
