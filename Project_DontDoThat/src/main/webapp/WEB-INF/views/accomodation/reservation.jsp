@@ -130,7 +130,7 @@
 		var email = $('#email')
 		var country = $('#country')
 		var tel = $('#tel')
-		if (last_name.val() != '' || email.val() != '' || country.val() != 'default' || tel.val() != '') {
+		if (last_name.val() != '' && email.val() != '' && country.val() != 'default' && tel.val() != '') {
 			$('form[name="reservation"]').submit()
 		}
 		else{
