@@ -18,7 +18,7 @@
 			<div class="col-lg-12">체크인 날짜</div>
 			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }"></div>
 			<div class="col-lg-12">체크아웃 날짜</div>
-			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }"></div>
+			<div class="col-lg-12"><input type="text" name="end_date" autocomplete="off" value="${end_date }"></div>
 			<div class="col-lg-12 days">1박 선택</div>
 			<div class="col-lg-12">
 				<select name="adult">
@@ -48,7 +48,7 @@
 				<option value="8">아동 8명</option>
 				<option value="9">아동 9명</option>
 				<option value="10">아동 10명</option>
-			</select>
+				</select>
 			</div>
 			<div class="col-lg-6">
 				<select name="room">
@@ -73,7 +73,7 @@
 <div class="col-lg-8">
 		
 		<div>
-			<h1>검색된 숙소 ${fn:length(listAccomodation)}개</h1>
+			<h1>검색된 숙소 ${listCount}개</h1>
 		</div>
 	<div class="btn-group sortbar">
 					  <button type="button" class="btn btn-primary" id="selected">요금</button>
@@ -123,8 +123,22 @@
 					  </div>
 					</div>
 			</c:forEach>
+	<div>
+	<c:if test="${listCount > 0}">
+		<c:if test="${startPage > pageBlock}">
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage - 1}" title="이전 페이지"><</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${i}"><c:out value="${i}" /></a>
+		</c:forEach>
+		<c:if test="${endPage < pageCount}">
+			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage + pageBlock}" title="다음 페이지">></a>
+		</c:if>
+	</div>
+	<div align="right">페이지 ${startRow} - ${endRow}</div>
+	</c:if>
 </div>
-
+<%-- 
 
 <table width="100%">
 
@@ -258,7 +272,7 @@
 				</div>
 			</td>
 		</tr>
-	</table>
+	</table> --%>
 	
 	<script>
 	function myMap() {

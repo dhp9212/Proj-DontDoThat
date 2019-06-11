@@ -69,7 +69,7 @@
 									국가/지역<br>
 									<select name="country">
 										<option value="default">-- --국가/지역 선택-- --</option>
-									<c:forEach var="country" items="${selectCountry}">
+									<c:forEach var="country" items="${countryList}">
 										<option>${country.name}</option>
 									</c:forEach>
 									</select>
@@ -102,14 +102,7 @@
 										</tr>
 										<tr>
 											<td colspan="2">투숙객 성명<br>
-										<c:choose>
-											<c:when test="${empty userSession}">
-												<input type="text" name="tel" class="box">
-											</c:when>
-											<c:otherwise>
-												<input type="text" name="tel" class="box" value="${getAccount.name}">
-											</c:otherwise>
-										</c:choose>
+												<input type="text" name="guest_name" class="box" value="성(영문) 이름(영문)">
 											</td>
 										</tr>
 									</table>
@@ -124,14 +117,24 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-	function check(){
+	function check() {
 		var session = '${userSession}'
-		if(session == ''){
+		if (session == '') {
 			document.reservation.action = 'loginFromReservation.do'
 			document.reservation.submit();
 		}
-		else{
+		else {
 			document.reservation.submit();
+		}
+		var last_name = $('#last_name')
+		var email = $('#email')
+		var country = $('#country')
+		var tel = $('#tel')
+		if (last_name.val() != '' || email.val() != '' || country.val() != 'default' || tel.val() != '') {
+			$('form[name="reservation"]').submit()
+		}
+		else{
+			alert("필수정보(성(영문), 이메일 주소, 국가/지역, 전화번호)를 입력해주세요")
 		}
 	}
 	</script>

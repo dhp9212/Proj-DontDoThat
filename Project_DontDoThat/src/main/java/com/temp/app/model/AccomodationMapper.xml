@@ -65,14 +65,8 @@
 	<update id="updateRoom_image" parameterType="Map">
 		update room set room_image=#{room_image, jdbcType=VARCHAR} where num=#{room_num}
 	</update>
-	<select id="getRoomList" parameterType="string" resultType="RoomDTO">
-		select * from room where accomodation_num=#{num}
-	</select>
-	
-	
-	<select id="listAccomodationAll" resultType="AccomodationDTO">
-		<!-- select * from accomodation -->
-		select * from (select rownum rn, A.* from accomodation A) where rn between ${startRow} and ${endRow}
+	<select id="getRoomList" resultType="RoomDTO" parameterType="int">
+		select * from room where accomodation_num = #{num}
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
 		select * 
@@ -80,8 +74,8 @@
 			  from accomodation A) 
 		where rn between #{startRow} and #{endRow}
 		and country = #{country}
-		and checkin_date = #{start_date}
-		and checkout_date = #{end_date}
+		<!-- and checkin_date = #{start_date}
+		and checkout_date = #{end_date} -->
 		
 	</select>
 	
@@ -113,8 +107,11 @@
 	<delete id="deleteReservation" parameterType="ReservationDTO">
 		delete from reservation where num = #{num}
 	</delete>
-	<select id="getCount" resultType="int">
-		select count(*) from accomodation
+	<select id="getCount" resultType="int" parameterType="HashMap">
+		select count(*) from accomodation 
+		where country = #{country}
+		<!-- and checkin_date = #{start_date}
+		and checkout_date = #{end_date} -->
 	</select>
 	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">
 		select * from accomodation where num = #{num}

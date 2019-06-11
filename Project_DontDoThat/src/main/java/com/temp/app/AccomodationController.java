@@ -34,7 +34,9 @@ public class AccomodationController {
 		String input_place = req.getParameter("input_place").trim();
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
-		String people = req.getParameter("people").trim();
+//		String adult = req.getParameter("adult").trim();
+//		String child = req.getParameter("child").trim();
+//		String room = req.getParameter("room").trim();
 		
 		
 		
@@ -70,15 +72,15 @@ public class AccomodationController {
             pageNum = "1";
         }
         int currentPage = Integer.parseInt(pageNum);
-        int pageSize = 5;
+        int pageSize = 10;
         
         int startRow = (currentPage - 1) * pageSize + 1;
-        int listCount = accomodationMapper.getCount();
+        int listCount = accomodationMapper.getCount(input_place, start_date, end_date);
         int endRow = currentPage * pageSize;
         
         if (endRow > listCount) endRow = listCount;
         System.out.println(listCount);
-        List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, people, startRow, endRow);
+        List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, startRow, endRow);
         req.setAttribute("listAccomodation", list);
         if (listCount > 0) {
             int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
@@ -88,6 +90,8 @@ public class AccomodationController {
             if (endPage > pageCount) endPage = pageCount;
             req.setAttribute("listCount", listCount);
 			req.setAttribute("pageCount", pageCount);
+			req.setAttribute("startRow", startRow);
+			req.setAttribute("endRow", endRow);
 			req.setAttribute("startPage", startPage);
 			req.setAttribute("endPage", endPage);
 		}
