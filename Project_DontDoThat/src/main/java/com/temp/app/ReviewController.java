@@ -1,5 +1,6 @@
 package com.temp.app;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.GradeDTO;
 import com.temp.app.model.ReviewDTO;
@@ -42,15 +45,20 @@ public class ReviewController {
 	@RequestMapping(value="/reviewWritePro.do")
 	public String reviewWritePro(HttpServletRequest req,
 			@ModelAttribute ReviewDTO dto, @ModelAttribute GradeDTO dto1, BindingResult result) throws Exception {
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		List<MultipartFile> mf = mr.getFiles("myimage");
+		
+		String image = "";
+		String upPath = req.getSession().getServletContext().getRealPath("/resources/img");
+		for(MultipartFile c : mf) {
+			image += c.getOriginalFilename()+",";
+			File file = new File(upPath, c.getOriginalFilename());
+			c.transferTo(file);
+		}
+		image = image.substring(0, image.length() -1);
+		dto.setImage(image);
 		dto.setWriter("Å×½ºÆ®");
 		dto.setIp(req.getRemoteAddr());
-//		System.out.println(dto.getWriter());
-//		System.out.println(dto.getSubject());
-//		System.out.println(dto.getContent_p());
-//		System.out.println(dto.getContent_m());
-//		System.out.println(dto.getIp());
-//		System.out.println(dto.getAccommodation());
-//		System.out.println(dto.getLodge_date());
 		String msg = null, url = null;
 		try {
 		int review = reviewMapper.insertReview(dto);

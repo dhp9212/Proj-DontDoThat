@@ -91,7 +91,7 @@
 	});
 	</script>
 <div align="center">
-	<form name="f" action="reviewWritePro.do" method="post">
+	<form name="f" action="reviewWritePro.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="accommodation" value="text">
 		<input type="hidden" name="lodge_date" value="19/05/22">
 		<table border="1" width="500">
@@ -109,6 +109,10 @@
 			<tr>
 				<th bgcolor="yellow" width="20%">내용-</th>
 				<td><textarea name="content_m" rows="8" cols="50" class="box"></textarea></td>
+			</tr>
+			<tr>
+				<th bgcolor="yellow" width="20%">이미지 첨부</th>
+				<td><input type="file" name="myimage" multiple></td>
 			</tr>
 		</table>
 <% String sort[] = new String[]{"청결도", "편안함", "위치", "시설", "직원 친절도", "가성비", "무료 Wi-Fi"};

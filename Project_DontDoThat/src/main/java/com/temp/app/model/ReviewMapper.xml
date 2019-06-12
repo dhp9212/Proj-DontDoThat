@@ -7,7 +7,8 @@
 	<select id="listReview" parameterType="String" resultType="ReviewGradeDTO">
 		SELECT review.num, review.writer, review.subject, review.content_p,
 			review.content_m, review.ip, review.accommodation, review.lodge_date,
-			review.write_date, grade.clean, grade.comfortable, grade.location,
+			review.write_date, review.image, review.recom, review.reply, 
+			grade.clean, grade.comfortable, grade.location,
 			grade.facilities, grade.kind, grade.value, grade.wifi
 			FROM review join grade
 		ON review.num = grade.review
@@ -23,7 +24,8 @@
 	</select>
 	<insert id="insertReview" parameterType="ReviewDTO">
 		insert into review values(review_seq.nextval, #{writer}, #{subject},
-		#{content_p}, #{content_m}, #{ip}, #{accommodation}, #{lodge_date}, sysdate)
+		#{content_p}, #{content_m}, #{ip}, #{accommodation}, #{lodge_date}, sysdate,
+		#{image, jdbcType=VARCHAR}, 0, #{reply, jdbcType=VARCHAR})
 		<selectKey keyProperty="num" resultType="int" order="AFTER"> 
 		select review_seq.currval from dual
 		</selectKey>

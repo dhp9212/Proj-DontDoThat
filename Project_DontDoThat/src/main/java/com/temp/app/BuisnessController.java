@@ -2,9 +2,11 @@ package com.temp.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,24 +15,35 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.AccomodationDTO;
+import com.temp.app.model.GradeDTO;
+import com.temp.app.model.MessageDTO;
+import com.temp.app.model.ReviewGradeDTO;
 import com.temp.app.model.RoomDTO;
 import com.temp.app.service.AccomodationMapper;
+import com.temp.app.service.MessageMapper;
+import com.temp.app.service.ReviewMapper;
 
 @Controller
 public class BuisnessController {
-	//í¸ì˜ìƒì˜ ê²½ë¡œ
 	String calenderPath = "buisness/calenderMenu/";
 	String accomodationPath = "buisness/accomodationMenu/";
 	String payPath = "buisness/payMenu/";
-	
+	String reviewPath = "buisness/reviewMenu/";
 	@Autowired
 	AccomodationMapper accomodationMapper;
+	
+	@Autowired
+	MessageMapper adminMessageMapper;
+	
+	@Autowired
+	ReviewMapper reviewMapper;
 	
 	HttpSession session;
 	
@@ -119,17 +132,130 @@ public class BuisnessController {
 	public String policy() {
 		return accomodationPath + "policy";
 	}
+	@RequestMapping(value="review_policy.do")
+	public String review_policy() {
+		return accomodationPath + "review_policy";
+	}
 	@RequestMapping(value="profile.do")
 	public String profile() {
 		return accomodationPath + "profile";
+	}
+	@RequestMapping(value="custom_review.do")
+	public String custom_review(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String accommodation = (String)session.getAttribute("accommodation");
+		if(accommodation == null) {
+			accommodation = "text";
+		}
+		List<ReviewGradeDTO> reviewlist = reviewMapper.listReview(accommodation);
+		int reviewcount = reviewMapper.countReview(accommodation);
+		GradeDTO reviewaverage = reviewMapper.averageReview(accommodation);
+		req.setAttribute("reviewlist", reviewlist);
+		req.setAttribute("reviewcount", reviewcount);
+		req.setAttribute("reviewaverage", reviewaverage);
+		return reviewPath + "custom_review"; 
+	}
+	@RequestMapping(value="custom_experience.do")
+	public String custom_experience() {
+		return reviewPath + "custom_experience";
 	}
 	@RequestMapping(value="custom_message.do")
 	public String custom_message() {
 		return payPath + "custom_message";
 	}
 	@RequestMapping(value="admin_message.do")
-	public String admin_message() {
+	public String admin_message(HttpServletRequest req) {
+		//
+		LinkedHashMap<String, List<String>> sc = new LinkedHashMap<String, List<String>>();
+		List<String> sc_cate = new ArrayList<String>();
+		sc_cate.add("¿ä±İ & °´½Ç Àç°í ÇöÈ²");
+		sc_cate.add("ÇÁ·Î¸ğ¼Ç");
+		sc_cate.add("¿¹¾à °ü·Ã(Ãë¼Ò, º¯°æ, ±âÅ¸ Áú¹® µî)");
+		sc_cate.add("±âÈ¸ ¿äÀÎ(¸ÅÃâ °ü·Ã)");
+		sc_cate.add("°í°´ ÀÌ¿ë ÈÄ±â");
+		sc_cate.add("Àç¹« °ü·Ã(°áÁ¦ ¹× Ã»±¸¼­)");
+		sc_cate.add("ºĞ¼® µµ±¸");
+		sc_cate.add("¼÷¼Ò »ó¼¼ Á¤º¸");
+		sc_cate.add("°èÁ¤ °ü·Ã");
+		req.setAttribute("sc_cate", sc_cate);
+		
+		String a[] = new String[] {"°´½Ç Àç°í Ãß°¡/º¯°æ", "¿ä±İ »ı¼º/º¯°æ", "°´½Ç Á¤Ã¥",
+				"±âÅ¸", "¿ä±İ & °´½Ç Àç°í ÇöÈ²"};
+		sc.put("¿ä±İ & °´½Ç Àç°í ÇöÈ²", admin_message_input (a));
+		String b[] = new String[] {"Ãë¼Ò", "µµÂø ½Ã°£ ¿äÃ»", "º¯°æ",
+				"°áÁ¦", "±âÅ¸"};
+		sc.put("¿¹¾à °ü·Ã(Ãë¼Ò, º¯°æ, ±âÅ¸ Áú¹® µî)", admin_message_input (b));
+		String c[] = new String[] {"Ã»±¸¼­ ÀÏ¹İ ¹®ÀÇ", "Ã»±¸¼­ Á¤Á¤ °ü·Ã ¹®ÀÇ"};
+		sc.put("Àç¹« °ü·Ã(°áÁ¦ ¹× Ã»±¸¼­)", admin_message_input (c));
+		String d[] = new String[] {"ºÎ°¡¼¼(VAT)", "µµ½Ã¼¼/Ãß°¡ ¿ä±İ", "»çÁø", "°´½Ç »ó¼¼ Á¤º¸",
+				"¼÷¼Ò Á¤Ã¥(ÁÖÂ÷, ÀÎÅÍ³İ µî)", "±âÅ¸"};
+		sc.put("¼÷¼Ò »ó¼¼ Á¤º¸", admin_message_input (d));
+		req.setAttribute("sc", sc);
+		//
+		List<MessageDTO> list = adminMessageMapper.listMessage("admin");
+		req.setAttribute("messagelist", list);
 		return payPath + "admin_message";
+	}
+	public List<String> admin_message_input(String[] a){
+		List<String> list = new ArrayList<String>();
+		for(int i=0; i<a.length; i++) {
+			list.add(a[i]);
+		}
+		return list;
+	}
+	@RequestMapping(value="write_admin_message.do")
+	public String write_admin_message(HttpServletRequest req, @ModelAttribute
+						MessageDTO dto, BindingResult result) throws Exception {
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		
+		MultipartFile mf = mr.getFile("image");
+		String upPath = req.getSession().getServletContext().getRealPath("/resources/img");
+		String image = mf.getOriginalFilename();
+		if(image != "") {
+			File file = new File(upPath, mf.getOriginalFilename());
+			mf.transferTo(file);
+		}
+		if(result.hasErrors()) {
+			dto.setImage(image);
+		}
+		String msg = null, url = null;
+		try {
+			int res = adminMessageMapper.writeMessage(dto);
+			if(res>0) {
+				msg = "¸Ş½ÃÁö¸¦ Àü¼ÛÇÏ¿´½À´Ï´Ù.";
+				url = "admin_message.do";
+			}else {
+				msg = "¸Ş½ÃÁö Àü¼ÛÀ» ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+				url = "admin_message.do";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+			url = "start.app";
+		}
+		req.setAttribute("msg", msg);
+		req.setAttribute("url", url);
+		return "message";
+	}
+	@RequestMapping(value="delete_message.do")
+	public String delete_message(HttpServletRequest req) {
+		String msg = null, url = null;
+		try {
+		int res = adminMessageMapper.deleteMessage(Integer.parseInt(req.getParameter("no")));
+			if(res > 0) {
+				return "redirect:admin_message.do";
+			}else {
+				msg = "¸Ş½ÃÁö »èÁ¦ ½ÇÆĞ!";
+				url = "admin_message.do";
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+			url = "start.app";
+		}
+		req.setAttribute("msg", msg);
+		req.setAttribute("url", url);
+		return "message";
 	}
 	@RequestMapping(value="bill.do")
 	public String bill() {
@@ -160,9 +286,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String accomodation_facility = req.getParameter("accomodation_facility");
-		//ë°ì´í„°ë² ì´ìŠ¤ ë‚´ìš© ê°œë³€
+		//
 		accomodationMapper.updateAccomodation_facility(accomodation_num, accomodation_facility);
-		//ì„œë²„ë‚´ìš© ê°œë³€
+		//
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setAccomodation_facility(accomodation_facility);
@@ -175,9 +301,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String content = req.getParameter("content");
-		//ë°ì´í„°ë² ì´ìŠ¤ ë‚´ìš© ê°œë³€
+		//
 		accomodationMapper.updateContent(accomodation_num, content);
-		//ì„œë²„ë‚´ìš© ê°œë³€
+		//
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setContent(content);
@@ -199,9 +325,9 @@ public class BuisnessController {
 		map.put("checkin_date" ,req.getParameter("checkin_date"));
 		map.put("checkout_date" ,req.getParameter("checkout_date"));
 		map.put("accomodation_num", accomodation_num);
-		//ë°ì´í„°ë² ì´ìŠ¤ ë‚´ìš© ê°œë³€
+		//
 		accomodationMapper.updatePolicy(accomodation_num, map);
-		//ì„œë²„ë‚´ìš© ê°œë³€
+		//
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setPolicy(policy);
@@ -217,9 +343,9 @@ public class BuisnessController {
 		session = req.getSession();
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
 		String nearby = req.getParameter("nearby");
-		//ë°ì´í„°ë² ì´ìŠ¤ ë‚´ìš© ê°œë³€
+		//
 		accomodationMapper.updateNearby(accomodation_num, nearby);
-		//ì„œë²„ë‚´ìš© ê°œë³€
+		//
 		Hashtable<String, AccomodationDTO> table = (Hashtable)session.getAttribute("accomodation_list");
 		AccomodationDTO dto = table.get(accomodation_num);
 		dto.setNearby(nearby);
@@ -230,7 +356,7 @@ public class BuisnessController {
 	@RequestMapping(value="updateImage.do")
 	public String updateImage(HttpServletRequest req) {
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		//ìˆ™ì†Œ ì´ë¯¸ì§€ ë°ì´í„°ë² ì´ìŠ¤ ë“±ë¡(Accomodation)
+		//
 		accomodationMapper.updateImage(mr);
 		
 		return "forward:general_info.do";

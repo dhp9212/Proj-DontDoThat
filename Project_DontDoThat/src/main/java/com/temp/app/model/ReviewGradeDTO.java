@@ -10,6 +10,9 @@ public class ReviewGradeDTO {
 	String accommodation; 
 	String lodge_date;
 	String write_date;
+	String image;
+	int recom;
+	int reply;
 	double clean; 
 	double comfortable;
 	double location;
@@ -71,6 +74,24 @@ public class ReviewGradeDTO {
 	}
 	public void setWrite_date(String write_date) {
 		this.write_date = write_date;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public int getRecom() {
+		return recom;
+	}
+	public void setRecom(int recom) {
+		this.recom = recom;
+	}
+	public int getReply() {
+		return reply;
+	}
+	public void setReply(int reply) {
+		this.reply = reply;
 	}
 	public double getClean() {
 		return clean;

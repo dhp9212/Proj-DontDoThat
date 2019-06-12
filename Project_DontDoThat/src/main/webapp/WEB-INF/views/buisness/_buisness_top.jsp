@@ -35,7 +35,7 @@
 	</c:if>
 	<div class="row" style="background-color:blue;">
 		<div style="margin:5 0 0 30;" class="col-sm-1"><font class="text-white">예약</font></div>
-		<div style="margin:5 0 0 30;" class="col-sm-5"><font class="text-white">이용 후기</font></div>
+		<div style="margin:5 0 0 30;" class="col-sm-5"><font class="text-white"><a href="custom_review.do">이용 후기</a></font></div>
 		<div class="col-sm-1">
 			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">숙소</button>
 			<div class="dropdown-menu">
@@ -57,7 +57,7 @@
 		      <a class="dropdown-item" href="bill.do">청구서</a>
 		      <a class="dropdown-item" href="reservation_specification.do">예약 명세서</a>
 		      <a class="dropdown-item" href="financial_overview.do">재무 개요</a>
-		      <a class="dropdown-item" href="account_info">은행 계좌 정보</a>
+		      <a class="dropdown-item" href="account_info.do">은행 계좌 정보</a>
 		    </div>
 		</div>
 	</div>
