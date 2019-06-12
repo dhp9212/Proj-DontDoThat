@@ -16,9 +16,9 @@
 			<div class="col-lg-12">여행지/숙소 이름</div>
 			<div class="col-lg-12"><input type="text" id="input_place" name="input_place" autocomplete="off" value="${input_place}"></div>
 			<div class="col-lg-12">체크인 날짜</div>
-			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date}"></div>
+			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }"></div>
 			<div class="col-lg-12">체크아웃 날짜</div>
-			<div class="col-lg-12"><input type="text" name="end_date" autocomplete="off" value="${end_date}"></div>
+			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }"></div>
 			<div class="col-lg-12 days">1박 선택</div>
 			<div class="col-lg-12">
 				<select name="adult">
@@ -48,7 +48,7 @@
 				<option value="8">아동 8명</option>
 				<option value="9">아동 9명</option>
 				<option value="10">아동 10명</option>
-				</select>
+			</select>
 			</div>
 			<div class="col-lg-6">
 				<select name="room">
@@ -71,227 +71,324 @@
 	</div>
 </div>
 <div class="col-lg-8">
-	<div>
-		<button type="button" class="btn btn-primary" id="selected" onClick="location.href='#reservation'">옵션 정보 & 요금</button>
-		<button type="button" class="btn btn-primary">시설</button>
-		<button type="button" class="btn btn-primary" onClick="location.href='#policy'">하우스 룰</button>
-		<button type="button" class="btn btn-primary">고객 후기</button>
+
+	<div class="btn-group sortbar">
+					  <button type="button" class="btn btn-primary">옵션 정보 & 요금</button>
+					  <button type="button" class="btn btn-primary">시설</button>
+					  <button type="button" class="btn btn-primary">하우스 룰</button>
+					  <button type="button" class="btn btn-primary">중요 정보</button>
+					  <button type="button" class="btn btn-primary">고객 후기</button>
 	</div>
-	<div class="col-lg-8">
-		<h1>[${getAccomodationInfo.category_accomodation}]${getAccomodationInfo.accomodation_name}</h1>
+	<hr>
+	<div class="panel panel-default">
+ 		 <div class="panel-body">
+ 		 	<div class="col-lg-9">
+ 		 		<h2>숙소이름 넣어야됨</h2>
+ 		 	</div>
+ 		 	<div class="col-lg-3 now" style="text-align:right;">
+ 		 		<button type="button" class="btn btn-primary">지금 예약</button>
+ 		 	</div>
+ 		 </div>
 	</div>
-	<div align="right"><input type="button" value="지금 예약" onClick="location.href='#reservation'"></div>
+	<div class="panel panel-default">
+  		<div class="panel-body">
+			
+
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		  <!-- Indicators -->
+		
+		  <!-- Wrapper for slides -->
+		  <div class="carousel-inner" align="center">
+		    <div class="item active" >
+		      <img src="${pageContext.request.contextPath}/resources/img/Penguins.jpg" alt="Los Angeles" style="width:640px; height:500px;">
+		    </div>
+		
+		    <div class="item">
+		       <img src="${pageContext.request.contextPath}/resources/img/city/tokyo.jpg" alt="Los Angeles" style="width:640px; height:500px">
+		    </div>
+		
+		    <div class="item">
+		       <img src="${pageContext.request.contextPath}/resources/img/city/kyoto.jpg" alt="Los Angeles" style="width:640px; height:500px">
+		    </div>
+		    
+		    <div class="item">
+		       <img src="${pageContext.request.contextPath}/resources/img/city/bahama.jpg" alt="Los Angeles" style="width:640px; height:500px">
+		    </div>
+		    
+		    <div class="item">
+		       <img src="${pageContext.request.contextPath}/resources/img/city/london.jpg" alt="Los Angeles" style="width:640px; height:500px">
+		    </div>
+		    
+		    <div class="item">
+		       <img src="${pageContext.request.contextPath}/resources/img/city/oosaka.jpg" alt="Los Angeles" style="width:640px; height:500px">
+		    </div>
+		    
+		    <ol class="carousel-indicators">
+			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			    <li data-target="#myCarousel" data-slide-to="1"></li>
+			    <li data-target="#myCarousel" data-slide-to="2"></li>
+			    <li data-target="#myCarousel" data-slide-to="3"></li>
+			    <li data-target="#myCarousel" data-slide-to="4"></li>
+			    <li data-target="#myCarousel" data-slide-to="5"></li>
+		  	</ol>
+		  </div>
+		
+		  <!-- Left and right controls -->
+		  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		    <span class="glyphicon glyphicon-chevron-left"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+		    <span class="glyphicon glyphicon-chevron-right"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+		</div>
+
+		</div>
+	</div>
+	<hr>
 	<div class="row">
-		${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기
+	<div class="col-lg-8">
+When I find myself in times of trouble, Mother Mary comes to me
+Speaking words of wisdom, let it be
+And in my hour of darkness she is standing right in front of me
+Speaking words of wisdom, let it be
+Let it be, let it be, let it be, let it be
+Whisper words of wisdom, let it be
+And when the broken-hearted people living in the world agree
+There will be an answer, let it be
+For though they may be parted, there is still a chance that they will see
+There will be an answer, let it be
+Let it be, let it be, let it be, let it be
+Yeah, there will be an answer, let it be
+Let it be, let it be, let it be, let it be
+Whisper words of wisdom, let it be
+Let it be, let it be, let it be, yeah, let it be
+Whisper words of wisdom, let it be
+And when the night is cloudy there is still a light that shines on me
+Shine until tomorrow, let it be
+I wake up to the sound of music, Mother Mary comes to me
+Speaking words of wisdom, let it be
+Let it be, let it be, let it be, yeah, let it be
+There will be an answer, let it be
+Let it be, let it be, let it be, yeah, let it be
+There will be an answer, let it be
+Let it be, let it be, let it be, yeah, let it be
+Whisper words of wisdom, let it be
+
 	</div>
-	<div><img src="image/${getAccomodationInfo.image}" width="200" height="200" border="0"></div>
-	<div>${getAccomodationInfo.content}</div>
-	<div align="right"><h1>이용 후기</h1></div>
-	<div id="reservation">
-		<h1><b>예약 가능 여부</b></h1>
-		<table border="0" width="100%">
-			<tr>
-				<td>체크인 날짜<br>${start_date}</td>
-				<td>체크아웃 날짜<br>${end_date}</td>
-				<td>투숙객<br>성인 ${adult}명<c:if test="${child != 0}">, 아동 ${child}명</c:if></td>
-				<td><input type="button" value="검색 변경" onClick="location.href=''"></td>
-			</tr>
-		</table>
-		<table border="1" width="100%">
-			<tr>
-				<td>정원</td>
-				<td>객실 유형</td>
-				<td></td>
-			</tr>
-	<c:choose>
-		<c:when test="${empty getRoomList}">
-			<tr>
-				<td>현재 예약 가능한 방이 없습니다.</td>
-			</tr>
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="dto" items="${getRoomList}">
-			<tr>
-				<td>최대 ${dto.value.people}명</td>
-				<td>
-					<a href="accomodation_reservation.do?num=${dto.value.num}&accomodation_num=${getAccomodationInfo.num}&start_date=${start_date}&end_date=${end_date}">${dto.value.roomname} - ${dto.value.roomclass}</a><br>${dto.value.room_facility}
-				</td>
-				<td>
-					<input type="button" value="지금 예약" onClick="location.href='accomodation_reservation.do?num=${dto.value.num}&accomodation_num=${getAccomodationInfo.num}&start_date=${start_date}&end_date=${end_date}'">
-				</td>
-			</tr>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-		</table>
+	<div class="col-lg-4">
+		<div class="panel panel-default">
+ 		 <div class="panel-body">
+ 		 		<h1>투숙객이 좋아하나요?</h1>
+ 		 	<div class="col-lg-12">
+ 		 		<button type="button" class="btn btn-primary" style="width:100%; height:30px;">지금 예약</button>
+ 		 	</div>
+ 		 </div>
+		 </div>
+		 <div class="panel panel-default">
+ 		 	<div class="panel-body">
+ 		 		<h1>옵션에 포함된 사항</h1>
+ 		 		에어컨 욕실
+ 		 	</div>
+ 		 </div>
 	</div>
-	<div id="policy"><h1>하우스 룰</h1></div>
-	<div align="right"><input type="button" value="예약 가능 여부 보기" onClick="location.href='#reservation'"></div>
-	<div>${getAccomodationInfo.policy}</div>
+	</div>
+	<hr>
+	<div class="alert alert-success alert-dismissible fade in">
+	  <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration:none;">&times;</a>
+	  <strong>Success!</strong> Indicates a successful or positive action.
+	</div>
+	<div class="col-lg-12">
+		<h2>예약 가능 여부</h2>
+		<div class="panel panel-default">
+ 			<div class="panel-body">
+ 		 	이거 만들까 말까
+ 		 	</div>
+ 		</div>
+ 		<table class="table table-bordered" data-spy="scroll" data-target=".tablecontent" data-offset="50" style="position: relative;">
+    	<thead>
+      	<tr>
+        	<th>Firstname</th>
+        	<th>Lastname</th>
+        	<th>Email</th>
+      	</tr>
+    	</thead>
+    	<tbody class="tablecontent">
+      	<tr>
+	        <td>John</td>
+	        <td>Doe</td>
+	        <td>john@example.com</td>
+      	</tr>
+      	<tr>
+	        <td>Mary</td>
+	        <td>Moe</td>
+	        <td>mary@example.com</td>
+      	</tr>
+      	<tr>
+      	 	<td>July</td>
+        	<td>Dooley</td>
+        	<td>july@example.com</td>
+      	</tr>
+       	<tr>
+	        <td>July</td>
+	        <td>Dooley</td>
+	        <td>july@example.com</td>
+      	</tr>
+       	<tr>
+	        <td>July</td>
+	        <td>Dooley</td>
+	        <td>july@example.com</td>
+      	</tr>
+       	<tr>
+	        <td>July</td>
+	        <td>Dooley</td>
+	        <td>july@example.com</td>
+      	</tr>
+       	<tr>
+	        <td>July</td>
+	        <td>Dooley</td>
+	        <td>july@example.com</td>
+      	</tr>
+       	<tr>
+	        <td>July</td>
+	        <td>Dooley</td>
+	        <td>july@example.com</td>
+      	</tr>
+    	</tbody>
+  		</table>
+	</div>
+	<hr>
+	<div class="col-lg-12">
+		요금은 숙소 현지 통화(US$)로 결제 진행됩니다. 명시된 요금(기준 통화: KRW)은 예약 당시 환율로 계산한 것이며 편의를 목적으로 제공됩니다.
+	</div>
+	
+	<hr>
+	<div class="col-lg-12">
+	
+	<h2>숙소 주변 시설</h2>
+	*모든 거리는 직선 거리 기준이며, 실제 이동 거리는 다를 수 있습니다.
+	</div>
+	<hr>
+	<div class="col-lg-12">
+		<h2>시설</h2>
+		<h1>최고의 인기 시설</h1>
+		<div class="panel panel-default">
+ 		 <div class="panel-body">
+ 		 </div>
+ 		</div>
+	</div>
+	<hr>
+	<div class="col-lg-12">
+		<h2>하우스 룰</h2>
+		<div class="panel panel-default">
+ 		 <div class="panel-body">
+ 		 </div>
+ 		</div>
+	</div> 
+	<hr>
+	<div class="col-lg-12">
+		<h2>중요 정보</h2>
+		<div class="panel panel-default">
+ 		 <div class="panel-body">
+ 		 	만 18세 이상의 성인만 체크인하실 수 있습니다.<br/>
+			모든 투숙객은 체크인 시 사진이 부착된 유효한 신분증과 신용카드를 제시하셔야 합니다. 
+			모든 별도 요청 사항은 체크인 시 가능한 경우에 한해 제공되며, 추가 비용이 부과될 수도 있음을 안내드립니다.<br>
+			예상 도착 시간을 미리 알려주십시오. 예약 시 별도 요청란에 기재하거나 예약 확인서에 기재된 숙소 연락처로 직접 연락하셔도 됩니다.
+ 		 </div>
+ 		</div>
+	</div>
 </div>
-	<%-- <table width="100%">
-		<tr>
-			<td width="30%">
-				<div>
-					<table border="2">
-						<tr>
-							<tr><th>검색</th></tr>
-							<tr><td>여행지/숙소이름</td></tr>
-							<tr><td><input type="text" value="${input_place}"></td></tr>
-							<tr><td>체크인 날짜</td></tr>
-							<tr><td><input type="text" value="${start_date}"></td></tr>
-							<tr><td>체크아웃 날짜</td></tr>
-							<tr><td><input type="text" value="${end_date}"></td></tr>
-							<tr></tr>
-							<tr>
-								<td>
-									<select name="adults">
-									<c:forEach var="i" begin="1" end="30">
-										<option value="i">성인 ${i}명</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="children">
-										<option value="0">동반 아동 없음</option>
-									<c:forEach var="i" begin="1" end="10">
-										<option value="i">아동 ${i}명</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="rooms">
-									<c:forEach var="i" begin="1" end="30">
-										<option value="i">객실 ${i}개</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr><td><input type="button" value="검 색" onClick="location.href='accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${adults + children}&rooms=${rooms}'"></td></tr>
-					</table>
-				</div>
-			</td>
-	<!-- datalist -->
-			<td width="70%">
-				<div>
-					<table border="1" width="100%">
-						<tr>
-							<th width="35%">옵션 정보 & 요금</th>
-							<th width="10%">시설</th>
-							<th width="20%">하우스 룰</th>
-							<th width="35%">고객 후기</th>
-						</tr>
-					</table>
-					<table border="0" width="100%">
-						<tr>
-							<td><h3><b>[${getAccomodationInfo.category_accomodation}]${getAccomodationInfo.accomodation_name}</b></h3></td>
-							<td align="right">
-								<input type="button" value="지금 예약" onClick="location.href='#reservation'">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기</a></td>
-						</tr>
-					</table>
-					<img src="image/${getAccomodationInfo.image}" width="200" height="200" border="0">
-					<table border="0" width="100%">
-						<tr>
-							<td width="70%" rowspan="2">${getAccomodationInfo.content}</td>
-							<td width="30%" bgcolor="skyblue">
-								<h4>이용 후기</h4><br>
-							</td>
-						</tr>
-					</table>
-					<h3 id="reservation"><b>예약 가능 여부</b></h3>
-					<table border="0" width="100%">
-						<tr>
-							<td>체크인 날짜<br>
-								<input value="${start_date}" autocomplete="off" name="checkIn_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
-						    </td>
-							<td>체크아웃 날짜<br>
-								<input value="${end_date}" autocomplete="off" name="checkOut_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
-							</td>
-							<td>
-								<input type="button" value="객실 확인" onClick="location.href='accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&people=${adults + children}&rooms=${rooms}'">
-							</td>
-						</tr>
-						<tr>
-							<td>객실
-								<select name="rooms">
-								<c:forEach var="i" begin="1" end="30">
-									<option value="i">${i}</option>
-								</c:forEach>
-								</select>
-							</td>
-							<td>성인
-								<select name="adults">
-								<c:forEach var="i" begin="1" end="30">
-									<option value="i">${i}</option>
-								</c:forEach>
-								</select>
-							</td>
-							<td>어린이
-								<select name="children">
-								<c:forEach var="i" begin="0" end="10">
-									<option value="i">${i}</option>
-								</c:forEach>
-								</select>
-							</td>
-						</tr>
-					</table>
-					<table border="1" width="100%">
-						<tr>
-							<td>정원</td>
-							<td>객실 유형</td>
-							<td></td>
-						</tr>
-				<c:choose>
-					<c:when test="${empty getRoomList}">
-						<tr>
-							<td>현재 예약 가능한 방이 없습니다.</td>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="dto" items="${getRoomList}">
-						<tr>
-							<td>최대 ${dto.value.people}명</td>
-							<td>
-								<a href="accomodation_reservation.do?num=${dto.value.num}&accomodation_num=${getAccomodationInfo.num}&start_date=${start_date}&end_date=${end_date}">${dto.value.roomname} - ${dto.value.roomclass}</a><br>${dto.value.room_facility}
-							</td>
-							<td>
-								<input type="button" value="지금 예약" onClick="location.href='accomodation_reservation.do?num=${dto.value.num}&accomodation_num=${getAccomodationInfo.num}&start_date=${start_date}&end_date=${end_date}'">
-							</td>
-						</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-					</table>
-					<h3><b>하우스 룰</b></h3><br>${getAccomodationInfo.policy}
-				</div>
-			</td>
-		</tr>
-	</table> --%>
-	<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
+<hr>
+<div class="col-lg-12">
+	<h3>이곳 최신 이용 후기</h3>
+	<div class="panel panel-default">
+ 		 <div class="panel-body">
+ 		 	이용후기 자리
+ 		 </div>
+	</div>
+</div>
+	
 	<script>
-			$(function() {
-			    var $startDate = $('.start-date');
-			    var $endDate = $('.end-date');
-			    $startDate.datepicker({
-			      autoHide: true,
-			      startDate : new Date(this.date)
-			    });
-			    $endDate.datepicker({
-			      autoHide: true,
-			      startDate: $startDate.datepicker('getDate'),
-			    });
-			    $startDate.on('change', function () {
-			      $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
-			    });
-			});
+	function myMap() {
+		var mapProp= {
+		  center:new google.maps.LatLng(51.508742,-0.120850),
+		  zoom:5,
+		};
+		var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	}
+	
+	$(function() {
+	    var $startDate = $('input[name="start_date"]');
+	    var $endDate = $('input[name="end_date"]');
+	    $startDate.datepicker({
+	      autoHide: true,
+	      startDate : new Date(this.date)
+	    });
+	    $endDate.datepicker({
+	      autoHide: true,
+	      startDate: $startDate.datepicker('getDate'),
+	    });
+
+	    $startDate.on('change', function () {
+	  	  
+	      $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+	    });
+	  
+	});
+	
+	$(function(){
+		var $startDate = $('input[name="start_date"]');
+	    var $endDate = $('input[name="end_date"]');
+	    
+	    $startDate.on('change', function(){
+	    	$endDate.focus();
+	    })
+	})
+	
+	$(function(){
+		var $startDate = $('input[name="start_date"]');
+	    var $endDate = $('input[name="end_date"]');
+	    
+	   
+	    
+	    $endDate.on('change', function(){
+	    	var startDateArr = $startDate.val().split('/')
+	 	    var endDateArr = $endDate.val().split('/')
+	 	    
+	 	    var startDateSet = new Date(startDateArr[0], startDateArr[1], startDateArr[2])
+	 	    var endDateSet = new Date(endDateArr[0], endDateArr[1], endDateArr[2])
+	
+	 	    var dif = endDateSet - startDateSet
+	 	    var day = 1000*60*60*24
+	 	    
+	 	    var difDay = parseInt(dif/day)
+	    	$('.col-lg-12.days').text(difDay + '박 선택')
+	    	
+	    })
+	})
+
+	
+	$(function(){
+		$('#input_place').autoComplete({
+            minChars: 1,
+            source: function(term, suggest){
+            	var str = new Array();
+            	<c:forEach var="country" items="${countryList}">
+				str += '${country.name}' + '/'
+            	</c:forEach>     	
+                term = term.toLowerCase();
+                var choices = str.split("/");
+                var suggestions = [];
+                
+                for (i=0;i<choices.length;i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            }
+        });
+	});
+	
 	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7jiKyn69S94Q7zgR4IOgQ4-BJ4sL6B4&callback=myMap"></script>
 </body>
 </html>

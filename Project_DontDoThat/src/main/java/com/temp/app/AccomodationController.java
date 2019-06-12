@@ -34,13 +34,13 @@ public class AccomodationController {
 		String input_place = req.getParameter("input_place").trim();
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
-//		String adult = req.getParameter("adult").trim();
-//		String child = req.getParameter("child").trim();
-//		String room = req.getParameter("room").trim();
+		String adult = req.getParameter("adult").trim();
+		String child = req.getParameter("child").trim();
+		String room = req.getParameter("room").trim();
 		
 		
 		
-		req.setAttribute("input_place", input_place);
+		req.getSession().setAttribute("input_place", input_place);
 		if(start_date == null || start_date.equals("")) {
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(cal.YEAR);
@@ -64,8 +64,8 @@ public class AccomodationController {
 				end_date = year + "/" + monthStr + "/" + nextdayStr;
 			}
 		}
-		req.setAttribute("start_date", start_date);
-		req.setAttribute("end_date", end_date);
+		req.getSession().setAttribute("start_date", start_date);
+		req.getSession().setAttribute("end_date", end_date);
 		
         String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
@@ -90,8 +90,8 @@ public class AccomodationController {
             if (endPage > pageCount) endPage = pageCount;
             req.setAttribute("listCount", listCount);
 			req.setAttribute("pageCount", pageCount);
-			req.setAttribute("startRow", startRow);
-			req.setAttribute("endRow", endRow);
+            req.setAttribute("startRow", startRow);
+            req.setAttribute("endRow", endRow);
 			req.setAttribute("startPage", startPage);
 			req.setAttribute("endPage", endPage);
 		}

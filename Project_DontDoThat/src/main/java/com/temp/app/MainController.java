@@ -67,6 +67,7 @@ public class MainController {
 			}
 		}
 		List<CategoryAccomodationDTO> categoryAccomodationList = categoryMapper.selectCategodyAccomodation();
+		System.out.println(categoryAccomodationList.size());
 		List<CountryDTO> countryList = standardInformationMapper.selectCountry();
 		List<CityDTO> cityList = standardInformationMapper.selectCity();
 		List<CurrencyDTO> currencyList = standardInformationMapper.selectCurrency();
@@ -80,10 +81,11 @@ public class MainController {
 		session.setAttribute("facilities", facilities);
 		session.setAttribute("cardList", cardList);
 		session.setAttribute("countryList", countryList);
+		session.setAttribute("categoryAccomodationList", categoryAccomodationList);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("categoryAccomodationList", categoryAccomodationList);
-		mav.addObject("countryList", countryList);
+		//mav.addObject("categoryAccomodationList", categoryAccomodationList);
+		//mav.addObject("countryList", countryList);
 		mav.addObject("cityList", cityList);
 		mav.addObject("currencyList", currencyList);
 		mav.addObject("languageList", languageList);

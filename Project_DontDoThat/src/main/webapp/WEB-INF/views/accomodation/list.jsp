@@ -18,7 +18,7 @@
 			<div class="col-lg-12">체크인 날짜</div>
 			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }"></div>
 			<div class="col-lg-12">체크아웃 날짜</div>
-			<div class="col-lg-12"><input type="text" name="end_date" autocomplete="off" value="${end_date }"></div>
+			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }"></div>
 			<div class="col-lg-12 days">1박 선택</div>
 			<div class="col-lg-12">
 				<select name="adult">
@@ -48,7 +48,7 @@
 				<option value="8">아동 8명</option>
 				<option value="9">아동 9명</option>
 				<option value="10">아동 10명</option>
-				</select>
+			</select>
 			</div>
 			<div class="col-lg-6">
 				<select name="room">
@@ -73,7 +73,7 @@
 <div class="col-lg-8">
 		
 		<div>
-			<h1>검색된 숙소 ${listCount}개</h1>
+			 <h1>검색된 숙소 ${listCount}개</h1>
 		</div>
 	<div class="btn-group sortbar">
 					  <button type="button" class="btn btn-primary" id="selected">요금</button>
@@ -89,7 +89,6 @@
 					  	<div class="col-lg-4">
 					  		<a href="search_accomodation_content.do?num=${dto.num}">
 					  			<img src="${pageContext.request.contextPath}/resources/img/accomodation/${dto.image}">
-					  			${dto.image}
 					  		</a>
 					  	</div>
 					  	<div class="col-lg-8">
@@ -123,156 +122,23 @@
 					  </div>
 					</div>
 			</c:forEach>
-	<div>
-	<c:if test="${listCount > 0}">
-		<c:if test="${startPage > pageBlock}">
-			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage - 1}" title="이전 페이지"><</a>
-		</c:if>
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${i}"><c:out value="${i}" /></a>
-		</c:forEach>
-		<c:if test="${endPage < pageCount}">
-			<a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage + pageBlock}" title="다음 페이지">></a>
-		</c:if>
-	</div>
-	<div align="right">페이지 ${startRow} - ${endRow}</div>
-	</c:if>
+			
+	    <div>
+	    <c:if test="${listCount > 0}">
+	        <c:if test="${startPage > pageBlock}">
+	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage - 1}" title="이전 페이지"><</a>
+	        </c:if>
+	        <c:forEach var="i" begin="${startPage}" end="${endPage}">
+	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${i}"><c:out value="${i}" /></a>
+	        </c:forEach>
+	        <c:if test="${endPage < pageCount}">
+	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage + pageBlock}" title="다음 페이지">></a>
+	        </c:if>
+	    </div>
+	    <div align="right">페이지 ${startRow} - ${endRow}</div>
+	    </c:if>
+			
 </div>
-<%-- 
-
-<table width="100%">
-
-		<tr>
-			<td width="30%;">
-				<div>
-					<table border="2">
-						<tr>
-							<tr><th>검색</th></tr>
-							<tr><td>여행지/숙소이름</td></tr>
-							<tr><td><input type="text" value="${input_place}"></td></tr>
-							<tr><td>체크인 날짜</td></tr>
-							<tr><td><input type="text" value="${start_date}"></td></tr>
-							<tr><td>체크아웃 날짜</td></tr>
-							<tr><td><input type="text" value="${end_date}"></td></tr>
-							<tr></tr>
-							<tr>
-								<td>
-									<select name="adults">
-									<c:forEach var="i" begin="1" end="30">
-										<option value="i">성인 ${i}명</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="children">
-										<option value="0">동반 아동 없음</option>
-									<c:forEach var="i" begin="1" end="10">
-										<option value="i">아동 ${i}명</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="rooms">
-									<c:forEach var="i" begin="1" end="30">
-										<option value="i">객실 ${i}개</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="button" value="검 색" onClick="location.href=''">
-								</td>
-							</tr>
-					</table>
-				</div>
-			</td>
-	<!-- datalist -->
-			<td width="70%;">
-				<div>
-	<c:choose>
-		<c:when test="${empty listAccomodation}">
-					<table border="0" width="70%">
-				  		<tr>
-				  			<td><h1>이 지역 내, 혹은 인근 예약 가능한 숙소 0개</h1></td>
-							<td align="right"><div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div></td>
-						</tr>
-					</table>
-					<table border="1" width="100%">
-				  		<tr>
-							<td align="center">
-								<h2>원하는 검색결과를 얻는 방법</h2><br>
-								<h3>다음 옵션을 사용하여 원하는 숙소를 찾아보세요 :</h3>
-							</td>
-						</tr>
-						<tr><td>좌측 검색창 사용</td></tr>
-					</table>
-		</c:when>
-		<c:otherwise>
-					<table border="0" width="100%">
-						<tr>
-							<td><h1>검색된 숙소 ${fn:length(listAccomodation)}개</h1></td>
-							<td align="right"><div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div></td>
-						</tr>
-					</table>
-					
-					<div class="btn-group sortbar">
-					  <button type="button" class="btn btn-primary" id="selected">요금</button>
-					  <button type="button" class="btn btn-primary">후기 평점</button>
-					  <button type="button" class="btn btn-primary">후기 평점 + 요금</button>
-					  <button type="button" class="btn btn-primary">성급</button>
-					  <button type="button" class="btn btn-primary">성급 + 요금</button>
-					</div>
-					<br/>
-			<c:forEach var="dto" items="${listAccomodation}">
-					<div class="panel panel-default">
-					  <div class="panel-body itemspanel">
-					  	<div class="col-lg-4">
-					  		<a href="search_accomodation_content.do?num=${dto.num}">
-					  			<img src="${pageContext.request.contextPath}/resources/img/accomodation/${dto.image}">
-					  		</a>
-					  	</div>
-					  	<div class="col-lg-8">
-					  		<div class="row">
-							  	<div class="col-lg-8">
-								  	<a href="search_accomodation_content.do?num=${dto.num}">
-								  		<h3>[${dto.category_accomodation}]${dto.accomodation_name}</h3>
-								  	</a>
-							  	</div>
-							  	<div class="col-lg-4">
-							  		이용 후기 평점 넣어야됨
-							  	</div>
-						  	</div>
-						  	<div class="row">
-						  		<a href="">${dto.city} - 지도에서 표시</a>
-						  	</div>
-						  	<div class="row details">
-						  		<div class="col-lg-4">
-								  	<a href="search_accomodation_content.do?num=${dto.num}">
-								  		방 옵션 수량 나와야됨
-								  	</a>
-							  	</div>
-							  	<div class="col-lg-8 cost">
-							  		금액 나와야됨
-							  	</div>
-						  	</div>
-						  	<div class="lastline">
-						  		 <button type="button" class="btn btn-primary">예약 가능 옵션 보기 ></button>
-						  	</div>
-					  	</div>
-					  </div>
-					</div>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-				</div>
-			</td>
-		</tr>
-	</table> --%>
 	
 	<script>
 	function myMap() {
