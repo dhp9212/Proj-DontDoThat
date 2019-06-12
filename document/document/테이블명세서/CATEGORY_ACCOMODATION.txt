@@ -1,4 +1,4 @@
-create table CATEGORY_ACCOMODATION(
+ï»¿create table CATEGORY_ACCOMODATION(
 	KEY number primary key,
 	NAME varchar2(50) not null,
 	CONTENTS varchar2(200),
@@ -7,51 +7,51 @@ create table CATEGORY_ACCOMODATION(
 
 create sequence CATEGORY_ACCOMODATION_SEQ;
 
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '¾ÆÆÄÆ®', '', 'apart.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '¸®Á¶Æ®', '', 'resort.jpg'); 
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ºô¶ó', '', 'villa.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '¼£·¹', '', 'chalet.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ÄÚÆ¼Áö', '', 'cottage.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '±Û·¥ÇÎ', '', 'glamping.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '¾ÆÆÄÆ®È£ÅÚ', '', 'aparthotel.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'Ææ¼Ç', '', 'pension.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '°Ô½ºÆ®ÇÏ¿ì½º', '', 'guesthouse.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'È£½ºÅÚ', '', 'hostel.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '¸ğÅÚ', '', 'motel.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'º£µå¾Øºê·ºÆÛ½ºÆ®', '', 'bedandbreakfast.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '·áÄ­', '', 'ryokan.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '¸®¾ßµå', '', 'riyadh.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'È¦¸®µ¥ÀÌÆÄÅ©', '', 'holidaypark.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'È¨½ºÅ×ÀÌ', '', 'homestay.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'Ä·ÇÁÀå', '', 'camp.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ÄÁÆ®¸® ÇÏ¿ì½º', '', 'countryhouse.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ÆÊ½ºÅ×ÀÌ', '', 'farmstay.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'º¸Æ®È£ÅÚ', '', 'boathotel.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '·°¼Å¸® ÅÙÆ®', '', 'luxurytent.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'Ãë»ç °¡´ÉÇÑ ¼÷¼Ò', '', 'cookinghome.jpg');
-insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'Å¸ÀÌ´Ï ÇÏ¿ì½º', '', 'tinyhouse.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ì•„íŒŒíŠ¸', '', 'apart.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ë¦¬ì¡°íŠ¸', '', 'resort.jpg'); 
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ë¹Œë¼', '', 'villa.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ìƒ¬ë ˆ', '', 'chalet.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ì½”í‹°ì§€', '', 'cottage.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ê¸€ë¨í•‘', '', 'glamping.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ì•„íŒŒíŠ¸í˜¸í…”', '', 'aparthotel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'íœì…˜', '', 'pension.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ê²ŒìŠ¤íŠ¸í•˜ìš°ìŠ¤', '', 'guesthouse.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'í˜¸ìŠ¤í…”', '', 'hostel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ëª¨í…”', '', 'motel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ë² ë“œì•¤ë¸Œë ‰í¼ìŠ¤íŠ¸', '', 'bedandbreakfast.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ë£Œì¹¸', '', 'ryokan.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ë¦¬ì•¼ë“œ', '', 'riyadh.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'í™€ë¦¬ë°ì´íŒŒí¬', '', 'holidaypark.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'í™ˆìŠ¤í…Œì´', '', 'homestay.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ìº í”„ì¥', '', 'camp.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ì»¨íŠ¸ë¦¬ í•˜ìš°ìŠ¤', '', 'countryhouse.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'íŒœìŠ¤í…Œì´', '', 'farmstay.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ë³´íŠ¸í˜¸í…”', '', 'boathotel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ëŸ­ì…”ë¦¬ í…íŠ¸', '', 'luxurytent.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'ì·¨ì‚¬ ê°€ëŠ¥í•œ ìˆ™ì†Œ', '', 'cookinghome.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, 'íƒ€ì´ë‹ˆ í•˜ìš°ìŠ¤', '', 'tinyhouse.jpg');
 
 
-update CATEGORY_ACCOMODATION set image = 'apart.jpg' where name = '¾ÆÆÄÆ®'
-update CATEGORY_ACCOMODATION set image = 'resort.jpg' where name = '¸®Á¶Æ®'
-update CATEGORY_ACCOMODATION set image = 'villa.jpg' where name = 'ºô¶ó'
-update CATEGORY_ACCOMODATION set image = 'chalet.jpg' where name = '¼£·¹'
-update CATEGORY_ACCOMODATION set image = 'cottage.jpg' where name = 'ÄÚÆ¼Áö'
-update CATEGORY_ACCOMODATION set image = 'glamping.jpg' where name = '±Û·¥ÇÎ'
-update CATEGORY_ACCOMODATION set image = 'aparthotel.jpg' where name = '¾ÆÆÄÆ®È£ÅÚ'
-update CATEGORY_ACCOMODATION set image = 'pension.jpg' where name = 'Ææ¼Ç'
-update CATEGORY_ACCOMODATION set image = 'guesthouse.jpg' where name = '°Ô½ºÆ®ÇÏ¿ì½º'
-update CATEGORY_ACCOMODATION set image = 'hostel.jpg' where name = 'È£½ºÅÚ'
-update CATEGORY_ACCOMODATION set image = 'motel.jpg' where name = '¸ğÅÚ'
-update CATEGORY_ACCOMODATION set image = 'bedandbreakfast.jpg' where name = 'º£µå¾Øºê·ºÆÛ½ºÆ®'
-update CATEGORY_ACCOMODATION set image = 'ryokan.jpg' where name = '·áÄ­'
-update CATEGORY_ACCOMODATION set image = 'riyadh.jpg' where name = '¸®¾ßµå'
-update CATEGORY_ACCOMODATION set image = 'holidaypark.jpg' where name = 'È¦¸®µ¥ÀÌÆÄÅ©'
-update CATEGORY_ACCOMODATION set image = 'homestay.jpg' where name = 'È¨½ºÅ×ÀÌ'
-update CATEGORY_ACCOMODATION set image = 'camp.jpg' where name = 'Ä·ÇÁÀå'
-update CATEGORY_ACCOMODATION set image = 'countryhouse.jpg' where name = 'ÄÁÆ®¸® ÇÏ¿ì½º'
-update CATEGORY_ACCOMODATION set image = 'farmstay.jpg' where name = 'ÆÊ½ºÅ×ÀÌ'
-update CATEGORY_ACCOMODATION set image = 'boathotel.jpg' where name = 'º¸Æ®È£ÅÚ'
-update CATEGORY_ACCOMODATION set image = 'luxurytent.jpg' where name = '·°¼Å¸® ÅÙÆ®'
-update CATEGORY_ACCOMODATION set image = 'cookinghome.jpg' where name = 'Ãë»ç °¡´ÉÇÑ ¼÷¼Ò'
-update CATEGORY_ACCOMODATION set image = 'tinyhouse.jpg' where name = 'Å¸ÀÌ´Ï ÇÏ¿ì½º'
+update CATEGORY_ACCOMODATION set image = 'apart.jpg' where name = 'ì•„íŒŒíŠ¸'
+update CATEGORY_ACCOMODATION set image = 'resort.jpg' where name = 'ë¦¬ì¡°íŠ¸'
+update CATEGORY_ACCOMODATION set image = 'villa.jpg' where name = 'ë¹Œë¼'
+update CATEGORY_ACCOMODATION set image = 'chalet.jpg' where name = 'ìƒ¬ë ˆ'
+update CATEGORY_ACCOMODATION set image = 'cottage.jpg' where name = 'ì½”í‹°ì§€'
+update CATEGORY_ACCOMODATION set image = 'glamping.jpg' where name = 'ê¸€ë¨í•‘'
+update CATEGORY_ACCOMODATION set image = 'aparthotel.jpg' where name = 'ì•„íŒŒíŠ¸í˜¸í…”'
+update CATEGORY_ACCOMODATION set image = 'pension.jpg' where name = 'íœì…˜'
+update CATEGORY_ACCOMODATION set image = 'guesthouse.jpg' where name = 'ê²ŒìŠ¤íŠ¸í•˜ìš°ìŠ¤'
+update CATEGORY_ACCOMODATION set image = 'hostel.jpg' where name = 'í˜¸ìŠ¤í…”'
+update CATEGORY_ACCOMODATION set image = 'motel.jpg' where name = 'ëª¨í…”'
+update CATEGORY_ACCOMODATION set image = 'bedandbreakfast.jpg' where name = 'ë² ë“œì•¤ë¸Œë ‰í¼ìŠ¤íŠ¸'
+update CATEGORY_ACCOMODATION set image = 'ryokan.jpg' where name = 'ë£Œì¹¸'
+update CATEGORY_ACCOMODATION set image = 'riyadh.jpg' where name = 'ë¦¬ì•¼ë“œ'
+update CATEGORY_ACCOMODATION set image = 'holidaypark.jpg' where name = 'í™€ë¦¬ë°ì´íŒŒí¬'
+update CATEGORY_ACCOMODATION set image = 'homestay.jpg' where name = 'í™ˆìŠ¤í…Œì´'
+update CATEGORY_ACCOMODATION set image = 'camp.jpg' where name = 'ìº í”„ì¥'
+update CATEGORY_ACCOMODATION set image = 'countryhouse.jpg' where name = 'ì»¨íŠ¸ë¦¬ í•˜ìš°ìŠ¤'
+update CATEGORY_ACCOMODATION set image = 'farmstay.jpg' where name = 'íŒœìŠ¤í…Œì´'
+update CATEGORY_ACCOMODATION set image = 'boathotel.jpg' where name = 'ë³´íŠ¸í˜¸í…”'
+update CATEGORY_ACCOMODATION set image = 'luxurytent.jpg' where name = 'ëŸ­ì…”ë¦¬ í…íŠ¸'
+update CATEGORY_ACCOMODATION set image = 'cookinghome.jpg' where name = 'ì·¨ì‚¬ ê°€ëŠ¥í•œ ìˆ™ì†Œ'
+update CATEGORY_ACCOMODATION set image = 'tinyhouse.jpg' where name = 'íƒ€ì´ë‹ˆ í•˜ìš°ìŠ¤'
