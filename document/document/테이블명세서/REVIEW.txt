@@ -7,7 +7,10 @@ content_m varchar2(4000),
 ip varchar2(30),
 accommodation varchar2(50),
 lodge_date varchar2(50),
-write_date varchar2(50));
+write_date varchar2(50),
+image varchar2(4000),
+recom number,
+reply number);
 
 create sequence review_seq;
 
@@ -35,6 +38,9 @@ ip
 숙박업체 이름
 숙박날짜
 작성일자
+이미지
+추천
+답변
 
 grade  평점 테이블
 기본키
