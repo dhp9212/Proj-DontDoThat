@@ -1,13 +1,8 @@
 package com.temp.app;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,22 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.temp.app.model.AccomodationDTO;
-import com.temp.app.model.AccountDTO;
 import com.temp.app.model.RoomDTO;
 import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.CategoryMapper;
-import com.temp.app.service.StandardInformationMapper;
 
 @Controller
 public class RoomController {
 	@Autowired
 	AccomodationMapper accomodationMapper;
-	@Autowired
-	private StandardInformationMapper standardInformationMapper;
 	@Autowired
 	private CategoryMapper categoryMapper;
 	
@@ -54,20 +44,13 @@ public class RoomController {
 	@RequestMapping(value="insertRoomPro.do")
 	public String accomodation_insert(HttpServletRequest req, @ModelAttribute AccomodationDTO aDTO, BindingResult result1, @ModelAttribute RoomDTO dto2, BindingResult result2) {
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		aDTO.setHeadname("����");
-		aDTO.setTel("02-123-1234");
 		aDTO.setAddress(req.getParameter("roadname") + req.getParameter("detail"));
-		aDTO.setCheckin_date("�����ڿ� ���� ���� �� ����");
-		aDTO.setCheckout_date("�����ڿ� ���� ���� �� ����");
-		aDTO.setPayment("�����ڿ� ���� ���� �� ����");
-		aDTO.setAccomodation_facility(req.getParameter("facility"));
-		//���ҵ��
 		int num = accomodationMapper.insertAccomodation(mr, aDTO);
-		//�� ���
 		dto2.setAccomodation_num(num);
 		dto2.setRoomname(aDTO.getAccomodation_name());
+		dto2.setRoomclass(aDTO.getCategory_accomodation());
 		dto2.setQty(1);
-		dto2.setRoom_facility(req.getParameter("facility"));
+		dto2.setRoom_facility(aDTO.getAccomodation_facility());
 		accomodationMapper.insertRoom(dto2);
 		return "forward:/";
 	}

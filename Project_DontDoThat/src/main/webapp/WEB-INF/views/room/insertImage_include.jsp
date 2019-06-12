@@ -56,6 +56,6 @@
 <font size="5">사진 등록<br><br></font>
 <input class="my_button" type="button" onclick="fileUploadAction(this)" value="숙소 이미지 추가">
 <p>
-	<div id="accomodation_div" class="box">
+	<div id="accomodation_div" class="box" style="width:100%">
 		<input type="hidden" name="image">
 	</div>
