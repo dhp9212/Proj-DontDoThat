@@ -1,5 +1,6 @@
 package com.temp.app;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
@@ -101,8 +102,17 @@ public class AccomodationController {
 	public String contentAccomodation(HttpServletRequest req, @RequestParam int num) throws Exception {
 		AccomodationDTO dto = accomodationMapper.getAccomodationInfo(num);
 		req.setAttribute("getAccomodationInfo", dto);
+		
+		String[] imgarr = dto.getImage().split(",");
+		List<String> imgList = new ArrayList<String>();
+		for(int i = 0; i < imgarr.length; i++) {
+			imgList.add(imgarr[i]);
+		}
+		req.setAttribute("imgList", imgList);
+		
 		String numStr = Integer.toString(num);
 		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
+		System.out.println(list.size());
 		req.setAttribute("getRoomList", list);
 		return "accomodation/content";
 	}
@@ -110,7 +120,7 @@ public class AccomodationController {
 	public String reservationForm(HttpServletRequest req, @RequestParam int num) throws Exception {
 		RoomDTO dto = accomodationMapper.getRoom(num);
 		req.setAttribute("getRoom", dto);
-		System.out.println("can?");
+		
 		return "accomodation/reservation";
 	}
 	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.POST)

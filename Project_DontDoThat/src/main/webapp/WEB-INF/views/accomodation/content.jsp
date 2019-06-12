@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
+
+<script type="text/javascript">
+
+</script>
 <br/>
 
 	<div class="col-lg-10"><h4>${input_place}</h4></div>
@@ -73,64 +77,50 @@
 <div class="col-lg-8">
 
 	<div class="btn-group sortbar">
-					  <button type="button" class="btn btn-primary">옵션 정보 & 요금</button>
-					  <button type="button" class="btn btn-primary">시설</button>
-					  <button type="button" class="btn btn-primary">하우스 룰</button>
-					  <button type="button" class="btn btn-primary">중요 정보</button>
-					  <button type="button" class="btn btn-primary">고객 후기</button>
+					  <button type="button" class="btn btn-primary" id="optionBtn">옵션 정보 & 요금</button>
+					  <button type="button" class="btn btn-primary" id="facilityBtn">시설</button>
+					  <button type="button" class="btn btn-primary" id="ruleBtn">하우스 룰</button>
+					  <button type="button" class="btn btn-primary" id="infoBtn">중요 정보</button>
+					  <button type="button" class="btn btn-primary" id="commentBtn">고객 후기</button>
 	</div>
 	<hr>
 	<div class="panel panel-default">
  		 <div class="panel-body">
  		 	<div class="col-lg-9">
- 		 		<h2>숙소이름 넣어야됨</h2>
+ 		 		<h2><span class="badge">${getAccomodationInfo.category_accomodation}</span>${getAccomodationInfo.accomodation_name}</h2>
  		 	</div>
  		 	<div class="col-lg-3 now" style="text-align:right;">
- 		 		<button type="button" class="btn btn-primary">지금 예약</button>
+ 		 		<button type="button" class="btn btn-primary" id="optionBtn">지금 예약</button>
  		 	</div>
  		 </div>
 	</div>
 	<div class="panel panel-default">
   		<div class="panel-body">
-			
-
+	
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->
 		
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner" align="center">
-		    <div class="item active" >
-		      <img src="${pageContext.request.contextPath}/resources/img/Penguins.jpg" alt="Los Angeles" style="width:640px; height:500px;">
-		    </div>
-		
-		    <div class="item">
-		       <img src="${pageContext.request.contextPath}/resources/img/city/tokyo.jpg" alt="Los Angeles" style="width:640px; height:500px">
-		    </div>
-		
-		    <div class="item">
-		       <img src="${pageContext.request.contextPath}/resources/img/city/kyoto.jpg" alt="Los Angeles" style="width:640px; height:500px">
-		    </div>
+		  	<c:forEach var="imgElement" items="${imgList}" varStatus="imgStatus">
+		  		<c:if test="${imgStatus.count == 1}">
+		  		<div class="item active">
+		  		</c:if>
+		  		<c:if test="${imgStatus.count != 1}">
+		  		<div class="item">
+		  		</c:if>
+		      		<img src="${pageContext.request.contextPath}/resources/img/output/${imgElement}" style="width:100%; height:500px;">
+		    	</div>
+		  	</c:forEach>
 		    
-		    <div class="item">
-		       <img src="${pageContext.request.contextPath}/resources/img/city/bahama.jpg" alt="Los Angeles" style="width:640px; height:500px">
-		    </div>
-		    
-		    <div class="item">
-		       <img src="${pageContext.request.contextPath}/resources/img/city/london.jpg" alt="Los Angeles" style="width:640px; height:500px">
-		    </div>
-		    
-		    <div class="item">
-		       <img src="${pageContext.request.contextPath}/resources/img/city/oosaka.jpg" alt="Los Angeles" style="width:640px; height:500px">
-		    </div>
-		    
-		    <ol class="carousel-indicators">
+		    <!-- <ol class="carousel-indicators">
 			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 			    <li data-target="#myCarousel" data-slide-to="1"></li>
 			    <li data-target="#myCarousel" data-slide-to="2"></li>
 			    <li data-target="#myCarousel" data-slide-to="3"></li>
 			    <li data-target="#myCarousel" data-slide-to="4"></li>
 			    <li data-target="#myCarousel" data-slide-to="5"></li>
-		  	</ol>
+		  	</ol> -->
 		  </div>
 		
 		  <!-- Left and right controls -->
@@ -149,6 +139,7 @@
 	<hr>
 	<div class="row">
 	<div class="col-lg-8">
+	${getAccomodationInfo.content}
 When I find myself in times of trouble, Mother Mary comes to me
 Speaking words of wisdom, let it be
 And in my hour of darkness she is standing right in front of me
@@ -182,113 +173,95 @@ Whisper words of wisdom, let it be
  		 <div class="panel-body">
  		 		<h1>투숙객이 좋아하나요?</h1>
  		 	<div class="col-lg-12">
- 		 		<button type="button" class="btn btn-primary" style="width:100%; height:30px;">지금 예약</button>
+ 		 		<button type="button" class="btn btn-primary" style="width:100%; height:30px;" id="optionBtn">지금 예약</button>
  		 	</div>
  		 </div>
 		 </div>
 		 <div class="panel panel-default">
  		 	<div class="panel-body">
  		 		<h1>옵션에 포함된 사항</h1>
- 		 		에어컨 욕실
+ 		 		${getAccomodationInfo.accomodation_facility}
  		 	</div>
  		 </div>
 	</div>
 	</div>
-	<hr>
+	<div><hr></div>
 	<div class="alert alert-success alert-dismissible fade in">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration:none;">&times;</a>
-	  <strong>Success!</strong> Indicates a successful or positive action.
+	  <strong>팁: 융통성 있게 예약하기</strong><br/>
+		출발일이 아직 멀었습니다. 일정 변경에도 안심할 수 있는 무료 취소를 선택하세요.
 	</div>
+	
 	<div class="col-lg-12">
-		<h2>예약 가능 여부</h2>
-		<div class="panel panel-default">
- 			<div class="panel-body">
- 		 	이거 만들까 말까
- 		 	</div>
- 		</div>
+		<div id="option"><h2>예약 가능 여부</h2></div>
  		<table class="table table-bordered" data-spy="scroll" data-target=".tablecontent" data-offset="50" style="position: relative;">
     	<thead>
       	<tr>
-        	<th>Firstname</th>
-        	<th>Lastname</th>
-        	<th>Email</th>
+        	<th>객실 유형</th>
+        	<th>정원</th>
+        	<th>요금</th>
+        	<th>객실선택</th>
       	</tr>
     	</thead>
     	<tbody class="tablecontent">
+    	<c:forEach var="roomElement" items="${getRoomList}">
       	<tr>
-	        <td>John</td>
-	        <td>Doe</td>
-	        <td>john@example.com</td>
+      		<td><a href="#">${roomElement.value.roomclass}</a></td>
+      		<td>${roomElement.value.people}</td>
+      		<td>${roomElement.value.price}</td>
+      		<td>${roomElement.value.qty}
+      		
+      		</td>
       	</tr>
-      	<tr>
-	        <td>Mary</td>
-	        <td>Moe</td>
-	        <td>mary@example.com</td>
-      	</tr>
-      	<tr>
-      	 	<td>July</td>
-        	<td>Dooley</td>
-        	<td>july@example.com</td>
-      	</tr>
-       	<tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-      	</tr>
-       	<tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-      	</tr>
-       	<tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-      	</tr>
-       	<tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-      	</tr>
-       	<tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-      	</tr>
+      	</c:forEach>
     	</tbody>
   		</table>
 	</div>
-	<hr>
+	<span>&nbsp;<hr></span>
+	
+	
 	<div class="col-lg-12">
 		요금은 숙소 현지 통화(US$)로 결제 진행됩니다. 명시된 요금(기준 통화: KRW)은 예약 당시 환율로 계산한 것이며 편의를 목적으로 제공됩니다.
 	</div>
+	<br/>
 	
-	<hr>
+	<span>&nbsp;<hr></span>
+	
 	<div class="col-lg-12">
-	
 	<h2>숙소 주변 시설</h2>
+	<div>${getAccomodationInfo.nearby}</div>
 	*모든 거리는 직선 거리 기준이며, 실제 이동 거리는 다를 수 있습니다.
 	</div>
-	<hr>
+	
+	<span>&nbsp;<hr></span>
+	
 	<div class="col-lg-12">
-		<h2>시설</h2>
+		<div id="facility"><h2>시설</h2></div>
 		<h1>최고의 인기 시설</h1>
 		<div class="panel panel-default">
  		 <div class="panel-body">
+ 		 	${getAccomodationInfo.accomodation_facility}
  		 </div>
  		</div>
 	</div>
-	<hr>
+	
+	<span>&nbsp;<hr></span>
+	
+	
 	<div class="col-lg-12">
-		<h2>하우스 룰</h2>
+		<div id="rule"><h2>하우스 룰</h2></div>
 		<div class="panel panel-default">
  		 <div class="panel-body">
+ 		 	${getAccomodationInfo.policy}
  		 </div>
  		</div>
-	</div> 
-	<hr>
+	</div>
+
+	<span>&nbsp;<hr></span>
+	
+	
 	<div class="col-lg-12">
-		<h2>중요 정보</h2>
+		<div id="info"><h2>중요 정보</h2></div>
 		<div class="panel panel-default">
  		 <div class="panel-body">
  		 	만 18세 이상의 성인만 체크인하실 수 있습니다.<br/>
@@ -299,13 +272,15 @@ Whisper words of wisdom, let it be
  		</div>
 	</div>
 </div>
-<hr>
+<span>&nbsp;<hr></span>
 <div class="col-lg-12">
+	<div id="aftercomment">
 	<h3>이곳 최신 이용 후기</h3>
 	<div class="panel panel-default">
  		 <div class="panel-body">
  		 	이용후기 자리
  		 </div>
+	</div>
 	</div>
 </div>
 	
@@ -388,6 +363,28 @@ Whisper words of wisdom, let it be
         });
 	});
 	
+	$(document).ready(function(){
+	    $("#optionBtn").on("click",function(event){
+	      var offset = $("#option").offset();
+	      $("html, body").stop().animate({scrollTop:offset.top},1000);
+	    });
+	    $("#facilityBtn").on("click",function(event){
+		      var offset = $("#facility").offset();
+		      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+	    $("#ruleBtn").on("click",function(event){
+		      var offset = $("#rule").offset();
+		      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+	    $("#infoBtn").on("click",function(event){
+		      var offset = $("#info").offset();
+		      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+	    $("#commentBtn").on("click",function(event){
+		      var offset = $("#aftercomment").offset();
+		      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+	  }); // end of ready()
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7jiKyn69S94Q7zgR4IOgQ4-BJ4sL6B4&callback=myMap"></script>
 </body>
