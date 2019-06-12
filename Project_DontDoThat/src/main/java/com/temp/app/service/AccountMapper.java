@@ -22,6 +22,10 @@ public class AccountMapper {
 		return sqlSession.selectOne("getAccount", num);
 	}
 	
+	public AccountDTO getAccount(AccountDTO dto) {
+		return sqlSession.selectOne("getAccountByDTO", dto);
+	}
+	
 	public List<AccountDTO> memberList(){
 		return sqlSession.selectList("memberList");
 	}
@@ -34,8 +38,39 @@ public class AccountMapper {
 		return sqlSession.selectOne("checkPassword", password);
 	}
 	
-	public int updateAccount(AccountDTO dto) {
-		return sqlSession.update("updateAccount", dto);
+//	public void updateAccount(AccountDTO dto) {
+//		try {
+//			System.out.println("실행전");
+//			sqlSession.update("updateAccountNick", dto);
+//			System.out.println("실행후");
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+////		return sqlSession.update("updateAccount", dto);
+//	}
+	
+	public void updateProfilePhoto(AccountDTO dto) {
+		sqlSession.update("updateProfilePhoto", dto);
+	}
+	
+	public void updateNickName(AccountDTO dto) {
+		try {
+			System.out.println("mapper updateNickName 실행 전");
+			sqlSession.update("updateNickName", dto);
+			System.out.println("mapper updateNickName 실행 후");
+		}catch(Exception e) {
+			System.err.println("닉네임 에러러럴");
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateBirthday(AccountDTO dto) {
+		sqlSession.update("updateBirthday", dto);
+	}
+	
+	public void updateCountry(AccountDTO dto) {
+		sqlSession.update("updateCountry", dto);
 	}
 	
 //	protected List<AccountDTO> makeList(){

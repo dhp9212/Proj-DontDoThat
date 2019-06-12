@@ -25,16 +25,15 @@
 		, #{currency, jdbcType=VARCHAR})
 	</insert><!-- 최초 회원가입시, 이메일과 비밀번호만으로 회원가입 가능. -->
 	
-	<update id="updateAccount" parameterType="AccountDTO">
-		update ACCOUNT set 
-		email = #{email, jdbcType=VARCHAR},
-		password = #{password, jdbcType=VARCHAR},
-		name = #{name, jdbcType=VARCHAR},
-		tel = #{tel, jdbcType=INTEGER},
+	<!-- <update id="updateAccount" parameterType="AccountDTO">
+		update ACCOUNT 
+		set 
 		profilePhoto = #{profilePhoto, jdbcType=VARCHAR},
 		nickName = #{nickName, jdbcType=VARCHAR},
 		birthday = #{birthday, jdbcType=VARCHAR},
 		country = #{country, jdbcType=VARCHAR},
+		name = #{name, jdbcType=VARCHAR},
+		tel = #{tel, jdbcType=INTEGER},
 		address = #{address, jdbcType=VARCHAR},
 		payment = #{payment, jdbcType=VARCHAR},
 		smoke = #{smoke, jdbcType=VARCHAR},
@@ -42,13 +41,43 @@
 		disabled = #{disabled, jdbcType=VARCHAR},
 		preferredFacility = #{preferredFacility, jdbcType=VARCHAR},
 		reservationTarget = #{reservationTarget, jdbcType=VARCHAR},
-		currency = #{currency, jdbcType=VARCHAR} 
-		weher num = ${num}
-		
+		currency = #{currency, jdbcType=VARCHAR},
+		password = #{password, jdbcType=VARCHAR}
+		where num = #{num}
+	</update> -->
+	
+	<update id = "updateProfilePhoto" parameterType="AccountDTO">
+		update ACCOUNT
+		set profilePhoto = #{profilePhoto, jdbcType=VARCHAR}
+		where num = #{num}
 	</update>
+	
+	<update id="updateNickName" parameterType="AccountDTO">
+		UPDATE ACCOUNT
+		SET NICKNAME = #{nickName, jdbcType=VARCHAR}
+		WHERE NUM = #{num}
+	</update>
+	
+	<update id="updateBirthday" parameterType="AccountDTO">
+		update account
+		set birthday = #{birthday, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
+	
+	<update id = "updateCountry" parameterType="AccountDTO">
+		update ACCOUNT
+		set country = #{country, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
+	
+	
 	
 	<select id="getAccount" resultType="AccountDTO" parameterType="int">
 		select * from ACCOUNT where num = #{num}
+	</select>
+	
+	<select id="getAccountByDTO" resultType="AccountDTO" parameterType="AccountDTO">
+		select * from ACCOUNT where email = #{email} and password = #{password}
 	</select>
 	
 	<select id="memberList" resultType="AccountDTO">
