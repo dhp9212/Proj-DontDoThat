@@ -109,12 +109,6 @@ public class AccountController {
 			session.setAttribute("userSession", dto);
 			//자기 이름에 맞는 숙소 리스트 세션등록
 			session.setAttribute("accomodation_list", accomodationMapper.getAccomodation(dto.getNum()));
-			
-//			req.setAttribute("ProfilePhoto", dto.getProfilePhoto());
-//			req.setAttribute("nickName", dto.getNickName());
-//			req.setAttribute("birthday", dto.getBirthday());
-//			req.setAttribute("country", dto.getCountry());
-			
 			mv.setViewName("forward:/");
 		}else {
 			String wrongPassword = "비밀번호 틀림";
@@ -138,7 +132,6 @@ public class AccountController {
 	@RequestMapping(value = "/passwordSettingsOk.do", method = RequestMethod.POST)
 	public ModelAndView passwordOk(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		//AccountDTO dto = new AccountDTO();
 		String password = req.getParameter("setPassword");
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("dto");
@@ -174,57 +167,18 @@ public class AccountController {
 		req.setAttribute("nickName", dto.getNickName());
 		req.setAttribute("birthday", dto.getBirthday());
 		
-		if(dto.getCountry() != null) {
-			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
-			if(cdto == null) {
-				req.setAttribute("country", "국가 선택");
-			}else {
-				req.setAttribute("country", cdto.getName());
-			}
-		}
+//		if(dto.getCountry() != null) {
+//			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
+//			if(cdto == null) {
+//				req.setAttribute("country", "국가 선택");
+//			}else {
+//				req.setAttribute("country", cdto.getName());
+//			}
+//		}
 		//System.out.println("dto.getCountry 컨트롤러 국가 값 : " + dto.getCountry());
 		
 		return "account/mySettings";
 	}
-	
-	//상세 정보 - 프로필 사진이나 닉네임 등 입력, 변경 가능한 페이지
-//	@RequestMapping(value = "/accountUpdateOk.do", method = RequestMethod.POST)
-//	public ModelAndView accountUpdateOk(HttpServletRequest req,
-//			@ModelAttribute AccountDTO dto, BindingResult result) {
-//		if(result.hasErrors()) {
-//			dto.setNum(0);
-//		}
-//		HttpSession session = req.getSession();
-//		MultipartRequest mr = (MultipartRequest)req;
-//		String upPath = req.getSession().getServletContext().getRealPath("image");
-//		req.setAttribute("getAccount", dto);
-//		req.setAttribute("upPath", upPath);
-//		int len = 10*1024*1024;
-//		
-//		//mr = new MultipartRequest(req, upPath, len, "UTF-8");
-//		
-//		
-//		dto.setEmail("");
-//		dto.setPassword("");
-//		dto.setName(req.getParameter("name"));
-//		dto.setTel(Integer.parseInt(req.getParameter("tel")));
-//		dto.setProfilePhoto(req.getParameter("profilePhoto"));
-//		dto.setNickName(req.getParameter("nickName"));
-//		dto.setBirthday(req.getParameter("birthday"));
-//		dto.setCountry(req.getParameter("country"));
-//		dto.setAddress(req.getParameter("address"));
-//		dto.setPayment(req.getParameter("payment"));
-//		dto.setSmoke(req.getParameter("smoke"));
-//		dto.setStarRating(Integer.parseInt(req.getParameter("starRating")));
-//		dto.setDisabled(req.getParameter("disabled"));
-//		dto.setPreferredFacility(req.getParameter("preferredFacility"));
-//		dto.setReservationTarget(req.getParameter("reservationTarget"));
-//		dto.setCurrency(req.getParameter("currency"));
-//		
-//		int res = accountMapper.updateAccount(dto);
-//		
-//		return new ModelAndView("redirect:account/mySettings");
-//	}
 	
 	//페이지 새로고침 없이 리로드 실험중... 상세정보 설정 페이지 (닉네임 값)
 	@RequestMapping(value = "/accountUpdate.do")
@@ -245,14 +199,9 @@ public class AccountController {
 			MultipartFile mf  = mhsr.getFile("profilePhoto");
 			String path = req.getSession().getServletContext().getRealPath("/resources/img/profileImage/");//"D:\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_DontDoThat\\resources\\img\\profileImage";//req.getRealPath("/resources/img/profileImage");//"d:/image/";
 			if(mf != null) {
-	//			InputStream inputStream = null;
-	//			OutputStream outputStream = null;
 				String organizedfilePath= "";
 				try {
 					if(mf.getSize() > 0) {
-	//					inputStream = mf.getInputStream();
-	//					File file = new File("D://image/image.jpg");
-	//					file = new File("D://image", "image.jpg");
 						organizedfilePath = mf.getOriginalFilename();
 						File realUpload = new File(path, organizedfilePath);
 						if(!realUpload.exists()) {
@@ -274,8 +223,6 @@ public class AccountController {
 			}
 		}
 		
-		//String upPath = session.getServletContext().getRealPath("image");
-		//String profilePhoto = req.getParameter("profilePhoto");//프로필 사진
 		String nickName = req.getParameter("nickName");//닉네임
 		String birthday = req.getParameter("birthday");//생일
 		String country = req.getParameter("country");//국가/지역
@@ -294,16 +241,6 @@ public class AccountController {
 		String currency = req.getParameter("currency");//통화(원, 달러, 엔)등등
 		String password = req.getParameter("password");//비밀번호
 		
-		
-		
-//		if(profilePhoto == null || profilePhoto.trim().equals("")) {
-//			System.out.println("profilePhoto = " + profilePhoto);
-//		}else {
-//			System.out.println("profilePhoto = " + profilePhoto);
-//			dto.setProfilePhoto(req.getParameter("profilePhoto"));
-//			//accountMapper.updateProfilePhoto(dto);
-//			req.setAttribute("profilePhoto", dto.getProfilePhoto());
-//		}
 		
 		if(nickName == null || nickName.trim().equals("")) {
 			System.out.println("nickName = " + nickName);
@@ -331,11 +268,11 @@ public class AccountController {
 			System.out.println("country = " + country);
 			dto.setCountry(req.getParameter("country"));
 			accountMapper.updateCountry(dto);
-			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
-			System.out.println("DB저장 완료? : " + country);
-			System.out.println("DB저장 완료? : " + dto.getCountry());
-			System.out.println("co : " + cdto.getName());
-			req.setAttribute("country", cdto.getName());
+//			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
+//			System.out.println("DB저장 완료? : " + country);
+//			System.out.println("DB저장 완료? : " + dto.getCountry());
+//			System.out.println("co : " + cdto.getName());
+//			req.setAttribute("country", cdto.getName());
 		}
 		
 		if(name == null || name.trim().equals("")) {
@@ -436,31 +373,6 @@ public class AccountController {
 			//accountMapper.updatePassword(dto);
 			req.setAttribute("password", dto.getPassword());
 		}
-		
-
-		
-//		if(num == null || num.trim().equals("")) {
-//			System.out.println("num = " + num);
-//		}else {
-//			System.out.println("num = " + num);
-//			dto.setNum((Integer)session.getAttribute("dto"));
-//			
-//			//dto.setNum((ccountDTO)session.getAttribute("dto"));
-//			//AccountDTO dto = (AccountDTO)session.getAttribute("dto");
-//		}
-		//dto = (AccountDTO)session.getAttribute("userSession");
-		//dto.setNum((Integer)session.getAttribute("userSession"));
-		//dto = (AccountDTO)session.getAttribute("userSession");
-		//int num = dto.getNum();
-		//AccountDTO num = accountMapper.getAccount(dto.getNum());
-		//int num = (int)dto.setNum((Integer)session.getAttribute("dto"));
-		//dto.setNum((Integer)session.getAttribute("dto"));
-		//System.out.println("dto.setNum = " + dto.setNum((Integer)session.getAttribute("dto")));
-
-		//accountMapper.updateNickName(dto);
-
-		//mav.addObject(num);
-		//mav.addObject(res);
 		mav.setViewName("account/mySettings");
 		return mav;
 	}
