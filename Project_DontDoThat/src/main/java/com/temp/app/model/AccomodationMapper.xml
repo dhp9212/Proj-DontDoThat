@@ -77,12 +77,11 @@
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
 		select * 
 		from (select rownum rn, A.* 
-			  from accomodation A) 
+			  from accomodation A
+			  where country = #{country}
+			  <!-- and checkin_date = #{start_date}
+			  and checkout_date = #{end_date} -->) 
 		where rn between #{startRow} and #{endRow}
-		and country = #{country}
-<!-- 		and checkin_date = #{start_date}
-		and checkout_date = #{end_date}
-		 -->
 	</select>
     <select id="getAccomodationList" resultType="AccomodationDTO">
         select * 

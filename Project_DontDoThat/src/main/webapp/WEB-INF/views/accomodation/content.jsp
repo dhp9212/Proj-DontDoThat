@@ -5,6 +5,8 @@
 
 <script type="text/javascript">
 
+<script type="text/javascript">
+
 </script>
 <br/>
 
@@ -87,7 +89,8 @@
 	<div class="panel panel-default">
  		 <div class="panel-body">
  		 	<div class="col-lg-9">
- 		 		<h2><span class="badge">${getAccomodationInfo.category_accomodation}</span>${getAccomodationInfo.accomodation_name}</h2>
+ 		 		<h2><span class="badge">${getAccomodationInfo.category_accomodation}</span>${getAccomodationInfo.accomodation_name}</h2><br>
+				${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기</a>
  		 	</div>
  		 	<div class="col-lg-3 now" style="text-align:right;">
  		 		<button type="button" class="btn btn-primary" id="optionBtn">지금 예약</button>
@@ -201,6 +204,7 @@ Whisper words of wisdom, let it be
         	<th>정원</th>
         	<th>요금</th>
         	<th>객실선택</th>
+        	<th></th>
       	</tr>
     	</thead>
     	<tbody class="tablecontent">
@@ -209,8 +213,15 @@ Whisper words of wisdom, let it be
       		<td><a href="#">${roomElement.value.roomclass}</a></td>
       		<td>${roomElement.value.people}</td>
       		<td>${roomElement.value.price}</td>
-      		<td>${roomElement.value.qty}
-      		
+      		<td>
+				<select name="selectQty">
+				<c:forEach var="i" begin="0" end="${roomElement.value.qty}">
+					<option value="i">${i}(${roomElement.value.price*i})</option>
+				</c:forEach>
+				</select>
+      		</td>
+      		<td rowspan="${getRoomList.size}">
+      			<button type="button" class="btn btn-primary" style="width:100%; height:30px;" id="optionBtn" onClick="location.href='accomodation_reservation.do?num=${roomElement.value.num}&accomodation_num=${getAccomodationInfo.num}&selectQty=${selectQty}&start_date=${start_date}&end_date=${end_date}'">지금 예약</button>
       		</td>
       	</tr>
       	</c:forEach>

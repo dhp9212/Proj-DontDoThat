@@ -2,7 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp" %>
 	<div>
-		<form name="reservation" action="accomodation_reservation.do" method="post" >
+		<form name="reservation" action="accomodation_reservation.do" method="post">
+		<input type="hidden" name="account_num" value="${getAccount.num}" />
+		<input type="hidden" name="accomodation_num" value="${accomodation_num}" />
+		<input type="hidden" name="room_num" value="${getRoom.num}" />
+		<input type="hidden" name="checkIn_date" value="${start_date}" />
+		<input type="hidden" name="checkOut_date" value="${end_date}" />
 		<table>
 			<tr>
 				<td>
@@ -27,10 +32,11 @@
 						</table>
 						<table border="1" width="100%">
 							<tr>
-								<td bgcolor="skyblue">결제 요금 내역</td>
+								<td colspan="2" bgcolor="skyblue">결제 요금 내역</td>
 							</tr>
 							<tr>
-								<td></td>
+								<td>${getRoom.roomclass}</td>
+								<td>${getRoom.price*selectQty}</td>
 							</tr>
 						</table>
 					</div>
@@ -67,7 +73,7 @@
 							<tr>
 								<td colspan="2">
 									국가/지역<br>
-									<select name="country">
+									<select name="country" id="country">
 										<option value="default">-- --국가/지역 선택-- --</option>
 									<c:forEach var="country" items="${countryList}">
 										<option>${country.name}</option>
@@ -79,10 +85,10 @@
 								<td colspan="2">전화번호 (가능한 경우 휴대폰)<br>
 							<c:choose>
 								<c:when test="${empty userSession}">
-									<input type="text" name="tel" class="box" maxlength="11">
+									<input type="text" name="tel" id="tel" class="box" maxlength="13">
 								</c:when>
 								<c:otherwise>
-									<input type="text" name="tel" class="box" maxlength="11" value="${getAccount.tel}">
+									<input type="text" name="tel" id="tel" class="box" maxlength="13" value="${getAccount.tel}">
 								</c:otherwise>
 							</c:choose>
 								</td>
@@ -102,7 +108,7 @@
 										</tr>
 										<tr>
 											<td colspan="2">투숙객 성명<br>
-												<input type="text" name="guest_name" class="box" value="성(영문) 이름(영문)">
+												<input type="text" name="guest_name" class="box" placeholder="성(영문) 이름(영문)">
 											</td>
 										</tr>
 									</table>
@@ -124,19 +130,70 @@
 			document.reservation.submit();
 		}
 		else {
+			if (reservation.last_name.value == '') {
+				alert("성(영문)을 입력해주세요")
+				reservation.last_name.focus()
+				return false
+			}
+			if (reservation.email.value == '') {
+				alert("이메일 주소를 입력해주세요")
+				reservation.email.focus()
+				return false
+			}
+			if (reservation.country.value == 'default') {
+				alert("국가/지역을 선택해주세요")
+				reservation.country.focus()
+				return false
+			}
+			if (reservation.tel.value == '') {
+				alert("전화번호를 입력해주세요")
+				reservation.tel.focus()
+				return false
+			}
 			document.reservation.submit();
-		}
-		var last_name = $('#last_name')
-		var email = $('#email')
-		var country = $('#country')
-		var tel = $('#tel')
-		if (last_name.val() != '' && email.val() != '' && country.val() != 'default' && tel.val() != '') {
-			$('form[name="reservation"]').submit()
-		}
-		else{
-			alert("필수정보(성(영문), 이메일 주소, 국가/지역, 전화번호)를 입력해주세요")
+			alert("예약에 성공하였습니다")
+			return true
 		}
 	}
+	function autoHypenTel(str) {
+        str = str.replace(/[^0-9]/g, '');
+        var tmp = '';
+        if (str.length < 4) {
+            return str;
+        } else if (str.length < 7) {
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3);
+            return tmp;
+        } else if (str.length < 11) {
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 3);
+            tmp += '-';
+            tmp += str.substr(6);
+            return tmp;
+        } else {              
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 4);
+            tmp += '-';
+            tmp += str.substr(7);
+            return tmp;
+        }
+        return str;
+    }
+	var tel = document.getElementById('tel');
+	tel.onkeyup = function(event) {
+	    event = event || window.event;
+	    var _val = this.value.trim();
+	    this.value = autoHypenTel(_val);
+	}
+	var country = '${getAccount.country}'
+	$(function() {
+		if (country != '') {
+			$('#country').val(country).prop('selected', true);
+		}
+	});
 	</script>
 </body>
 </html>
