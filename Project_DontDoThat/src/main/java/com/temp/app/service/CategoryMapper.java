@@ -30,4 +30,8 @@ public class CategoryMapper {
 	public List<FacilityDTO> selectFacility(){
 		return sqlSession.selectList("selectFacility");
 	}
+	
+	public CategoryAccomodationDTO getCategoryAccomodation(int key) {
+		return sqlSession.selectOne("getCategoryAccomodation", key);
+	}
 }
