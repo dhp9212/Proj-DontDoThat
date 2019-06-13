@@ -8,4 +8,5 @@ roomclass varchar2(50) not null,
 qty number default 1,
 people number default 1,
 price number not null,
-room_facility varchar2(500));
+room_facility varchar2(500),
+room_image varchar2(4000));
