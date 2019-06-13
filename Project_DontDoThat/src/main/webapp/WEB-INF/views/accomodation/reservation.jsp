@@ -1,114 +1,140 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp" %>
-	<div>
+<div class="col-lg-4">
+	<div class="panel panel-default sidesearch">
+		<div class="panel-body">
+			<div class="col-lg-12 searchlabel"><h1>내 예약 정보</h1></div>
+			<div class="col-lg-12">체크인 :</div>
+			<div class="col-lg-12">${start_date}</div>
+			<div class="col-lg-12">체크아웃 :</div>
+			<div class="col-lg-12">${end_date}</div>
+			<div class="col-lg-12">총 숙박 기간 :</div>
+			<div class="col-lg-12 days">1박</div>
+		</div>
+		<div class="panel-body">
+			<div class="col-lg-12">선택 객실 :</div>
+			<div class="col-lg-12">${getRoom.roomname}</div>
+			<div class="col-lg-12"><a href="">다른 객실로 변경</a></div>
+		</div>
+		<div class="panel-body">
+			<div class="col-lg-12 searchlabel"><h1>결제 요금 내역</h1></div>
+			<div class="col-lg-6">${getRoom.roomclass}</div>
+			<div class="col-lg-6" style="text-align:right;">${getRoom.price*selectQty}</div>
+		</div>
+		<div class="panel-body">
+			<div class="col-lg-12">기타 요금</div>
+			<div class="col-lg-12">도시세 (적용될 수 있으며, 조건에 따라 달라질 수 있음)</div>
+		</div>
+	</div>
+</div>
+<div class="col-lg-8">
+	<div class="panel panel-default">
+ 		<div class="panel-body">
+ 			<div class="col-lg-9">
+			<c:forEach var="imgElement" items="${imgList}" varStatus="imgStatus">
+				<c:if test="${imgStatus.count == 1}">
+		  		<div class="item active">
+		  		</c:if>
+		  		<c:if test="${imgStatus.count != 1}">
+		  		<div class="item">
+		  		</c:if>
+		      		<img src="${pageContext.request.contextPath}/resources/img/output/${getRoom.room_image}" style="width:100%; height:500px;">
+		    	</div>
+		    </c:forEach>
+ 			</div>
+ 		</div>
+ 	</div>
+	<div class="row">
 		<form name="reservation" action="accomodation_reservation.do" method="post">
 		<input type="hidden" name="account_num" value="${getAccount.num}" />
 		<input type="hidden" name="accomodation_num" value="${accomodation_num}" />
 		<input type="hidden" name="room_num" value="${getRoom.num}" />
 		<input type="hidden" name="checkIn_date" value="${start_date}" />
 		<input type="hidden" name="checkOut_date" value="${end_date}" />
-		<table>
-			<tr>
-				<td>
-					<div>
-						<table border="1" width="100%">
-							<tr>
-								<td bgcolor="skyblue">내 예약 정보</td>
-							</tr>
-							<tr>
-								<td>
-									체크인 :<br>${start_date}<br>
-									체크아웃 :<br>${end_date}<br>
-									<a href="">날짜 변경</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									선택 객실 :<br>${getRoom.roomname}<br>
-									<a href="">다른 객실로 변경</a>
-								</td>
-							</tr>
-						</table>
-						<table border="1" width="100%">
-							<tr>
-								<td colspan="2" bgcolor="skyblue">결제 요금 내역</td>
-							</tr>
-							<tr>
-								<td>${getRoom.roomclass}</td>
-								<td>${getRoom.price*selectQty}</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-				<td>
-					<div>
-						<table border="0" width="100%">
-							<tr>
-								<td><img src="image/${getAccomodationInfo.image}" width="200" height="200" border="0"></td>
-								<td>
-									<h3><b>${getAccomodationInfo.accomodation_name}</b></h3><br>
-									${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country}
-								</td>
-							</tr>
-						</table>
-						<h3>상세 정보 입력</h3>
-						<table border="0" bgcolor="skyblue">
-							<tr>
-								<td>성(영문)<br><input type="text" name="last_name" class="box"></td>
-								<td>이름(영문)<br><input type="text" name="first_name" class="box"></td>
-							</tr>
-							<tr>
-								<td colspan="2">이메일 주소<br>
-									<input type="text" name="email" class="box" value="${getAccount.email}">예약 확인서가 전송될 이메일 주소 입력
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									국가/지역<br>
-									<select name="country" id="country">
-										<option value="default">-- --국가/지역 선택-- --</option>
-									<c:forEach var="country" items="${countryList}">
-										<option>${country.name}</option>
-									</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">전화번호 (가능한 경우 휴대폰)<br>
-									<input type="text" name="tel" id="tel" class="box" maxlength="13" value="${getAccount.tel}">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<table>
-										<tr>
-											<td><h4><b>${getRoom.roomname}</b></h4></td>
-											<td>${getRoom.price}</td>
-										</tr>
-										<tr>
-											<td colspan="2">이용 후기</td>
-										</tr>
-										<tr>
-											<td colspan="2">최대 투숙 인원 : ${getRoom.people}명</td>
-										</tr>
-										<tr>
-											<td colspan="2">투숙객 성명<br>
-												<input type="text" name="guest_name" class="box" placeholder="성(영문) 이름(영문)" value="${last_name} ${first_name}">
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-						<input type="button" value="예약 완료" onClick="javascript:check();">
-					</div>
-				</td>
-			</tr>
-		</table>
+		<div class="col-lg-12"><h2>상세 정보 입력</h2></div>
+		<div class="col-lg-6">성(영문)</div>
+		<div class="col-lg-6">이름(영문)</div>
+		<div class="col-lg-6"><input type="text" name="last_name" class="box"></div>
+		<div class="col-lg-6"><input type="text" name="first_name" class="box"></div>
+		<div class="col-lg-12">이메일 주소</div>
+		<div class="col-lg-8"><input type="text" name="email" class="box" value="${getAccount.email}"></div>
+		<div class="col-lg-4">예약 확인서가 전송될 이메일 주소 입력</div>
+		<div class="col-lg-12">국가/지역</div>
+		<div class="col-lg-8">
+			<select name="country" id="country">
+				<option value="default">-- --국가/지역 선택-- --</option>
+			<c:forEach var="country" items="${countryList}">
+				<option>${country.name}</option>
+			</c:forEach>
+			</select>
+		</div>
+		<div class="col-lg-12">전화번호 (가능한 경우 휴대폰)</div>
+		<div class="col-lg-6">
+			<input type="text" name="tel" id="tel" class="box" maxlength="13" value="${getAccount.tel}">
+		</div>
+		<div class="col-lg-12">
+			<div class="col-lg-6">${getRoom.roomname}</div>
+			<div class="col-lg-6" style="text-align:right;">${getRoom.price}</div>
+			<div class="col-lg-12">이용 후기</div>
+			<div class="col-lg-12">최대 투숙 인원 : ${getRoom.people}명</div>
+		</div>
+		<div class="col-lg-2" style="text-align:right;">
+			<button type="button" class="btn btn-primary" style="width:100%; height:30px;" id="optionBtn" onClick="javascript:check();">예약 완료</button>
+		</div>
 		</form>
 	</div>
+</div>
 	<script type="text/javascript">
+	$(function() {
+	    var $startDate = $('input[name="start_date"]');
+	    var $endDate = $('input[name="end_date"]');
+	    $startDate.datepicker({
+	      autoHide: true,
+	      startDate : new Date(this.date)
+	    });
+	    $endDate.datepicker({
+	      autoHide: true,
+	      startDate: $startDate.datepicker('getDate'),
+	    });
+
+	    $startDate.on('change', function () {
+	  	  
+	      $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+	    });
+	  
+	});
+	
+	$(function(){
+		var $startDate = $('input[name="start_date"]');
+	    var $endDate = $('input[name="end_date"]');
+	    
+	    $startDate.on('change', function(){
+	    	$endDate.focus();
+	    })
+	})
+	
+	$(function(){
+		var $startDate = $('input[name="start_date"]');
+	    var $endDate = $('input[name="end_date"]');
+	    
+	   
+	    
+	    $endDate.on('change', function(){
+	    	var startDateArr = $startDate.val().split('/')
+	 	    var endDateArr = $endDate.val().split('/')
+	 	    
+	 	    var startDateSet = new Date(startDateArr[0], startDateArr[1], startDateArr[2])
+	 	    var endDateSet = new Date(endDateArr[0], endDateArr[1], endDateArr[2])
+	
+	 	    var dif = endDateSet - startDateSet
+	 	    var day = 1000*60*60*24
+	 	    
+	 	    var difDay = parseInt(dif/day)
+	    	$('.col-lg-12.days').text(difDay + '박')
+	    	
+	    })
+	})
 	function check() {
 		var session = '${userSession}'
 		if (session == '') {
