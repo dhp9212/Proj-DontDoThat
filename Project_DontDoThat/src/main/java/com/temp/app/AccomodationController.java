@@ -67,6 +67,10 @@ public class AccomodationController {
 		}
 		req.getSession().setAttribute("start_date", start_date);
 		req.getSession().setAttribute("end_date", end_date);
+		req.getSession().setAttribute("adult", adult);
+		req.getSession().setAttribute("child", child);
+		req.getSession().setAttribute("room", room);
+		
 		
         String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
@@ -80,11 +84,10 @@ public class AccomodationController {
         int endRow = currentPage * pageSize;
         
         if (endRow > listCount) endRow = listCount;
-        System.out.println(listCount);
         
         List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, startRow, endRow);
         req.setAttribute("listAccomodation", list);
-        
+                
         List<String> coverImage = new ArrayList<String>();
         for(int i = 0; i < list.size();i++) {
         	String[] temp = list.get(i).getImage().split(",");

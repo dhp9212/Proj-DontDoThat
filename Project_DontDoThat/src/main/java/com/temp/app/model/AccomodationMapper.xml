@@ -76,12 +76,10 @@
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
 		select * 
-		from (select rownum rn, A.* 
-			  from accomodation A
-			  where country = #{input_place}
-			  OR city = #{input_place}
-			  <!-- and checkin_date = #{start_date}
-			  and checkout_date = #{end_date} -->) 
+		from (select rownum as rn, A.* 
+			  from accomodation A 
+			  where country = #{input_place} 
+			  or city = #{input_place_city} )
 		where rn between #{startRow} and #{endRow}
 	</select>
     <select id="getAccomodationList" resultType="AccomodationDTO">
@@ -118,7 +116,8 @@
 	</delete>
     <select id="getCount" resultType="int" parameterType="HashMap">
         select count(*) from accomodation 
-        where country = #{country}
+        where country = #{input_place}
+        or city = #{input_place_city}
         <!-- and checkin_date = #{start_date}
         and checkout_date = #{end_date} -->
 	</select>

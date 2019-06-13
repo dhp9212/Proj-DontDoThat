@@ -264,9 +264,11 @@ public class AccomodationMapper {
 		map.put("startRow", startRowStr);
 		map.put("endRow", endRowStr);
 		map.put("input_place", input_place);
+		map.put("input_place_city", input_place);
 		map.put("start_date", start_date);
 		map.put("end_date", end_date);
-		return sqlSession.selectList("listAccomodation", map);
+		List<AccomodationDTO> ret = sqlSession.selectList("listAccomodation", map);
+		return ret;
 	}
 	//
 	public List<AccomodationDTO> listAccomodation(int startRow, int endRow) {
@@ -294,7 +296,8 @@ public class AccomodationMapper {
     //숙소 갯수 가져오기
     public int getCount(String input_place, String start_date, String end_date) {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("country", input_place);
+        map.put("input_place", input_place);
+		map.put("input_place_city", input_place);
         map.put("start_date", start_date);
         map.put("end_date", end_date);
         return sqlSession.selectOne("getCount", map);
