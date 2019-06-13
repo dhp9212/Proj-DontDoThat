@@ -55,46 +55,18 @@
 						<!-- Gallery -->
 							
 								<div class="gallery style1">
-								<article>
-									<a href="#" class="image" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/01-1.jpg" alt="" style="display: inline-block;"/>
-									</a>
-									<div class="caption">
-										<h3><a href="#">내 집</a></h3>
-										<p>프라하</p>
-
-									</div>
-								</article>
-								<article>
-									<a href="#" class="image" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/01-2.jpg" alt="" style="display: inline-block;"/>
-									</a>
-									<div class="caption">
-										<h3><a href="#">우리집</a></h3>
-										<p>로마</p>
-
-									</div>
-								</article>
-								<article>
-									<a href="#" class="image" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/01-3.jpg" alt="" style="display: inline-block;"/>
-									</a>
-									<div class="caption">
-										<h3><a href="#">개 집</a></h3>
-										<p>부다페스트</p>
-
-									</div>
-								</article>
-								<article>
-									<a href="#" class="image" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/01-4.jpg" alt="" style="display: inline-block;"/>
-									</a>
-									<div class="caption">
-										<h3><a href="#">느그 집</a></h3>
-										<p>암스테르담</p>
-
-									</div>
-								</article>
+								<c:forEach var="i" begin="0" end="3" step="1" >
+									<article>
+										<a href="javascript:onSearchBanner('${cityListShuffled[i].country_name}')" class="image" style="text-align: center;">
+											<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[i].city_image}" alt="" style="display: inline-block;"/>
+										</a>
+										<div class="caption">
+											<!-- <h3><a href="#">내 집</a></h3> -->
+											<p>${cityListShuffled[i].city }</p>
+	
+										</div>
+									</article>
+								</c:forEach>
 							</div>
 
 					</section>
@@ -106,20 +78,20 @@
 							<!--  layer1 -->
 							<div class="gallery location_layer1 medium lightbox onscroll-fade-in">
 								<article>
-									<a href="#1" class="image1" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/kyoto.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[4].country_name}')" class="image1" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[4].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption1">
-										<h3>&nbsp;&nbsp;<a href="#1">교토</a></h3>
+										<h3>&nbsp;&nbsp;<a href="#1">${cityListShuffled[4].city}</a></h3>
 									</div>
 								</article>
 								<span></span>
 								<article>
-									<a href="#2" class="image2" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/los_angeles.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[5].country_name}')" class="image2" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[5].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption2">
-										<h3>&nbsp;&nbsp;<a href="#2"> 로스앤젤레스</a></h3>
+										<h3>&nbsp;&nbsp;<a href="#2">${cityListShuffled[5].city}</a></h3>
 									</div>
 								</article>
 							</div>
@@ -127,27 +99,27 @@
 							<!-- layer2 -->
 							<div class="gallery location_layer2 medium lightbox onscroll-fade-in">
 								<article>
-									<a href="#3" class="image3" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/tokyo.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[6].country_name}')" class="image3" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[6].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption3">
-										<h3>&nbsp;&nbsp;<a href="#3">도쿄</a></h3>
+										<h3>&nbsp;&nbsp;<a href="#3">${cityListShuffled[6].city}</a></h3>
 									</div>
 								</article>
 								<article>
-									<a href="#4" class="image4" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/new_york.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[7].country_name}')" class="image4" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[7].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption4">
-										<h3>&nbsp;&nbsp;<a href="#4">뉴욕</a></h3>
+										<h3>&nbsp;&nbsp;<a href="#4">${cityListShuffled[7].city}</a></h3>
 									</div>
 								</article>
 								<article>
-									<a href="#5" class="image5" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/oosaka.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[8].country_name}')" class="image5" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[8].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption5">
-										<h3>&nbsp;&nbsp;<a href="#5">오사카</a></h3>
+										<h3>&nbsp;&nbsp;<a href="#5">${cityListShuffled[8].city}</a></h3>
 									</div>
 								</article>
 							</div>
@@ -155,44 +127,52 @@
 							<!-- layer3 -->
 							<div class="gallery location_layer3 medium lightbox onscroll-fade-in">
 								<article>
-									<a href="#6" class="image6" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/bahama.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[9].country_name}')" class="image6" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[9].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption6">
-										<h3>&nbsp;&nbsp;<a href="#6">바하마</a></h3>
-										<h6>&nbsp;&nbsp;&nbsp;<a href="#9">바하마</a></h6>
+										<h3>&nbsp;&nbsp;<a href="#6">${cityListShuffled[9].city}</a></h3>
+										<!-- <h6>&nbsp;&nbsp;&nbsp;<a href="#9">영국</a></h6> -->
 									</div>
 								</article>
 								<article>
-									<a href="#7" class="image7" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/london.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[10].country_name}')" class="image7" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[10].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption7">
-										<h3>&nbsp;&nbsp;<a href="#7">런던</a></h3>
-										<h6>&nbsp;&nbsp;&nbsp;<a href="#9">영국</a></h6>
+										<h3>&nbsp;&nbsp;<a href="#7">${cityListShuffled[10].city}</a></h3>
+										<!-- <h6>&nbsp;&nbsp;&nbsp;<a href="#9">영국</a></h6> -->
 									</div>
 								</article>
 								<article>
-									<a href="#8" class="image8" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/saintpetersbrug.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[11].country_name}')" class="image8" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[11].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption8">
-										<h3>&nbsp;&nbsp;<a href="#8">상트페테르부르크</a></h3>
-										<h6>&nbsp;&nbsp;&nbsp;<a href="#9">러시아</a></h6>
+										<h3>&nbsp;&nbsp;<a href="#8">${cityListShuffled[11].city}</a></h3>
+										<!-- <h6>&nbsp;&nbsp;&nbsp;<a href="#9">러시아</a></h6> -->
 									</div>
 								</article>
 								<article>
-									<a href="#9 " class="image9" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/city/sanghai.jpg" alt="" style="display: inline-block;"/>
+									<a href="javascript:onSearchBanner('${cityListShuffled[12].country_name}')" class="image9" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[12].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption9">
-										<h3>&nbsp;&nbsp;<a href="#9">상하이</a></h3>
-										<h6>&nbsp;&nbsp;&nbsp;<a href="#9">중국</a></h6>
+										<h3>&nbsp;&nbsp;<a href="#9">${cityListShuffled[12].city}</a></h3>
+										<!-- <h6>&nbsp;&nbsp;&nbsp;<a href="#9">중국</a></h6> -->
 									</div>
 								</article>
 							</div>
 			</section>
 	</div>
+	<form name="banner_form" method="post" action="accomodation_list.do">
+		<input type="hidden" id="banner_input_place" name="input_place" value="">
+		<input type="hidden"  name="start_date" value="">
+		<input type="hidden"  name="end_date" value="">
+		<input type="hidden" name="adult">
+		<input type="hidden" name="child">
+		<input type="hidden" name="room">
+	</form>
 	
 	<!-- Footer -->
 	<div class="footer-wrapper">
@@ -245,11 +225,13 @@
 	                minChars: 1,
 	                source: function(term, suggest){
 	                	var str = new Array();
-	                	<c:forEach var="country" items="${countryList}">
-	    				str += '${country.name}' + '/'
-	                	</c:forEach>     	
+	                	<c:forEach var="countryElement" items="${countryList}">
+	    				str += '${countryElement.name}' + '/'
+	                	</c:forEach>
+	    				<c:forEach var="cityElement" items="${cityList}">
+	    				str += '${cityElement.city}' + '/'
+	                	</c:forEach>  
 	                    term = term.toLowerCase();
-	                    /* var choices = ['썅', 'ActionScript', 'AppleScript', 'Asp', 'Assembly', 'BASIC', 'Batch', 'C', 'C++', 'CSS', 'Clojure', 'COBOL', 'ColdFusion', 'Erlang', 'Fortran', 'Groovy', 'Haskell', 'HTML', 'Java', 'JavaScript', 'Lisp', 'Perl', 'PHP', 'PowerShell', 'Python', 'Ruby', 'Scala', 'Scheme', 'SQL', 'TeX', 'XML']; */
 	                    var choices = str.split("/");
 	                    var suggestions = [];
 	                    
@@ -268,6 +250,12 @@
 				else{
 					alert("여행지명을 입력해주세요")
 				}
+			}
+			
+			function onSearchBanner(condition){
+				$('#banner_input_place').attr('value', condition)
+				
+				$('form[name="banner_form"]').submit()
 			}
 			</script>
 

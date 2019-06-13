@@ -9,8 +9,9 @@
 		<!-- WHERE FLAG IS NOT NULL -->
 	</select>
 	<select id="selectCity" resultType="CityDTO">
-		SELECT *
-		FROM CITY
+		SELECT A.*, B.NAME as COUNTRY_NAME
+		FROM CITY A, COUNTRY B
+		WHERE A.COUNTRY = B.CODE_2
 	</select>
 	<select id="selectCurrency" resultType="CurrencyDTO">
 		SELECT *

@@ -1,6 +1,7 @@
 package com.temp.app;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -70,8 +71,11 @@ public class MainController {
 		System.out.println(categoryAccomodationList.size());
 		List<CountryDTO> countryList = standardInformationMapper.selectCountry();
 		List<CityDTO> cityList = standardInformationMapper.selectCity();
+		List<CityDTO> cityListShuffled = cityList;
+		
 		List<CurrencyDTO> currencyList = standardInformationMapper.selectCurrency();
 		List<LanguageDTO> languageList = standardInformationMapper.selectLanguage();
+		Collections.shuffle(cityListShuffled);
 		
 		setCategoryRoom();
 		setFacilities();
@@ -80,13 +84,15 @@ public class MainController {
 		session.setAttribute("categoryRoom", categoryRoom);
 		session.setAttribute("facilities", facilities);
 		session.setAttribute("cardList", cardList);
+		session.setAttribute("cityList", cityList);
+		session.setAttribute("cityListShuffled", cityListShuffled);
 		session.setAttribute("countryList", countryList);
 		session.setAttribute("categoryAccomodationList", categoryAccomodationList);
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.addObject("categoryAccomodationList", categoryAccomodationList);
 		//mav.addObject("countryList", countryList);
-		mav.addObject("cityList", cityList);
+		//mav.addObject("cityList", cityList);
 		mav.addObject("currencyList", currencyList);
 		mav.addObject("languageList", languageList);
 		
@@ -163,6 +169,7 @@ public class MainController {
 		
 		return new ModelAndView("categorySearch");
 	}
+	
 	
 	
 	
