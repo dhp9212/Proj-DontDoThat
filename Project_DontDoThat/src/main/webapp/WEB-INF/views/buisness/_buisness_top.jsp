@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,34 +34,50 @@
 		<div style="margin:0 10 0 30;" class="col-sm-11"><a href="general_info.do"><font class="text-white">숙소 정보</font></a></div>
 	</div>
 	</c:if>
-	<div class="row" style="background-color:blue;">
-		<div style="margin:5 0 0 30;" class="col-sm-1"><font class="text-white">예약</font></div>
-		<div style="margin:5 0 0 30;" class="col-sm-5"><font class="text-white"><a href="custom_review.do">이용 후기</a></font></div>
-		<div class="col-sm-1">
-			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">숙소</button>
-			<div class="dropdown-menu">
+<nav class="navbar navbar-expand-sm bg-blue navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Logo</a>
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">예약</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="custom_review.do">이용후기</a>
+    </li>
+    <li class="nav-item" style="width: 350;"></li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      	숙소
+      </a>
+		<div class="dropdown-menu">
 			<c:forEach var="dto" items="${accomodation_list}" varStatus="num">
-		      <a class="dropdown-item" href="general_info.do?accomodation_num=${dto.value.num}">${dto.value.accomodation_name}</a>
-		    </c:forEach>
-		    </div>
+			<a class="dropdown-item" href="general_info.do?accomodation_num=${dto.value.num}">${dto.value.accomodation_name}</a>
+	    	</c:forEach>
+	    </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      	메세지
+      </a>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="custom_message.do">고객 메세지</a>
+			<a class="dropdown-item" href="admin_message.do">dontDoThat 메세지</a>
 		</div>
-		<div class="col-sm-1">
-			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">메세지</button>
-			<div class="dropdown-menu">
-		      <a class="dropdown-item" href="custom_message.do">고객 메세지</a>
-		      <a class="dropdown-item" href="admin_message.do">dontDoThat 메세지</a>
-		    </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      	재무
+      </a>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="bill.do">청구서</a>
+			<a class="dropdown-item" href="reservation_specification.do">예약 명세서</a>
+			<a class="dropdown-item" href="financial_overview.do">재무 개요</a>
+			<a class="dropdown-item" href="account_info.do">은행 계좌 정보</a>
 		</div>
-		<div class="col-sm-1">
-			<button type="button" style="width:80;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">재무</button>
-			<div class="dropdown-menu">
-		      <a class="dropdown-item" href="bill.do">청구서</a>
-		      <a class="dropdown-item" href="reservation_specification.do">예약 명세서</a>
-		      <a class="dropdown-item" href="financial_overview.do">재무 개요</a>
-		      <a class="dropdown-item" href="account_info.do">은행 계좌 정보</a>
-		    </div>
-		</div>
-	</div>
+    </li>
+  </ul>
+</nav>
 </div>
 	<!-- 				미구현
 		<table>

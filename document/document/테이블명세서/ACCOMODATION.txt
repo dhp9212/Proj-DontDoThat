@@ -18,5 +18,5 @@ policy varchar2(500),
 checkIn_date varchar2(50),
 checkOut_date varchar2(50),
 payment varchar2(200),
-accmodation_num number,
+account_num number,
 nearby varchar2(4000));
