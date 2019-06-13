@@ -20,4 +20,9 @@
 		SELECT CARD_NAME 
 		FROM CARDLIST
 	</select>
+	<select id="getCategoryAccomodation" parameterType="int" resultType="CategoryAccomodationDTO">
+		SELECT *
+		FROM CATEGORY_ACCOMODATION
+		WHERE KEY = #{key}
+	</select>
 </mapper>
