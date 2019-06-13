@@ -87,14 +87,16 @@ public class MainController {
 		session.setAttribute("cityList", cityList);
 		session.setAttribute("cityListShuffled", cityListShuffled);
 		session.setAttribute("countryList", countryList);
+		session.setAttribute("currencyList", currencyList);
+		session.setAttribute("languageList", languageList);
 		session.setAttribute("categoryAccomodationList", categoryAccomodationList);
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.addObject("categoryAccomodationList", categoryAccomodationList);
 		//mav.addObject("countryList", countryList);
 		//mav.addObject("cityList", cityList);
-		mav.addObject("currencyList", currencyList);
-		mav.addObject("languageList", languageList);
+		//mav.addObject("currencyList", currencyList);
+		//mav.addObject("languageList", languageList);
 		
 		mav.setViewName("home");
 		

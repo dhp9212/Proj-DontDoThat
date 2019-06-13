@@ -263,7 +263,7 @@ public class AccomodationMapper {
 		String endRowStr = Integer.toString(endRow);
 		map.put("startRow", startRowStr);
 		map.put("endRow", endRowStr);
-		map.put("country", input_place);
+		map.put("input_place", input_place);
 		map.put("start_date", start_date);
 		map.put("end_date", end_date);
 		return sqlSession.selectList("listAccomodation", map);

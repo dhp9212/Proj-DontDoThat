@@ -78,7 +78,8 @@
 		select * 
 		from (select rownum rn, A.* 
 			  from accomodation A
-			  where country = #{country}
+			  where country = #{input_place}
+			  OR city = #{input_place}
 			  <!-- and checkin_date = #{start_date}
 			  and checkout_date = #{end_date} -->) 
 		where rn between #{startRow} and #{endRow}
