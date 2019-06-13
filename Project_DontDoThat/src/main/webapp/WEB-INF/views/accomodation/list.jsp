@@ -83,14 +83,15 @@
 					  <button type="button" class="btn btn-primary">성급 + 요금</button>
 					</div>
 					<br/>
-			<c:forEach var="dto" items="${listAccomodation}">
+			<c:forEach var="dto" items="${listAccomodation}" varStatus="status">
 					<div class="panel panel-default">
 					  <div class="panel-body itemspanel">
 					  	<div class="col-lg-4">
 					  		<a href="search_accomodation_content.do?num=${dto.num}">
-					  			<img src="${pageContext.request.contextPath}/resources/img/accomodation/${dto.image}">
+					  			<img src="${pageContext.request.contextPath}/resources/img/output/${coverImage[status.index]}">
 					  		</a>
 					  	</div>
+					  	
 					  	<div class="col-lg-8">
 					  		<div class="row">
 							  	<div class="col-lg-8">

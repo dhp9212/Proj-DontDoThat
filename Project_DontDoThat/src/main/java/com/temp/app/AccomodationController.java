@@ -81,8 +81,18 @@ public class AccomodationController {
         
         if (endRow > listCount) endRow = listCount;
         System.out.println(listCount);
+        
         List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, startRow, endRow);
         req.setAttribute("listAccomodation", list);
+        
+        List<String> coverImage = new ArrayList<String>();
+        for(int i = 0; i < list.size();i++) {
+        	String[] temp = list.get(i).getImage().split(",");
+        	coverImage.add(temp[0]);
+        	System.out.println(temp[0]);
+        }
+        req.setAttribute("coverImage", coverImage);
+        
         if (listCount > 0) {
             int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
             int pageBlock = 10;
