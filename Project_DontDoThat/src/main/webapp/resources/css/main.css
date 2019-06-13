@@ -116,7 +116,7 @@ input, select, textarea {
 	}
 
 	a {
-		color: #4444FF;
+		color: #0033cc;
 		text-decoration: underline;
 	}
 
@@ -219,7 +219,7 @@ input, select, textarea {
 		form input[type="password"]:focus,
 		form select:focus,
 		form textarea:focus {
-			border-color: #4444FF;
+			border-color: #0033cc;
 			/* color: #DDDDDD; */
 		}
 		
@@ -378,7 +378,7 @@ input, select, textarea {
 		-webkit-appearance: none;
 		position: relative;
 		/* display: inline-block; */
-		background: #4444FF;
+		background: #0033cc;
 		color: #fff;
 		text-decoration: none;
 		border-radius: 6px;
@@ -580,7 +580,7 @@ input, select, textarea {
 
 	#header-wrapper {
 		padding: 4.5em 5em 3em 4em;
-		background: #4444FF;
+		background: #0033cc;
 	}
 	
 	#search-wrapper{
@@ -615,7 +615,7 @@ input, select, textarea {
 	}
 
 		#logo h1 {
-			background: #4444FF;
+			background: #0033cc;
 			color: #fff;
 			border-radius: 6px;
 			font-family: 'Oleo Script', serif;
@@ -676,7 +676,7 @@ input, select, textarea {
 
 				#nav ul li:hover a, #nav ul li:hover span {
 					background: #fff;
-					color: #4444FF;
+					color: #0033cc;
 				}
 
 				#nav ul li.active a, #nav ul li.active span {
@@ -1108,7 +1108,7 @@ input, select, textarea {
 		}
 
 			.gallery.style2 > .forward:before {
-				content: '\f105';
+				content: '>';
 				right: 0;
 			}
 
@@ -1118,7 +1118,7 @@ input, select, textarea {
 		}
 
 			.gallery.style2 > .backward:before {
-				content: '\f104';
+				content: '<';
 				left: 0;
 			}
 
