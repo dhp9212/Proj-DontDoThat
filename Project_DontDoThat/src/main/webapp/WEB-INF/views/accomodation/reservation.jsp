@@ -60,14 +60,7 @@
 							</tr>
 							<tr>
 								<td colspan="2">이메일 주소<br>
-							<c:choose>
-								<c:when test="${empty userSession}">
-									<input type="text" name="email" class="box">예약 확인서가 전송될 이메일 주소 입력
-								</c:when>
-								<c:otherwise>
 									<input type="text" name="email" class="box" value="${getAccount.email}">예약 확인서가 전송될 이메일 주소 입력
-								</c:otherwise>
-							</c:choose>
 								</td>
 							</tr>
 							<tr>
@@ -83,14 +76,7 @@
 							</tr>
 							<tr>
 								<td colspan="2">전화번호 (가능한 경우 휴대폰)<br>
-							<c:choose>
-								<c:when test="${empty userSession}">
-									<input type="text" name="tel" id="tel" class="box" maxlength="13">
-								</c:when>
-								<c:otherwise>
 									<input type="text" name="tel" id="tel" class="box" maxlength="13" value="${getAccount.tel}">
-								</c:otherwise>
-							</c:choose>
 								</td>
 							</tr>
 							<tr>
@@ -108,7 +94,7 @@
 										</tr>
 										<tr>
 											<td colspan="2">투숙객 성명<br>
-												<input type="text" name="guest_name" class="box" placeholder="성(영문) 이름(영문)">
+												<input type="text" name="guest_name" class="box" placeholder="성(영문) 이름(영문)" value="${last_name} ${first_name}">
 											</td>
 										</tr>
 									</table>
@@ -126,17 +112,22 @@
 	function check() {
 		var session = '${userSession}'
 		if (session == '') {
-			document.reservation.action = 'loginFromReservation.do'
-			document.reservation.submit();
+			alert("예약하시기 전에 로그인해주세요")
 		}
 		else {
+			var emailValidation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+			var telValidation = /^[0-9_\.\-]+-[0-9\-]+\-[0-9\-]+/;
 			if (reservation.last_name.value == '') {
 				alert("성(영문)을 입력해주세요")
 				reservation.last_name.focus()
 				return false
 			}
-			if (reservation.email.value == '') {
-				alert("이메일 주소를 입력해주세요")
+			if (emailValidation.test(reservation.email.value) == false) {
+				if (reservation.email.value == '') {
+					alert("이메일 주소를 입력해주세요")
+				} else {
+					alert("유효한 이메일 주소를 입력해주세요")
+				}
 				reservation.email.focus()
 				return false
 			}
@@ -145,8 +136,12 @@
 				reservation.country.focus()
 				return false
 			}
-			if (reservation.tel.value == '') {
-				alert("전화번호를 입력해주세요")
+			if (telValidation.test(reservation.tel.value) == false) {
+				if (reservation.tel.value == '') {
+					alert("전화번호를 입력해주세요")
+				} else {
+					alert("유효한 전화번호를 입력해주세요")
+				}
 				reservation.tel.focus()
 				return false
 			}

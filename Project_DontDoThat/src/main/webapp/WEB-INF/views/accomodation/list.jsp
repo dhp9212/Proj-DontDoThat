@@ -117,7 +117,7 @@
 							  	</div>
 						  	</div>
 						  	<div class="lastline">
-						  		 <button type="button" class="btn btn-primary">예약 가능 옵션 보기 ></button>
+						  		 <button type="button" class="btn btn-primary" onclick="location.href='search_accomodation_content.do?num=${dto.num}'">예약 가능 옵션 보기 ></button>
 						  	</div>
 					  	</div>
 					  </div>

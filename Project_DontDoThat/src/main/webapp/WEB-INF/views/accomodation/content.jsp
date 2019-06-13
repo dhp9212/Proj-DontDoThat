@@ -93,7 +93,7 @@
 				${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기</a>
  		 	</div>
  		 	<div class="col-lg-3 now" style="text-align:right;">
- 		 		<button type="button" class="btn btn-primary" id="optionBtn">지금 예약</button>
+ 		 		<button type="button" class="btn btn-primary" id="optionBtn" onclick="location.href='#option'">지금 예약</button>
  		 	</div>
  		 </div>
 	</div>
@@ -176,7 +176,7 @@ Whisper words of wisdom, let it be
  		 <div class="panel-body">
  		 		<h1>투숙객이 좋아하나요?</h1>
  		 	<div class="col-lg-12">
- 		 		<button type="button" class="btn btn-primary" style="width:100%; height:30px;" id="optionBtn">지금 예약</button>
+ 		 		<button type="button" class="btn btn-primary" style="width:100%; height:30px;" id="optionBtn" onclick="location.href='#option'">지금 예약</button>
  		 	</div>
  		 </div>
 		 </div>
@@ -362,7 +362,7 @@ Whisper words of wisdom, let it be
             	var str = new Array();
             	<c:forEach var="country" items="${countryList}">
 				str += '${country.name}' + '/'
-            	</c:forEach>     	
+            	</c:forEach>
                 term = term.toLowerCase();
                 var choices = str.split("/");
                 var suggestions = [];
