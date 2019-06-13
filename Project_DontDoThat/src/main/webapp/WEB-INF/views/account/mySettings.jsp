@@ -7,35 +7,7 @@
 <title>상세 정보</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
-	    function ajaxFileUpload() {
-	        // 업로드 버튼이 클릭되면 파일 찾기 창을 띄운다.
-	        jQuery("#ajaxFile").click();
-	    }
-	
-	    function ajaxFileChange() {
-	        // 파일이 선택되면 업로드를 진행한다.
-	        ajaxFileTransmit();
-	    }
-	
-	    /* function ajaxFileTransmit() {
-	        var form = jQuery("ajaxFrom")[0];
-	        var formData = new FormData(form);
-	        formData.append("message", "파일 확인 창 숨기기");
-	        formData.append("file", jQuery("#ajaxFile")[0].files[0]);
-	
-	        jQuery.ajax({
-	              url : "./ajaxFormReceive.php"
-	            , type : "POST"
-	            , processData : false
-	            , contentType : false
-	            , data : formData
-	            , success:function(json) {
-	                var obj = JSON.parse(json);
-	            }
-	        });
-	    } */
-	    
-	    
+	   
 	    //자동 저장
 	    var dynaframe = null;
 	    
@@ -59,86 +31,47 @@
 	    	document.getElementById("nickName").value = nickName;
 	    }
 	    
-	    //닉네임, 생일 저장
+	    //닉네임, 생일, 국가/지역 저장
 	    $(document).ready(function(){
+	    	//닉네임
 	    	$("#nickName").keydown(function(key){
 	    		if(key.keyCode == 13){
-	    			//alert("enterkey 눌림")
-	    			
-	    			//input text에 쓰인 email을 Controller에 보낸다.
-	    			/* function getNickName(){
-	    				
-	    				if(dynaframe == null){
-	    					createIframe();
-	    				}
-	    				var nickName = document.getElementById("nickName").value;
-	    				dynaframe.src = "accountUpdate.do?nickName = " + nickName;
-	    			} */
 	    			s.submit();
 	    		}
 	    	});
-	    	//Controller에서 받은 email을 input text에 설치한다.
-	    	/* function setNickName(nickName){
-				document.getElementById("nickName").value = nickName;
-			} */
+	    	//생일
 			$("#birthday").keydown(function(key){
 				if(key.keyCode == 13){
-					/* function getBirthday(){
-						var birthday = document.getElementById("birthday").value;
-						dynaframe.src = "accountUpdate.do?birthday = " + birthday;
-					} */
 					s.submit();
 				}
 			});
-			
-			/* $(".selectedCountry option:selected").text();
-			var selectedCountry = $(".selectedCountry option");
-			for(i = 1; i < selectedCountry.length; i++){
-				if(selectedCountry.eq(i).text() == ""){
-					$(".selectedCountry option:eq("+i+")").prop("selected", true);
-					break;
-				}
-			} */
-			
+	    	//국가/지역
 			$('.country').on('change', function(){
-				
-				
-				/* var selectedCountry = document.getElementById("selectedCountry");
-				
-				var countryName = selectedCountry.options[selectedCountry.selectedIndex].text;
-				
-				dynaframe.src = "accountUpdate.do"
-				dynaframe.src = "accountUpdate.do?selectedCountry = " + countryName; */
 				s.submit();
 			});
-			
-			/* var getCountry = document.getElementById("country");
-			window.onload = function(){
-				if($(this).val() == 'country')
-					$(this).prop('selected', true);
-			} */
+	    	//이름
+			$("#name").keydown(function(key){
+				if(key.keyCode == 13){
+					s.submit();
+				}
+			});
+	    	//전화번호
+			$("#tel").keydown(function(key){
+				if(key.keyCode == 13){
+					s.submit();
+				}
+			});
+	    	//주소
+			$("#address").keydown(function(key){
+				if(key.keyCode == 13){
+					s.submit();
+				}
+			});
 	    });
-	    
-	    /* var selectedCountry = $(".country option:selected").val();
-	    var getCountry = ${country}
-	    
-	    if(selectedCountry == getCountry){
-	    	$(".country").text().prop("selected", true);
-	    }
-	    $(this).val("country").prop("selected", true);
-	    alert( $(this).val("country").prop("selected", true));
-	    $(".country option:selected").val();
-	    $(".country option:selected").text();
-	    $(".country").find(":selected").val();
-	    $(".country").find("option:selected").val();
-	    $(":selected").val();
-	    $("select option:selected").val();
-	    $("select[name='country']").val(); */
 	    
 	    //실시간 프로필 사진 바꾸기
 		var openFile = function(event) {
 		    var input = event.target;
-
 		    var reader = new FileReader();
 		    reader.onload = function(){
 		      var dataURL = reader.result;
@@ -149,7 +82,17 @@
 		    s.submit();
 		  };
 	    
-	    
+		//주소 변경
+	    $(document).ready(function(){
+	    	$("#addressChange").click(function addressChange(){
+	    		var state = $(".adressUpdate").css("display");
+	    		if(state == "none"){ // state가 none 상태일경우 
+		            $(".adressUpdate").show();
+		        }else{
+		        	 $(".adressUpdate").hide();
+		        }
+	    	});
+	    });
 	    
 	    //값 불러와서 설치해주기?
 	    window.onload = function(){
@@ -192,6 +135,30 @@
 		.countrySetting{
 		padding: 5px 10px;
 		}
+		
+		.reservationInformationHead{
+		border:1px solid green;
+		margin : 10px;
+		}
+		.reservationInformationContent{
+		border:1px solid green;
+		margin : 10px;
+		}
+		.nameSetting{
+		padding: 5px 10px;
+		}
+		.telSetting{
+		padding: 5px 10px;
+		}
+		.emailSetting{
+		padding: 5px 10px;
+		}
+		.addressSetting{
+		padding: 5px 10px;
+		}
+		.adressUpdate{
+		display:none;
+		}
 	</style>
 </head>
 <body>
@@ -231,7 +198,7 @@
 					<!-- 프로필 사진 -->
 					<div class="myProfilePhotoSettings">
 						프로필 사진<br>
-						<img src="${pageContext.request.contextPath}/resources/img/profileImage/${profilePhoto}" id="fileName" border="0" width="130" height="130" alt="프로필 등록">${profilePhoto}<br>
+						<img src="${pageContext.request.contextPath}/resources/img/profileImage/${profilePhoto}" id="fileName" border="0" width="130" height="130" alt="프로필 등록"><br>
 						<input type="file" name="profilePhoto" id="profilePhoto" accept='image/*' onchange='openFile(event)'>
 						<!-- <input type="file" name="profilePhoto" id="ajaxFile" onchange="ajaxFileChange()" style="display:none;"> -->
 						<!-- <input type="button" onClick="ajaxFileUpload();" value="사진 변경"/> -->
@@ -508,29 +475,41 @@
 				</div>
 				
 				
-				<!-- 숙소 예약용 정보 -->
-				<div class="reservationInformation">
-					<div>
+				<!-- 숙소 예약용 정보 타이틀 -->
+				<div class="reservationInformationHead">
+					<div class="reservationInformationTitle">
 						<h1>숙소 예약용 정보</h1>
-					</div>
+					</div class="reservationInformationSubTitle">
+					<div>본 정보는 예약 시 자동 입력을 통해 예약 절차를 간편하게 하기 위한 목적으로만 사용됩니다. 입력하신 정보는 철저히 보안되며 절대 공개되지 않습니다.</div>
 				</div>
-				<div class="reservationInformation">
-					<div class="reservationInformation">
-						<div class="nameSetting">
-							이름<br>
-							<input type="text" name="name" id="name" value="${name}" onkeypress="JavaScript:press(this.form)">
-							
+				<!-- 숙소 예약용 정보 내용 -->
+				<div class="reservationInformationContent">
+					<!-- 이름 -->
+					<div class="nameSetting">
+						이름<br>
+						<input type="text" name="name" id="name" value="${name}" onkeypress="JavaScript:press(this.form)">
+					</div><br>
+					<!-- 전화번호 -->
+					<div class="telSetting">
+						전화번호<br>
+						<input type="text" name="tel" id="tel" value="${tel}" onkeypress="JavaScript:press(this.form)">
+					</div><br>
+					<!-- 이메일 -->
+					<div class="emailSetting">
+						이메일<span style="color:gray"> - 최대 3개까지 이메일 주소 저장 가능... 근데 난 안될거야.. 포기하자</span><br>
+						<label><b>${email}</b></label><br><br>
+						
+						<input type="button" name="appendEmail" value="이메일 추가하기">
+					</div><br>
+					<!-- 주소 -->
+					<div class="addressSetting">
+						주소<span style="color:gray"> - 기입 형식. ex)00000 서울시 송파구 잠실6동 장미아파트 101동 101호.</span><br>
+						<label>(우) ${address}</label><br>
+						<div class="adressUpdate">
+							<input type="text" name="address" id="address" value="${address}" onkeypress="JavaScript:press(this.form)"><br>
 						</div><br>
-						<div>
-							전화번호
-						</div><br>
-						<div>
-							이메일
-						</div><br>
-						<div>
-							주소
-						</div><br>
-					</div>
+						<input type="button" name="addressChange" id="addressChange" value="집 주소 변경" onkeypress="JavaScript:press(this.form)">
+					</div><br>
 				</div>
 			</div>
 			</form>

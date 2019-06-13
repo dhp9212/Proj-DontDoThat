@@ -70,6 +70,24 @@
 		where num = #{num}
 	</update>
 	
+	<update id="updateName" parameterType="AccountDTO">
+		update account
+		set name = #{name, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
+
+	<update id="updateTel" parameterType="AccountDTO">
+		update account
+		set tel = #{tel, jdbcType=INTEGER}
+		where num = #{num}
+	</update>
+	
+	<update id="updateAddress" parameterType="AccountDTO">
+		update account
+		set address = #{address, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
+	
 	
 	
 	<select id="getAccount" resultType="AccountDTO" parameterType="int">

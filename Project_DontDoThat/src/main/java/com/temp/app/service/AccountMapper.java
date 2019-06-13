@@ -73,6 +73,19 @@ public class AccountMapper {
 		sqlSession.update("updateCountry", dto);
 	}
 	
+	public void updateName(AccountDTO dto) {
+		sqlSession.update("updateName", dto);
+	}
+	
+	public void updateTel(AccountDTO dto) {
+		sqlSession.update("updateTel", dto);
+	}
+	
+	public void updateAddress(AccountDTO dto) {
+		sqlSession.update("updateAddress", dto);
+	}
+	
+	
 //	protected List<AccountDTO> makeList(){
 //		return sqlSession.selectList("makeList", )
 //	}

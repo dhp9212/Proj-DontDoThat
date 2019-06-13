@@ -177,6 +177,11 @@ public class AccountController {
 //		}
 		//System.out.println("dto.getCountry 컨트롤러 국가 값 : " + dto.getCountry());
 		
+		req.setAttribute("name", dto.getName());
+		req.setAttribute("tel", dto.getTel());
+		req.setAttribute("email", dto.getEmail());
+		req.setAttribute("address", dto.getAddress());
+		
 		return "account/mySettings";
 	}
 	
@@ -229,8 +234,9 @@ public class AccountController {
 		
 		String name = req.getParameter("name");//이름
 		String tel = req.getParameter("tel");//전화번호
-		
+		String email = req.getParameter("email");//이메일
 		String address = req.getParameter("address");//주소
+		
 		String payment = req.getParameter("payment");//결제수단
 		String smoke = req.getParameter("smoke");//흡연 여부
 		String starRating = req.getParameter("starRating");//숙소 성급
@@ -273,6 +279,8 @@ public class AccountController {
 //			System.out.println("DB저장 완료? : " + dto.getCountry());
 //			System.out.println("co : " + cdto.getName());
 //			req.setAttribute("country", cdto.getName());
+			
+			req.setAttribute("country", dto.getCountry());
 		}
 		
 		if(name == null || name.trim().equals("")) {
@@ -280,17 +288,26 @@ public class AccountController {
 		}else {
 			System.out.println("name = " + name);
 			dto.setName(req.getParameter("name"));
-			//accountMapper.updateName(dto);
+			accountMapper.updateName(dto);
 			req.setAttribute("name", dto.getName());
 		}
 		
-		if(tel == null || tel.trim().equals("")) {
+		if(tel == null) {
 			System.out.println("tel = " + tel);
 		}else {
 			System.out.println("tel = " + tel);
 			dto.setTel(Integer.parseInt(req.getParameter("tel")));
-			//accountMapper.updateName(dto);
+			accountMapper.updateTel(dto);
 			req.setAttribute("tel", dto.getTel());
+		}
+		
+		if(email == null || email.trim().equals("")) {
+			System.out.println("email = " + email);
+		}else {
+			System.out.println("email = " + email);
+			dto.setEmail(req.getParameter("email"));
+			//accountMapper.updateName(dto);
+			req.setAttribute("email", dto.getEmail());
 		}
 		
 		if(address == null || address.trim().equals("")) {
@@ -298,7 +315,7 @@ public class AccountController {
 		}else {
 			System.out.println("address = " + address);
 			dto.setAddress(req.getParameter("address"));
-			//accountMapper.updateAddress(dto);
+			accountMapper.updateAddress(dto);
 			req.setAttribute("address", dto.getAddress());
 		}
 		
