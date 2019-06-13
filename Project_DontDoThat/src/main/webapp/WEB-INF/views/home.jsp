@@ -12,6 +12,9 @@
 			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
 			    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
 				<input autocomplete="off" name="people" id="people_form" type="text" placeholder="성인:2명 · 아동:1명 · 객실:1개" style="width:20%; height:50px;" size="0" >
+				<input type="hidden" name="adult">
+				<input type="hidden" name="child">
+				<input type="hidden" name="room">
 				<input type="button" value="검색" style="width:10%; height:50px;" onclick="javascript:isSubmit()">
 			</div>
 		</form>
@@ -26,10 +29,12 @@
 
 						<!-- Gallery -->
 							<div class="gallery style2 medium lightbox onscroll-fade-in">
+							
 								<c:forEach var="dto" items="${categoryAccomodationList}">
 								<article>
-									<a href="#" class="image" style="text-align: center;">
-										<img src="${pageContext.request.contextPath}/resources/img/${dto.image}" alt="" style="display: inline-block;"/>
+									<a href="accomodation_category_search.do?key=${dto.key}" class="image" style="text-align: center;">
+										<img src="${pageContext.request.contextPath}/resources/img/categoryAccomodation/${dto.image}" alt="" style="display: inline-block;"/>
+										
 									</a>
 									<div class="caption">
 										<h3><a href="#">${dto.name}</a></h3>
@@ -197,7 +202,15 @@
 	</div>
 
 			<!-- Scripts -->
-	
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.auto-complete.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.scrollex.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.scrolly.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.dropotron.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
 			<script>
 			$(function() {
 			    var $startDate = $('.start-date');

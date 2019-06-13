@@ -155,6 +155,18 @@ public class MainController {
 	}
 	
 	
+	@RequestMapping(value="/accomodation_category_search.do")
+	public ModelAndView accomodation_category_search(HttpServletRequest req) {
+		String key = req.getParameter("key");
+		CategoryAccomodationDTO categoryDto = categoryMapper.getCategoryAccomodation(Integer.parseInt(key));
+		req.setAttribute("categoryDto", categoryDto);
+		
+		return new ModelAndView("categorySearch");
+	}
+	
+	
+	
+	
 	public void setCardList() {
 		if(cardList.size() == 0) {
 			cardList = categoryMapper.selectCardList();
