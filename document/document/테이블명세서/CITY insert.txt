@@ -1,0 +1,28 @@
+﻿insert into city values('GU', '하갓냐', 'agana.jpg');
+insert into city values('GR', '아테네', 'athene.jpg');
+insert into city values('NL', '암스테르담', 'amsterdam.jpg');
+insert into city values('NO', '오슬로', 'oslo.jpg');
+insert into city values('NZ', '웰링턴', 'wellington.jpg');
+insert into city values('KR', '서울', 'seoul.jpg');
+insert into city values('KR', '부산', 'busan.jpg');
+insert into city values('KR', '대구', 'deagu.jpg');
+insert into city values('UK', '런던', 'london.jpg');
+insert into city values('DK', '코펜하겐', 'kobenhavn.jpg');
+insert into city values('DE', '베를린', 'berlin.jpg');
+insert into city values('RU', '모스크바', 'moscow.jpg');
+insert into city values('LU', '룩셈부르크', 'luxembrug.jpg');
+insert into city values('MC', '모나코', 'monaco.jpg');
+insert into city values('US', '워싱턴DC', 'washingtondc.jpg');
+insert into city values('US', '로스 앤젤레스', 'los_angeles.jpg');
+insert into city values('US', '뉴욕', 'new_york.jpg');
+insert into city values('US', '산 호세', 'san_jose.jpg');
+insert into city values('BS', '나소', 'nassau.jpg');
+insert into city values('BE', '브뤼셀', 'brussels.jpg');
+insert into city values('SE', '스톡홀름', 'stockholm.jpg');
+insert into city values('CH', '베른', 'bern.jpg');
+insert into city values('JP', '도쿄', 'tokyo.jpg');
+insert into city values('JP', '교토', 'kyoto.jpg');
+insert into city values('JP', '오사카', 'oosaka.jpg');
+
+
+insert into city values('', '', '.jpg');
