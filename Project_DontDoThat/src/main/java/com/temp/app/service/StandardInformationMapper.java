@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.temp.app.model.AccomodationDTO;
 import com.temp.app.model.AccountDTO;
 import com.temp.app.model.CategoryAccomodationDTO;
+import com.temp.app.model.CityContentDTO;
 import com.temp.app.model.CityDTO;
 import com.temp.app.model.CountryDTO;
 import com.temp.app.model.CurrencyDTO;
@@ -46,9 +47,10 @@ public class StandardInformationMapper {
 		List<CountryDTO> country = sqlSession.selectList("selectCountry");
 		List<FacilityDTO> facility = sqlSession.selectList("selectFacility");
 		List<String> cardList = sqlSession.selectList("selectCardList");
+		List<CityContentDTO> content = sqlSession.selectList("selectCityContent");
 		
 		AccountDTO aDTO = (AccountDTO)req.getSession().getAttribute("userSession");
-		for(int k=0; k<5; ++k) {
+		for(int k=0; k<3; ++k) {
 			Hashtable<Integer, String> card_save = new Hashtable<Integer, String>(); 
 			for(int i=0; i<5; ++i) {
 				int random = (int)(Math.random()*cardList.size());
@@ -89,7 +91,8 @@ public class StandardInformationMapper {
 				CityDTO cDTO2 = city.get((int)(Math.random()*city.size()));
 				FacilityDTO fDTO = facility.get((int)(Math.random()*facility.size()));
 				CategoryAccomodationDTO dto = categoryAccomodation.get(i);
-				System.out.println("insert into accomodation values(accomodation_seq.nextval, '"+dto.getName()+"','homepage"+i+".com', '»çÀåÀÌ¸§"+i+"', '123-123"+i+"', '¼÷¼ÒÀÌ¸§"+i+"', '"+cDTO.getName()+"','"+cDTO2.getCity()+"','ÁÖ¼Ò"+i+"', '¿ìÆí¹øÈ£"+i+"', '"+fDTO.getFacility_name()+"', 'america1 ("+(int)(Math.random()*78)+").jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg', '³»¿ë"+i+"', '"+policy+"', '00:00 ~ 24:00', '00:00 ~ 24:00', '"+card+"', "+aDTO.getNum()+", '');");
+				CityContentDTO ccDTO = content.get((int)(Math.random()*content.size()));
+				System.out.println("insert into accomodation values(accomodation_seq.nextval, '"+dto.getName()+"','homepage"+i+".com', 'ì‚¬ìž¥"+i+"', '123-123"+i+"', '"+ccDTO.getName()+"', '"+cDTO.getName()+"','"+cDTO2.getCity()+"','ì£¼ì†Œ"+i+"', 'ìš°íŽ¸ë²ˆí˜¸"+i+"', '"+fDTO.getFacility_name()+"', 'america1 ("+(int)(Math.random()*78)+").jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg', '"+ccDTO.getContent()+"', '"+policy+"', '00:00 ~ 24:00', '00:00 ~ 24:00', '"+card+"', "+aDTO.getNum()+", '');");
 			}
 		}
 	}
