@@ -2,22 +2,10 @@ create sequence room_seq;
 
 create table room(
 num number primary key,
-category varchar2(50) not null,
-homepage varchar2(100) not null,
-hotelname varchar2(100) not null,
-headname varchar2(20),
-tel varchar2(30),
-country varchar2(40) not null,
-city varchar2(50) not null,
-address varchar2(100) not null,
-postalcode varchar2(40),
-people number not null,
-bathroom number default 0,
-facility varchar2(500) not null,
-image varchar2(500) not null,
-roomName varchar2(100),
+accomodation_num number not null,
+roomname varchar2(50) not null,
+roomclass varchar2(50) not null,
+qty number default 1,
+people number default 1,
 price number not null,
-policy varchar2(500),
-cancelTime number default 0,
-checkInTime number default 0,
-checkOutTime number default 24);
+room_facility varchar2(500));
