@@ -12,14 +12,6 @@
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.auto-complete.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.scrollex.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.scrolly.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/script.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.dropotron.min.js"></script>
 <!-- --------- -->
@@ -38,13 +30,13 @@
 		<header id="header" class="container">
 			<!-- Logo -->
 				<div id="logo">
-					<h1><a href="home.do">Hacking.com</a></h1>
+					<h1><a href="home.do" >Hacking.com</a></h1>
 				</div>
 
 			<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Currency</a>
+						<%-- <li><a href="#">Currency</a>
 							<ul>
 							<c:forEach var="currency" items="${currencyList}">
 								<li>
@@ -68,7 +60,7 @@
 							</c:forEach>
 							</li>
 							</ul>
-						</li>
+						</li> --%>
 						<li><a href="insertRoom.do">내 숙소 등록</a></li>
 						<c:if test="${userSession == null}">
 						<li id="signon"><a href="signUp.do">가입하기</a></li>
