@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../top.jsp" %>
 <style>
 	body {
 	  height: 100vh;
 	  margin: 0;
-	  background: linear-gradient(#547BB3 30%, #EBF1FA 30%);
+	  background: linear-gradient(#547BB3 40%, #EBF1FA 30%);
 	}
 	#f th, td
 	{
@@ -13,13 +14,17 @@
 	  background-color: white;
 	}
 	#f {
-	  border-spacing: 0px 20px;
+	  border-spacing: 0px 10px;
+	  border-collapse: separate;
 	}
 	.font1{
 	  font-size:20px;
 	}
 	.font2{
 	  color:#6E6E6E;
+	}
+	.table > tbody > tr > td {
+     vertical-align: middle;
 	}
 	
 	[class^=arr-]{
@@ -100,17 +105,20 @@
            })
        });
    </script>
+<p><p>
 <div class="region" align="center" style="display:none;">
+<div class="container" style="width:70%">
 	<c:if test="${mbId != null}">
 		<b>안녕하세요, ${mbId} 님!</b><br><br>
 	</c:if>
-	<font size="50" color="white" style="height:30"><b>무엇이든 물어보세요!</b></font><br>
+	<font color="white"size="50" style="height:30; font-weight:bold;">무엇이든 물어보세요!</font><br>
 	<font color="white" style="line-height:200%">도움이 필요하세요? 아래에서 선택해주세요</font><br>
-	<table id="f" width="1024px">
+	<table id="f" width="600px">
 		<tr style="border: 1px solid #BDBDBD;">
-			<td valign="top" align="right" style="padding:20px; border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><img src='<%=request.getContextPath()%>/resources/img/icon1.png' width="60px" align="middle"></td>
-			<td valign="top" style="padding:20px; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="a">
-				<font class="font1">정보 찾기</font><br>
+			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
+				<img src='<%=request.getContextPath()%>/resources/img/icon1.png' width="60px" style="vertical-align:middle"></td>
+			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="a">
+				<font class="font1">정보찾기</font><br>
 				<font class="font2">어떤 문제를 겪고 있는지 알려주세요. 문제 해결을 위한 최적의 방법을 알려드릴게요.</font></span>
 			<br>
 			<div id="a">
@@ -144,26 +152,32 @@
 	        		</div>
 	        	</c:forEach>
         	</td>
-        	<td valign="top" style="padding:20px; border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="a"><i id="a_arrow"class="arr-down"></i></span></td>
+        	<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="a"><i id="a_arrow"class="arr-down"></i></span></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right" style="padding:20px; border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><img src='<%=request.getContextPath()%>/resources/img/icon2.png' width="60px" align="middle"></td>
-			<td valign="top" style="padding:20px; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><font class="font1">예약 관리하기</font><br>
+			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
+				<img src='<%=request.getContextPath()%>/resources/img/icon2.png' width="60px" style="vertical-align:middle">
+			</td>
+			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><font class="font1">예약 관리하기</font><br>
 				<font class="font2">온라인으로 쉽게 날짜를 변경하고 객실을 추가하거나 예약을 취소하실 수 있습니다.</font>
 				<div id="moreRegion">
 				</div>
 				</td>
-			<td valign="top" style="padding:20px; border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="b"><i id="b_arrow"class="arr-down"></i></span></td>
+			<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="b"><i id="b_arrow"class="arr-down"></i></span></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right" style="padding:20px; border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><img src='<%=request.getContextPath()%>/resources/img/icon3.png' width="60px" align="middle"></td>
-			<td valign="top" style="padding:20px; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><font class="font1">숙소에 문의하기</font><br>
+			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
+				<img src='<%=request.getContextPath()%>/resources/img/icon3.png' width="60px" style="vertical-align:middle">
+			</td>
+			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><font class="font1">숙소에 문의하기</font><br>
 				<font class="font2">숙박 관련 문의사항은 일반적으로 숙소 측에서 가장 정확하게 안내해드릴 수 있습니다.</font>></td>
-			<td valign="top" style="padding:20px; border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="c"><i id="c_arrow"class="arr-down"></i></span></td>
+			<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="c"><i id="c_arrow"class="arr-down"></i></span></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right" style="padding:20px; border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><img src='<%=request.getContextPath()%>/resources/img/icon4.png' width="60px" align="middle"></td>
-			<td valign="top" style="padding:20px; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="d">	
+			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
+				<img src='<%=request.getContextPath()%>/resources/img/icon4.png' width="60px" style="vertical-align:middle">
+			</td>
+			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="d">	
 				<font class="font1">문의하기</font><br>
 				<font class="font2">문의하기</font></span>
 				<div id="d">
@@ -193,7 +207,8 @@
 					<input type="submit" value="전송">
 				</div>
 			</td>
-			<td valign="top" style="padding:20px; border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="d"><i id="d_arrow"class="arr-down"></i></span></td>
+			<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="d"><i id="d_arrow"class="arr-down"></i></span></td>
 		</tr>
 	</table>
+</div>
 </div>
