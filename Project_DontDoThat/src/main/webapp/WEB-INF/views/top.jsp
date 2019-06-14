@@ -14,6 +14,16 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.dropotron.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		// Dropdowns.
+			$('#nav > ul').dropotron({
+				mode: 'fade',
+				noOpenerFade: true,
+				speed: 300
+			});
+	});
+	</script>
 <!-- --------- -->
 	<title>Hacking.com</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
