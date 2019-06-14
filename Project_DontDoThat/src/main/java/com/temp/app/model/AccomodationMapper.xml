@@ -118,8 +118,6 @@
         select count(*) from accomodation 
         where country = #{input_place}
         or city = #{input_place_city}
-        <!-- and checkin_date = #{start_date}
-        and checkout_date = #{end_date} -->
 	</select>
 	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">
 		select * from accomodation where num = #{num}

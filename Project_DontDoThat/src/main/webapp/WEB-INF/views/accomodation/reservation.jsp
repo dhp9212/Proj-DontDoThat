@@ -20,7 +20,7 @@
 		<div class="panel-body">
 			<div class="col-lg-12 searchlabel"><h1>결제 요금 내역</h1></div>
 			<div class="col-lg-6">${getRoom.roomclass}</div>
-			<div class="col-lg-6" style="text-align:right;">${getRoom.price*selectQty}</div>
+			<div class="col-lg-6" style="text-align:right;">${getRoom.price*param.selectQty}</div>
 		</div>
 		<div class="panel-body">
 			<div class="col-lg-12">기타 요금</div>
@@ -46,7 +46,7 @@
  		</div>
  	</div>
 	<div class="row">
-		<form name="reservation" action="accomodation_reservation.do" method="post">
+		<form name="reservation" action="accomodation_reservation_ok.do" method="post">
 		<input type="hidden" name="account_num" value="${getAccount.num}" />
 		<input type="hidden" name="accomodation_num" value="${accomodation_num}" />
 		<input type="hidden" name="room_num" value="${getRoom.num}" />
@@ -65,7 +65,7 @@
 			<select name="country" id="country">
 				<option value="default">-- --국가/지역 선택-- --</option>
 			<c:forEach var="country" items="${countryList}">
-				<option>${country.name}</option>
+				<option value="${country.name}">${country.name}</option>
 			</c:forEach>
 			</select>
 		</div>

@@ -45,7 +45,7 @@ public class AccomodationController {
 		String adult = req.getParameter("adult").trim();
 		String child = req.getParameter("child").trim();
 		String room = req.getParameter("room").trim();
-		
+		System.out.println(input_place);
 		
 		
 		req.getSession().setAttribute("input_place", input_place);
@@ -74,10 +74,10 @@ public class AccomodationController {
 		}
 		req.getSession().setAttribute("start_date", start_date);
 		req.getSession().setAttribute("end_date", end_date);
-		req.getSession().setAttribute("adult", adult);
-		req.getSession().setAttribute("child", child);
-		req.getSession().setAttribute("room", room);
-		
+//		req.getSession().setAttribute("adult", adult);
+//		req.getSession().setAttribute("child", child);
+//		req.getSession().setAttribute("room", room);
+		System.out.println(input_place);
 		
         String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
@@ -149,14 +149,13 @@ public class AccomodationController {
 		req.setAttribute("averageReview", averageReview);
 		return "accomodation/content";
 	}
-	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.GET)
+	@RequestMapping(value="/accomodation_reservation.do")
 	public String reservationForm(HttpServletRequest req, @RequestParam int num) throws Exception {
 		RoomDTO dto = accomodationMapper.getRoom(num);
 		req.setAttribute("getRoom", dto);
-		
 		return "accomodation/reservation";
 	}
-	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.POST)
+	@RequestMapping(value="/accomodation_reservation_ok.do")
 	protected ModelAndView reservationPro(HttpServletRequest req, @ModelAttribute ReservationDTO dto, BindingResult result) throws Exception {
 		if (result.hasErrors()) {
 			dto.setNum(0);
