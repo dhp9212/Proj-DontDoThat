@@ -98,6 +98,10 @@ public class AccomodationMapper {
 		}
 		return table;
 	}
+	public List<RoomDTO> getRoomList(int accomodation_num){
+		String num = accomodation_num + "";
+		return sqlSession.selectList("getRoomList", num);
+	}
 	//
 	public void updateAccomodation_facility(String accomodation_num, String accomodation_facility) {
 		Map<String, String> map = new HashMap<String, String>();

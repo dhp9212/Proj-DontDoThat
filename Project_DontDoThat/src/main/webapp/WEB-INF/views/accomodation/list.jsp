@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../top.jsp" %>
 <br/>
-
-	<div class="col-lg-10"><h4>${input_place}</h4></div>
-	<div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div>
-
-<br/>
 <div class="col-lg-4">
 	<div class="panel panel-default sidesearch">
 		<div class="panel-body">
@@ -73,7 +68,10 @@
 <div class="col-lg-8">
 		
 		<div>
-			 <h1>검색된 숙소 ${listCount}개</h1>
+		
+		<h1>검색된 숙소 ${listCount}개</h1>
+		<div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div>
+
 		</div>
 	<div class="btn-group sortbar">
 					  <button type="button" class="btn btn-primary" id="selected">요금</button>
@@ -107,14 +105,16 @@
 						  		<a href="">${dto.city} - 지도에서 표시</a>
 						  	</div>
 						  	<div class="row details">
+						  		<c:forEach var="roomDto" items="${dto.roomList}">
 						  		<div class="col-lg-4">
 								  	<a href="search_accomodation_content.do?num=${dto.num}">
-								  		방 옵션 수량 나와야됨
+								  		${roomDto.roomclass}
 								  	</a>
 							  	</div>
 							  	<div class="col-lg-8 cost">
-							  		금액 나와야됨
+							  		${roomDto.price}
 							  	</div>
+							  	</c:forEach>
 						  	</div>
 						  	<div class="lastline">
 						  		 <button type="button" class="btn btn-primary" onclick="location.href='search_accomodation_content.do?num=${dto.num}'">예약 가능 옵션 보기 ></button>
@@ -148,7 +148,16 @@
 		  zoom:5,
 		};
 		var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+		var marker = new google.maps.Marker({
+			  position:myCenter,
+			  animation:google.maps.Animation.BOUNCE
+			});
+
+			marker.setMap(map);
+		
 	}
+	
+	
 	
 	function resetSelected(){
 		$('.sortbar .btn').attr('id', '')

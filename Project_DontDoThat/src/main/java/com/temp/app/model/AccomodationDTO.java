@@ -1,6 +1,9 @@
 package com.temp.app.model;
 
-public class AccomodationDTO {
+import java.io.Serializable;
+import java.util.List;
+
+public class AccomodationDTO implements Serializable {
 	private int num;
 	private int account_num;
 	private String category_accomodation;
@@ -18,8 +21,11 @@ public class AccomodationDTO {
 	private String policy;
 	private String checkin_date;
 	private String checkout_date;
+	private String checkin_time;
+	private String checkout_time;
 	private String payment;
 	private String nearby;
+	private List<RoomDTO> roomList;
 	
 	public int getNum() {
 		return num;
@@ -134,5 +140,23 @@ public class AccomodationDTO {
 	}
 	public void setNearby(String nearby) {
 		this.nearby = nearby;
+	}
+	public List<RoomDTO> getRoomList() {
+		return roomList;
+	}
+	public void setRoomList(List<RoomDTO> roomList) {
+		this.roomList = roomList;
+	}
+	public String getCheckin_time() {
+		return checkin_time;
+	}
+	public void setCheckin_time(String checkin_time) {
+		this.checkin_time = checkin_time;
+	}
+	public String getCheckout_time() {
+		return checkout_time;
+	}
+	public void setCheckout_time(String checkout_time) {
+		this.checkout_time = checkout_time;
 	}
 }

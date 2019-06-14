@@ -94,6 +94,9 @@ public class AccomodationController {
         
         List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, startRow, endRow);
         req.setAttribute("listAccomodation", list);
+        for(int i = 0; i < list.size(); i++) {
+        	 list.get(i).setRoomList(accomodationMapper.getRoomList(list.get(i).getNum()));
+        }
                 
         List<String> coverImage = new ArrayList<String>();
         for(int i = 0; i < list.size();i++) {
