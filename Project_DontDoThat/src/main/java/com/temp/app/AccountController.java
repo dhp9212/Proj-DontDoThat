@@ -134,12 +134,11 @@ public class AccountController {
 		ModelAndView mav = new ModelAndView();
 		String password = req.getParameter("setPassword");
 		HttpSession session = req.getSession();
-		AccountDTO dto = (AccountDTO)session.getAttribute("dto");
-		session.setAttribute("userSession", dto);
+		AccountDTO dto = new AccountDTO();
 		dto.setEmail((String)session.getAttribute("email"));
 		dto.setPassword(password);
 		dto.setName("");
-		dto.setTel(0);
+		dto.setTel("");
 		dto.setProfilePhoto("");
 		dto.setNickName("");
 		dto.setBirthday("");
@@ -152,6 +151,7 @@ public class AccountController {
 		dto.setPreferredFacility("");
 		dto.setReservationTarget("");
 		dto.setCurrency("");
+		session.setAttribute("userSession", dto);
 		int res = accountMapper.insertAccount(dto);
 		mav.addObject(res);
 		mav.setViewName("account/mySettings");
@@ -166,7 +166,24 @@ public class AccountController {
 		req.setAttribute("profilePhoto", dto.getProfilePhoto());
 		req.setAttribute("nickName", dto.getNickName());
 		req.setAttribute("birthday", dto.getBirthday());
-		
+		req.setAttribute("country", dto.getCountry());
+		System.out.println("num = " + dto.getNum());
+		System.out.println("add = " + dto.getAddress());
+		System.out.println("birs = " + dto.getBirthday());
+		System.out.println("country = " + dto.getCountry());
+		System.out.println("cure = " + dto.getCurrency());
+		System.out.println("disa = " + dto.getDisabled());
+		System.out.println("email = " + dto.getEmail());
+		System.out.println("name = " + dto.getName());
+		System.out.println("nic = " + dto.getNickName());
+		System.out.println("pass = " + dto.getPassword());
+		System.out.println("card = " + dto.getPayment());
+		System.out.println("fac = " + dto.getPreferredFacility());
+		System.out.println("photo = " + dto.getProfilePhoto());
+		System.out.println("reT = " + dto.getReservationTarget());
+		System.out.println("smo = " + dto.getSmoke());
+		System.out.println("star = " + dto.getStarRating());
+		System.out.println("tel = " + dto.getTel());
 //		if(dto.getCountry() != null) {
 //			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
 //			if(cdto == null) {
@@ -194,7 +211,6 @@ public class AccountController {
 		int num = dto.getNum();
 		dto.setNum(num);
 		int res = 0;
-		
 		
 		//MultipartRequest mr = null;
 		MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest)req;
@@ -227,7 +243,6 @@ public class AccountController {
 				req.setAttribute("profilePhoto", dto.getProfilePhoto());
 			}
 		}
-		
 		String nickName = req.getParameter("nickName");//닉네임
 		String birthday = req.getParameter("birthday");//생일
 		String country = req.getParameter("country");//국가/지역
@@ -237,7 +252,16 @@ public class AccountController {
 		String email = req.getParameter("email");//이메일
 		String address = req.getParameter("address");//주소
 		
-		String payment = req.getParameter("payment");//결제수단
+		String selectPayment = req.getParameter("payment");//카드 종류
+		String nameOfCreditCard = req.getParameter("nameOfCreditCard");//카드 번호
+		String expirationDate = req.getParameter("expirationDate");//만료 일자
+		
+		System.out.println(selectPayment);
+		System.out.println(nameOfCreditCard);
+		System.out.println(expirationDate);
+		
+		
+		String payment = selectPayment + " " + nameOfCreditCard + " " + expirationDate;//결제수단
 		String smoke = req.getParameter("smoke");//흡연 여부
 		String starRating = req.getParameter("starRating");//숙소 성급
 		String disabled = req.getParameter("disabled");//장애인 편의 시설 여부
@@ -245,151 +269,102 @@ public class AccountController {
 		String reservationTarget = req.getParameter("reservationTarget");//예약 대상
 		
 		String currency = req.getParameter("currency");//통화(원, 달러, 엔)등등
-		String password = req.getParameter("password");//비밀번호
+		String password = req.getParameter("confirmPassword");//비밀번호
 		
 		
-		if(nickName == null || nickName.trim().equals("")) {
+		
+		
+		session.getAttribute("currencyList");
+		
+		if(nickName != null) {// || !nickName.trim().equals("")
 			System.out.println("nickName = " + nickName);
-		}else {
-			System.out.println("nickName = " + nickName);
+			dto = (AccountDTO)session.getAttribute("userSession");
 			dto.setNickName(req.getParameter("nickName"));
 			accountMapper.updateNickName(dto);
 			req.setAttribute("nickName", dto.getNickName());
-		}
-		
-		
-		if(birthday == null || birthday.trim().equals("")) {
-			System.out.println("birthday = " + birthday);
-		}else {
 			System.out.println("birthday = " + birthday);
 			dto.setBirthday(req.getParameter("birthday"));
 			accountMapper.updateBirthday(dto);
 			System.out.println("dto.getBirthday : " + dto.getBirthday());
 			req.setAttribute("birthday", dto.getBirthday());
-		}
-		
-		if(country == null || country.trim().equals("")) {
-			System.out.println("country = " + country);
-		}else {
+		}else if(country != null){
 			System.out.println("country = " + country);
 			dto.setCountry(req.getParameter("country"));
-			accountMapper.updateCountry(dto);
-//			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
-//			System.out.println("DB저장 완료? : " + country);
-//			System.out.println("DB저장 완료? : " + dto.getCountry());
-//			System.out.println("co : " + cdto.getName());
-//			req.setAttribute("country", cdto.getName());
-			
+			accountMapper.updateCountry(dto);			
 			req.setAttribute("country", dto.getCountry());
-		}
-		
-		if(name == null || name.trim().equals("")) {
-			System.out.println("name = " + name);
-		}else {
+		}else if(name != null) {
 			System.out.println("name = " + name);
 			dto.setName(req.getParameter("name"));
 			accountMapper.updateName(dto);
 			req.setAttribute("name", dto.getName());
-		}
-		
-		if(tel == null) {
 			System.out.println("tel = " + tel);
-		}else {
-			System.out.println("tel = " + tel);
-			dto.setTel(Integer.parseInt(req.getParameter("tel")));
+			dto.setTel(req.getParameter("tel"));
 			accountMapper.updateTel(dto);
 			req.setAttribute("tel", dto.getTel());
-		}
-		
-		if(email == null || email.trim().equals("")) {
-			System.out.println("email = " + email);
-		}else {
-			System.out.println("email = " + email);
-			dto.setEmail(req.getParameter("email"));
-			//accountMapper.updateName(dto);
-			req.setAttribute("email", dto.getEmail());
-		}
-		
-		if(address == null || address.trim().equals("")) {
-			System.out.println("address = " + address);
-		}else {
 			System.out.println("address = " + address);
 			dto.setAddress(req.getParameter("address"));
 			accountMapper.updateAddress(dto);
 			req.setAttribute("address", dto.getAddress());
-		}
-		
-		if(payment == null || payment.trim().equals("")) {
+		}else if(payment != null || !payment.trim().equals("")) {
 			System.out.println("payment = " + payment);
-		}else {
-			System.out.println("payment = " + payment);
-			dto.setPayment(req.getParameter("payment"));
-			//accountMapper.updatePayment(dto);
+			
+			dto.setPayment(payment);
+			accountMapper.updatePayment(dto);
+			
+			// 0 : kind of card
+			// 1 : # of card
+			// 2 : expire date
+//			String[] pay = payment.split(" ");
+//			req.setAttribute("selectCard", pay[0]);
+//			req.setAttribute("nameOfCreditCard", pay[1]);
+//			req.setAttribute("expirationDate", pay[2]);
 			req.setAttribute("payment", dto.getPayment());
-		}
-		
-		if(smoke == null || smoke.trim().equals("")) {
-			System.out.println("smoke = " + smoke);
-		}else {
+		}else if(smoke != null || !smoke.trim().equals("")) {
 			System.out.println("smoke = " + smoke);
 			dto.setSmoke(req.getParameter("smoke"));
 			//accountMapper.updateSmoke(dto);
 			req.setAttribute("smoke", dto.getSmoke());
-		}
-		
-		if(starRating == null || starRating.trim().equals("")) {
-			System.out.println("starRating = " + starRating);
-		}else {
+		}else if(starRating != null || !starRating.trim().equals("")) {
 			System.out.println("starRating = " + starRating);
 			dto.setStarRating(Integer.parseInt(req.getParameter("starRating")));
 			//accountMapper.updateStarRating(dto);
 			req.setAttribute("starRating", dto.getStarRating());
-		}
-		
-		if(disabled == null || disabled.trim().equals("")) {
-			System.out.println("disabled = " + disabled);
-		}else {
+		}else if(disabled != null || !disabled.trim().equals("")) {
 			System.out.println("disabled = " + disabled);
 			dto.setDisabled(req.getParameter("disabled"));
 			//accountMapper.updateDisabled(dto);
 			req.setAttribute("disabled", dto.getDisabled());
-		}
-		
-		if(preferredFacility == null || preferredFacility.trim().equals("")) {
-			System.out.println("preferredFacility = " + preferredFacility);
-		}else {
+		}else if(preferredFacility != null || !preferredFacility.trim().equals("")) {
 			System.out.println("preferredFacility = " + preferredFacility);
 			dto.setPreferredFacility(req.getParameter("preferredFacility"));
 			//accountMapper.updatePreferredFacility(dto);
 			req.setAttribute("preferredFacility", dto.getPreferredFacility());
-		}
-		
-		if(reservationTarget  == null || reservationTarget .trim().equals("")) {
-			System.out.println("reservationTarget  = " + reservationTarget );
-		}else {
+		}else if(reservationTarget  != null || !reservationTarget .trim().equals("")) {
 			System.out.println("reservationTarget  = " + reservationTarget );
 			dto.setReservationTarget (req.getParameter("reservationTarget "));
 			//accountMapper.updateReservationTarget(dto);
 			req.setAttribute("reservationTarget", dto.getReservationTarget());
-		}
-		
-		if(currency == null || currency.trim().equals("")) {
-			System.out.println("currency = " + currency);
-		}else {
+		}else if(currency != null || !currency.trim().equals("")) {
 			System.out.println("currency = " + currency);
 			dto.setCurrency(req.getParameter("currency"));
 			//accountMapper.updateCurrency(dto);
 			req.setAttribute("currency", dto.getCurrency());
-		}
-		
-		if(password == null || password.trim().equals("")) {
+		}else if(password != null || !password.trim().equals("")) {
 			System.out.println("password = " + password);
-		}else {
-			System.out.println("password = " + password);
-			dto.setPassword(req.getParameter("password"));
-			//accountMapper.updatePassword(dto);
+			dto.setPassword(req.getParameter("confirmPassword"));
+			accountMapper.updatePassword(dto);
 			req.setAttribute("password", dto.getPassword());
 		}
+		
+//		if(password == null || password.trim().equals("")) {
+//			System.out.println("password = " + password);
+//		}else {
+//			System.out.println("password = " + password);
+//			dto.setPassword(req.getParameter("confirmPassword"));
+//			accountMapper.updatePassword(dto);
+//			req.setAttribute("password", dto.getPassword());
+//		}
+		
 		mav.setViewName("account/mySettings");
 		return mav;
 	}

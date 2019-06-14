@@ -89,6 +89,18 @@
 	</update>
 	
 	
+	<update id="updatePassword" parameterType="AccountDTO">
+		update account
+		set password = #{password, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
+	
+	<update id="updatePayment" parameterType="AccountDTO">
+		update account
+		set payment = #{payment, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
+	
 	
 	<select id="getAccount" resultType="AccountDTO" parameterType="int">
 		select * from ACCOUNT where num = #{num}

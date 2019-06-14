@@ -85,6 +85,13 @@ public class AccountMapper {
 		sqlSession.update("updateAddress", dto);
 	}
 	
+	public void updatePassword(AccountDTO dto) {
+		sqlSession.update("updatePassword", dto);
+	}
+	
+	public void updatePayment(AccountDTO dto) {
+		sqlSession.update("updatePayment", dto);
+	}
 	
 //	protected List<AccountDTO> makeList(){
 //		return sqlSession.selectList("makeList", )

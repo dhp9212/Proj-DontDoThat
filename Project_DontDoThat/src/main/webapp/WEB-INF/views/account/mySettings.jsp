@@ -5,6 +5,13 @@
 <html>
 <head>
 <title>상세 정보</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
 	   
@@ -36,41 +43,44 @@
 	    	//닉네임
 	    	$("#nickName").keydown(function(key){
 	    		if(key.keyCode == 13){
-	    			s.submit();
+	    			s0.submit();
 	    		}
 	    	});
 	    	//생일
 			$("#birthday").keydown(function(key){
 				if(key.keyCode == 13){
-					s.submit();
+					s0.submit();
 				}
 			});
 	    	//국가/지역
 			$('.country').on('change', function(){
-				s.submit();
+				s1.submit();
 			});
 	    	//이름
 			$("#name").keydown(function(key){
 				if(key.keyCode == 13){
-					s.submit();
+					s2.submit();
 				}
 			});
 	    	//전화번호
 			$("#tel").keydown(function(key){
 				if(key.keyCode == 13){
-					s.submit();
+					s2.submit();
 				}
 			});
 	    	//주소
 			$("#address").keydown(function(key){
 				if(key.keyCode == 13){
-					s.submit();
+					s2.submit();
 				}
 			});
+	    	
+	    	//비밀번호
+	    	
 	    });
 	    
 	    //실시간 프로필 사진 바꾸기
-		var openFile = function(event) {
+		function openFile(event) {
 		    var input = event.target;
 		    var reader = new FileReader();
 		    reader.onload = function(){
@@ -82,8 +92,9 @@
 		    s.submit();
 		  };
 	    
-		//주소 변경
+		
 	    $(document).ready(function(){
+	    	//주소 변경
 	    	$("#addressChange").click(function addressChange(){
 	    		var state = $(".adressUpdate").css("display");
 	    		if(state == "none"){ // state가 none 상태일경우 
@@ -94,6 +105,120 @@
 	    	});
 	    });
 	    
+	    $(document).ready(function(){
+	    	//신용카드 추가
+	    	$("#appendCreditCard").click(function appendCreditCard(){
+	    		var state = $(".appendCreditCard").css("display");
+	    		if(state == "none"){ // state가 none 상태일경우 
+		            $(".appendCreditCard").show();
+		        }else{
+		        	 $(".appendCreditCard").hide();
+		        }
+	    	});
+	    });
+	    
+	    $(document).ready(function(){
+	    	//비밀번호 변경
+	    	$("#passwordChangeButton").click(function passwordChangeButton(){
+	    		var state = $(".passwordChangeForm").css("display");
+	    		if(state == "none"){ // state가 none 상태일경우 
+		            $(".passwordChangeForm").show();
+		        }else{
+		        	 $(".passwordChangeForm").hide();
+		        }
+	    	});
+	    	$("#passwordChangeSave").click(function passwordChangeSave(){
+				var setPassword = $('input[name=setPassword]').val();//비밀번호 설정
+				var confirmPassword = $('input[name=confirmPassword]').val();//비밀번호 확인
+				var state = $("#passwordLengthLimit").css("display");
+				if(setPassword.length < 8) {
+					if(state == "none"){
+						 $("#passwordLengthLimit").show();
+					}
+					//document.addjoin.setPassword.focus();
+					return false;
+				}else {
+					if(setPassword != confirmPassword){
+						$("#passwordLengthLimit").hide();
+						$("#notPasswordMatch").show();
+						//비밀번호가 일치하지 않아요.
+						return false;
+					}
+				}
+		        document.s4.submit()
+			});
+	    	//신용카드 변경
+	    	$("#creditCardSave").click(function creditCardSave(){
+	    		var selectPayment = $('select[name=payment]').val();
+	    		var nameOfCreditCard = $('input[name=nameOfCreditCard]').val();
+	    		var expirationDate = $('input[name=expirationDate]').val();
+	    		var payment = selectPayment + nameOfCreditCard + expirationDate;
+	    		var notHyphen = /[-]/;
+	    		var notSlash = /[/]/;
+	    		
+	    		var nameOfCreditCardState = $("#notNameOfCreditCardMatch").css("display");
+	    		var expirationDateState = $("#notExpirationDate").css("display");
+	    		
+	    		if(selectPayment == "선택"){
+	    			alert("신용카드 종류를 선택해주세요")
+	    			return false;
+	    		}
+	    		if(nameOfCreditCard.length < 19 && notHyphen.test(nameOfCreditCard)==false){
+	    			alert("정확하게 입력해주세요!")
+	    			return false;
+	    		}
+	    		if(notSlash.test(expirationDate)==false && expirationDate.length < 5){
+	    			alert("정확하게 입력해주세요!")
+	    			return false;
+	    		}
+	    		document.s3.submit()
+	    		/* if(nameOfCreditCard.length < 19 && notHyphen.test(nameOfCreditCard)==false){
+	    			if(nameOfCreditCardState == "none"){
+	    				$("#notNameOfCreditCardMatch").show();
+	    				return false;
+	    			}
+	    		}else{
+	    			if(nameOfCreditCardState == "display"){
+	    				$("#notNameOfCreditCardMatch").hide();
+	    			}
+	    		}
+	    		
+	    		if(notSlash.test(expirationDate)==false && expirationDate.length < 5){
+	    			if(expirationDateState == "none"){
+	    				$("#notExpirationDateMatch").show();
+			    		return false;
+	    			}
+	    		}else{
+	    			if(expirationDateState == "display"){
+	    				$("#notExpirationDateMatch").hide();
+	    			}
+	    		} */
+	    		
+	    		/* if(nameOfCreditCard.length < 19 || notHyphen.test(nameOfCreditCard)==false || nameOfCreditCardState == "none") {
+	    			$("#notNameOfCreditCardMatch").show();
+					
+	    		}else{
+	    			$("#notNameOfCreditCardMatch").hide();
+	    		} */
+	    		
+	    		/* if(notSlash.test(expirationDate)==false || expirationDate.length < 5 || expirationDateState == "none") {
+		    		$("#notExpirationDateMatch").show();
+		    		return false;
+	    		}else{
+	    			$("#notExpirationDateMatch").hide();
+	    		} */
+			});
+	    	
+	    	/* var req = new Request();
+	    	req.getParameter("payment");
+	    	alert("aaaaaa")
+	    	alert(req.getParameter("payment"));
+	    	
+	    	$("#payment") */
+	    	
+	    	
+	    });
+	    
 	    //값 불러와서 설치해주기?
 	    window.onload = function(){
 	    	
@@ -101,12 +226,14 @@
 	</script>
 	
 	<style type="text/css">
+		/* 내 DDT.com 계정 */
 		.mySettingsMenu
 		{
 		width:170px;
 		height:100%;
-		position:absolute;
+		position:fixed;
 		border:1px solid blue;
+		padding: 5px 10px;
 		}
 		.detaieldMySettings
 		{
@@ -117,52 +244,63 @@
 		}
 		.mySettingsHead{
 		border:1px solid green;
+		padding: 5px 10px;
 		margin : 10px;
 		}
 		.mySettingsContent{
 		border:1px solid green;
+		padding: 5px 10px;
 		margin : 10px;
 		}
-		.myProfilePhotoSettings{
-		padding: 5px 10px;
-		}
-		.nickNameSetting{
-		padding: 5px 10px;
-		}
-		.birthdaySetting{
-		padding: 5px 10px;
-		}
-		.countrySetting{
-		padding: 5px 10px;
-		}
 		
+		/* 숙소 예약용 정보 */
 		.reservationInformationHead{
 		border:1px solid green;
+		padding: 5px 10px;
 		margin : 10px;
 		}
 		.reservationInformationContent{
 		border:1px solid green;
+		padding: 5px 10px;
 		margin : 10px;
 		}
-		.nameSetting{
-		padding: 5px 10px;
-		}
-		.telSetting{
-		padding: 5px 10px;
-		}
-		.emailSetting{
-		padding: 5px 10px;
-		}
-		.addressSetting{
-		padding: 5px 10px;
-		}
 		.adressUpdate{
+		display:none;
+		}
+		
+		/* 결제 수단 설정 */
+		.paymentHead{
+		border:1px solid green;
+		padding: 5px 10px;
+		margin : 10px;
+		}
+		.paymentContent{
+		border:1px solid green;
+		padding: 5px 10px;
+		margin : 10px;
+		}
+		.appendCreditCard{
+		display:none;
+		}
+		
+		/* 비밀번호 및 통화 */
+		.passwordAndCurrencyHead{
+		border:1px solid green;
+		padding: 5px 10px;
+		margin : 10px;
+		}
+		.passwordAndCurrencyContent{
+		border:1px solid green;
+		padding: 5px 10px;
+		margin : 10px;
+		}
+		
+		.passwordChangeForm{
 		display:none;
 		}
 	</style>
 </head>
 <body>
-	<a href="home.do">홈으로</a>
 	<!-- 상세정보 페이지 전체 레이아웃 -->
 	<div class="mySettingsPage">
 		<!-- 상세정보 메뉴, 설정부분 레이아웃 -->
@@ -170,18 +308,19 @@
 			<!-- 상세정보 메뉴 -->
 			<div class="mySettingsMenu">
 				<br>
+				<a href="home.do"><h3>홈으로</h3></a><br><br>
 				<a href="#">내 정보</a><br><br>
 				<a href="#">신용카드</a><br><br>
 				<a href="#">결제 수단 설정</a><br><br>
-				<a href="#">고객님의 여행 스타일</a><br><br>
+				<!-- <a href="#">고객님의 여행 스타일</a><br><br> -->
 				<a href="#">비밀번호 및 통화 </a><br><br>
-				<a href="#">소셜 미디어 연결</a><br><br>
+				<!-- <a href="#">소셜 미디어 연결</a><br><br>
 				<a href="#">뉴스레터 수신</a><br><br>
 				<a href="#">문자메시지 수신 설정</a><br><br>
-				<a href="#">보안 설정</a><br>
+				<a href="#">보안 설정</a><br> -->
 			</div>
 			
-			<form name="s" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+			
 			<!-- 상세정보 설정 -->
 			<div class="detaieldMySettings">
 				<!-- 상세정보 타이틀 -->
@@ -197,33 +336,40 @@
 				<div class="mySettingsContent">
 					<!-- 프로필 사진 -->
 					<div class="myProfilePhotoSettings">
-						프로필 사진<br>
-						<img src="${pageContext.request.contextPath}/resources/img/profileImage/${profilePhoto}" id="fileName" border="0" width="130" height="130" alt="프로필 등록"><br>
-						<input type="file" name="profilePhoto" id="profilePhoto" accept='image/*' onchange='openFile(event)'>
-						<!-- <input type="file" name="profilePhoto" id="ajaxFile" onchange="ajaxFileChange()" style="display:none;"> -->
-						<!-- <input type="button" onClick="ajaxFileUpload();" value="사진 변경"/> -->
-						<span style="color:gray"> - 이용자의 눈에 가장 먼저 들어오는 프로필 사진! 나를 가장 잘 표현하는 이미지를 올려주세요.</span>
+						<form name="s" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+							프로필 사진<br>
+							<img src="${pageContext.request.contextPath}/resources/img/profileImage/${userSession.profilePhoto}" id="fileName" border="0" width="180" height="180" alt="프로필 등록"><br>
+							<input type="file" name="profilePhoto" id="profilePhoto" accept='image/*' onchange='openFile(event)'>
+							<span style="color:gray"> - 이용자의 눈에 가장 먼저 들어오는 프로필 사진! 나를 가장 잘 표현하는 이미지를 올려주세요.</span>
+							<!-- <input type="file" name="profilePhoto" id="ajaxFile" onchange="ajaxFileChange()" style="display:none;"> -->
+							<!-- <input type="button" onClick="ajaxFileUpload();" value="사진 변경"/> -->
+						</form>
 					</div><br>
-					
+			
+				
+				<form name="s0" action="accountUpdate.do" method="post" enctype="multipart/form-data">
 					<!-- 닉네임 -->
 					<div class="nickNameSetting">
 						닉네임<br>
-						<input type="text" name="nickName" id="nickName" value="${nickName}" onchange="ajaxGetNickName();" onkeypress="JavaScript:press(this.form)">
+						<input type="text" name="nickName" id="nickName" value="${userSession.nickName}" onchange="ajaxGetNickName();" onkeypress="JavaScript:press(this.form)">
 						<span style="color:gray"> - 언제든 변경하실 수 있으니 개성있는 이름으로 입력해보세요.</span>
 					</div><br>
 					
 					<!-- 생일 -->
 					<div class="birthdaySetting">
 						생일<br>
-						<input type="text" name="birthday" id="birthday" value="${birthday}" maxlength="8" onkeypress="JavaScript:press(this.form)">
-						<span style="color:gray"> - 생년월일을 8자리로 입력 해주세요. ex)19901010</span>
+						<input type="text" name="birthday" id="birthday" value="${userSession.birthday}" maxlength="8" onkeypress="JavaScript:press(this.form)">
+						<span style="color:gray"> - 생년월일을 8자리로 입력 해주세요. ex) 19901010</span>
 					</div><br>
-					
+				</form>
+			
+				<form name="s1" action="accountUpdate.do" method="post" enctype="multipart/form-data">
 					<!-- 국가/지역 -->
 					<div class="countrySetting">
+					
 						국가/지역<br>
 						<select class="country" name="country">
-							<option value="" selected disabled>${country}</option>
+							<option value='${userSession.country}' selected disabled>${userSession.country}</option>
 							<option value='GH'>가나</option>
 							<option value='GA'>가봉</option>
 							<option value='GM'>감비아</option>
@@ -471,10 +617,13 @@
 							<option value='HK'>홍콩</option>					
 						</select>
 						<span style="color:gray"> - 다른 분들이 참고할 수 있도록 국적을 알려주세요.</span>
+						
 					</div><br>
+				</form>
 				</div>
-				
-				
+			
+			
+			
 				<!-- 숙소 예약용 정보 타이틀 -->
 				<div class="reservationInformationHead">
 					<div class="reservationInformationTitle">
@@ -483,36 +632,120 @@
 					<div>본 정보는 예약 시 자동 입력을 통해 예약 절차를 간편하게 하기 위한 목적으로만 사용됩니다. 입력하신 정보는 철저히 보안되며 절대 공개되지 않습니다.</div>
 				</div>
 				<!-- 숙소 예약용 정보 내용 -->
+				
 				<div class="reservationInformationContent">
-					<!-- 이름 -->
-					<div class="nameSetting">
-						이름<br>
-						<input type="text" name="name" id="name" value="${name}" onkeypress="JavaScript:press(this.form)">
-					</div><br>
-					<!-- 전화번호 -->
-					<div class="telSetting">
-						전화번호<br>
-						<input type="text" name="tel" id="tel" value="${tel}" onkeypress="JavaScript:press(this.form)">
-					</div><br>
-					<!-- 이메일 -->
-					<div class="emailSetting">
-						이메일<span style="color:gray"> - 최대 3개까지 이메일 주소 저장 가능... 근데 난 안될거야.. 포기하자</span><br>
-						<label><b>${email}</b></label><br><br>
-						
-						<input type="button" name="appendEmail" value="이메일 추가하기">
-					</div><br>
-					<!-- 주소 -->
-					<div class="addressSetting">
-						주소<span style="color:gray"> - 기입 형식. ex)00000 서울시 송파구 잠실6동 장미아파트 101동 101호.</span><br>
-						<label>(우) ${address}</label><br>
-						<div class="adressUpdate">
-							<input type="text" name="address" id="address" value="${address}" onkeypress="JavaScript:press(this.form)"><br>
+					<form name="s2" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+						<!-- 이름 -->
+						<div class="nameSetting">
+							이름<br>
+							<input type="text" name="name" id="name" value="${userSession.name}" onkeypress="JavaScript:press(this.form)">
 						</div><br>
-						<input type="button" name="addressChange" id="addressChange" value="집 주소 변경" onkeypress="JavaScript:press(this.form)">
-					</div><br>
+						<!-- 전화번호 -->
+						<div class="telSetting">
+							전화번호<span style="color:gray"> - "-" 없이 숫자만 입력해주세요. ex)01012345678</span><br>
+							<input type="text" name="tel" id="tel" value="${userSession.tel}" onkeypress="JavaScript:press(this.form)">
+						</div><br>
+						<!-- 이메일 -->
+						<div class="emailSetting">
+							이메일<!-- <span style="color:gray"> - 최대 3개까지 이메일 주소 저장 가능... 근데 난 안될거야.. 포기하자</span> --><br>
+							&nbsp;<label><b>${userSession.email}</b></label><br>
+							<!-- <input type="button" name="appendEmail" value="이메일 추가하기"> -->
+						</div><br>
+						<!-- 주소 -->
+						<div class="addressSetting">
+							주소<br>
+							&nbsp;<label>(우) ${userSession.address}</label><br>
+							<div class="adressUpdate">
+								<input type="text" name="address" id="address" value="${userSession.address}" onkeypress="JavaScript:press(this.form)" placeholder="ex) 00000 서울시 송파구 잠실6동 장미아파트 101동 101호." style="width:500px;">
+								<span style="color:gray"> - 기입 ex) 00000 서울시 송파구 잠실6동 장미아파트 101동 101호.</span><br>
+							</div><br>
+							<input type="button" name="addressChange" id="addressChange" value="집 주소 변경" onkeypress="JavaScript:press(this.form)">
+						</div><br>
+					</form>
 				</div>
+				
+			
+			
+				
+				<!-- 결제 수단 설정 타이틀 -->
+				<div class="paymentHead">
+					<div class="paymentTitle">
+						<h1>결제 수단 설정</h1>
+					</div>
+					<div class="paymentSubTitle">
+						빠르고 편리한 예약을 위해 원하시는 결제 방식을 알려주세요.
+					</div>
+				</div>
+				<!-- 결제 수단 설정 내용 -->
+				<div class="paymentContent">
+					<form name="s3" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+						<!-- 신용카드 설정 -->
+						<div class="creditCardSetting" style="background-color:lavender;">
+							<label>${userSession.payment}</label>&nbsp;
+							<label>${userSession.name}</label>
+						</div><br>
+						<!-- <div class="guidanceCreditCard">
+							<span style="color:gray" style="pading:5px 10px"> - 신용카드를 등록해주세요. </span>
+						</div><br> -->
+						<div class="appendCreditCard">
+							신용카드 종류<br>
+							<select name="payment">
+								<option value='선택'>선택</option>
+								<option value='American Express'>American Express</option>
+								<option value='VISA'>VISA</option>
+								<option value='MasterCard'>MasterCard</option>
+								<option value='JCB'>JCB</option>
+								<option value='UnionPay'>UnionPay</option>
+							</select><br><br>
+							신용카드 번호<br>
+							<input type="text" name="nameOfCreditCard" value="${nameOfCreditCard}" placeholder="0000-0000-0000-0000" maxlength="19">
+								<span style="color:gray"> - 띄어쓰기 없이 기입 ex) 0000-0000-0000-0000 </span><br>
+								<label id="notNameOfCreditCardMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
+							만료 날짜<br>
+							<input type="text" name="expirationDate" value="${expirationDate}"placeholder="01/19" maxlength="5">
+								<span style="color:gray"> - 월/년 기입 ex) 01/19 </span><br>
+								<label id="notExpirationDateMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
+							<input type="button" value="변경 저장" name="creditCardSave" id="creditCardSave">
+							<input type="button" value="취소" name="cancel"><br>
+						</div><br>
+						<div class="appendCreditCardButton">
+							<input type="button" name="appendCreditCard" id="appendCreditCard" value="카드 추가" onkeypress="JavaScript:press(this.form)">
+						</div><br>
+					</form>
+				</div>
+		
+			
+				<form name="s4" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+					<!-- 비밀번호 및 통화 타이틀 -->
+					<div class="passwordAndCurrencyHead">
+						<div class="passwordAndCurrencyTitle">
+							<h1>비밀번호 및 통화</h1>
+						</div>
+					</div>
+					<!-- 비밀번호 및 통화 내용 -->
+					<div class="passwordAndCurrencyContent">
+						<div class="currencySetting">
+							선호하는 통화<br>
+							<select>
+								<option>대한민국 원</option>
+								<option>일본 엔</option>
+							</select>
+						</div><br>
+						<div class="passwordChange">
+							<div class="passwordChangeForm">
+								새로운 비밀번호 입력<br>
+								<input type="password" name="setPassword" required="required"><br>
+									<label id="passwordLengthLimit" style="color:red; display:none;">비밀번호는 최소 8자 이상이어야 합니다.</label><br>
+								새로운 비밀번호 재입력<br>
+								<input type="password" name="confirmPassword" required="required"><br>
+									<label id="notPasswordMatch" style="color:red; display:none;">비밀번호가 일치하지 않습니다. 다시 입력해주세요.</label><br>
+								<input type="button" value="변경 저장" name="passwordChangeSave" id="passwordChangeSave"><br>
+							</div><br>
+							<input type="button" value="비밀번호 변경하기" name="passwordChangeButton" id="passwordChangeButton">
+						</div><br>
+					</div>
+				</form>
 			</div>
-			</form>
 		</div>
 	</div>
 </body>
