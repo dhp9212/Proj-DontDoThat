@@ -15,7 +15,7 @@
 		<div class="panel-body">
 			<div class="col-lg-12">선택 객실 :</div>
 			<div class="col-lg-12">${getRoom.roomname}</div>
-			<div class="col-lg-12"><a href="">다른 객실로 변경</a></div>
+			<div class="col-lg-12"><a href="search_accomodation_content.do?num=${getRoom.accomodation_num}#option">다른 객실로 변경</a></div>
 		</div>
 		<div class="panel-body">
 			<div class="col-lg-12 searchlabel"><h1>결제 요금 내역</h1></div>
@@ -47,18 +47,19 @@
  	</div>
 	<div class="row">
 		<form name="reservation" action="accomodation_reservation_ok.do" method="post">
-		<input type="hidden" name="account_num" value="${getAccount.num}" />
-		<input type="hidden" name="accomodation_num" value="${accomodation_num}" />
+		<input type="hidden" name="account_num" value="${userSession.num}" />
+		<input type="hidden" name="accomodation_num" value="${getRoom.accomodation_num}" />
 		<input type="hidden" name="room_num" value="${getRoom.num}" />
 		<input type="hidden" name="checkIn_date" value="${start_date}" />
 		<input type="hidden" name="checkOut_date" value="${end_date}" />
+		<input type="hidden" name="payment" value="${getRoom.price*param.selectQty}" />
 		<div class="col-lg-12"><h2>상세 정보 입력</h2></div>
 		<div class="col-lg-6">성(영문)</div>
 		<div class="col-lg-6">이름(영문)</div>
 		<div class="col-lg-6"><input type="text" name="last_name" class="box"></div>
 		<div class="col-lg-6"><input type="text" name="first_name" class="box"></div>
 		<div class="col-lg-12">이메일 주소</div>
-		<div class="col-lg-8"><input type="text" name="email" class="box" value="${getAccount.email}"></div>
+		<div class="col-lg-8"><input type="text" name="email" class="box" value="${userSession.email}"></div>
 		<div class="col-lg-4">예약 확인서가 전송될 이메일 주소 입력</div>
 		<div class="col-lg-12">국가/지역</div>
 		<div class="col-lg-8">
@@ -71,7 +72,7 @@
 		</div>
 		<div class="col-lg-12">전화번호 (가능한 경우 휴대폰)</div>
 		<div class="col-lg-6">
-			<input type="text" name="tel" id="tel" class="box" maxlength="13" value="${getAccount.tel}">
+			<input type="text" name="tel" id="tel" class="box" maxlength="13" value="${userSession.tel}">
 		</div>
 		<div class="col-lg-12">
 			<div class="col-lg-6">${getRoom.roomname}</div>
@@ -209,7 +210,7 @@
 	    var _val = this.value.trim();
 	    this.value = autoHypenTel(_val);
 	}
-	var country = '${getAccount.country}'
+	var country = '${userSession.country}'
 	$(function() {
 		if (country != '') {
 			$('#country').val(country).prop('selected', true);
