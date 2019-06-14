@@ -14,6 +14,12 @@
 		ON review.num = grade.review
 		WHERE review.accommodation=#{accommodation}
 	</select>
+	<select id="list10Review" parameterType="String" resultType="ReviewDTO">
+		select * from (
+		select rownum rn, A.* from(
+		select * from review)A)
+		where rn between 1 and 10
+	</select>
 	<select id="countReview" parameterType="String" resultType="int">
 		select count(*) from review where accommodation=#{accommodation}
 	</select>

@@ -19,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.temp.app.model.AccomodationDTO;
+import com.temp.app.model.GradeDTO;
 import com.temp.app.model.ReservationDTO;
+import com.temp.app.model.ReviewDTO;
+import com.temp.app.model.ReviewGradeDTO;
 import com.temp.app.model.RoomDTO;
 import com.temp.app.service.AccomodationMapper;
+import com.temp.app.service.ReviewMapper;
 
 @Controller
 public class AccomodationController {
@@ -29,6 +33,9 @@ public class AccomodationController {
 	
 	@Autowired
 	private AccomodationMapper accomodationMapper;
+	
+	@Autowired
+	private ReviewMapper reviewMapper;
 	
 	@RequestMapping(value="/accomodation_list.do")
 	public String listAccomodation(HttpServletRequest req) throws Exception {
@@ -127,6 +134,16 @@ public class AccomodationController {
 		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
 		System.out.println(list.size());
 		req.setAttribute("getRoomList", list);
+		
+		//이용후기 가져오기
+		List<ReviewGradeDTO> listReview = reviewMapper.listReview("text");
+		List<ReviewDTO> list10Review = reviewMapper.list10Review("text");
+		int countReview = reviewMapper.countReview("text");
+		GradeDTO averageReview = reviewMapper.averageReview("text");
+		req.setAttribute("listReview", listReview);
+		req.setAttribute("list10Review", list10Review);
+		req.setAttribute("countReview", countReview);
+		req.setAttribute("averageReview", averageReview);
 		return "accomodation/content";
 	}
 	@RequestMapping(value="/accomodation_reservation.do", method=RequestMethod.GET)

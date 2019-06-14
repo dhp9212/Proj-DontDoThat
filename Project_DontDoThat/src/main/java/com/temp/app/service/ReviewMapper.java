@@ -18,6 +18,9 @@ public class ReviewMapper {
 	public List<ReviewGradeDTO> listReview(String accommodation){
 		return sqlSession.selectList("listReview", accommodation);
 	}
+	public List<ReviewDTO> list10Review(String accommodation){
+		return sqlSession.selectList("list10Review", accommodation);
+	}
 	public int countReview(String accommodation) {
 		return sqlSession.selectOne("countReview", accommodation);
 	}
