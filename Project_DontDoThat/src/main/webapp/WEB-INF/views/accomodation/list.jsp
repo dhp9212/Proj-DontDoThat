@@ -15,7 +15,7 @@
 			<div class="col-lg-12">체크아웃 날짜</div>
 			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }"></div>
 			<div class="col-lg-12 days">1박 선택</div>
-			<div class="col-lg-12">
+			<!-- <div class="col-lg-12">
 				<select name="adult">
 				<option value="1">성인 1명</option>
 				<option value="2">성인 2명</option>
@@ -58,7 +58,7 @@
 				<option value="9">객실 9개</option>
 				<option value="10">객실 10개</option>
 				</select>
-			</div>
+			</div> -->
 			<div class="col-lg-12">&nbsp;</div>
 			<div class="col-lg-12"><input type="button" value="검색" style="width:100%; height:50px;" onclick="javascript:search_form.submit()"></div>
 			</form>
@@ -67,10 +67,15 @@
 </div>
 <div class="col-lg-8">
 		
-		<div>
-		
-		<h1>검색된 숙소 ${listCount}개</h1>
-		<div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div>
+		<div><h1>
+		<c:if test="${listCount == null}">
+		검색된 숙소 0개
+		</c:if>
+		<c:if test="${listCount != null}">
+		검색된 숙소 ${listCount}개
+		</c:if>
+		</h1>
+		<!-- <div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div> -->
 
 		</div>
 	<div class="btn-group sortbar">

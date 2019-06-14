@@ -8,13 +8,13 @@
 		</div>
 		<form name="search_form" method="post" action="accomodation_list.do">
 			<div>
-				<input autocomplete="off" id="input_place" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:35%; height:50px;">
+				<input autocomplete="off" id="input_place" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:60%; height:50px;">
 			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
 			    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
-				<input autocomplete="off" name="people" id="people_form" type="text" placeholder="성인:2명 · 아동:1명 · 객실:1개" style="width:20%; height:50px;" size="0" >
+				<!-- <input autocomplete="off" name="people" id="people_form" type="text" placeholder="성인:2명 · 아동:1명 · 객실:1개" style="width:20%; height:50px;" size="0" >
 				<input type="hidden" name="adult">
 				<input type="hidden" name="child">
-				<input type="hidden" name="room">
+				<input type="hidden" name="room"> -->
 				<input type="button" value="검색" style="width:10%; height:50px;" onclick="javascript:isSubmit()">
 			</div>
 		</form>
@@ -57,7 +57,7 @@
 								<div class="gallery style1">
 								<c:forEach var="i" begin="0" end="3" step="1" >
 									<article>
-										<a href="javascript:onSearchBanner('${cityListShuffled[i].country_name}')" class="image" style="text-align: center;">
+										<a href="javascript:onSearchBanner('${cityListShuffled[i].city}')" class="image" style="text-align: center;">
 											<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[i].city_image}" alt="" style="display: inline-block;"/>
 										</a>
 										<div class="caption">
@@ -78,7 +78,7 @@
 							<!--  layer1 -->
 							<div class="gallery location_layer1 medium lightbox onscroll-fade-in">
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[4].country_name}')" class="image1" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[4].city}')" class="image1" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[4].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption1">
@@ -87,7 +87,7 @@
 								</article>
 								<span></span>
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[5].country_name}')" class="image2" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[5].city}')" class="image2" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[5].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption2">
@@ -99,7 +99,7 @@
 							<!-- layer2 -->
 							<div class="gallery location_layer2 medium lightbox onscroll-fade-in">
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[6].country_name}')" class="image3" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[6].city}')" class="image3" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[6].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption3">
@@ -107,7 +107,7 @@
 									</div>
 								</article>
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[7].country_name}')" class="image4" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[7].city}')" class="image4" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[7].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption4">
@@ -115,7 +115,7 @@
 									</div>
 								</article>
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[8].country_name}')" class="image5" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[8].city}')" class="image5" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[8].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption5">
@@ -127,7 +127,7 @@
 							<!-- layer3 -->
 							<div class="gallery location_layer3 medium lightbox onscroll-fade-in">
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[9].country_name}')" class="image6" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[9].city}')" class="image6" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[9].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption6">
@@ -136,7 +136,7 @@
 									</div>
 								</article>
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[10].country_name}')" class="image7" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[10].city}')" class="image7" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[10].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption7">
@@ -145,7 +145,7 @@
 									</div>
 								</article>
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[11].country_name}')" class="image8" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[11].city}')" class="image8" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[11].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption8">
@@ -154,7 +154,7 @@
 									</div>
 								</article>
 								<article>
-									<a href="javascript:onSearchBanner('${cityListShuffled[12].country_name}')" class="image9" style="text-align: center;">
+									<a href="javascript:onSearchBanner('${cityListShuffled[12].city}')" class="image9" style="text-align: center;">
 										<img src="${pageContext.request.contextPath}/resources/img/city/${cityListShuffled[12].city_image}" alt="" style="display: inline-block;"/>
 									</a>
 									<div class="caption caption9">

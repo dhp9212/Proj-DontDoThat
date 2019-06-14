@@ -42,12 +42,7 @@ public class AccomodationController {
 		String input_place = req.getParameter("input_place").trim();
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
-		String adult = req.getParameter("adult").trim();
-		String child = req.getParameter("child").trim();
-		String room = req.getParameter("room").trim();
-		System.out.println(input_place);
-		
-		
+
 		req.getSession().setAttribute("input_place", input_place);
 		if(start_date == null || start_date.equals("")) {
 			Calendar cal = Calendar.getInstance();
@@ -74,12 +69,8 @@ public class AccomodationController {
 		}
 		req.getSession().setAttribute("start_date", start_date);
 		req.getSession().setAttribute("end_date", end_date);
-//		req.getSession().setAttribute("adult", adult);
-//		req.getSession().setAttribute("child", child);
-//		req.getSession().setAttribute("room", room);
-		System.out.println(input_place);
-		
-        String pageNum = req.getParameter("pageNum");
+
+		String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
             pageNum = "1";
         }

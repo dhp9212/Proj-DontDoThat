@@ -121,7 +121,7 @@
 <br/>
 
 	<div class="col-lg-10"><h4>${input_place}</h4></div>
-	<div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div>
+	<!-- <div id="googleMap" style="text-align:right; border-radius:6px; width:100px;height:40px;"></div> -->
 
 <br/>
 <div class="col-lg-4">

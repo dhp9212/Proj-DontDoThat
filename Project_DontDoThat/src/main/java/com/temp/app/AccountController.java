@@ -124,7 +124,7 @@ public class AccountController {
 	public ModelAndView logout(HttpServletRequest req) throws Exception{
 		req.getSession().removeAttribute("email");
 		req.getSession().removeAttribute("userSession");
-		ModelAndView mav = new ModelAndView("account/login");
+		ModelAndView mav = new ModelAndView("forward:/");
 		return mav;
 	}
 	
