@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../top.jsp" %>
 
 <script type="text/javascript">
@@ -287,11 +289,81 @@ Whisper words of wisdom, let it be
 <div class="col-lg-12">
 	<div id="aftercomment">
 	<h3>이곳 최신 이용 후기</h3>
-	<div class="panel panel-default">
- 		 <div class="panel-body">
- 		 	이용후기 자리
- 		 </div>
-	</div>
+ 	<div class="panel-body">
+ 		 <div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<c:forEach var="rdto" items="${listReview}" varStatus="rdtoStatus">
+					<c:if test="${rdtoStatus.count == 1}">
+						<div class="item active">
+					</c:if>
+					<c:if test="${rdtoStatus.count != 1}">
+						<div class="item">
+					</c:if>
+					
+			<table style="background-color:#E9F0FA;">
+				<tr><td colspan="2" align="right" style="padding-bottom:0px !important;"><font size="2" color="#585858">후기 작성일: ${rdto.write_date}</font>
+				</td></tr>
+				<fmt:formatNumber var="grade" value="${(rdto.clean+rdto.comfortable+rdto.location+
+					rdto.facilities+rdto.kind+rdto.value+rdto.wifi)/7}" pattern=".0"/>	
+				<tr>
+					<td rowspan="5" valign="top" width="100">${rdto.writer}</td>
+					<td>
+					<div class="dff">
+						<table style="border:1px solid #BDBDBD; background-color:#FFFFFF;" >
+							<tr>
+								<td width="5">
+									<div class="imgb">
+								        <div class="content">${grade}</div>
+						  		    </div>
+					  			</td>
+								<td align="left"><font size="3" color="#424242">&nbsp;"${rdto.subject}"</font></td>
+							</tr>
+							<tr style="background-color:#E9F0FA;">
+								<td style="border:1px dotted #BDBDBD !important;" colspan="2">
+									<ul class="tags">
+					  					<li>휴가 여행</li>
+					  					<li>친구끼리 여행</li>
+					  					<li>더블룸-흡연실</li>
+					 		 			<li>3박 숙박</li>
+					 				</ul>
+					 			 </td>
+							</tr>
+							<tr>
+								<td class="dc" colspan="2"><img src='<%=request.getContextPath()%>/resources/img/minus.png' style="width:15px; height:15px;">
+								${rdto.content_m}</td>
+							</tr>
+							<tr>
+								<td class="dc" colspan="2"><img src='<%=request.getContextPath()%>/resources/img/plus.png' style="width:15px; height:15px;">
+								${rdto.content_p}</td>
+							</tr>
+							<tr>
+								<td class="dc" colspan="2"><c:set var="myimage" value="${fn:split(rdto.image,',')}"/>
+									<table style="width:50% !important;">
+										<tbody>
+										<tr>
+										<c:forEach var="image" items="${myimage}" varStatus="cs">
+											<td style="padding:0px !important;">
+			  								<img src="${pageContext.request.contextPath}/resources/img/${image}" style="display:inline; border-radius:5px;" width="100">
+			  								<c:if test="${cs.count%3 == 0}"></c:if>
+											</td>
+										</c:forEach> 
+										</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" height="40px"><font size="2" color="#6E6E6E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${rdto.lodge_date}에 숙박함</font></td>
+							</tr>
+						</table>
+						</div>
+					</td>
+				</tr>
+			</table>		
+						</div>
+				</c:forEach>
+			</div>
+		</div>
 	</div>
 </div>
 	
