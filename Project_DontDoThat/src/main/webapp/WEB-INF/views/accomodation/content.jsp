@@ -4,12 +4,120 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../top.jsp" %>
-
-<script type="text/javascript">
-
-<script type="text/javascript">
-
-</script>
+<style>
+		.jb-wrap {
+			width: 75%;
+			margin: 0px auto;
+			position: relative;
+		}
+		.jb-wrap img {
+			width: 100%;
+			vertical-align: middle;
+		}
+		.jb-text {
+			position: absolute;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+		}
+		.jb-text-table {
+			display: table;
+			width: 100%;
+			height: 100%;
+		}
+		.jb-text-table-row {
+			display: table-row;
+		}
+		.jb-text-table-cell {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.jb-text p {
+			text-align: center;
+			text-valign: middle;
+			font-size: 55px;
+		}
+		
+		.jb-wrap1 {
+			width: 12%;
+			margin: 0px auto;
+			position: relative;
+		}
+		.jb-wrap1 img {
+			vertical-align: middle;
+		}
+		.jb-text1 {
+			position: absolute;
+			top: 0px;
+			text-valign: middle;
+		}
+		.jb-text1-table {
+			display: table;
+		}
+		.jb-text1-table-row {
+			display: table-row;
+		}
+		.jb-text1-table-cell {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.imgb{
+   			position: relative;
+    		background-image: url('<%=request.getContextPath()%>/resources/img/review_score_badge1.png');
+    		background-repeat: no-repeat;
+    		height: 30px;
+    		width: 30px;
+		}
+		.content{
+    	 position: absolute;
+   		 top:50%;
+   		 left:50%;
+    	 transform: translate(-50%, -50%);                                                                   
+   		 color: white;
+   	 	 text-align: center;
+   	 	 text-valign: middle;
+   	 	}
+   	 	
+   	 	.tags{
+		/* margin:0; */
+		padding: 0 0 1rem 0;
+	 	/* position:absolute; */ 
+	 	/* right:24px; */
+		bottom:-12px; 
+		list-style:none;
+		}
+		
+		.tags li{
+		float: left;
+        height: 24px;
+        line-height: 24px;
+        position: relative;
+        font-size: 11px;
+        margin: 2px 5px 2px 12px;
+        padding: 0 10px 0 12px;
+        background: #0078d7;
+        color: #fff;
+        text-decoration: none;
+		}
+		
+		.tags li:before {
+		 content: "";
+		 float: left;
+		 position: absolute;
+		 top: 0;
+		 left: -12px;
+		 width: 0;
+		 height: 0;
+		 border-color: transparent #0078d7 transparent transparent;
+		 border-style: solid;
+		 border-width: 12px 12px 12px 0;
+		}	
+		
+		.dc{
+		 text-indent: 15px;
+		 border-top: 15px;
+		}	
+</style>
 <br/>
 
 	<div class="col-lg-10"><h4>${input_place}</h4></div>
