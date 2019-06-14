@@ -1,0 +1,52 @@
+Maven
+
+File > new > spring legacy project > spring mvc project
+
+패키지 명 입력
+(회사의 이름 거꾸로)
+ex) www.naver.com >> com.naver.project명
+
+
+DB connection
+1. http://maven.apache.org 접속
+2. mvn 환경변수 등록, cmd 창에서 mvn
+3. 
+mvn install:install-file
+-Dfile=C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar
+-DgroupId=com.oracle
+-DartifactId=ojdbc6
+-Dversion=11.2.0
+-Dpackaging=jar
+
+입력, BUILD SUCCESS 시 성공
+
+4. mvnrepository.com
+mybatis
+mybatis-spring 
+
+dependency를 pom.xml에 복사
+
+5. pom.xml에
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-jdbc</artifactId>
+	<version>${org.springframework-version}</version>
+</dependency>
+
+6. root context.xml
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="com.mytest.mavenBoard.model"/> <!-- xml, dto 등의 작업파일 위치 -->
+		<property name="mapperLocations" value="classpath:com/mytest/mavenBoard/model/*.xml"/>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+7. src/main/java에 model package 생성
+DTO, Mapper.xml 파일 관리
+
+8 service package생성
+Mapper.java 파일 관리
+@Service anotation >> xml에 등록 없이 injection 가능
