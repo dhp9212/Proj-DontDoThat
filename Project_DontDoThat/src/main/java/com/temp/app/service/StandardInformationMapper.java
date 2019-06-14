@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.temp.app.model.AccomodationDTO;
 import com.temp.app.model.AccountDTO;
 import com.temp.app.model.CategoryAccomodationDTO;
-import com.temp.app.model.CityContentDTO;
 import com.temp.app.model.CityDTO;
 import com.temp.app.model.CountryDTO;
 import com.temp.app.model.CurrencyDTO;
@@ -44,10 +43,8 @@ public class StandardInformationMapper {
 	public void sysout(HttpServletRequest req) {
 		List<CategoryAccomodationDTO> categoryAccomodation = sqlSession.selectList("selectCategoryAccomodation");
 		List<CityDTO> city = sqlSession.selectList("selectCity");
-		List<CountryDTO> country = sqlSession.selectList("selectCountry");
 		List<FacilityDTO> facility = sqlSession.selectList("selectFacility");
 		List<String> cardList = sqlSession.selectList("selectCardList");
-		List<CityContentDTO> content = sqlSession.selectList("selectCityContent");
 		
 		AccountDTO aDTO = (AccountDTO)req.getSession().getAttribute("userSession");
 		for(int k=0; k<3; ++k) {
@@ -69,8 +66,8 @@ public class StandardInformationMapper {
 				switch(i) {
 				case 0 :
 					int[] time = new int[] {0,1,2,3,7,14};
-					String[] a = new String[] {"all", "one"};
-					policy += "cancel," + time[(int)(Math.random()*6)] + "," + str[(int)(Math.random()*2)] + ",";
+					String[] cancel_policy = new String[] {"all", "one"};
+					policy += "cancel," + time[(int)(Math.random()*6)] + "," + cancel_policy[(int)(Math.random()*2)] + ",";
 					break;
 				case 1 : 
 					int random = (int)(Math.random()*3);
@@ -86,17 +83,15 @@ public class StandardInformationMapper {
 					break;
 				}
 			}
-			for(int i=0; i<categoryAccomodation.size(); ++i) {
-				CountryDTO cDTO = country.get((int)(Math.random()*country.size()));
-				CityDTO cDTO2 = city.get((int)(Math.random()*city.size()));
+			for(int i=0; i<city.size(); ++i) {
+				CityDTO cDTO = city.get(i);
 				FacilityDTO fDTO = facility.get((int)(Math.random()*facility.size()));
 				CategoryAccomodationDTO dto = categoryAccomodation.get(i);
-				CityContentDTO ccDTO = content.get((int)(Math.random()*content.size()));
-				System.out.println("insert into accomodation values(accomodation_seq.nextval, '"+dto.getName()+"','homepage"+i+".com', '사장"+i+"', '123-123"+i+"', '"+ccDTO.getName()+"', '"+cDTO.getName()+"','"+cDTO2.getCity()+"','주소"+i+"', '우편번호"+i+"', '"+fDTO.getFacility_name()+"', 'america1 ("+(int)(Math.random()*78)+").jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg', '"+ccDTO.getContent()+"', '"+policy+"', '00:00 ~ 24:00', '00:00 ~ 24:00', '"+card+"', "+aDTO.getNum()+", '');");
+				System.out.println("insert into accomodation values(accomodation_seq.nextval, '"+dto.getName()+"','homepage"+i+".com', '사장"+i+"', '123-123"+i+"', '"+cDTO.getHotel_name()+"', '"+cDTO.getCountry_name()+"','"+cDTO.getCity()+"','주소"+i+"', '우편번호"+i+"', '"+fDTO.getFacility_name()+"', 'america1 ("+(int)(Math.random()*78)+").jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg', '"+cDTO.getHotel_content()+"', '"+policy+"', '00:00 ~ 24:00', '00:00 ~ 24:00', '"+card+"', "+aDTO.getNum()+", '');");
 			}
 		}
 	}
-	public void roomSysout(HttpServletRequest req) {
+	public void roomSysout() {
 		List<AccomodationDTO> accomodation = sqlSession.selectList("getAccomodationList");
 		List<CategoryAccomodationDTO> categoryAccomodation = sqlSession.selectList("selectCategoryAccomodation");
 		List<RoomInfoDTO> categoryRoom = sqlSession.selectList("selectRoomCategory");
@@ -129,6 +124,12 @@ public class StandardInformationMapper {
 					System.out.println("insert into room values(room_seq.nextval, "+dto.getNum()+", '"+dto.getAccomodation_name()+i+"','"+room_cate.getRoom_name()+"',"+ ((int)(Math.random()*20)+1) +","+((int)(Math.random()*6)+1)+","+((int)(Math.random()*100)+6)*10000+",'" + facility + "','image"+(int)(Math.random()*761)+",image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg');");
 				}
 			}
+		}
+	}
+	public void citysysout() {
+		List<CityDTO> city = sqlSession.selectList("selectAllCity");
+		for(CityDTO dto : city) {
+			System.out.println("insert into content values('', '"+dto.getCity()+"',\n''\n);");
 		}
 	}
 }

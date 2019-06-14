@@ -9,9 +9,13 @@
 		<!-- WHERE FLAG IS NOT NULL -->
 	</select>
 	<select id="selectCity" resultType="CityDTO">
-		SELECT A.*, B.NAME as COUNTRY_NAME
-		FROM CITY A, COUNTRY B
-		WHERE A.COUNTRY = B.CODE_2
+		SELECT A.*, B.NAME as COUNTRY_NAME, C.NAME as HOTEL_NAME, C.CONTENT as HOTEL_CONTENT
+		FROM CITY A, COUNTRY B, CONTENT C
+		WHERE A.COUNTRY = B.CODE_2 and A.CITY = C.CITY
+	</select>
+	<select id="selectAllCity" resultType="CityDTO">
+		SELECT *
+		FROM CITY
 	</select>
 	<select id="selectCurrency" resultType="CurrencyDTO">
 		SELECT *
@@ -21,7 +25,6 @@
 		SELECT *
 		FROM LANGUAGE
 	</select>
-	
 </mapper>
 	
 		

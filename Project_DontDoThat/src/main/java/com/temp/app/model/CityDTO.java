@@ -7,6 +7,8 @@ public class CityDTO  implements Serializable {
 	private String country_name;
 	private String city;
 	private String city_image;
+	private String hotel_name;
+	private String hotel_content;
 	public String getCountry() {
 		return country;
 	}
@@ -31,6 +33,16 @@ public class CityDTO  implements Serializable {
 	public void setCountry_name(String country_name) {
 		this.country_name = country_name;
 	}
-	
-	
+	public String getHotel_name() {
+		return hotel_name;
+	}
+	public void setHotel_name(String hotel_name) {
+		this.hotel_name = hotel_name;
+	}
+	public String getHotel_content() {
+		return hotel_content;
+	}
+	public void setHotel_content(String hotel_content) {
+		this.hotel_content = hotel_content;
+	}
 }
