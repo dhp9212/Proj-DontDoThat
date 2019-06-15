@@ -77,7 +77,7 @@
 				      <a class="nav-link text_white" href="buisness_index.do">사업자 홈으로</a>
 				    </li>
 				    <li class="nav-item">
-				      <a class="nav-link text_white" href="#">예약</a>
+				      <a class="nav-link text_white" href="buisness_reservation.do">예약</a>
 				    </li>
 				    <li class="nav-item">
 				      <a class="nav-link text_white" href="custom_review.do">이용후기</a>
