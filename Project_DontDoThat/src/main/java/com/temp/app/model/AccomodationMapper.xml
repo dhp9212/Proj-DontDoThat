@@ -128,4 +128,7 @@
 	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">
 		select * from accomodation where num = #{num}
 	</select>
+	<select id="get_roomAll" parameterType="int" resultType="RoomDTO">
+		select * from room
+	</select>
 </mapper>
