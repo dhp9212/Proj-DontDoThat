@@ -76,10 +76,16 @@
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
 		select * 
-		from (select rownum as rn, A.* 
-			  from accomodation A 
+		from (select rownum as rn, A.*, B.minprice 
+			  from accomodation A inner join
+			  	   (select min(price) as minprice, 
+			  	   		   accomodation_num 
+			  	    from room 
+			  	    group by accomodation_num) B
+			  on A.num = B.accomodation_num
 			  where country = #{input_place} 
-			  or city = #{input_place_city} )
+			  or city = #{input_place_city} 
+			  order by B.minprice)
 		where rn between #{startRow} and #{endRow}
 	</select>
     <select id="getAccomodationList" resultType="AccomodationDTO">

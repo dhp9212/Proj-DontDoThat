@@ -79,14 +79,16 @@
 
 		</div>
 	<div class="btn-group sortbar">
-					  <button type="button" class="btn btn-primary" id="selected">요금</button>
-					  <button type="button" class="btn btn-primary">후기 평점</button>
-					  <button type="button" class="btn btn-primary">후기 평점 + 요금</button>
-					  <button type="button" class="btn btn-primary">성급</button>
-					  <button type="button" class="btn btn-primary">성급 + 요금</button>
-					</div>
+					  <button type="button" class="btn btn-primary" id="selected" onclick="sorting('cost','descend')">요금</button>
+					  <button type="button" class="btn btn-primary" onclick="sorting('comment','descend')">후기 평점</button>
+					  <button type="button" class="btn btn-primary" onclick="">후기 평점 + 요금</button>
+					  <!-- <button type="button" class="btn btn-primary" onclick="">성급</button>
+					  <button type="button" class="btn btn-primary" onclick="">성급 + 요금</button> -->
+	</div>
 					<br/>
+	<div class="sortList">
 			<c:forEach var="dto" items="${listAccomodation}" varStatus="status">
+				<div class="sortItem" data-cost="${dto.minPrice}" data-comment="${dto.minPrice}">
 					<div class="panel panel-default">
 					  <div class="panel-body itemspanel">
 					  	<div class="col-lg-4">
@@ -127,8 +129,9 @@
 					  	</div>
 					  </div>
 					</div>
+				</div>
 			</c:forEach>
-			
+		</div>
 	    <div>
 	    <c:if test="${listCount > 0}">
 	        <c:if test="${startPage > pageBlock}">
@@ -145,8 +148,10 @@
 	    </c:if>
 			
 </div>
+
 	
 	<script>
+
 	function myMap() {
 		var mapProp= {
 		  center:new google.maps.LatLng(51.508742,-0.120850),
@@ -243,6 +248,42 @@
             }
         });
 	});
+	
+	
+	function sorting(standard, direction){
+		var items = $('.sortItem')
+		var dataSrc = 'data-'+standard
+		var sortedList
+		if(direction == 'ascend'){
+			sortedList = getSortedAscend('.sortItem', dataSrc)
+			$('#selected').attr('onclick', 'sorting("'+standard+'","descend")')
+		}
+		else if(direction == 'descend'){
+			sortedList = getSortedDescend('.sortItem', 'data-cost')
+			$('#selected').attr('onclick', 'sorting("'+standard+'","ascend")')
+		}
+		
+		var listContainer = $('.sortList')
+		for(i = 0; i < sortedList.length; i++){
+			listContainer.append(sortedList[i])
+		}
+	}
+	
+	function getSortedAscend(selector, attrName) {
+	    return $($(selector).toArray().sort(function(a, b){
+	        var aVal = parseInt(a.getAttribute(attrName)),
+	            bVal = parseInt(b.getAttribute(attrName));
+	        return aVal - bVal;
+	    }));
+	}
+	function getSortedDescend(selector, attrName) {
+	    return $($(selector).toArray().sort(function(a, b){
+	        var aVal = parseInt(a.getAttribute(attrName)),
+	            bVal = parseInt(b.getAttribute(attrName));
+	        return bVal - aVal;
+	    }));
+	}
+	
 	
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7jiKyn69S94Q7zgR4IOgQ4-BJ4sL6B4&callback=myMap"></script>
