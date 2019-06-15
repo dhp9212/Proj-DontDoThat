@@ -152,7 +152,7 @@
 	}
 	function hideTable(num){
 		$('#' + num + 'table').hide()
-		$('#' + num + 'table').next().show()
+		$('#' + (num+1) + 'table').show()
 		CompleteTable(num)
 	}
 	function CompleteTable(num){
@@ -313,6 +313,7 @@
 				return false
 			}
 		}
+		alert('숙소를 무사히 등록했습니다.')
 		return true
 	}
 </script>
