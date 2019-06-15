@@ -28,17 +28,18 @@ import com.temp.app.model.ReviewGradeDTO;
 import com.temp.app.model.RoomDTO;
 import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.MessageMapper;
+import com.temp.app.service.ReservationMapper;
 import com.temp.app.service.ReviewMapper;
 
 @Controller
 public class BuisnessController {
-	String calenderPath = "buisness/calenderMenu/";
 	String accomodationPath = "buisness/accomodationMenu/";
 	String payPath = "buisness/payMenu/";
 	String reviewPath = "buisness/reviewMenu/";
 	@Autowired
 	AccomodationMapper accomodationMapper;
-	
+	@Autowired
+	ReservationMapper reservationMapper;
 	@Autowired
 	MessageMapper adminMessageMapper;
 	
@@ -52,29 +53,10 @@ public class BuisnessController {
 		session = req.getSession();
 		return "buisness/buisness_index";
 	}
-	@RequestMapping(value="calender.do")
-	public String calender() {
-		return calenderPath + "calender";
-	}
-	@RequestMapping(value="open_close.do")
-	public String open_close() {
-		return calenderPath + "open_close";
-	}
-	@RequestMapping(value="qty_control.do")
-	public String qty_control() {
-		return calenderPath + "qty_control";
-	}
-	@RequestMapping(value="payment.do")
-	public String payment() {
-		return calenderPath + "payment";
-	}
-	@RequestMapping(value="pay_control.do")
-	public String pay_control() {
-		return calenderPath + "pay_control";
-	}
-	@RequestMapping(value="pay_policy.do")
-	public String pay_policy() {
-		return calenderPath + "pay_policy";
+	@RequestMapping(value="buisness_reservation.do")
+	public String buisness_reservation(HttpServletRequest req) {
+		reservationMapper.getBuisness_reservation(req);
+		return "buisness/buisness_reservation";
 	}
 	@RequestMapping(value="homepage.do")
 	public String homepage() {

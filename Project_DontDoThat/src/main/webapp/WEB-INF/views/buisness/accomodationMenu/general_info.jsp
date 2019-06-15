@@ -36,7 +36,6 @@
 						<a class="dropdown-item" href="accomodation_facility.do">숙소시설 및 서비스</a>
 						<a class="dropdown-item" href="accomodation_content.do">내 숙소 설명 보기</a>
 						<a class="dropdown-item" href="policy.do">정책 변경</a>
-						<a class="dropdown-item" href="onTheWay.do">${accomodation_dto.accomodation_name} 까지 찾아오는 길</a>
 						<a class="dropdown-item" href="picture.do">사진 변경</a>
 						<a class="dropdown-item" href="nearby.do">숙소 근처에는 무엇이 있나요?</a>
 					</div>

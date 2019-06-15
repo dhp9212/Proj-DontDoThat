@@ -379,8 +379,65 @@ Whisper words of wisdom, let it be
 	<div class="col-lg-12">
 		<div id="rule"><h2>하우스 룰</h2></div>
 		<div class="panel panel-default">
- 		 <div class="panel-body">
- 		 	${getAccomodationInfo.policy}
+ 		 <div class="panel-body" style="background-color: #CCCCCC">
+ 		 	<div class="row">
+ 		 		<div class="col-sm-12" align="center">
+	 				체크인 타임<br>
+ 		 			<div class="checkin_progress">
+						<div class="progress-bar">
+						</div>
+						<div class="progress-bar bg-success">
+						  ${getAccomodationInfo.checkin_date}
+						</div>
+					</div>
+ 		 		</div>
+ 		 	</div>
+ 		 	<div class="row">
+ 		 		<div class="col-sm-12" align="center">
+ 		 			체크아웃 타임<br>
+ 		 			<div class="checkout_progress">
+						<div class="progress-bar">
+						</div>
+						<div class="progress-bar bg-success">
+						  ${getAccomodationInfo.checkout_date}<br>
+						</div>
+					</div>
+ 		 		</div>
+ 		 	</div>
+ 		 	<div class="row" align="center"><br></div>
+ 		 	<div class="row" align="center">
+ 		 		<div class="col-sm-3">
+ 		 			예약 취소정책
+ 		 		</div>
+ 		 		<div class="col-sm-1">
+ 		 			-
+ 		 		</div>
+ 		 		<div class="col-sm-8" id="cancel_policy">
+ 		 			예약 취소정책
+ 		 		</div>
+ 		 	</div>
+ 		 	<div class="row" align="center">
+ 		 		<div class="col-sm-3">
+ 		 			어린이 출입 정책
+ 		 		</div>
+ 		 		<div class="col-sm-1">
+ 		 			-
+ 		 		</div>
+ 		 		<div class="col-sm-8" id="children_policy">
+ 		 			예약 취소정책
+ 		 		</div>
+ 		 	</div>
+ 		 	<div class="row" align="center">
+ 		 		<div class="col-sm-3">
+ 		 			애완동물 출입 정책
+ 		 		</div>
+ 		 		<div class="col-sm-1">
+ 		 			-
+ 		 		</div>
+ 		 		<div class="col-sm-8" id="pet_policy">
+ 		 			예약 취소정책
+ 		 		</div>
+ 		 	</div>
  		 </div>
  		</div>
 	</div>
@@ -596,6 +653,34 @@ Whisper words of wisdom, let it be
 			return true
 		}
 	}
+	$(document).ready(function(){
+		var checkin_time = "${getAccomodationInfo.checkin_date}".split(' ~ ')
+		var checkin_progress = $('.checkin_progress').children()
+		var width = checkin_time[0].split(':')[0]/24*100
+		checkin_progress[0].style.width = width + "%"
+		var width2 = (width + checkin_time[1].split(':')[0]/24)*100
+		checkin_progress[1].style.width = width2 + "%"
+		
+		var checkout_time = "${getAccomodationInfo.checkout_date}".split(' ~ ')
+		var checkout_progress = $('.checkout_progress').children()
+		width = checkout_time[0].split(':')[0]/24*100
+		checkout_progress[0].style.width = width + "%"
+		width2 = (width + checkout_time[1].split(':')[0]/24)*100
+		checkout_progress[1].style.width = width2 + "%"
+		
+		var policy = "${getAccomodationInfo.policy}".split(',')
+		if(policy[1]!=0) var cancel_policy = policy[1] + '일까지 무료취소 가능합니다.'
+		else var cancel_policy = "언제든지 무료취소 가능합니다. 하지만 예약시간을 넘어서는 취소되지 않습니다."
+		$('#cancel_policy').text(cancel_policy)
+		if(policy[4]!='no') var children_policy = '어린이는 최대인원 수에 해당되지 않습니다.'
+		else var children_policy = "어린이 또한 최대인원 수에 해당합니다."
+		$('#children_policy').text(children_policy)
+		if(policy[7]!='no') {
+			if(policy[7]=='pay') var pet_policy = '애완동물을 동반할 수 있습니다.'
+			else var pet_policy = '애완동물을 동반할 수 있습니다. 다만 ' + policy[8] +"원 추가요금이 필요합니다."
+		} else var pet_policy = "애완동물은 동반할 수 없습니다."
+		$('#pet_policy').text(pet_policy)
+	});
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7jiKyn69S94Q7zgR4IOgQ4-BJ4sL6B4&callback=myMap"></script>
 </body>
