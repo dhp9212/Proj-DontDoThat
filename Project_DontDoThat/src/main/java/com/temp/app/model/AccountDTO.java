@@ -1,29 +1,35 @@
-package com.temp.app.model;
+ï»¿package com.temp.app.model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountDTO {
 	
-	//°¡ÀÔ ÇÊ¼ö Á¶°Ç
-	private int num;//È¸¿ø¹øÈ£?
-	private String email;//ÀÌ¸ŞÀÏ
-	private String password;//ºñ¹Ğ¹øÈ£
+	//ê°€ì… í•„ìˆ˜ ì¡°ê±´
+	private int num;//íšŒì›ë²ˆí˜¸?
+	private String email;//ì´ë©”ì¼
+	private String password;//ë¹„ë°€ë²ˆí˜¸
 	
-	//¼÷¼Ò ¿¹¾à ÇÊ¼ö Á¶°Ç
-	private String name;//ÀÌ¸§
-	private int tel;//ÀüÈ­¹øÈ£
-	private String profilePhoto;//ÇÁ·ÎÇÊ »çÁø
-	private String nickName;//´Ğ³×ÀÓ
-	private String birthday;//»ıÀÏ
-	private String country;//±¹°¡
-	private String address;//ÁÖ¼Ò
-	private String payment;//°áÁ¦ ¼ö´Ü
+	//ìˆ™ì†Œ ì˜ˆì•½ í•„ìˆ˜ ì¡°ê±´
+	private String name;//ì´ë¦„
+	private String tel;//ì „í™”ë²ˆí˜¸
+	private String profilePhoto;//í”„ë¡œí•„ ì‚¬ì§„
+	private String nickName;//ë‹‰ë„¤ì„
+	private String birthday;//ìƒì¼
+	private String country;//êµ­ê°€
+	private String countryName;//êµ­ê°€
+	private String address;//ì£¼ì†Œ
+	private String payment;//ê²°ì œ ìˆ˜ë‹¨
 	
-	//¼±ÅÃ »çÇ× - ¿©Çà ½ºÅ¸ÀÏ
-	private String smoke;//Èí¿¬ ¿©ºÎ
-	private int starRating;//¼÷¼Ò ¼º±Ş
-	private String disabled;//Àå¾ÖÀÎ ÆíÀÇ ½Ã¼³ ¿©ºÎ
-	private String preferredFacility;//¼±È£ÇÏ´Â ½Ã¼³
-	private String reservationTarget;//¿¹¾à ´ë»ó
-	private String currency;//ÅëÈ­(¿ø, ´Ş·¯, ¿£ µîµî)
+	private List<Card> cardList;
+	
+	//ì„ íƒ ì‚¬í•­ - ì—¬í–‰ ìŠ¤íƒ€ì¼
+	private String smoke;//í¡ì—° ì—¬ë¶€
+	private int starRating;//ìˆ™ì†Œ ì„±ê¸‰
+	private String disabled;//ì¥ì• ì¸ í¸ì˜ ì‹œì„¤ ì—¬ë¶€
+	private String preferredFacility;//ì„ í˜¸í•˜ëŠ” ì‹œì„¤
+	private String reservationTarget;//ì˜ˆì•½ ëŒ€ìƒ
+	private String currency;//í†µí™”(ì›, ë‹¬ëŸ¬, ì—” ë“±ë“±)
 	
 	public int getNum() {
 		return num;
@@ -43,10 +49,10 @@ public class AccountDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getTel() {
+	public String getTel() {
 		return tel;
 	}
-	public void setTel(int tel) {
+	public void setTel(String tel) {
 		this.tel = tel;
 	}
 	public String getEmail() {
@@ -127,5 +133,20 @@ public class AccountDTO {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+	public String getCountryName() {
+		return countryName;
+	}
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
 	
+	
+	public List<Card> getCardList() {
+		return cardList;
+	}
+	public void setCardList(List<Card> cardList) {
+		this.cardList = cardList;
+	}
+
 }
+

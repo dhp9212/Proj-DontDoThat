@@ -8,6 +8,11 @@
 		FROM COUNTRY
 		<!-- WHERE FLAG IS NOT NULL -->
 	</select>
+	<select id="getCountryByCode2" resultType="CountryDTO" parameterType="String"> 
+		SELECT *
+		FROM COUNTRY
+		WHERE CODE_2 = #{code2}
+	</select>
 	<select id="selectCity" resultType="CityDTO">
 		SELECT A.*, B.NAME as COUNTRY_NAME, C.NAME as HOTEL_NAME, C.CONTENT as HOTEL_CONTENT
 		FROM CITY A, COUNTRY B, CONTENT C

@@ -29,6 +29,10 @@ public class StandardInformationMapper {
 		return sqlSession.selectList("selectCountry");
 	}
 	
+	public CountryDTO getCountryByCode2(String code2) {
+		return sqlSession.selectOne("getCountryByCode2", code2);
+	}
+	
 	public List<CityDTO> selectCity(){
 		return sqlSession.selectList("selectCity");
 	}
@@ -41,7 +45,7 @@ public class StandardInformationMapper {
 		return sqlSession.selectList("selectLanguage");
 	}
 	public void sysout(HttpServletRequest req) {
-		System.out.println("시작");
+		
 		List<CategoryAccomodationDTO> categoryAccomodation = sqlSession.selectList("selectCategoryAccomodation");
 		List<CityDTO> city = sqlSession.selectList("selectCity");
 		List<FacilityDTO> facility = sqlSession.selectList("selectFacility");
@@ -86,7 +90,7 @@ public class StandardInformationMapper {
 			CityDTO cDTO = city.get(i);
 			FacilityDTO fDTO = facility.get((int)(Math.random()*facility.size()));
 			CategoryAccomodationDTO dto = categoryAccomodation.get((int)(Math.random()*categoryAccomodation.size()));
-			System.out.println("insert into accomodation values(accomodation_seq.nextval, '"+dto.getName()+"','homepage"+i+".com', '사장"+i+"', '123-123"+i+"', '"+cDTO.getHotel_name()+"', '"+cDTO.getCountry_name()+"','"+cDTO.getCity()+"','주소"+i+"', '우편번호"+i+"', '"+fDTO.getFacility_name()+"', 'america1 ("+(int)(Math.random()*78)+").jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg', '"+cDTO.getHotel_content()+"', '"+policy+"', '00:00 ~ 24:00', '00:00 ~ 24:00', '"+card+"', 101, '');");
+			System.out.println("insert into accomodation values(accomodation_seq.nextval, '"+dto.getName()+"','homepage"+i+".com', '�궗�옣"+i+"', '123-123"+i+"', '"+cDTO.getHotel_name()+"', '"+cDTO.getCountry_name()+"','"+cDTO.getCity()+"','二쇱냼"+i+"', '�슦�렪踰덊샇"+i+"', '"+fDTO.getFacility_name()+"', 'america1 ("+(int)(Math.random()*78)+").jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg,image"+(int)(Math.random()*761)+".jpg', '"+cDTO.getHotel_content()+"', '"+policy+"', '00:00 ~ 24:00', '00:00 ~ 24:00', '"+card+"', 101, '');");
 		}
 	}
 	public void roomSysout(HttpServletRequest req) {

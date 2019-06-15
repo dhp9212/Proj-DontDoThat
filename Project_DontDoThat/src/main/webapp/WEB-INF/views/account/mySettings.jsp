@@ -96,6 +96,7 @@
 	    $(document).ready(function(){
 	    	//주소 변경
 	    	$("#addressChange").click(function addressChange(){
+	    		
 	    		var state = $(".adressUpdate").css("display");
 	    		if(state == "none"){ // state가 none 상태일경우 
 		            $(".adressUpdate").show();
@@ -108,6 +109,8 @@
 	    $(document).ready(function(){
 	    	//신용카드 추가
 	    	$("#appendCreditCard").click(function appendCreditCard(){
+	    		var offset = $(".paymentHead").offset();
+			    $("html, body").stop().animate({scrollTop:offset.top},1000);
 	    		var state = $(".appendCreditCard").css("display");
 	    		if(state == "none"){ // state가 none 상태일경우 
 		            $(".appendCreditCard").show();
@@ -120,6 +123,8 @@
 	    $(document).ready(function(){
 	    	//비밀번호 변경
 	    	$("#passwordChangeButton").click(function passwordChangeButton(){
+	    		var offset = $(".passwordAndCurrencyHead").offset();
+			    $("html, body").stop().animate({scrollTop:offset.top},1000);
 	    		var state = $(".passwordChangeForm").css("display");
 	    		if(state == "none"){ // state가 none 상태일경우 
 		            $(".passwordChangeForm").show();
@@ -149,73 +154,30 @@
 			});
 	    	//신용카드 변경
 	    	$("#creditCardSave").click(function creditCardSave(){
-	    		var selectPayment = $('select[name=payment]').val();
-	    		var nameOfCreditCard = $('input[name=nameOfCreditCard]').val();
+	    		var selectPayment = $('select[name=kindOfCreditCard]').val();
+	    		var numOfCreditCard = $('input[name=numOfCreditCard]').val();
 	    		var expirationDate = $('input[name=expirationDate]').val();
-	    		var payment = selectPayment + nameOfCreditCard + expirationDate;
+	    		var kindOfCreditCard = selectPayment + numOfCreditCard + expirationDate;
 	    		var notHyphen = /[-]/;
 	    		var notSlash = /[/]/;
 	    		
-	    		var nameOfCreditCardState = $("#notNameOfCreditCardMatch").css("display");
+	    		var nameOfCreditCardState = $("#notNumOfCreditCardMatch").css("display");
 	    		var expirationDateState = $("#notExpirationDate").css("display");
 	    		
 	    		if(selectPayment == "선택"){
 	    			alert("신용카드 종류를 선택해주세요")
 	    			return false;
 	    		}
-	    		if(nameOfCreditCard.length < 19 && notHyphen.test(nameOfCreditCard)==false){
-	    			alert("정확하게 입력해주세요!")
+	    		if(numOfCreditCard.length < 19 && notHyphen.test(numOfCreditCard)==false){
+	    			alert("번호를 정확하게 입력해주세요!")
 	    			return false;
 	    		}
 	    		if(notSlash.test(expirationDate)==false && expirationDate.length < 5){
-	    			alert("정확하게 입력해주세요!")
+	    			alert("카드 날짜를 정확하게 입력해주세요!")
 	    			return false;
 	    		}
 	    		document.s3.submit()
-	    		/* if(nameOfCreditCard.length < 19 && notHyphen.test(nameOfCreditCard)==false){
-	    			if(nameOfCreditCardState == "none"){
-	    				$("#notNameOfCreditCardMatch").show();
-	    				return false;
-	    			}
-	    		}else{
-	    			if(nameOfCreditCardState == "display"){
-	    				$("#notNameOfCreditCardMatch").hide();
-	    			}
-	    		}
-	    		
-	    		if(notSlash.test(expirationDate)==false && expirationDate.length < 5){
-	    			if(expirationDateState == "none"){
-	    				$("#notExpirationDateMatch").show();
-			    		return false;
-	    			}
-	    		}else{
-	    			if(expirationDateState == "display"){
-	    				$("#notExpirationDateMatch").hide();
-	    			}
-	    		} */
-	    		
-	    		/* if(nameOfCreditCard.length < 19 || notHyphen.test(nameOfCreditCard)==false || nameOfCreditCardState == "none") {
-	    			$("#notNameOfCreditCardMatch").show();
-					
-	    		}else{
-	    			$("#notNameOfCreditCardMatch").hide();
-	    		} */
-	    		
-	    		/* if(notSlash.test(expirationDate)==false || expirationDate.length < 5 || expirationDateState == "none") {
-		    		$("#notExpirationDateMatch").show();
-		    		return false;
-	    		}else{
-	    			$("#notExpirationDateMatch").hide();
-	    		} */
 			});
-	    	
-	    	/* var req = new Request();
-	    	req.getParameter("payment");
-	    	alert("aaaaaa")
-	    	alert(req.getParameter("payment"));
-	    	
-	    	$("#payment") */
-	    	
 	    	
 	    });
 	    
@@ -353,7 +315,7 @@
 				<div class="mySettingsContent">
 					<!-- 프로필 사진 -->
 					<div class="myProfilePhotoSettings">
-						<form name="s" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+						<form name="s" action="accountUpdateImage.do" method="post" enctype="multipart/form-data">
 							프로필 사진<br>
 							<img src="${pageContext.request.contextPath}/resources/img/profileImage/${userSession.profilePhoto}" id="fileName" border="0" width="180" height="180" alt="프로필 등록"><br>
 							<input type="file" name="profilePhoto" id="profilePhoto" accept='image/*' onchange='openFile(event)'>
@@ -364,7 +326,7 @@
 					</div><br>
 			
 				
-				<form name="s0" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+				<form name="s0" action="accountUpdateNames.do" method="post" enctype="multipart/form-data">
 					<!-- 닉네임 -->
 					<div class="nickNameSetting">
 						닉네임<br>
@@ -380,13 +342,13 @@
 					</div><br>
 				</form>
 			
-				<form name="s1" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+				<form name="s1" action="accountUpdateCountry.do" method="post" enctype="multipart/form-data">
 					<!-- 국가/지역 -->
 					<div class="countrySetting">
 					
 						국가/지역<br>
 						<select class="country" name="country">
-							<option value='${userSession.country}' selected disabled>${userSession.country}</option>
+							<option value='${userSession.country}' selected disabled>${userSession.countryName}</option>
 							<option value='GH'>가나</option>
 							<option value='GA'>가봉</option>
 							<option value='GM'>감비아</option>
@@ -651,7 +613,7 @@
 				<!-- 숙소 예약용 정보 내용 -->
 				
 				<div class="reservationInformationContent">
-					<form name="s2" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+					<form name="s2" action="accountUpdatePrivate.do" method="post" enctype="multipart/form-data">
 						<!-- 이름 -->
 						<div class="nameSetting">
 							이름<br>
@@ -695,19 +657,22 @@
 				</div>
 				<!-- 결제 수단 설정 내용 -->
 				<div class="paymentContent">
-					<form name="s3" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+					<form name="s3" action="accountUpdateCard.do" method="post" enctype="multipart/form-data">
 						<!-- 신용카드 설정 -->
 						<div class="creditCardSetting" style="background-color:lavender;">
-							<label>${userSession.payment}</label>&nbsp;
-							<label>${userSession.name}</label>
+							<c:forEach var="cardItem" items="${userSession.cardList}">
+								<label>${cardItem.kindOfCreditCard}&nbsp;${cardItem.numOfCreditCard}&nbsp;${cardItem.expirationDate}</label>&nbsp;
+								<label>${userSession.name}</label>	
+								<br/>
+							</c:forEach>
 						</div><br>
 						<!-- <div class="guidanceCreditCard">
 							<span style="color:gray" style="pading:5px 10px"> - 신용카드를 등록해주세요. </span>
 						</div><br> -->
 						<div class="appendCreditCard">
 							신용카드 종류<br>
-							<select name="payment">
-								<option value='선택'>선택</option>
+							<select name="kindOfCreditCard">
+								<option value=''>선택</option>
 								<option value='American Express'>American Express</option>
 								<option value='VISA'>VISA</option>
 								<option value='MasterCard'>MasterCard</option>
@@ -715,18 +680,18 @@
 								<option value='UnionPay'>UnionPay</option>
 							</select><br><br>
 							신용카드 번호<br>
-							<input type="text" name="nameOfCreditCard" value="${nameOfCreditCard}" placeholder="0000-0000-0000-0000" maxlength="19">
-								<span style="color:gray"> - 띄어쓰기 없이 기입 ex) 0000-0000-0000-0000 </span><br>
-								<label id="notNameOfCreditCardMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
+							<input type="text" name="numOfCreditCard" value="${numOfCreditCard}" placeholder="0000-0000-0000-0000" maxlength="19">
+								<span style="color:gray"> ex) 0000-0000-0000-0000 </span><br>
+								<label id="notNumOfCreditCardMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
 							만료 날짜<br>
 							<input type="text" name="expirationDate" value="${expirationDate}"placeholder="01/19" maxlength="5">
 								<span style="color:gray"> - 월/년 기입 ex) 01/19 </span><br>
 								<label id="notExpirationDateMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
-							<input type="button" value="변경 저장" name="creditCardSave" id="creditCardSave">
-							<input type="button" value="취소" name="cancel"><br>
+							<input type="button" value="변경 저장" name="creditCardSave" id="creditCardSave" >
+							<input type="reset" value="취소" name="cancel"><br>
 						</div><br>
 						<div class="appendCreditCardButton">
-							<input type="button" name="appendCreditCard" id="appendCreditCard" value="카드 추가" onkeypress="JavaScript:press(this.form)">
+							<input type="button" name="appendCreditCard" id="appendCreditCard" value="카드 추가" >
 						</div><br>
 					</form>
 				</div>

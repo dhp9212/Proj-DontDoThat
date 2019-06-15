@@ -1,14 +1,11 @@
 package com.temp.app;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.rmi.ServerException;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.temp.app.model.AccountDTO;
-import com.temp.app.model.CountryDTO;
+import com.temp.app.model.Card;
 import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.AccountMapper;
 import com.temp.app.service.StandardInformationMapper;
@@ -163,86 +159,73 @@ public class AccountController {
 	public String mySettings(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
-		req.setAttribute("profilePhoto", dto.getProfilePhoto());
-		req.setAttribute("nickName", dto.getNickName());
-		req.setAttribute("birthday", dto.getBirthday());
-		req.setAttribute("country", dto.getCountry());
-		System.out.println("num = " + dto.getNum());
-		System.out.println("add = " + dto.getAddress());
-		System.out.println("birs = " + dto.getBirthday());
-		System.out.println("country = " + dto.getCountry());
-		System.out.println("cure = " + dto.getCurrency());
-		System.out.println("disa = " + dto.getDisabled());
-		System.out.println("email = " + dto.getEmail());
-		System.out.println("name = " + dto.getName());
-		System.out.println("nic = " + dto.getNickName());
-		System.out.println("pass = " + dto.getPassword());
-		System.out.println("card = " + dto.getPayment());
-		System.out.println("fac = " + dto.getPreferredFacility());
-		System.out.println("photo = " + dto.getProfilePhoto());
-		System.out.println("reT = " + dto.getReservationTarget());
-		System.out.println("smo = " + dto.getSmoke());
-		System.out.println("star = " + dto.getStarRating());
-		System.out.println("tel = " + dto.getTel());
-//		if(dto.getCountry() != null) {
-//			CountryDTO cdto = standardInformationMapper.getCountryByCode2(dto.getCountry());
-//			if(cdto == null) {
-//				req.setAttribute("country", "국가 선택");
-//			}else {
-//				req.setAttribute("country", cdto.getName());
-//			}
-//		}
-		//System.out.println("dto.getCountry 컨트롤러 국가 값 : " + dto.getCountry());
-		
-		req.setAttribute("name", dto.getName());
-		req.setAttribute("tel", dto.getTel());
-		req.setAttribute("email", dto.getEmail());
-		req.setAttribute("address", dto.getAddress());
+//		req.setAttribute("profilePhoto", dto.getProfilePhoto());
+//		req.setAttribute("nickName", dto.getNickName());
+//		req.setAttribute("birthday", dto.getBirthday());
+//		req.setAttribute("country", dto.getCountry());
+//		
+//		System.out.println("num = " + dto.getNum());
+//		System.out.println("add = " + dto.getAddress());
+//		System.out.println("birs = " + dto.getBirthday());
+//		System.out.println("country = " + dto.getCountry());
+//		System.out.println("cure = " + dto.getCurrency());
+//		System.out.println("disa = " + dto.getDisabled());
+//		System.out.println("email = " + dto.getEmail());
+//		System.out.println("name = " + dto.getName());
+//		System.out.println("nic = " + dto.getNickName());
+//		System.out.println("pass = " + dto.getPassword());
+//		System.out.println("card = " + dto.getPayment());
+//		System.out.println("fac = " + dto.getPreferredFacility());
+//		System.out.println("photo = " + dto.getProfilePhoto());
+//		System.out.println("reT = " + dto.getReservationTarget());
+//		System.out.println("smo = " + dto.getSmoke());
+//		System.out.println("star = " + dto.getStarRating());
+//		System.out.println("tel = " + dto.getTel());
+//
+//		
+//		req.setAttribute("name", dto.getName());
+//		req.setAttribute("tel", dto.getTel());
+//		req.setAttribute("email", dto.getEmail());
+//		req.setAttribute("address", dto.getAddress());
 		
 		return "account/mySettings";
 	}
 	
-	//페이지 새로고침 없이 리로드 실험중... 상세정보 설정 페이지 (닉네임 값)
+	//상세정보 설정 페이지
 	@RequestMapping(value = "/accountUpdate.do")
 	public ModelAndView accountUpdateOk(HttpServletRequest req) throws IOException,ServerException {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
-		int num = dto.getNum();
-		dto.setNum(num);
-		int res = 0;
-		
-		//MultipartRequest mr = null;
 		MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest)req;
-		if(mhsr == null) {
-			System.out.println("파일 null값 체크" + mhsr);
-		}else {
-			MultipartFile mf  = mhsr.getFile("profilePhoto");
-			String path = req.getSession().getServletContext().getRealPath("/resources/img/profileImage/");//"D:\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_DontDoThat\\resources\\img\\profileImage";//req.getRealPath("/resources/img/profileImage");//"d:/image/";
-			if(mf != null) {
-				String organizedfilePath= "";
-				try {
-					if(mf.getSize() > 0) {
-						organizedfilePath = mf.getOriginalFilename();
-						File realUpload = new File(path, organizedfilePath);
-						if(!realUpload.exists()) {
-							realUpload.mkdirs();
-						}
-						mf.transferTo(realUpload);
-						
-						dto.setProfilePhoto(organizedfilePath);
-						accountMapper.updateProfilePhoto(dto);
-						req.setAttribute("profilePhoto", dto.getProfilePhoto());
-						System.out.println("프로필 이미지 명 : " + dto.getProfilePhoto());
-						System.out.println("파일 null값 체크" + mhsr);
+		
+		MultipartFile mf  = mhsr.getFile("profilePhoto");
+		String path = req.getSession().getServletContext().getRealPath("/resources/img/profileImage/");
+		//"D:\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_DontDoThat\\resources\\img\\profileImage";//req.getRealPath("/resources/img/profileImage");//"d:/image/";
+		if(mf != null) {
+			String organizedfilePath= "";
+			try {
+				if(mf.getSize() > 0) {
+					organizedfilePath = mf.getOriginalFilename();
+					File realUpload = new File(path, organizedfilePath);
+					if(!realUpload.exists()) {
+						realUpload.mkdirs();
 					}
-				}catch(Exception e) {
-					e.printStackTrace();
+					mf.transferTo(realUpload);
+					
+					dto.setProfilePhoto(organizedfilePath);
+					accountMapper.updateProfilePhoto(dto);
+					req.setAttribute("profilePhoto", dto.getProfilePhoto());
+					System.out.println("프로필 이미지 명 : " + dto.getProfilePhoto());
+					System.out.println("파일 null값 체크" + mhsr);
 				}
-			}else {
-				req.setAttribute("profilePhoto", dto.getProfilePhoto());
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
+		}else {
+			req.setAttribute("profilePhoto", dto.getProfilePhoto());
 		}
+		
 		String nickName = req.getParameter("nickName");//닉네임
 		String birthday = req.getParameter("birthday");//생일
 		String country = req.getParameter("country");//국가/지역
@@ -255,11 +238,7 @@ public class AccountController {
 		String selectPayment = req.getParameter("payment");//카드 종류
 		String nameOfCreditCard = req.getParameter("nameOfCreditCard");//카드 번호
 		String expirationDate = req.getParameter("expirationDate");//만료 일자
-		
-		System.out.println(selectPayment);
-		System.out.println(nameOfCreditCard);
-		System.out.println(expirationDate);
-		
+
 		
 		String payment = selectPayment + " " + nameOfCreditCard + " " + expirationDate;//결제수단
 		String smoke = req.getParameter("smoke");//흡연 여부
@@ -270,8 +249,6 @@ public class AccountController {
 		
 		String currency = req.getParameter("currency");//통화(원, 달러, 엔)등등
 		String password = req.getParameter("confirmPassword");//비밀번호
-		
-		
 		
 		
 		session.getAttribute("currencyList");
@@ -290,7 +267,7 @@ public class AccountController {
 		}else if(country != null){
 			System.out.println("country = " + country);
 			dto.setCountry(req.getParameter("country"));
-			accountMapper.updateCountry(dto);			
+			//accountMapper.updateCountry(dto);			
 			req.setAttribute("country", dto.getCountry());
 		}else if(name != null) {
 			System.out.println("name = " + name);
@@ -365,7 +342,7 @@ public class AccountController {
 //			req.setAttribute("password", dto.getPassword());
 //		}
 		
-		mav.setViewName("account/mySettings");
+		mav.setViewName("forward:/mySettings.do");
 		return mav;
 	}
 	
@@ -386,5 +363,159 @@ public class AccountController {
 	@RequestMapping(value = "/testPage.do")
 	public String testPage() {
 		return "test/testPage";
+	}
+	
+	
+	
+	@RequestMapping(value = "/accountUpdateImage.do")
+	public ModelAndView accountUpdateImage(HttpServletRequest req) throws IOException,ServerException {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+		MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest)req;
+		
+		MultipartFile mf  = mhsr.getFile("profilePhoto");
+		String path = req.getSession().getServletContext().getRealPath("/resources/img/profileImage/");
+		//"D:\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_DontDoThat\\resources\\img\\profileImage";//req.getRealPath("/resources/img/profileImage");//"d:/image/";
+		if(mf != null) {
+			String organizedfilePath= "";
+			try {
+				if(mf.getSize() > 0) {
+					organizedfilePath = mf.getOriginalFilename();
+					File realUpload = new File(path, organizedfilePath);
+					if(!realUpload.exists()) {
+						realUpload.mkdirs();
+					}
+					mf.transferTo(realUpload);
+					
+					dto.setProfilePhoto(organizedfilePath);
+					accountMapper.updateProfilePhoto(dto);
+					req.setAttribute("profilePhoto", dto.getProfilePhoto());
+					System.out.println("프로필 이미지 명 : " + dto.getProfilePhoto());
+					System.out.println("파일 null값 체크" + mhsr);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			req.setAttribute("profilePhoto", dto.getProfilePhoto());
+		}
+		
+		mav.setViewName("forward:/mySettings.do");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/accountUpdateNames.do")
+	public ModelAndView accountUpdateNames(HttpServletRequest req) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+		
+		String nickName = req.getParameter("nickName");//닉네임
+		String birthday = req.getParameter("birthday");//생일
+		
+		// if nickName form is not null, update DB
+		if(nickName != null) {
+			dto.setNickName(nickName);
+			accountMapper.updateNickName(dto);
+		}
+		// if birthday form is not null, update DB
+		if(birthday != null) {
+			dto.setBirthday(birthday);
+			accountMapper.updateBirthday(dto);
+		}
+		
+		session.setAttribute("userSession", dto);
+		mav.setViewName("forward:/mySettings.do");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/accountUpdateCountry.do")
+	public ModelAndView accountUpdateCountry(HttpServletRequest req) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+		
+		String countryCode2 = req.getParameter("country");
+		
+		dto.setCountry(countryCode2);
+		accountMapper.updateCountry(dto);
+		dto.setCountryName(standardInformationMapper.getCountryByCode2(countryCode2).getName());
+		
+		session.setAttribute("userSession", dto);
+		mav.setViewName("forward:/mySettings.do");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/accountUpdatePrivate.do")
+	public ModelAndView accountUpdatePrivate(HttpServletRequest req) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+		
+		String name = req.getParameter("name");
+		String tel = req.getParameter("tel");
+		String address = req.getParameter("address");
+		
+		
+		if(name != null) {
+			dto.setName(name);
+			accountMapper.updateName(dto);
+		}
+		
+		if(tel != null) {
+			dto.setTel(tel);
+			accountMapper.updateTel(dto);
+		}
+		
+		if(address != null) {
+			dto.setAddress(address);
+			accountMapper.updateAddress(dto);
+		}
+		
+		session.setAttribute("userSession", dto);
+		mav.setViewName("forward:/mySettings.do");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/accountUpdateCard.do")
+	public ModelAndView accountUpdateCard(HttpServletRequest req) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+		
+		String kindOfCreditCard = req.getParameter("kindOfCreditCard");
+		String numOfCreditCard = req.getParameter("numOfCreditCard");
+		String expirationDate = req.getParameter("expirationDate");
+		
+		String payment = dto.getPayment();
+		
+		// if payment already exist add tokenizer /
+		if(payment != null && !payment.equals(""))
+			payment += "/";
+		else {
+			payment = "";
+		}
+		payment += kindOfCreditCard + ",";
+		payment += numOfCreditCard + ",";
+		payment += expirationDate;
+		
+		dto.setPayment(payment);
+		accountMapper.updatePayment(dto);
+		
+		List<Card> cardList;
+		if(dto.getCardList() == null) {
+			cardList = new ArrayList<Card>();
+		}
+		else {
+			cardList = dto.getCardList();
+		}
+		cardList.add(new Card(kindOfCreditCard, numOfCreditCard, expirationDate));
+		dto.setCardList(cardList);
+		
+		session.setAttribute("userSession", dto);
+		mav.setViewName("forward:/mySettings.do");
+		return mav;
 	}
 }

@@ -103,11 +103,20 @@
 	
 	
 	<select id="getAccount" resultType="AccountDTO" parameterType="int">
-		select * from ACCOUNT where num = #{num}
+		select A.*, B.name as countryName 
+		from ACCOUNT A 
+		INNER JOIN COUNTRY B
+		ON A.country = B.code_2
+		where num = #{num}
 	</select>
 	
 	<select id="getAccountByDTO" resultType="AccountDTO" parameterType="AccountDTO">
-		select * from ACCOUNT where email = #{email} and password = #{password}
+		select A.*, B.name as countryName 
+		from ACCOUNT A 
+		INNER JOIN COUNTRY B
+		ON A.country = B.code_2
+		where email = #{email} 
+		and password = #{password}
 	</select>
 	
 	<select id="memberList" resultType="AccountDTO">
