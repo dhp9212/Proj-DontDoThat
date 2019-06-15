@@ -219,10 +219,27 @@
 	    	
 	    });
 	    
-	    //값 불러와서 설치해주기?
-	    window.onload = function(){
-	    	
-	    }
+	    $(document).ready(function(){
+		    $("#myInfo").on("click",function(event){
+		      var offset = $(".mySettingsHeadTitle").offset();
+		      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+		    $("#reserveInfo").on("click",function(event){
+			      var offset = $(".reservationInformationTitle").offset();
+			      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+		    $("#payMethod").on("click",function(event){
+			      var offset = $(".paymentHead").offset();
+			      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+		    $("#resetPassword").on("click",function(event){
+			      var offset = $(".passwordAndCurrencyHead").offset();
+			      $("html, body").stop().animate({scrollTop:offset.top},1000);
+		    });
+		    
+			    
+
+		  }); // end of ready()
 	</script>
 	
 	<style type="text/css">
@@ -309,11 +326,11 @@
 			<div class="mySettingsMenu">
 				<br>
 				<a href="home.do"><h3>홈으로</h3></a><br><br>
-				<a href="#">내 정보</a><br><br>
-				<a href="#">신용카드</a><br><br>
-				<a href="#">결제 수단 설정</a><br><br>
+				<a id="myInfo">내 정보</a><br><br>
+				<a id="reserveInfo">숙소 예약용 정보</a><br><br>
+				<a id="payMethod">결제 수단 설정</a><br><br>
 				<!-- <a href="#">고객님의 여행 스타일</a><br><br> -->
-				<a href="#">비밀번호 및 통화 </a><br><br>
+				<a id="resetPassword">비밀번호</a><br><br>
 				<!-- <a href="#">소셜 미디어 연결</a><br><br>
 				<a href="#">뉴스레터 수신</a><br><br>
 				<a href="#">문자메시지 수신 설정</a><br><br>
@@ -326,7 +343,7 @@
 				<!-- 상세정보 타이틀 -->
 				<div class="mySettingsHead">
 					<div class="mySettingsHeadTitle">
-						<h1>내 DDT.com 계정</h1>
+						<h1>내 계정</h1>
 					</div>
 					<div class="mySettingsHeadSubTitle">
 						이 상세 정보는 공개된 이용 후기, 평점, 사진 등 옆에 나타납니다. 여기서 수정하신 모든 정보는 과거 작성 글에도 반영됩니다.
@@ -724,13 +741,13 @@
 					</div>
 					<!-- 비밀번호 및 통화 내용 -->
 					<div class="passwordAndCurrencyContent">
-						<div class="currencySetting">
+						<!-- <div class="currencySetting">
 							선호하는 통화<br>
 							<select>
 								<option>대한민국 원</option>
 								<option>일본 엔</option>
 							</select>
-						</div><br>
+						</div><br> -->
 						<div class="passwordChange">
 							<div class="passwordChangeForm">
 								새로운 비밀번호 입력<br>
