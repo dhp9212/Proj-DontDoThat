@@ -98,9 +98,14 @@ public class AccomodationMapper {
 		}
 		return table;
 	}
-	public List<RoomDTO> getRoomList(int accomodation_num){
+	public List<RoomDTO> getRoomList(int accomodation_num, String start_date, String end_date){
+		Map<String, String> map = new HashMap<String, String>();
 		String num = accomodation_num + "";
-		return sqlSession.selectList("getRoomList", num);
+		map.put("num", num);
+		map.put("start_date", start_date);
+		map.put("end_date", end_date);
+		
+		return sqlSession.selectList("getRoomList", map);
 	}
 	//
 	public void updateAccomodation_facility(String accomodation_num, String accomodation_facility) {
@@ -309,14 +314,15 @@ public class AccomodationMapper {
         System.out.println(map.get("input_place_city"));
         return sqlSession.selectOne("getCount", map);
     }
+    
     public List<ReservationDTO> listReservation(int num, int startRow, int endRow) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("num", num);
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-		return sqlSession.selectList("listReservation", map);
-	}
-	public int getCountReservation(int num) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("num", num);
+        map.put("startRow", startRow);
+        map.put("endRow", endRow);
+        return sqlSession.selectList("listReservation", map);
+    }
+    public int getCountReservation(int num) {
         return sqlSession.selectOne("getCountReservation", num);
-	}
+    }
 }

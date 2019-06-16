@@ -203,7 +203,7 @@
 				${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country}
  		 	</div>
  		 	<div class="col-lg-3 now" style="text-align:right;">
- 		 		<button type="button" class="btn btn-primary" id="optionBtn" onclick="location.href='#option'">지금 예약</button>
+ 		 		<button type="button" class="btn btn-primary" id="optionBtn">지금 예약</button> 
  		 	</div>
  		 </div>
 	</div>
@@ -324,20 +324,30 @@ Whisper words of wisdom, let it be
       	</tr>
     	</thead>
     	<tbody class="tablecontent">
-    	<c:forEach var="roomElement" items="${getRoomList}" varStatus="numCount">
+    	<c:forEach var="roomElement" items="${roomList}" varStatus="numCount">
       	<tr>
-      		<td><a href="#">${roomElement.value.roomclass}</a></td>
-      		<td>${roomElement.value.people}</td>
-      		<td>${roomElement.value.price}</td>
+      		<td><a href="#">${roomElement.roomclass}</a></td>
+      		<td>${roomElement.people}</td>
+      		<td>${roomElement.price}</td>
       		<td>
+      			<c:if test="${roomElement.currentQty != 0}">
 				<select name="selectQty" onchange="javascript:selectChange(${numCount.index})">
-				<c:forEach var="i" begin="0" end="${roomElement.value.qty}">
-					<option value="${i}">${i}(${roomElement.value.price*i})</option>
+				<c:forEach var="i" begin="0" end="${roomElement.currentQty}">
+					<option value="${i}" style="text-align:right;">${i}(${roomElement.price*i})</option>
 				</c:forEach>
 				</select>
+				</c:if>
+				<c:if test="${roomElement.currentQty == 0}">
+					<strong><font color="red">예약 가능한 방 없음</font></strong>
+				</c:if>
       		</td>
-      		<td rowspan="${getRoomList.size}">
-      			<button type="button" class="btn btn-primary" style="width:100%; height:30px;" id="optionBtn" onClick="javascript:check(${numCount.index}, ${roomElement.value.num})">지금 예약</button>
+      		<td>
+      			<c:if test="${roomElement.currentQty != 0}">
+      				<button type="button" class="btn btn-primary" style="width:100%; height:40px;" id="optionBtn" onClick="javascript:check(${numCount.index}, ${roomElement.num})">지금 예약</button>
+      			</c:if>
+      			<c:if test="${roomElement.currentQty == 0}">
+					<button type="button" class="btn btn-primary" style="width:100%; height:40px;" id="optionBtn" disabled>지금 예약</button>
+				</c:if>
       		</td>
       	</tr>
       	</c:forEach>
@@ -379,65 +389,8 @@ Whisper words of wisdom, let it be
 	<div class="col-lg-12">
 		<div id="rule"><h2>하우스 룰</h2></div>
 		<div class="panel panel-default">
- 		 <div class="panel-body" style="background-color: #CCCCCC">
- 		 	<div class="row">
- 		 		<div class="col-sm-12" align="center">
-	 				체크인 타임<br>
- 		 			<div class="checkin_progress">
-						<div class="progress-bar">
-						</div>
-						<div class="progress-bar bg-success">
-						  ${getAccomodationInfo.checkin_date}
-						</div>
-					</div>
- 		 		</div>
- 		 	</div>
- 		 	<div class="row">
- 		 		<div class="col-sm-12" align="center">
- 		 			체크아웃 타임<br>
- 		 			<div class="checkout_progress">
-						<div class="progress-bar">
-						</div>
-						<div class="progress-bar bg-success">
-						  ${getAccomodationInfo.checkout_date}<br>
-						</div>
-					</div>
- 		 		</div>
- 		 	</div>
- 		 	<div class="row" align="center"><br></div>
- 		 	<div class="row" align="center">
- 		 		<div class="col-sm-3">
- 		 			예약 취소정책
- 		 		</div>
- 		 		<div class="col-sm-1">
- 		 			-
- 		 		</div>
- 		 		<div class="col-sm-8" id="cancel_policy">
- 		 			예약 취소정책
- 		 		</div>
- 		 	</div>
- 		 	<div class="row" align="center">
- 		 		<div class="col-sm-3">
- 		 			어린이 출입 정책
- 		 		</div>
- 		 		<div class="col-sm-1">
- 		 			-
- 		 		</div>
- 		 		<div class="col-sm-8" id="children_policy">
- 		 			예약 취소정책
- 		 		</div>
- 		 	</div>
- 		 	<div class="row" align="center">
- 		 		<div class="col-sm-3">
- 		 			애완동물 출입 정책
- 		 		</div>
- 		 		<div class="col-sm-1">
- 		 			-
- 		 		</div>
- 		 		<div class="col-sm-8" id="pet_policy">
- 		 			예약 취소정책
- 		 		</div>
- 		 	</div>
+ 		 <div class="panel-body">
+ 		 	${getAccomodationInfo.policy}
  		 </div>
  		</div>
 	</div>
@@ -641,52 +594,24 @@ Whisper words of wisdom, let it be
 		    });
 	  }); // end of ready()
 	function check(select, num) {
-		var session = '${userSession}'
-		if (session == '') {
-			alert("예약하시기 전에 로그인해주세요.")
-		}
-		else {
-		    var selectQty = $('select[name=selectQty]')[select].value
-		    document.getElementById('selectQty').value = selectQty
-		    $('input[name="num"]').val(num)
-			if (selectQty == '0' || selectQty == '') {
-				alert("객실 수량을 선택해주세요.")
-				goReservation.selectQty.focus()
-				return false
-			} else {
-				document.goReservation.submit()
-				return true
-			}
-		}
+        var session = '${userSession}'
+            if (session == '') {
+                alert("예약하시기 전에 로그인해주세요.")
+            }
+            else {
+                var selectQty = $('select[name=selectQty]')[select].value
+                document.getElementById('selectQty').value = selectQty
+                $('input[name="num"]').val(num)
+                if (selectQty == '0' || selectQty == '') {
+                    alert("객실 수량을 선택해주세요.")
+                    goReservation.selectQty.focus()
+                    return false
+                } else {
+                    document.goReservation.submit()
+                    return true
+                }
+            }
 	}
-	$(document).ready(function(){
-		var checkin_time = "${getAccomodationInfo.checkin_date}".split(' ~ ')
-		var checkin_progress = $('.checkin_progress').children()
-		var width = checkin_time[0].split(':')[0]/24*100
-		checkin_progress[0].style.width = width + "%"
-		var width2 = (width + checkin_time[1].split(':')[0]/24)*100
-		checkin_progress[1].style.width = width2 + "%"
-		
-		var checkout_time = "${getAccomodationInfo.checkout_date}".split(' ~ ')
-		var checkout_progress = $('.checkout_progress').children()
-		width = checkout_time[0].split(':')[0]/24*100
-		checkout_progress[0].style.width = width + "%"
-		width2 = (width + checkout_time[1].split(':')[0]/24)*100
-		checkout_progress[1].style.width = width2 + "%"
-		
-		var policy = "${getAccomodationInfo.policy}".split(',')
-		if(policy[1]!=0) var cancel_policy = policy[1] + '일까지 무료취소 가능합니다.'
-		else var cancel_policy = "언제든지 무료취소 가능합니다. 하지만 예약시간을 넘어서는 취소되지 않습니다."
-		$('#cancel_policy').text(cancel_policy)
-		if(policy[4]!='no') var children_policy = '어린이는 최대인원 수에 해당되지 않습니다.'
-		else var children_policy = "어린이 또한 최대인원 수에 해당합니다."
-		$('#children_policy').text(children_policy)
-		if(policy[7]!='no') {
-			if(policy[7]=='pay') var pet_policy = '애완동물을 동반할 수 있습니다.'
-			else var pet_policy = '애완동물을 동반할 수 있습니다. 다만 ' + policy[8] +"원 추가요금이 필요합니다."
-		} else var pet_policy = "애완동물은 동반할 수 없습니다."
-		$('#pet_policy').text(pet_policy)
-	});
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_7jiKyn69S94Q7zgR4IOgQ4-BJ4sL6B4&callback=myMap"></script>
 </body>

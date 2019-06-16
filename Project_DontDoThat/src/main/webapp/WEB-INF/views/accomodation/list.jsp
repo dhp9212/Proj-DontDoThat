@@ -108,9 +108,10 @@
 							  		이용 후기 평점 넣어야됨
 							  	</div>
 						  	</div>
-						  	<div class="row">${dto.city}</div>
+  	                      	<div class="row">${dto.city}</div>
 						  	<div class="row details">
 						  		<c:forEach var="roomDto" items="${dto.roomList}">
+						  		<c:if test="${roomDto.currentQty != 0}">
 						  		<div class="col-lg-4">
 								  	<a href="search_accomodation_content.do?num=${dto.num}">
 								  		${roomDto.roomclass}
@@ -119,6 +120,17 @@
 							  	<div class="col-lg-8 cost">
 							  		${roomDto.price}
 							  	</div>
+							  	</c:if>
+							  	<c:if test="${roomDto.currentQty == 0}">
+						  		<div class="col-lg-4">
+								  	<a href="search_accomodation_content.do?num=${dto.num}">
+								  		${roomDto.roomclass}
+								  	</a>
+							  	</div>
+							  	<div class="col-lg-8 cost">
+							  		<strong><font color="red">예약 가능한 방 없음</font></strong>
+							  	</div>
+							  	</c:if>
 							  	</c:forEach>
 						  	</div>
 						  	<div class="lastline">

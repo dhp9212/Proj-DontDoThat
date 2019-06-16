@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,6 +44,8 @@ public class AccomodationController {
 		String end_date = req.getParameter("end_date").trim();
 
 		req.getSession().setAttribute("input_place", input_place);
+		
+		// if date does not exist, set today
 		if(start_date == null || start_date.equals("")) {
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(cal.YEAR);
@@ -69,7 +71,9 @@ public class AccomodationController {
 		}
 		req.getSession().setAttribute("start_date", start_date);
 		req.getSession().setAttribute("end_date", end_date);
-
+		////////////////////////////////////////////////////
+		
+		// set page num
 		String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
             pageNum = "1";
@@ -82,13 +86,18 @@ public class AccomodationController {
         int endRow = currentPage * pageSize;
         
         if (endRow > listCount) endRow = listCount;
+        ////////////////////////////////////////////////////
         
+        // Accomodation list & Room list
         List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, startRow, endRow);
-        req.setAttribute("listAccomodation", list);
         for(int i = 0; i < list.size(); i++) {
-        	 list.get(i).setRoomList(accomodationMapper.getRoomList(list.get(i).getNum()));
+        	List<RoomDTO> roomList = accomodationMapper.getRoomList(list.get(i).getNum(), start_date, end_date);
+        	list.get(i).setRoomList(roomList);
         }
-                
+        
+        req.setAttribute("listAccomodation", list);
+        ////////////////////////////////////////////////////
+        
         List<String> coverImage = new ArrayList<String>();
         for(int i = 0; i < list.size();i++) {
         	String[] temp = list.get(i).getImage().split(",");
@@ -114,8 +123,13 @@ public class AccomodationController {
 	}
 	@RequestMapping(value="/search_accomodation_content.do")
 	public String contentAccomodation(HttpServletRequest req, @RequestParam int num) throws Exception {
+		HttpSession session = req.getSession();
 		AccomodationDTO dto = accomodationMapper.getAccomodationInfo(num);
 		req.setAttribute("getAccomodationInfo", dto);
+		
+		int accomodation_num = num;
+		String start_date = (String)session.getAttribute("start_date");
+		String end_date = (String)session.getAttribute("end_date");
 		
 		String[] imgarr = dto.getImage().split(",");
 		List<String> imgList = new ArrayList<String>();
@@ -124,10 +138,9 @@ public class AccomodationController {
 		}
 		req.setAttribute("imgList", imgList);
 		
-		String numStr = Integer.toString(num);
-		Hashtable<String, RoomDTO> list = accomodationMapper.getRoomList(numStr);
+		List<RoomDTO> list = accomodationMapper.getRoomList(num, start_date, end_date);
 		System.out.println(list.size());
-		req.setAttribute("getRoomList", list);
+		req.setAttribute("roomList", list);
 		
 		//이용후기 가져오기
 		List<ReviewGradeDTO> listReview = reviewMapper.listReview("text");
@@ -147,24 +160,24 @@ public class AccomodationController {
 		return "accomodation/reservation";
 	}
 	@RequestMapping(value="/accomodation_reservation_ok.do")
-	protected String reservationPro(HttpServletRequest req, @ModelAttribute ReservationDTO dto, BindingResult result) throws Exception {
+    protected String reservationPro(HttpServletRequest req, @ModelAttribute ReservationDTO dto, BindingResult result) throws Exception {
 		if (result.hasErrors()) {
 			dto.setNum(0);
 		}
 		int res = accomodationMapper.insertReservation(dto);
-		try {
-			if (res > 0) {
-				return "redirect:home.do";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	@RequestMapping(value="/reservation_list.do")
-	public String listReservation(HttpServletRequest req) throws Exception {
-		int num = Integer.parseInt(req.getParameter("num"));
-		String pageNum = req.getParameter("pageNum");
+        try {
+            if (res > 0) {
+                return "redirect:home.do";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @RequestMapping(value="/reservation_list.do")
+    public String listReservation(HttpServletRequest req) throws Exception {
+        int num = Integer.parseInt(req.getParameter("num"));
+        String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
             pageNum = "1";
         }
@@ -183,25 +196,25 @@ public class AccomodationController {
             int endPage = startPage + pageBlock - 1;
             if (endPage > pageCount) endPage = pageCount;
             req.setAttribute("listCount", listCount);
-			req.setAttribute("pageCount", pageCount);
+            req.setAttribute("pageCount", pageCount);
             req.setAttribute("startRow", startRow);
             req.setAttribute("endRow", endRow);
-			req.setAttribute("startPage", startPage);
-			req.setAttribute("endPage", endPage);
+            req.setAttribute("startPage", startPage);
+            req.setAttribute("endPage", endPage);
+        }
+        return "accomodation/reservation_list";
+    }
+    @RequestMapping(value="/reservation_delete.do")
+    public String deleteReservation(HttpServletRequest req) throws Exception{
+        int num = Integer.parseInt(req.getParameter("num"));
+        int res = accomodationMapper.deleteReservation(num);
+        try {
+            if (res > 0) {
+                return "redirect:home.do";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
 		}
-		return "accomodation/reservation_list";
-	}
-	@RequestMapping(value="/reservation_delete.do")
-	public String deleteReservation(HttpServletRequest req) throws Exception{
-		int num = Integer.parseInt(req.getParameter("num"));
-		int res = accomodationMapper.deleteReservation(num);
-		try {
-			if (res > 0) {
-				return "redirect:home.do";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+        return null;
 	}
 }

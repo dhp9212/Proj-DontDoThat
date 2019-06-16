@@ -9,6 +9,7 @@ public class RoomDTO {
 	//방종류
 	private String roomclass;
 	private int qty;
+	private int currentQty;
 	//인원
 	private int people;
 	private int price;
@@ -69,5 +70,11 @@ public class RoomDTO {
 	}
 	public void setRoom_image(String room_image) {
 		this.room_image = room_image;
+	}
+	public int getCurrentQty() {
+		return currentQty;
+	}
+	public void setCurrentQty(int currentQty) {
+		this.currentQty = currentQty;
 	}
 }
