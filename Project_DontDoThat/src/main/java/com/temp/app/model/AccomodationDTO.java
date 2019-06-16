@@ -26,6 +26,7 @@ public class AccomodationDTO implements Serializable {
 	private String payment;
 	private String nearby;
 	private List<RoomDTO> roomList;
+	private int minPrice;
 	
 	public int getNum() {
 		return num;
@@ -158,5 +159,11 @@ public class AccomodationDTO implements Serializable {
 	}
 	public void setCheckout_time(String checkout_time) {
 		this.checkout_time = checkout_time;
+	}
+	public int getMinPrice() {
+		return minPrice;
+	}
+	public void setMinPrice(int minPrice) {
+		this.minPrice = minPrice;
 	}
 }
