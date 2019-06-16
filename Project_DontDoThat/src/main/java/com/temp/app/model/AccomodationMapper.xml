@@ -134,7 +134,7 @@
 				#{children, jdbcType=INTEGER}, 
 				#{payment, jdbcType=VARCHAR})
 	</insert>
-	<delete id="deleteReservation" parameterType="ReservationDTO">
+	<delete id="deleteReservation" parameterType="int">
 		delete from reservation where num = #{num}
 	</delete>
     <select id="getCount" resultType="int" parameterType="HashMap">
@@ -148,7 +148,7 @@
 	    <select id="get_roomAll" parameterType="int" resultType="RoomDTO">
         select * from room
     </select>
-    <select id="listReservation" resultType="ReservationDTO" parameterType="int">
+    <select id="listReservation" resultType="ReservationDTO" parameterType="Map">
         select * from (select rownum rn, A.* from reservation A where account_num = #{num}) 
         where rn between ${startRow} and ${endRow}
     </select>
