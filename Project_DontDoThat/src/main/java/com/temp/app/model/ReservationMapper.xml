@@ -5,6 +5,12 @@
 
 <mapper namespace="com.temp.app.model">
 	<select id="getReservation_list" resultType="ReservationDTO">
-		select * from reservation
+		select * from reservation order by checkout_date
+	</select>
+	<select id="getReservation_b_list" resultType="ReservationDTO">
+		select * from reservation where checkout_date&lt;sysdate
+	</select>
+	<select id="getReservation_a_list" resultType="ReservationDTO">
+		select * from reservation where <![CDATA[checkout_date>=sysdate]]>
 	</select>
 </mapper>

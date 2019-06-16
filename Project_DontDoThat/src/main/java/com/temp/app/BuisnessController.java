@@ -55,7 +55,7 @@ public class BuisnessController {
 	}
 	@RequestMapping(value="buisness_reservation.do")
 	public String buisness_reservation(HttpServletRequest req) {
-		reservationMapper.getBuisness_reservation(req);
+		reservationMapper.getBuisness_reservation(req, "a");
 		return "buisness/buisness_reservation";
 	}
 	@RequestMapping(value="homepage.do")
@@ -105,10 +105,6 @@ public class BuisnessController {
 	@RequestMapping(value="picture.do")
 	public String picture() {
 		return accomodationPath + "picture";
-	}
-	@RequestMapping(value="onTheWay.do")
-	public String onTheWay() {
-		return accomodationPath + "onTheWay";
 	}
 	@RequestMapping(value="policy.do")
 	public String policy() {
@@ -240,11 +236,13 @@ public class BuisnessController {
 		return "message";
 	}
 	@RequestMapping(value="bill.do")
-	public String bill() {
+	public String bill(HttpServletRequest req) {
+		reservationMapper.getBuisness_bill(req);
 		return payPath + "bill";
 	}
 	@RequestMapping(value="reservation_specification.do")
-	public String reservation_specification() {
+	public String reservation_specification(HttpServletRequest req) {
+		reservationMapper.getBuisness_reservation(req, "b");
 		return payPath + "reservation_specification";
 	}
 	@RequestMapping(value="financial_overview.do")

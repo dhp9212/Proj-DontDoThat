@@ -10,13 +10,13 @@
 			<div class="col-sm-3">예약기간</div>
 			<div class="col-sm-2"></div>
 		</div>
-		<c:forEach var="reservation" items="${buisness_reservation}">
+		<c:forEach var="reservation" items="${buisness_a_reservation}" varStatus="num">
 			<div class="row" align="center">
 				<div class="col-sm-1">${reservation.num}</div>
 				<c:forEach var="accomodation" items="${accomodation_list}">
 				<c:if test="${accomodation.key==reservation.accomodation_num}">
 				<div class="col-sm-3"><a href="general_info.do?accomodation_num=${accomodation.key}">${accomodation.value.accomodation_name}</a></div>
-					<c:forEach var="room" items="${buisness_room_list}">
+					<c:forEach var="room" items="${buisness_a_room_list}">
 					<c:if test="${reservation.room_num==room.num}">
 					<div class="col-sm-2">${room.roomclass}</div>
 					<div class="col-sm-1">${reservation.rooms}</div>
@@ -25,13 +25,13 @@
 				</c:if>
 				</c:forEach>
 				<div class="col-sm-3">${reservation.checkIn_date} ~ ${reservation.checkOut_date}</div>
-				<c:forEach var="account" items="${buisness_account}">
+				<c:forEach var="account" items="${buisness_a_account}">
 				<c:if test="${account.key==reservation.account_num}">
 				<div class="col-sm-2">
-					<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+					<button type="button" class="btn" data-toggle="modal" data-target="#myModal${num.count}">
 						고객정보 보기
 					</button>
-					<div class="modal" id="myModal">
+					<div class="modal" id="myModal${num.count}">
 						<div class="modal-dialog">
 							<div class="modal-content">
 						    	<!-- Modal Header -->
