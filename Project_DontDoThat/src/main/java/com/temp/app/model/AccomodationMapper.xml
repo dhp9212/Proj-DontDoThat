@@ -131,4 +131,11 @@
 	<select id="get_roomAll" parameterType="int" resultType="RoomDTO">
 		select * from room
 	</select>
+	<select id="listReservation" resultType="ReservationDTO" parameterType="int">
+		select * from (select rownum rn, A.* from reservation A where account_num = #{num}) 
+		where rn between ${startRow} and ${endRow}
+	</select>
+	<select id="getCountReservation" resultType="int" parameterType="int">
+        select count(*) from reservation where account_num = #{num}
+	</select>
 </mapper>

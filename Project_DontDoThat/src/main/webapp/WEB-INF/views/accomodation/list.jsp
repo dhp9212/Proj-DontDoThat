@@ -108,9 +108,7 @@
 							  		이용 후기 평점 넣어야됨
 							  	</div>
 						  	</div>
-						  	<div class="row">
-						  		<a href="">${dto.city} - 지도에서 표시</a>
-						  	</div>
+						  	<div class="row">${dto.city}</div>
 						  	<div class="row details">
 						  		<c:forEach var="roomDto" items="${dto.roomList}">
 						  		<div class="col-lg-4">

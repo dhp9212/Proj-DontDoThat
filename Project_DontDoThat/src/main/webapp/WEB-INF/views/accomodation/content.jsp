@@ -200,7 +200,7 @@
  		 <div class="panel-body">
  		 	<div class="col-lg-9">
  		 		<h2><span class="badge">${getAccomodationInfo.category_accomodation}</span>${getAccomodationInfo.accomodation_name}</h2><br>
-				${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country} - <a href="">좋은 위치 - 지도에서 보기</a>
+				${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country}
  		 	</div>
  		 	<div class="col-lg-3 now" style="text-align:right;">
  		 		<button type="button" class="btn btn-primary" id="optionBtn" onclick="location.href='#option'">지금 예약</button>
@@ -641,16 +641,22 @@ Whisper words of wisdom, let it be
 		    });
 	  }); // end of ready()
 	function check(select, num) {
-	    var selectQty = $('select[name=selectQty]')[select].value
-	    document.getElementById('selectQty').value = selectQty
-	    $('input[name="num"]').val(num)
-		if (selectQty == '0' || selectQty == '') {
-			alert("객실 수량을 선택해주세요")
-			goReservation.selectQty.focus()
-			return false
-		} else {
-			document.goReservation.submit()
-			return true
+		var session = '${userSession}'
+		if (session == '') {
+			alert("예약하시기 전에 로그인해주세요.")
+		}
+		else {
+		    var selectQty = $('select[name=selectQty]')[select].value
+		    document.getElementById('selectQty').value = selectQty
+		    $('input[name="num"]').val(num)
+			if (selectQty == '0' || selectQty == '') {
+				alert("객실 수량을 선택해주세요.")
+				goReservation.selectQty.focus()
+				return false
+			} else {
+				document.goReservation.submit()
+				return true
+			}
 		}
 	}
 	$(document).ready(function(){

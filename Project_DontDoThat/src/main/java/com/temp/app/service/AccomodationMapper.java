@@ -36,15 +36,15 @@ public class AccomodationMapper {
         String accomodation_image = mr.getParameter("image");
         List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
         
-        //이번 등록동안 사용할 맵, 카운터
+        //�씠踰� �벑濡앸룞�븞 �궗�슜�븷 留�, 移댁슫�꽣
         Integer count = 0;
         Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
         String image = "";
         
         for(MultipartFile mf : accomodatation_files) {
-            //파일이 이미지 타입이 아닌경우 다음파일로
+            //�뙆�씪�씠 �씠誘몄� ���엯�씠 �븘�땶寃쎌슦 �떎�쓬�뙆�씪濡�
             if(!mf.getContentType().substring(0, 5).equals("image")) continue;
-            //파라메터 값 분석후 바뀐 값 맵에 저장  + 파일쓰기
+            //�뙆�씪硫뷀꽣 媛� 遺꾩꽍�썑 諛붾�� 媛� 留듭뿉 ���옣  + �뙆�씪�벐湲�
             count = count+1;
             imageCheck(mf, accomodation_image, upPath, count, change_index);
         }
@@ -297,7 +297,7 @@ public class AccomodationMapper {
 	public AccomodationDTO getAccomodationInfo(int num) {
 		return sqlSession.selectOne("getAccomodationInfo", num);
 	}
-    //숙소 갯수 가져오기
+    //�닕�냼 媛��닔 媛��졇�삤湲�
     public int getCount(String input_place, String start_date, String end_date) {
         HashMap<String, String> map = new HashMap<String, String>();
         System.out.println(input_place);
@@ -309,4 +309,14 @@ public class AccomodationMapper {
         System.out.println(map.get("input_place_city"));
         return sqlSession.selectOne("getCount", map);
     }
+    public List<ReservationDTO> listReservation(int num, int startRow, int endRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("num", num);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("listReservation", map);
+	}
+	public int getCountReservation(int num) {
+        return sqlSession.selectOne("getCountReservation", num);
+	}
 }

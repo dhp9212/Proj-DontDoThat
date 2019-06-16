@@ -60,7 +60,7 @@
 							<c:if test="${!empty accomodation_list}">
 								<li><a href="buisness_index.do">사업자 홈페이지</a></li>
 							</c:if>
-								<li><a href="#">예약</a></li>
+								<li><a href="reservation_list.do?num=${userSession.num}">예약</a></li>
 								<li><a href="reviewMain.do">이용 후기</a></li>
 								<li><a href="myList.do">마이리스트</a></li>
 								<li><a href="customerService.do">고객 서비스 지원</a></li>

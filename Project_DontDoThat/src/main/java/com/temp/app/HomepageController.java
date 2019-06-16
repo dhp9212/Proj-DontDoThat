@@ -27,7 +27,7 @@ public class HomepageController {
 	}
 	@RequestMapping(value="insertInit2.do")
 	public String insertInit2(HttpServletRequest req) {
-		standardInformationMapper.roomSysout();
+		standardInformationMapper.roomSysout(req);
 		return "forward:home.do";
 	}
 }

@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp" %>
 <div class="col-lg-4">
-	<div class="panel panel-default sidesearch">
+	<div class="panel panel-default">
 		<div class="panel-body">
-			<div class="col-lg-12 searchlabel"><h1>내 예약 정보</h1></div>
+			<div class="col-lg-12"><h1>내 예약 정보</h1></div>
 			<div class="col-lg-12">체크인 :</div>
 			<div class="col-lg-12">${start_date}</div>
 			<div class="col-lg-12">체크아웃 :</div>
@@ -18,7 +18,7 @@
 			<div class="col-lg-12"><a href="search_accomodation_content.do?num=${getRoom.accomodation_num}#option">다른 객실로 변경</a></div>
 		</div>
 		<div class="panel-body">
-			<div class="col-lg-12 searchlabel"><h1>결제 요금 내역</h1></div>
+			<div class="col-lg-12"><h1>결제 요금 내역</h1></div>
 			<div class="col-lg-6">${getRoom.roomclass}</div>
 			<div class="col-lg-6" style="text-align:right;">${getRoom.price*param.selectQty}</div>
 		</div>
@@ -52,6 +52,7 @@
 		<input type="hidden" name="room_num" value="${getRoom.num}" />
 		<input type="hidden" name="checkIn_date" value="${start_date}" />
 		<input type="hidden" name="checkOut_date" value="${end_date}" />
+		<input type="hidden" name="rooms" value="${param.selectQty}" />
 		<input type="hidden" name="payment" value="${getRoom.price*param.selectQty}" />
 		<div class="col-lg-12"><h2>상세 정보 입력</h2></div>
 		<div class="col-lg-6">성(영문)</div>
@@ -137,45 +138,39 @@
 	    })
 	})
 	function check() {
-		var session = '${userSession}'
-		if (session == '') {
-			alert("예약하시기 전에 로그인해주세요")
+		var emailValidation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		var telValidation = /^[0-9_\.\-]+-[0-9\-]+\-[0-9\-]+/;
+		if (reservation.last_name.value == '') {
+			alert("성(영문)을 입력해주세요.")
+			reservation.last_name.focus()
+			return false
 		}
-		else {
-			var emailValidation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-			var telValidation = /^[0-9_\.\-]+-[0-9\-]+\-[0-9\-]+/;
-			if (reservation.last_name.value == '') {
-				alert("성(영문)을 입력해주세요")
-				reservation.last_name.focus()
-				return false
+		if (emailValidation.test(reservation.email.value) == false) {
+			if (reservation.email.value == '') {
+				alert("이메일 주소를 입력해주세요.")
+			} else {
+				alert("유효한 이메일 주소를 입력해주세요.")
 			}
-			if (emailValidation.test(reservation.email.value) == false) {
-				if (reservation.email.value == '') {
-					alert("이메일 주소를 입력해주세요")
-				} else {
-					alert("유효한 이메일 주소를 입력해주세요")
-				}
-				reservation.email.focus()
-				return false
-			}
-			if (reservation.country.value == 'default') {
-				alert("국가/지역을 선택해주세요")
-				reservation.country.focus()
-				return false
-			}
-			if (telValidation.test(reservation.tel.value) == false) {
-				if (reservation.tel.value == '') {
-					alert("전화번호를 입력해주세요")
-				} else {
-					alert("유효한 전화번호를 입력해주세요")
-				}
-				reservation.tel.focus()
-				return false
-			}
-			document.reservation.submit();
-			alert("예약에 성공하였습니다")
-			return true
+			reservation.email.focus()
+			return false
 		}
+		if (reservation.country.value == 'default') {
+			alert("국가/지역을 선택해주세요.")
+			reservation.country.focus()
+			return false
+		}
+		if (telValidation.test(reservation.tel.value) == false) {
+			if (reservation.tel.value == '') {
+				alert("전화번호를 입력해주세요.")
+			} else {
+				alert("유효한 전화번호를 입력해주세요.")
+			}
+			reservation.tel.focus()
+			return false
+		}
+		document.reservation.submit();
+		alert("예약에 성공하였습니다.")
+		return true
 	}
 	function autoHypenTel(str) {
         str = str.replace(/[^0-9]/g, '');

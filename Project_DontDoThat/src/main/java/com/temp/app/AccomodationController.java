@@ -147,16 +147,61 @@ public class AccomodationController {
 		return "accomodation/reservation";
 	}
 	@RequestMapping(value="/accomodation_reservation_ok.do")
-	protected ModelAndView reservationPro(HttpServletRequest req, @ModelAttribute ReservationDTO dto, BindingResult result) throws Exception {
+	protected String reservationPro(HttpServletRequest req, @ModelAttribute ReservationDTO dto, BindingResult result) throws Exception {
 		if (result.hasErrors()) {
 			dto.setNum(0);
 		}
 		int res = accomodationMapper.insertReservation(dto);
-		if (res > 0) {
-			System.out.println("예약 성공");
-		} else {
-			System.out.println("예약 실패");
+		try {
+			if (res > 0) {
+				return "redirect:home.do";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return new ModelAndView("redirect:home.do");
+		return null;
+	}
+	@RequestMapping(value="/reservation_list.do")
+	public String listReservation(HttpServletRequest req) throws Exception {
+		int num = Integer.parseInt(req.getParameter("num"));
+		String pageNum = req.getParameter("pageNum");
+        if (pageNum == null) {
+            pageNum = "1";
+        }
+        int currentPage = Integer.parseInt(pageNum);
+        int pageSize = 10;
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int listCount = accomodationMapper.getCountReservation(num);
+        int endRow = currentPage * pageSize;
+        if (endRow > listCount) endRow = listCount;
+        List<ReservationDTO> list = accomodationMapper.listReservation(num, startRow, endRow);
+        req.setAttribute("listReservation", list);
+        if (listCount > 0) {
+            int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
+            int pageBlock = 10;
+            int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+            int endPage = startPage + pageBlock - 1;
+            if (endPage > pageCount) endPage = pageCount;
+            req.setAttribute("listCount", listCount);
+			req.setAttribute("pageCount", pageCount);
+            req.setAttribute("startRow", startRow);
+            req.setAttribute("endRow", endRow);
+			req.setAttribute("startPage", startPage);
+			req.setAttribute("endPage", endPage);
+		}
+		return "accomodation/reservation_list";
+	}
+	@RequestMapping(value="/reservation_delete.do")
+	public String deleteReservation(HttpServletRequest req) throws Exception{
+		int num = Integer.parseInt(req.getParameter("num"));
+		int res = accomodationMapper.deleteReservation(num);
+		try {
+			if (res > 0) {
+				return "redirect:home.do";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
