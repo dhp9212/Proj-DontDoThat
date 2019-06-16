@@ -701,7 +701,7 @@
 					<!-- 비밀번호 및 통화 타이틀 -->
 					<div class="passwordAndCurrencyHead">
 						<div class="passwordAndCurrencyTitle">
-							<h1>비밀번호 및 통화</h1>
+							<h1>비밀번호</h1>
 						</div>
 					</div>
 					<!-- 비밀번호 및 통화 내용 -->

@@ -124,11 +124,19 @@
 	</select>
 	
 	<select id="checkEmail" resultType="AccountDTO" parameterType="String">
-		select * from ACCOUNT where email = #{email}
+		select A.*, B.name as countryName 
+		from ACCOUNT A 
+		INNER JOIN COUNTRY B
+		ON A.country = B.code_2
+		where email = #{email} 
 	</select>
 	
 	<select id="checkPassword" resultType="AccountDTO" parameterType="String">
-		select * from ACCOUNT where password = #{password}
+		select A.*, B.name as countryName 
+		from ACCOUNT A 
+		INNER JOIN COUNTRY B
+		ON A.country = B.code_2
+		where password = #{password}
 	</select>
 	
 </mapper>

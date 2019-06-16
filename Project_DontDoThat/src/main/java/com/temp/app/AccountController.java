@@ -76,13 +76,17 @@ public class AccountController {
 	public String password(HttpServletRequest req) {
 		String ret = "";
 		String email = req.getParameter("email");
+		
+		// get Account Data
 		AccountDTO dto = accountMapper.checkEmail(email);
-		if(dto == null) { 
+		
+		if(dto == null) {
+			// not exist email = not a member
 			String none = "없음";
 			req.setAttribute("emailCheckNone", none);
 			ret = "account/login";
 		}else {
-			System.out.println("is there:" + dto.getEmail());
+			// exist email = member
 			req.setAttribute("email", email);
 			req.getSession().setAttribute("dto", dto);
 			ret = "account/password";
@@ -102,7 +106,23 @@ public class AccountController {
 		AccountDTO dto = (AccountDTO)session.getAttribute("dto");
 				
 		if(dto.getPassword().equals(password)) {
+			
 			session.setAttribute("userSession", dto);
+			System.out.println(dto.getPayment());
+			// if credit card exist
+			if(dto.getPayment() != null) {
+				if(!dto.getPayment().equals("")) {
+					List<Card> cardList = new ArrayList<Card>();
+					String[] cards = dto.getPayment().split("#");
+					for(int i = 0; i < cards.length; i++) {
+						String[] cardElement = cards[i].split(",");
+						System.out.println("cardlength : " +cards.length);
+						cardList.add(new Card(cardElement[0], cardElement[1], cardElement[2]));
+					}
+					dto.setCardList(cardList);
+				}
+			}
+			
 			//자기 이름에 맞는 숙소 리스트 세션등록
 			session.setAttribute("accomodation_list", accomodationMapper.getAccomodation(dto.getNum()));
 			mv.setViewName("forward:/");
@@ -492,8 +512,11 @@ public class AccountController {
 		String payment = dto.getPayment();
 		
 		// if payment already exist add tokenizer /
-		if(payment != null && !payment.equals(""))
-			payment += "/";
+		if(payment != null) {
+			if(!payment.equals("")) {
+				payment += "#";
+			}
+		}
 		else {
 			payment = "";
 		}
