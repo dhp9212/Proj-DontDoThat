@@ -313,6 +313,8 @@
 				return false
 			}
 		}
+		var price = $('input[name="price"]').val()*1000
+		$('input[name="price"]').val(price)
 		alert('숙소를 무사히 등록했습니다.')
 		return true
 	}

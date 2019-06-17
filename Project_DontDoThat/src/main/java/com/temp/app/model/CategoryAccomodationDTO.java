@@ -5,6 +5,8 @@ public class CategoryAccomodationDTO {
 	private String name;
 	private String contents;
 	private String image;
+	private int category;
+	
 	public int getKey() {
 		return key;
 	}
@@ -29,6 +31,10 @@ public class CategoryAccomodationDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
+	public int getCategory() {
+		return category;
+	}
+	public void setCategory(int category) {
+		this.category = category;
+	}
 }
