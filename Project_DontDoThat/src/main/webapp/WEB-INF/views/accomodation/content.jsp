@@ -390,7 +390,65 @@ Whisper words of wisdom, let it be
 		<div id="rule"><h2>하우스 룰</h2></div>
 		<div class="panel panel-default">
  		 <div class="panel-body">
- 		 	${getAccomodationInfo.policy}
+ 		 	          <div class="panel-body" style="background-color: #CCCCCC">
+              <div class="row">
+                  <div class="col-sm-12" align="center">
+                     체크인 타임<br>
+                      <div class="checkin_progress">
+                        <div class="progress-bar">
+                        </div>
+                        <div class="progress-bar bg-success">
+                          ${getAccomodationInfo.checkin_date}
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12" align="center">
+                      체크아웃 타임<br>
+                      <div class="checkout_progress">
+                        <div class="progress-bar">
+                        </div>
+                        <div class="progress-bar bg-success">
+                          ${getAccomodationInfo.checkout_date}<br>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row" align="center"><br></div>
+              <div class="row" align="center">
+                  <div class="col-sm-3">
+                      예약 취소정책
+                  </div>
+                  <div class="col-sm-1">
+                      -
+                  </div>
+                  <div class="col-sm-8" id="cancel_policy">
+                      예약 취소정책
+                  </div>
+              </div>
+              <div class="row" align="center">
+                  <div class="col-sm-3">
+                      어린이 출입 정책
+                  </div>
+                  <div class="col-sm-1">
+                      -
+                  </div>
+                  <div class="col-sm-8" id="children_policy">
+                      예약 취소정책
+                  </div>
+              </div>
+              <div class="row" align="center">
+                  <div class="col-sm-3">
+                      애완동물 출입 정책
+                  </div>
+                  <div class="col-sm-1">
+                      -
+                  </div>
+                  <div class="col-sm-8" id="pet_policy">
+                      예약 취소정책
+                  </div>
+              </div>
  		 </div>
  		</div>
 	</div>
