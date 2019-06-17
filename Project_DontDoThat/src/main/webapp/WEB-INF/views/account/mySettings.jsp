@@ -151,6 +151,7 @@
 					}
 				}
 		        document.s4.submit()
+		        alert("비밀번호가 변경되었습니다.")
 			});
 	    	//신용카드 변경
 	    	$("#creditCardSave").click(function creditCardSave(){
@@ -697,7 +698,7 @@
 				</div>
 		
 			
-				<form name="s4" action="accountUpdate.do" method="post" enctype="multipart/form-data">
+				<form name="s4" action="accountUpdatePassword.do" method="post" enctype="multipart/form-data">
 					<!-- 비밀번호 및 통화 타이틀 -->
 					<div class="passwordAndCurrencyHead">
 						<div class="passwordAndCurrencyTitle">
