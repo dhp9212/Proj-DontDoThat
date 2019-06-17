@@ -36,15 +36,15 @@ public class AccomodationMapper {
         String accomodation_image = mr.getParameter("image");
         List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
         
-        //�씠踰� �벑濡앸룞�븞 �궗�슜�븷 留�, 移댁슫�꽣
+        //占쎌뵠甕곤옙 占쎈쾻嚥≪빖猷욑옙釉� 占쎄텢占쎌뒠占쎈막 筌랃옙, 燁삳똻�뒲占쎄숲
         Integer count = 0;
         Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
         String image = "";
         
         for(MultipartFile mf : accomodatation_files) {
-            //�뙆�씪�씠 �씠誘몄� ���엯�씠 �븘�땶寃쎌슦 �떎�쓬�뙆�씪濡�
+            //占쎈솁占쎌뵬占쎌뵠 占쎌뵠沃섎챷占� 占쏙옙占쎌뿯占쎌뵠 占쎈툡占쎈빒野껋럩�뒭 占쎈뼄占쎌벉占쎈솁占쎌뵬嚥∽옙
             if(!mf.getContentType().substring(0, 5).equals("image")) continue;
-            //�뙆�씪硫뷀꽣 媛� 遺꾩꽍�썑 諛붾�� 媛� 留듭뿉 ���옣  + �뙆�씪�벐湲�
+            //占쎈솁占쎌뵬筌롫�苑� 揶쏉옙 �겫袁⑷퐤占쎌뜎 獄쏅뗀占쏙옙 揶쏉옙 筌띾벊肉� 占쏙옙占쎌삢  + 占쎈솁占쎌뵬占쎈쾺疫뀐옙
             count = count+1;
             imageCheck(mf, accomodation_image, upPath, count, change_index);
         }
@@ -266,17 +266,23 @@ public class AccomodationMapper {
 		}
 	}
 	//
-	public List<AccomodationDTO> listAccomodation(String input_place, String start_date, String end_date, int startRow, int endRow){
+	public List<AccomodationDTO> listAccomodation(String input_place, String categoryName, String start_date, String end_date, int startRow, int endRow){
 		HashMap<String, String> map = new HashMap<String, String>();
 		String startRowStr = Integer.toString(startRow);
 		String endRowStr = Integer.toString(endRow);
-		map.put("startRow", startRowStr);
-		map.put("endRow", endRowStr);
 		map.put("input_place", input_place);
 		map.put("input_place_city", input_place);
 		map.put("start_date", start_date);
 		map.put("end_date", end_date);
-		List<AccomodationDTO> ret = sqlSession.selectList("listAccomodation", map);
+		map.put("startRow", startRowStr);
+		map.put("endRow", endRowStr);
+		List<AccomodationDTO> ret = null;
+		if(categoryName == null)
+			ret = sqlSession.selectList("listAccomodation", map);
+		else {
+			map.put("categoryName", categoryName);
+			ret = sqlSession.selectList("listAccomodationCategory", map);
+		}
 		return ret;
 	}
 	//
@@ -302,17 +308,23 @@ public class AccomodationMapper {
 	public AccomodationDTO getAccomodationInfo(int num) {
 		return sqlSession.selectOne("getAccomodationInfo", num);
 	}
-    //�닕�냼 媛��닔 媛��졇�삤湲�
-    public int getCount(String input_place, String start_date, String end_date) {
+    //
+    public int getCount(String input_place, String categoryName, String start_date, String end_date) {
         HashMap<String, String> map = new HashMap<String, String>();
-        System.out.println(input_place);
         map.put("input_place", input_place);
 		map.put("input_place_city", input_place);
         map.put("start_date", start_date);
         map.put("end_date", end_date);
-        System.out.println(map.get("input_place"));
-        System.out.println(map.get("input_place_city"));
-        return sqlSession.selectOne("getCount", map);
+        int ret = 0;
+        if(categoryName == null) {
+        	ret = sqlSession.selectOne("getCount", map);
+        }
+        else {
+        	map.put("categoryName", categoryName);
+        	ret = sqlSession.selectOne("getCountCategory", map);
+        }
+        
+        return ret;
     }
     
     public List<ReservationDTO> listReservation(int num, int startRow, int endRow) {

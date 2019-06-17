@@ -100,9 +100,28 @@
 			  	    from room 
 			  	    group by accomodation_num) B
 			  on A.num = B.accomodation_num
-			  where country = #{input_place} 
+			  where country = #{input_place}
 			  or city = #{input_place_city} 
-			  order by B.minprice)
+			  order by B.minprice
+			  )
+		where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="listAccomodationCategory" resultType="AccomodationDTO" parameterType="HashMap">
+		select * 
+		from (select rownum as rn, C.*
+			 from
+				 (select A.*, B.minprice 
+				  from accomodation A inner join
+				  	   (select min(price) as minprice, 
+				  	   		   accomodation_num 
+				  	    from room 
+				  	    group by accomodation_num) B
+				  on A.num = B.accomodation_num
+				  where country = #{input_place}
+				  or city = #{input_place_city} 
+				  order by B.minprice
+				  ) C 
+			  where C.category_accomodation = #{categoryName} ) 
 		where rn between #{startRow} and #{endRow}
 	</select>
     <select id="getAccomodationList" resultType="AccomodationDTO">
@@ -141,6 +160,13 @@
         select count(*) from accomodation 
         where country = #{input_place}
         or city = #{input_place_city}
+	</select>
+	<select id="getCountCategory" resultType="int" parameterType="HashMap">
+		select count(*) 
+		from (select * from accomodation 
+        	  where country = #{input_place}
+        	  or city = #{input_place_city})
+        where category_accomodation = #{categoryName}
 	</select>
 	<select id="getAccomodationInfo" parameterType="int" resultType="AccomodationDTO">
 		select * from accomodation where num = #{num}

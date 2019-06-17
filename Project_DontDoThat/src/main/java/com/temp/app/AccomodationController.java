@@ -42,8 +42,17 @@ public class AccomodationController {
 		String input_place = req.getParameter("input_place").trim();
 		String start_date = req.getParameter("start_date").trim();
 		String end_date = req.getParameter("end_date").trim();
+		String categoryName = req.getParameter("categoryName");
 
+		
 		req.getSession().setAttribute("input_place", input_place);
+		if(categoryName != null && categoryName.equals(""))
+			categoryName = null;
+		req.setAttribute("categoryName", categoryName);
+		
+		
+		
+		System.out.println("categoryName : " + categoryName);
 		
 		// if date does not exist, set today
 		if(start_date == null || start_date.equals("")) {
@@ -82,19 +91,21 @@ public class AccomodationController {
         int pageSize = 10;
         
         int startRow = (currentPage - 1) * pageSize + 1;
-        int listCount = accomodationMapper.getCount(input_place, start_date, end_date);
+        int listCount = accomodationMapper.getCount(input_place, categoryName, start_date, end_date);
         int endRow = currentPage * pageSize;
         
         if (endRow > listCount) endRow = listCount;
         ////////////////////////////////////////////////////
+        System.out.println(currentPage + " " + pageSize + " "+ listCount);
+        System.out.println("start = " + startRow + " end = " + endRow);
         
         // Accomodation list & Room list
-        List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, start_date, end_date, startRow, endRow);
+        List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, categoryName, start_date, end_date, startRow, endRow);
         for(int i = 0; i < list.size(); i++) {
         	List<RoomDTO> roomList = accomodationMapper.getRoomList(list.get(i).getNum(), start_date, end_date);
         	list.get(i).setRoomList(roomList);
         }
-        
+
         req.setAttribute("listAccomodation", list);
         ////////////////////////////////////////////////////
         
@@ -102,7 +113,6 @@ public class AccomodationController {
         for(int i = 0; i < list.size();i++) {
         	String[] temp = list.get(i).getImage().split(",");
         	coverImage.add(temp[0]);
-        	System.out.println(temp[0]);
         }
         req.setAttribute("coverImage", coverImage);
         
