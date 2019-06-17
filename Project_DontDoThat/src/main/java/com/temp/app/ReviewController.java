@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,18 +14,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.temp.app.model.AccountDTO;
 import com.temp.app.model.GradeDTO;
+import com.temp.app.model.ReservationDTO;
 import com.temp.app.model.ReviewDTO;
 import com.temp.app.model.ReviewGradeDTO;
+import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.ReviewMapper;
 
 @Controller
 public class ReviewController {
 	@Autowired
 	private ReviewMapper reviewMapper;
+	@Autowired
+	private AccomodationMapper accomodationMapper;
 	
 	@RequestMapping(value="/reviewMain.do")
-	public String reviewMain() throws Exception{
+	public String reviewMain(HttpServletRequest req) throws Exception{
+		HttpSession session = req.getSession();
+	    AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+	    int num = dto.getNum();   
+        List<ReservationDTO> listReservation = accomodationMapper.listReservation(num);
+        System.out.println(listReservation.size());
+        req.setAttribute("listReservation", listReservation);
+        
 		return "review/main";
 	}
 	@RequestMapping(value="/reviewList.do")
@@ -39,12 +52,13 @@ public class ReviewController {
 		return "review/list";
 	}
 	@RequestMapping(value="/reviewWrite.do")
-	public String reviewWrite() throws Exception{
+	public String reviewWrite(HttpServletRequest req) throws Exception{
 		return "review/write";
 	}
 	@RequestMapping(value="/reviewWritePro.do")
 	public String reviewWritePro(HttpServletRequest req,
 			@ModelAttribute ReviewDTO dto, @ModelAttribute GradeDTO dto1, BindingResult result) throws Exception {
+		HttpSession session = req.getSession();
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
 		List<MultipartFile> mf = mr.getFiles("myimage");
 		
@@ -57,27 +71,32 @@ public class ReviewController {
 		}
 		image = image.substring(0, image.length() -1);
 		dto.setImage(image);
-		dto.setWriter("Å×½ºÆ®");
+		AccountDTO user = (AccountDTO)session.getAttribute("userSession");
+		String writer = user.getNickName();
+		if(writer == null) {
+			dto.setWriter("ìµëª…");
+		}else {
+			dto.setWriter(writer);
+		}
 		dto.setIp(req.getRemoteAddr());
-		String msg = null, url = null;
+		String msg = null;
 		try {
 		int review = reviewMapper.insertReview(dto);
 		dto1.setReview(review);
 		int res = reviewMapper.insertGrade(dto1);
 			if(res > 0) {
-				msg = "¸®ºä ÀÛ¼º ¼º°ø!";
-				url = "reviewMain.do";
+				accomodationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
+				msg = "ë¦¬ë·° ì‘ì„± ì„±ê³µ!";
 			}else {
-				msg = "¸®ºä ÀÛ¼º ½ÇÆĞ!";
-				url = "reviewMain.do";
+				msg = "ë¦¬ë·° ì‘ì„± ì‹¤íŒ¨!";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
-			url = "start.app";
+			req.setAttribute("msg", "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”");
+			req.setAttribute("url", "start.app");
+			return "message";
 		}
 		req.setAttribute("msg", msg);
-		req.setAttribute("url", url);
-		return "message";
+		return "popupclose";
 	}
 }

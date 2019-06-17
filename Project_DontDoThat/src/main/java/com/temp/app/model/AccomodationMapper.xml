@@ -151,7 +151,8 @@
 				#{rooms, jdbcType=INTEGER}, 
 				#{adults, jdbcType=INTEGER}, 
 				#{children, jdbcType=INTEGER}, 
-				#{payment, jdbcType=VARCHAR})
+				#{payment, jdbcType=VARCHAR},
+				#{check_review, jdbcType=VARCHAR})
 	</insert>
 	<delete id="deleteReservation" parameterType="int">
 		delete from reservation where num = #{num}

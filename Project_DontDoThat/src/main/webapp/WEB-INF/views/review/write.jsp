@@ -28,9 +28,41 @@
    .starR2.on{
   	background-position:-14 0;
   } 
+  .mybutton23 {
+           display: inline-block;
+           width: 100px;
+           text-align: center;
+           line-height: 20px;
+           padding: 8px;
+           background-color: #0898FF;
+           color: #fff;
+           text-decoration: none;
+           border-radius: 5px;
+    }
 </style>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
-	<script>			 
+	<script>
+		function writeReview(){
+			if(f.subject.value==""){
+				alert("제목을 입력해주세요!");
+				return false;
+			}
+			if(f.content_p.value=="" || f.content_m.value==""){
+				alert("내용을 입력해주세요!");
+				return false;
+			}
+			if(f.myimage.value==""){
+				alert("사진을 넣어주세요!")
+				return false;
+			}
+			if(f.clean.value=="" || f.comfortable.value=="" || f.location.value=="" ||
+					f.facilities.value=="" ||f.kind.value=="" ||f.value.value=="" ||
+					f.wifi.value=="" ||f.clean.value==""){
+				alert("평점이 정확하게 입력되지 않았습니다.");
+				return false;
+			}
+			document.f.submit();
+		}
 	$(document).ready(function(){
 		$('.starRev_1 span').click(function(){
 			  $(this).parent().children('span').removeClass('on');
@@ -92,26 +124,27 @@
 	</script>
 <div align="center">
 	<form name="f" action="reviewWritePro.do" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="accommodation" value="text">
-		<input type="hidden" name="lodge_date" value="19/05/22">
-		<table border="1" width="500">
-			<tr bgcolor="yellow">
-				<td colspan="2" align="center">이용후기 작성</td>
+		<input type="hidden" name="reservation_num" value="${param.reservation_num}">
+		<input type="hidden" name="accommodation" value="${param.accomodation_num}">
+		<input type="hidden" name="lodge_date" value="${param.lodge_date}">
+		<table style="border:1px solid #BDBDBD;" width="500">
+			<tr bgcolor="#003580">
+				<td colspan="2" align="center"><font color="white">이용후기 작성</font></td>
 			</tr>
 			<tr>
-				<th bgcolor="yellow" width="20%">제목</th>
+				<th bgcolor="#003580" width="20%"><font color="white">제목</font></th>
 				<td><input type="text" name="subject" size="50" class="box"></td>
 			</tr>
 			<tr>
-				<th bgcolor="yellow" width="20%">내용+</th>
+				<th bgcolor="#003580" width="20%"><font color="white">내용+</font></th>
 				<td><textarea name="content_p" rows="8" cols="50" class="box"></textarea></td>
 			</tr>
 			<tr>
-				<th bgcolor="yellow" width="20%">내용-</th>
+				<th bgcolor="#003580" width="20%"><font color="white">내용-</font></th>
 				<td><textarea name="content_m" rows="8" cols="50" class="box"></textarea></td>
 			</tr>
 			<tr>
-				<th bgcolor="yellow" width="20%">이미지 첨부</th>
+				<th bgcolor="#003580" width="20%"><font color="white">사진 첨부</font></th>
 				<td><input type="file" name="myimage" multiple></td>
 			</tr>
 		</table>
@@ -147,6 +180,6 @@
 		</td></tr>
 	</c:forEach>	
 </table>
-	<input type="submit" value="작성">
+	<a href="javascript:writeReview();" class="mybutton23">전송</a>
 </form>
 </div>

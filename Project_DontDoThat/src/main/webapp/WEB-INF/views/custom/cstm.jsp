@@ -3,9 +3,9 @@
 <%@ include file="../top.jsp" %>
 <style>
 	body {
-	  height: 100vh;
+	  height: 200vh;
 	  margin: 0;
-	  background: linear-gradient(#547BB3 40%, #EBF1FA 30%);
+	  background: linear-gradient(#547BB3 20%, #EBF1FA 40%);
 	}
 	#f th, td
 	{
@@ -14,6 +14,10 @@
 	  background-color: white;
 	}
 	#f {
+	  border-spacing: 0px 10px;
+	  border-collapse: separate;
+	}
+	.cc3{
 	  border-spacing: 0px 10px;
 	  border-collapse: separate;
 	}
@@ -36,6 +40,17 @@
 	  height: 0.3em;
 	  margin-top: 20px;
 	}
+	 .mybutton23 {
+           display: inline-block;
+           width: 190px;
+           text-align: center;
+           line-height: 20px;
+           padding: 8px;
+           background-color: #0898FF;
+           color: #fff;
+           text-decoration: none;
+           border-radius: 5px;
+    }
 /* .arr-right {transform:rotate(-45deg);  -webkit-transform:rotate(-45deg);}
 .arr-left  {transform:rotate(135deg);  -webkit-transform:rotate(135deg);} */
 .arr-up    {transform:rotate(-135deg); -webkit-transform:rotate(-135deg);}
@@ -45,6 +60,40 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
    <script type="text/javascript">
+   		function sendMessage(){
+   			if(f8.reservation.value=="fc2"){
+   				alert("예약번호를 선택해주세요!");
+   				return false;
+   			}
+   			if(f8.name.value==""){
+   				alert("이름을 입력해주세요!");
+   				return false;
+   			}
+   			if(f8.email.value==""){
+   				alert("이메일을 입력해주세요!");
+   				return false;
+   			}
+   			if(f8.content.value==""){
+   				alert("내용을 입력해주세요!");
+   				return false;
+   			}
+   			document.f8.submit();
+   		}
+   		function writeMessage(){
+   			if(f6.name.value==""){
+   				alert("이름을 입력해주세요!");
+   				return false;
+   			}
+   			if(f6.email.value==""){
+   				alert("이메일을 입력해주세요!");
+   				return false;
+   			}
+   			if(f6.content.value==""){
+   				alert("내용을 입력해주세요!");
+   				return false;
+   			}
+   			document.f6.submit();
+   		}
        $(document).ready(function() {
     	   $(".region").show();
            $("#a").hide();
@@ -169,8 +218,40 @@
 			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
 				<img src='<%=request.getContextPath()%>/resources/img/icon3.png' width="60px" style="vertical-align:middle">
 			</td>
-			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><font class="font1">숙소에 문의하기</font><br>
-				<font class="font2">숙박 관련 문의사항은 일반적으로 숙소 측에서 가장 정확하게 안내해드릴 수 있습니다.</font>></td>
+			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="c"><font class="font1">숙소에 문의하기</font></span><br>
+				<font class="font2">숙박 관련 문의사항은 일반적으로 숙소 측에서 가장 정확하게 안내해드릴 수 있습니다.</font>
+				<div id="c">
+				<form name="f8" action="write_customer_message.do" method="post">
+						<table class="cc3" width="100%">
+							<tr>
+								<td>
+									<select name="reservation" style="background-color:#E9F0FA; width:300px;">
+											<option value="fc2">예약 번호 선택</option>
+										<c:forEach var="ff3" items="${listReservation}">
+											<option value="${ff3.num}%${ff3.accomodation_num}%${ff3.accomodation_name}">${ff3.num}</option>
+										</c:forEach>
+									</select>
+								</td>
+								<td>
+									<input type="text" name="tel" placeholder="전화번호(선택)" style="background-color:#E9F0FA; width:300px;">
+								</td>
+							</tr>
+							<tr>
+								<td><input type="text" name="name" placeholder="이름" style="background-color:#E9F0FA; width:300px;"></td>
+								<td><input type="text" name="email" placeholder="이메일" style="background-color:#E9F0FA; width:300px;"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><textarea name="content" cols="100" rows="4"
+											placeholder="메시지를 입력하세요. 정보가 자세할수록 답변이 빠릅니다!"></textarea></td>
+							</tr>
+							<tr>
+								<td colspan="2" height="70px" align="right" valign="bottom"><a style="color:white;"
+											class="mybutton23" href="javascript:sendMessage();">전송</a></td>
+							</tr>
+						</table>
+					</form>
+				</div>		
+			</td>
 			<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="c"><i id="c_arrow"class="arr-down"></i></span></td>
 		</tr>
 		<tr>
@@ -181,30 +262,31 @@
 				<font class="font1">문의하기</font><br>
 				<font class="font2">문의하기</font></span>
 				<div id="d">
-					급하지 않은 사안일 경우 메시지로 문의하시면 편리합니다
-					<table border="1">
-						<tr>
-							<td colspan="2"><b>참고</b><br>
-							자주 묻는 질문에 대한 답변은 셀프 서비스 도구를 이용해 더 빠르고 쉽게 찾아보실 수 있습니다.
-							그 뒤에도 궁금한 점이 남아있는 경우 언제든 저희 고객 서비스 팀에게 문의해주시기 바랍니다.
-							</td>
-						</tr>
-						<tr>
-							<td><input type="text" value="예약 번호(권장)"></td>
-							<td><input type="text" value="PIN 코드"></td>
-						</tr>
-						<tr>
-							<td><input type="text" value="이름"></td>
-							<td><input type="text" value="이메일"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input type="text" value="전화번호(선택)"></td>
-						</tr>
-						<tr>
-							<td><textarea rows="8" cols="50" class="box">메시지를 입력하세요. 정보가 자세할수록 답변이 빠릅니다!</textarea>
-						</tr>
-					</table>
-					<input type="submit" value="전송">
+					<font size="4" style="font-weight:bold;">급하지 않은 사안일 경우 메시지로 문의하시면 편리합니다</font>
+					<form name="f6" action="write_customerService.do" method="post">
+						<table class="cc3" border="1">
+							<tr>
+								<td colspan="2" style="border:1px solid #01DF01; background-color:#EFFBEF;"><b>참고</b><br>
+								자주 묻는 질문에 대한 답변은 셀프 서비스 도구를 이용해 더 빠르고 쉽게 찾아보실 수 있습니다.
+								그 뒤에도 궁금한 점이 남아있는 경우 언제든 저희 고객 서비스 팀에게 문의해주시기 바랍니다.
+								</td>
+							</tr>
+							<tr>
+								<td><input type="text" name="num" placeholder="예약 번호(권장)" style="background-color:#E9F0FA; width:300px;"></td>
+								<td><input type="text" name="tel" placeholder="전화번호(선택)" style="background-color:#E9F0FA; width:300px;"></td>
+							</tr>
+							<tr style="border:1px solid #BDBDBD;">
+								<td><input type="text" name="name" placeholder="이름" style="background-color:#E9F0FA; width:300px;"></td>
+								<td><input type="text" name="email" placeholder="이메일" style="background-color:#E9F0FA; width:300px;"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><textarea name="content" rows="4" cols="100" class="box" placeholder="메시지를 입력하세요. 정보가 자세할수록 답변이 빠릅니다!"></textarea>
+							</tr>
+							<tr>
+								<td colspan="2" align="right"><a href="javascript:writeMessage();" class="mybutton23">전송</a></td>
+							</tr>
+						</table>
+					</form>
 				</div>
 			</td>
 			<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="d"><i id="d_arrow"class="arr-down"></i></span></td>

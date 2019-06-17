@@ -18,6 +18,20 @@ public class ReservationDTO {
 	private int children;
 	private String payment;
 	private String accomodation_name;
+	private int check_review;
+	
+	public int getCheck_review() {
+		return check_review;
+	}
+	public void setCheck_review(int check_review) {
+		this.check_review = check_review;
+	}
+	public String getAccomodation_name() {
+		return accomodation_name;
+	}
+	public void setAccomodation_name(String accomodation_name) {
+		this.accomodation_name = accomodation_name;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -113,11 +127,5 @@ public class ReservationDTO {
 	}
 	public void setPayment(String payment) {
 		this.payment = payment;
-	}
-	public String getAccomodation_name() {
-		return accomodation_name;
-	}
-	public void setAccomodation_name(String accomodation_name) {
-		this.accomodation_name = accomodation_name;
 	}
 }
