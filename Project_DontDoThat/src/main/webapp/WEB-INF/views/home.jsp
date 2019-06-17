@@ -9,8 +9,8 @@
 		<form name="search_form" method="post" action="accomodation_list.do">
 			<div>
 				<input autocomplete="off" id="input_place" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:60%; height:50px;">
-			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
-			    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
+			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0" readonly>
+			    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0" readonly>
 				<!-- <input autocomplete="off" name="people" id="people_form" type="text" placeholder="성인:2명 · 아동:1명 · 객실:1개" style="width:20%; height:50px;" size="0" >
 				<input type="hidden" name="adult">
 				<input type="hidden" name="child">
@@ -63,15 +63,11 @@
 										<div class="caption">
 											<!-- <h3><a href="#">내 집</a></h3> -->
 											<p>${cityListShuffled[i].city }</p>
-	
 										</div>
 									</article>
 								</c:forEach>
-							</div>
-
-					</section>
-					
-					
+						</div>
+	</section>
 	<div id="location-wrapper" >
 			<section class="wrapper location_layer1 align-center">
 						<!-- Gallery -->

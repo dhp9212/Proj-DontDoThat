@@ -132,11 +132,11 @@
 			<div class="col-lg-12">여행지/숙소 이름</div>
 			<div class="col-lg-12"><input type="text" id="input_place" name="input_place" autocomplete="off" value="${input_place}"></div>
 			<div class="col-lg-12">체크인 날짜</div>
-			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }"></div>
+			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }" readonly></div>
 			<div class="col-lg-12">체크아웃 날짜</div>
-			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }"></div>
+			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }" readonly></div>
 			<div class="col-lg-12 days">1박 선택</div>
-			<div class="col-lg-12">
+			<!-- <div class="col-lg-12">
 				<select name="adult">
 				<option value="1">성인 1명</option>
 				<option value="2">성인 2명</option>
@@ -179,7 +179,7 @@
 				<option value="9">객실 9개</option>
 				<option value="10">객실 10개</option>
 				</select>
-			</div>
+			</div> -->
 			<div class="col-lg-12">&nbsp;</div>
 			<div class="col-lg-12"><input type="button" value="검색" style="width:100%; height:50px;" onclick="javascript:search_form.submit()"></div>
 			</form>
