@@ -12,26 +12,24 @@
 		<c:forEach var="dto" items="${listReservation}" varStatus="status">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<form name="cancel" action="reservation_delete.do" method="post">
-			<input type="hidden" name="num" value="${dto.num}" />
-			<div class="col-lg-6">
+			<div class="col-lg-4">
 				<div class="row">
-					<div class="col-lg-6"><h3>숙소 이름</h3></div><br>
-					<div class="col-lg-6">${dto.payment}</div>
+					<div class="col-lg-4"><h3>${dto.accomodation_name}</h3></div><br>
+					<div class="col-lg-4">${dto.payment}</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
-				<div class="col-lg-6">
-					<div class="col-lg-3" align="center">체크인</div>
-					<div class="col-lg-3" align="center">체크아웃</div>
+			<div class="col-lg-8">
+				<div class="col-lg-8">
+					<div class="col-lg-4" align="center">체크인</div>
+					<div class="col-lg-4" align="center">체크아웃</div>
 				</div><br>
-				<div class="col-lg-6">
-					<div class="col-lg-3" align="center">${dto.checkIn_date}</div>
-					<div class="col-lg-3" align="center">${dto.checkOut_date}</div>
+				<div class="col-lg-8">
+					<div class="col-lg-4" align="center">${dto.checkIn_date}</div>
+					<div class="col-lg-4" align="center">${dto.checkOut_date}</div>
 				</div><br>
-				<div class="col-lg-6">
-					<div class="col-lg-6" align="center">
-						<button type="button" class="btn btn-primary" onclick="javascript:check();">예약 취소</button>
+				<div class="col-lg-8">
+					<div class="col-lg-8" align="center">
+						<button type="button" class="btn btn-primary" onclick="javascript:check(${dto.num});">예약 취소</button>
 					</div>
 				</div>
 			</div>
@@ -39,8 +37,6 @@
 		</div>
 	</div>
 		</c:forEach>
-	</c:otherwise>
-</c:choose>
 	<div>
 <c:if test="${listCount > 0}">
 	<c:if test="${startPage > pageBlock}">
@@ -54,10 +50,12 @@
 	</c:if>
 	</div>
 </c:if>
+	</c:otherwise>
+</c:choose>
 </div>
 	<script type="text/javascript">
-	function check() {
-		document.cancel.submit();
+	function check(num) {
+		location.href = "reservation_delete.do?num="+num
 		alert("예약이 취소되었습니다.")
 	}
 	</script>

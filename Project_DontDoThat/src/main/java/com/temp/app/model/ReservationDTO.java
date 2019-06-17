@@ -17,6 +17,7 @@ public class ReservationDTO {
 	private int adults;
 	private int children;
 	private String payment;
+	private String accomodation_name;
 	public int getNum() {
 		return num;
 	}
@@ -112,5 +113,11 @@ public class ReservationDTO {
 	}
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+	public String getAccomodation_name() {
+		return accomodation_name;
+	}
+	public void setAccomodation_name(String accomodation_name) {
+		this.accomodation_name = accomodation_name;
 	}
 }

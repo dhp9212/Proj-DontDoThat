@@ -149,7 +149,7 @@
         select * from room
     </select>
     <select id="listReservation" resultType="ReservationDTO" parameterType="Map">
-        select * from (select rownum rn, A.* from reservation A where account_num = #{num}) 
+        select * from (select rownum rn, A.*, B.accomodation_name from reservation A, accomodation B where A.account_num = #{num} and A.accomodation_num = B.num) 
         where rn between ${startRow} and ${endRow}
     </select>
     <select id="getCountReservation" resultType="int" parameterType="int">
