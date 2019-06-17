@@ -75,7 +75,7 @@
 				price,
 				room_facility,
 				room_image,
-				qty-(select count(*)
+				qty-(select NVL(sum(rooms),0)
 					 from reservation
 					 where accomodation_num = #{num}
 					 and room_num = A.num
