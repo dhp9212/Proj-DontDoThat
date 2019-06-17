@@ -5,7 +5,7 @@
 <div class="col-lg-12">
 	<div class="col-lg-12"><h1>예약</h1></div>
 <c:choose>
-	<c:when test="${empty listReservation}">
+	<c:when test="${empty listCount}">
 	<div class="col-lg-12" align="center">예약하신 숙소가 없습니다.</div>
 	</c:when>
 	<c:otherwise>
@@ -37,25 +37,25 @@
 		</div>
 	</div>
 		</c:forEach>
-	<div>
+	<div>페이지 : 
 <c:if test="${listCount > 0}">
 	<c:if test="${startPage > pageBlock}">
 		<a href="reservation_list.do?num=${userSession.num}&pageNum=${startPage - 1}" title="이전 페이지"><</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		페이지 : <a href="reservation_list.do?num=${userSession.num}&pageNum=${i}"><c:out value="${i}" /></a>
+		<a href="reservation_list.do?num=${userSession.num}&pageNum=${i}"><c:out value="${i}" /></a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
 		<a href="reservation_list.do?num=${userSession.num}&pageNum=${startPage + pageBlock}" title="다음 페이지">></a>
 	</c:if>
-	</div>
 </c:if>
+	</div>
 	</c:otherwise>
 </c:choose>
 </div>
 	<script type="text/javascript">
 	function check(num) {
-		location.href = "reservation_delete.do?num="+num
+		location.href = "reservation_delete.do?num=" + num
 		alert("예약이 취소되었습니다.")
 	}
 	</script>

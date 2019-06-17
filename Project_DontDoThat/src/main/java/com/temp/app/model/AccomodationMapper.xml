@@ -179,6 +179,6 @@
         where rn between ${startRow} and ${endRow}
     </select>
     <select id="getCountReservation" resultType="int" parameterType="int">
-        select count(*) from reservation where account_num = #{num}
+        select count(*) from (select A.*, B.accomodation_name from reservation A, accomodation B where A.account_num = #{num} and A.accomodation_num = B.num)
     </select>
 </mapper>

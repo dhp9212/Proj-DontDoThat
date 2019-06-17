@@ -37,7 +37,7 @@ public class AccountController {
 	@Autowired
 	private StandardInformationMapper standardInformationMapper;
 	@Autowired
-	 private JavaMailSender mailSender;
+	private JavaMailSender mailSender;
 	
 	@RequestMapping(value = "/signUp.do")
 	public String signUpForm() {//È¸¿ø °¡ÀÔ Æû
