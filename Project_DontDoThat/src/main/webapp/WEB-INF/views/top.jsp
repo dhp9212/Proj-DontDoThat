@@ -53,7 +53,7 @@
 						</c:if>
 						<c:if test="${userSession != null}">
 						<li><a href="insertRoom.do">내 숙소 등록</a></li>
-						<img style="width:50px; height:50px;" src="${pageContext.request.contextPath}/resources/img/profileImage/${userSession.profilePhoto}">
+						<img style="width:50px; height:50px;" src="<%=request.getContextPath()%>/resources/img/profileImage/${userSession.profilePhoto}">
 						<li id="myAccount" style=""><a href="#">나의 계정</a>
 							<ul>
 								<li><a href="mySettings.do">마이페이지</a></li>
@@ -62,7 +62,6 @@
 							</c:if>
 								<li><a href="reservation_list.do?num=${userSession.num}">예약</a></li>
 								<li><a href="reviewMain.do">이용 후기</a></li>
-								<li><a href="myList.do">마이리스트</a></li>
 								<li><a href="customerService.do">고객 서비스 지원</a></li>
 								<li><a href="logoutOk.do">로그 아웃</a></li>
 							</ul>

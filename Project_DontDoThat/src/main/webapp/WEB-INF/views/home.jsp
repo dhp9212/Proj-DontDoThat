@@ -165,17 +165,10 @@
 		<input type="hidden" id="banner_input_place" name="input_place" value="">
 		<input type="hidden"  name="start_date" value="">
 		<input type="hidden"  name="end_date" value="">
-		<input type="hidden" name="adult">
-		<input type="hidden" name="child">
-		<input type="hidden" name="room">
 	</form>
 	
-	<!-- Footer -->
-	<div class="footer-wrapper">
-					<footer class="wrapper style1 align-center">
-						All Right Reserved. 
-					</footer>
-	</div>
+	<%@ include file="bottom.jsp" %>
+	
 
 			<!-- Scripts -->
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
