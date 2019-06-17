@@ -148,4 +148,10 @@
 		where password = #{password} -->
 	</select>
 	
+	<!-- 임시 비밀번호 생성 -->
+	<update id="updateTemporaryPassword" parameterType="AccountDTO">
+		update account
+		set password = #{password, jdbcType=VARCHAR}
+		where num = #{num}
+	</update>
 </mapper>

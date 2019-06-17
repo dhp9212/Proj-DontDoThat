@@ -26,7 +26,7 @@ public class AccountMapper {
 		return sqlSession.selectOne("getAccountByDTO", dto);
 	}
 	
-	public List<AccountDTO> memberList(){
+	public List<AccountDTO> memberList() {
 		return sqlSession.selectList("memberList");
 	}
 	
@@ -91,6 +91,11 @@ public class AccountMapper {
 	
 	public void updatePayment(AccountDTO dto) {
 		sqlSession.update("updatePayment", dto);
+	}
+	
+	//임시 비밀번호 생성
+	public void updateTemporaryPassword(AccountDTO dto) {
+		sqlSession.update("updateTemporaryPassword", dto);
 	}
 	
 //	protected List<AccountDTO> makeList(){

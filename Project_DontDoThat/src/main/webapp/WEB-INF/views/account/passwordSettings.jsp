@@ -73,13 +73,9 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button value=":">
-						:
-					</button>
 					<div class="center_top-setPassword">
 						<div>
-							<h4>비밀번호 설정</h4>
+							<h1>비밀번호 설정</h1>
 						</div>
 						<div>
 							<p>
@@ -112,40 +108,33 @@
 						</div>
 						<div>
 							<button id="start" name="signUpButton" onclick="javascript:passwordCheck()">회원 가입</button>
-						</div>
+						</div><br>
+						<div>
+							DDT.com 계정이 이미 있으신가요?<br>
+							<a href="login.do">로그인</a>
+						</div><br>
 						</form>
 					</div>
 				</div>
 			</div>
 			
 			<div class="center_bottom">
-				<div class="">
-				DDT.com 계정이 이미 있으신가요?
+				<div>
+					<p>로그인 하거나 회원으로 가입하시면 당사 
+						<a href="terms.do">이용약관</a>
+						 및 
+						<a href="privacy.do">개인정보 보호 정책</a>
+						에 동의하시는 것으로 간주됩니다.	
+					</p>
 					<div>
-						<a href="login.do">로그인</a>
-						<div>
-							<p>로그인 하거나 회원으로 가입하시면 당사 
-								<a href="terms.do">이용약관</a>
-								 및 
-								<a href="privacy.do">개인정보 보호 정책</a>
-								에 동의하시는 것으로 간주됩니다.	
-							</p>
-							<div>
-								<p>
-									<a href="">DDT.com 비즈니스</a>
-									를 들어보셨나요?
-								</p>
-								<p>
-									DDT.com에서 숙소를 제공해보세요! 
-									<a href="">내 숙소 등록</a>
-								</p>
-								<div>
-									<p>
-										한국어(언어 설정 부분)
-									</p>
-								</div>
-							</div>
-						</div>
+						<p>
+							<a href="">DDT.com 비즈니스</a>
+							를 들어보셨나요?
+						</p>
+						<p>
+							DDT.com에서 숙소를 제공해보세요! 
+							<a href="">내 숙소 등록</a>
+						</p>
 					</div>
 				</div>
 			</div>

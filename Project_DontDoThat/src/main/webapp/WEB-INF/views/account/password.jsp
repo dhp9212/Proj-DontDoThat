@@ -21,6 +21,12 @@
 				return false;
 			}
 		});
+		
+		$(document).ready(function(){
+			$("#temporaryPassword").click(function temporaryPassword(){
+			alert("고객님의 이메일로 임시 비밀번호를 발송 했습니다.")
+			});
+		});
 	</script>
 	<style type="text/css">
 		div.center_content{
@@ -56,63 +62,41 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button value=":">
-					:
-				</button>
 			</div>
 		
 			<!-- 이메일 주소 입력, 다음 버튼, facebook 버튼, google 버튼, naver 버튼, 회원가입으로 이동 -->
 			<div id="center_center">
-				<h4>로그인</h4>
+				<h1>로그인</h1>
 				<p id="guide">다음 Booking.com 계정에 대한 비밀번호를 입력하세요.<br>
 					<strong>${email}</strong>
 				</p>
-			<form name="f" action="loginOk.do" method="post">
-				<div id="center_password">
-					<div>
-						<label>DDT.com 비밀번호</label>
-					</div>
-					<input type="password" name="password">
-				</div>
-				<div class="emailAndPasswordAreDifferent">
-					이메일 주소와 비밀번호의 조합이 일치하지 않습니다.
-				</div>
-				<input id="start" type="submit" value="로그인"/>
-				<div id="center_bottom">
-				 - 또는 클릭 한번으로 로그인 - 
-					<div id="center_access">
-						<a id="fb" href="">facebook</a>
-						<a id="gg" href="">google</a>
-						<a id="nv" href="">naver</a>
-					</div>
-					<div>
-						<a href="#">비밀번호를 잊으셨나요?</a>
-					</div>
-				</div>
-			</form>
-			</div>
-		</div>
-		
-		<div class="bottom_content">		
-			<div class="">
-				<div>					
-					<div>
-						<p>로그인 하거나 회원으로 가입하시면 당사 
-							<a href="terms.do">이용약관</a>
-							 및 
-							<a href="privacy.do">개인정보 보호 정책</a>
-							에 동의하시는 것으로 간주됩니다.	
-						</p>
+				<form name="f" action="loginOk.do" method="post">
+					<div id="center_password">
 						<div>
-							<div>
-								<p>
-									한국어(언어 설정 부분)
-								</p>
-							</div>
+							<label>DDT.com 비밀번호</label>
+						</div>
+						<input type="password" name="password">
+					</div>
+					<div class="emailAndPasswordAreDifferent">
+						이메일 주소와 비밀번호의 조합이 일치하지 않습니다.
+					</div>
+					<input id="start" type="submit" value="로그인"/><br><br>
+					<div id="center_bottom">
+						<div>
+							<a href="temporaryPassword.do" id="temporaryPassword" onkeypress="JavaScript:press(this.form)">비밀번호를 잊으셨나요?</a>
 						</div>
 					</div>
-				</div>
-			</div>		
+				</form>
+			</div><br>
+		</div>
+		
+		<div class="bottom_content">			
+			<p>로그인 하거나 회원으로 가입하시면 당사 
+				<a href="terms.do">이용약관</a>
+				 및 
+				<a href="privacy.do">개인정보 보호 정책</a>
+				에 동의하시는 것으로 간주됩니다.	
+			</p>
 		</div>
 	</div>
 </body>

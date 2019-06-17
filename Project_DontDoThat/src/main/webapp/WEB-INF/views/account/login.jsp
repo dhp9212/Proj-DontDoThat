@@ -68,6 +68,10 @@
 		color : red;
 		display : none;
 		}
+		#backButton{
+		align : left;
+		}
+		
 	</style>
 </head>
 <body>
@@ -77,20 +81,16 @@
 		<div class="center_content">
 			<!-- 뒤로가기, 로그인, 메뉴 -->
 			<div id="center_top">
-				<input type="button" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="backButton" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a>DDT.com Account</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button value=":">
-					:
-				</button>
 			</div>
 		
 			<!-- 이메일 주소 입력, 다음 버튼, facebook 버튼, google 버튼, naver 버튼, 회원가입으로 이동 -->
 			<div id="center_center">
-				<h4>로그인</h4>
+				<h1>로그인</h1>
 				<p id="guide">DDT.com 계정으로 로그인하여 서비스를 이용하실 수 있습니다.</p>
 			<form name="l" action="password.do" method="post" >
 				<div id="center_email">
@@ -108,18 +108,13 @@
 					</div>
 				</div>
 				<input id="start" name="next" type="button" value="다음" title="nextButton" onclick="javascript:emailCheck()"/>
+				<br><br>
 				<div id="center_bottom">
-				 - 또는 클릭 한번으로 로그인 - 
-					<div id="center_access">
-						<a id="fb" href="">facebook</a>
-						<a id="gg" href="">google</a>
-						<a id="nv" href="">naver</a>
-					</div>
 					<div>
 						<label>${emailCheckNone}</label>
 						<label>아직 계정이 없으신가요? <a href="signUp.do">가입하기</a></label>
 					</div>
-				</div>
+				</div><br>
 			</form>
 			</div>
 		</div>
@@ -134,13 +129,6 @@
 							<a href="privacy.do">개인정보 보호 정책</a>
 							에 동의하시는 것으로 간주됩니다.	
 						</p>
-						<div>
-							<div>
-								<p>
-									한국어(언어 설정 부분)
-								</p>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>		

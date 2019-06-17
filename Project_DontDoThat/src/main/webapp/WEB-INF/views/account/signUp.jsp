@@ -87,15 +87,6 @@
 			});
 	</script>
 	<style type="text/css">
-	
-     	div#center_content{
-     	width:400px;
-     	height:auto;
-     	
-     	border:1px solid red;
-     	overflow:auto;
-     	
-     	}
      	#center_center{
      	width:400px;
      	height:auto;
@@ -148,29 +139,15 @@
 <body>
 <input type="hidden" name="hasEmail" value="${hasEmail}">
 	<div align="center" id="backGround">
-		<div id="center_content">
+		<div id="center_center">
 			<div id="center_top">
 				<input type="button" name="goBack" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="login.do">DDT.com Account</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button value=":">
-					:
-				</button>	
-				<!-- <div>
-					<ul class="dropdown_menu" style="display:block;">
-						<li><a href="login.do">로그인</a></li>
-						<li><a href="privacy.do">개인정보 보호정책</a></li>
-						<li><a href="terms.do">이용약관</a></li>
-						<li><a href="close">닫기</a></li>
-					</ul>
-				</div> -->
 			</div>
-		</div>
-		<div id="center_center">
-			<h4>회원 가입</h4>
+			<h1>회원 가입</h1>
 			<p id="guide">회원으로 가입하여 DDT.com 서비스를 간편하게 이용하세요.</p>
 		<form name="c" action="checkAccount.do" method="post">
 			<div id="center_email">
@@ -189,22 +166,15 @@
 					</label>
 				</div>
 			</div>
-			<input id="start" name="next" type="button" value="시작하기" onclick="javascript:emailCheck()"/>
+			<input id="start" name="next" type="button" value="시작하기" onclick="javascript:emailCheck()"/><br><br>
 			<div id="center_bottom">
-			 - 또는 클릭 한번으로 로그인 - 
-				<div id="center_access">
-					<a id="fb" href="">facebook</a>
-					<a id="gg" href="">google</a>
-					<a id="nv" href="">naver</a>
-				</div>
 				이미 가입하셨나요?&nbsp;&nbsp;<a href="login.do">로그인</a>
-			</div>
+			</div><br>
 		</form>
 		</div>
 		
 		<div id="bottom_content">		
 			<div class="">
-				
 				<div>
 					<div>
 						<p>로그인 하거나 회원으로 가입하시면 당사 
@@ -222,11 +192,6 @@
 								DDT.com에서 숙소를 제공해보세요! 
 								<a href="">내 숙소 등록</a>
 							</p>
-							<div>
-								<p>
-									한국어(언어 설정 부분)
-								</p>
-							</div>
 						</div>
 					</div>
 				</div>
