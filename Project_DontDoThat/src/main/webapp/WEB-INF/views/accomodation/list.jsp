@@ -145,13 +145,13 @@
 	    <div>
 	    <c:if test="${listCount > 0}">
 	        <c:if test="${startPage > pageBlock}">
-	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage - 1}" title="이전 페이지"><</a>
+	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage - 1}&categoryName=${categoryName}" title="이전 페이지"><</a>
 	        </c:if>
 	        <c:forEach var="i" begin="${startPage}" end="${endPage}">
-	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${i}"><c:out value="${i}" /></a>
+	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${i}&categoryName=${categoryName}"><c:out value="${i}"/></a>
 	        </c:forEach>
 	        <c:if test="${endPage < pageCount}">
-	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage + pageBlock}" title="다음 페이지">></a>
+	            <a href="accomodation_list.do?input_place=${input_place}&start_date=${start_date}&end_date=${end_date}&pageNum=${startPage + pageBlock}&categoryName=${categoryName}" title="다음 페이지">></a>
 	        </c:if>
 	    </div>
 	    <div align="right">페이지 ${startRow} - ${endRow}</div>

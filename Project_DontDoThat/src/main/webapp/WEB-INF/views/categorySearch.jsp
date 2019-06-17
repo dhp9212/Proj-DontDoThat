@@ -14,14 +14,11 @@
 <div align="center" style="position: fixed; width:100%; min-height: 100%; top:50%;">
 	<form name="search_form" method="post" action="accomodation_list.do">
 					<h2><font color="#FFFFFF">${categoryDto.name}</font></h2>
-					<input autocomplete="off" id="input_place" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:35%; height:50px;">
-				    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0">
-				    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0">
-					<input autocomplete="off" name="people" id="people_form" type="text" placeholder="성인:2명 · 아동:1명 · 객실:1개" style="width:20%; height:50px;" size="0" >
-					<input type="hidden" name="adult">
-					<input type="hidden" name="child">
-					<input type="hidden" name="room">
-					<input type="button" value="검색" style="width:10%; height:50px;" onclick="javascript:isSubmit()">				
+				<input autocomplete="off" id="input_place" name="input_place" class="input_place" type="text" placeholder="어디로 향하시나요?" style="width:60%; height:50px;">
+			    <input autocomplete="off" name="start_date" type="text" placeholder="체크인" aria-label="First name" class="start-date" style="width:12%; height:50px;" size="0" readonly>
+			    <input autocomplete="off" name="end_date" type="text" placeholder="체크아웃" aria-label="Last name" class="end-date" style="width:12%; height:50px;" size="0" readonly>
+				<input type="button" value="검색" style="width:10%; height:50px;" onclick="javascript:isSubmit()">
+				<input type="hidden" name="categoryName" value="${categoryDto.name}">
 	</form>
 </div>
 
