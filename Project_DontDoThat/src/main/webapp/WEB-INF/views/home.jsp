@@ -181,10 +181,21 @@
 			<script src="${pageContext.request.contextPath}/resources/js/jquery.dropotron.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/datepicker/datepicker.js"></script>
 			<script>
+			
+			var $startDate = $('.start-date');
+		    var $endDate = $('.end-date');
+			
+		    $startDate.focus(function(){
+				$startDate.val('')
+				$endDate.val('')
+			})
+			$endDate.focus(function(){
+				$endDate.val('')
+			})
+			
 			$(function() {
-			    var $startDate = $('.start-date');
-			    var $endDate = $('.end-date');
-				
+			    
+			    
 			    $startDate.datepicker({
 			      autoHide: true,
 			      startDate : new Date(this.date)
@@ -200,6 +211,10 @@
 			    });
 			  
 			});
+			
+			
+			 
+			
 			$(function(){
 				// Dropdowns.
 					$('#nav > ul').dropotron({

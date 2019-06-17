@@ -188,10 +188,10 @@
 		$( this ).attr('id', 'selected')
 	});
 	
+	var $startDate = $('input[name="start_date"]');
+    var $endDate = $('input[name="end_date"]');
 	
 	$(function() {
-	    var $startDate = $('input[name="start_date"]');
-	    var $endDate = $('input[name="end_date"]');
 	    $startDate.datepicker({
 	      autoHide: true,
 	      startDate : new Date(this.date)
@@ -200,29 +200,37 @@
 	      autoHide: true,
 	      startDate: $startDate.datepicker('getDate'),
 	    });
-
 	    $startDate.on('change', function () {
-	  	  
 	      $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
 	    });
 	  
 	});
 	
-	$(function(){
-		var $startDate = $('input[name="start_date"]');
-	    var $endDate = $('input[name="end_date"]');
-	    
-	    $startDate.on('change', function(){
-	    	$endDate.focus();
-	    })
+	$startDate.focus(function(){
+		$startDate.val('')
+		$endDate.val('')
+	})
+	$endDate.focus(function(){
+		$endDate.val('')
 	})
 	
+	$(document).ready(function(){
+	    var startDateArr = $startDate.val().split('/')
+ 	    var endDateArr = $endDate.val().split('/')
+ 	    
+ 	    var startDateSet = new Date(startDateArr[0], startDateArr[1], startDateArr[2])
+ 	    var endDateSet = new Date(endDateArr[0], endDateArr[1], endDateArr[2])
+
+ 	    var dif = endDateSet - startDateSet
+ 	    var day = 1000*60*60*24
+ 	    
+ 	    var difDay = parseInt(dif/day)
+    	$('.col-lg-12.days').text(difDay + '박 선택')
+	    
+	})
+	
+	
 	$(function(){
-		var $startDate = $('input[name="start_date"]');
-	    var $endDate = $('input[name="end_date"]');
-	    
-	   
-	    
 	    $endDate.on('change', function(){
 	    	var startDateArr = $startDate.val().split('/')
 	 	    var endDateArr = $endDate.val().split('/')
@@ -258,7 +266,7 @@
             }
         });
 	});
-	
+
 	
 	function sorting(standard, direction){
 		var items = $('.sortItem')
