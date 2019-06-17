@@ -107,6 +107,11 @@ public class AccountController {
 				
 		if(dto.getPassword().equals(password)) {
 			
+			// if country exist
+			if(dto.getCountry() != null && !dto.getCountry().equals("")) {
+				dto.setCountryName(standardInformationMapper.getCountryByCode2(dto.getCountry()).getName());
+			}
+			
 			session.setAttribute("userSession", dto);
 			System.out.println(dto.getPayment());
 			// if credit card exist
