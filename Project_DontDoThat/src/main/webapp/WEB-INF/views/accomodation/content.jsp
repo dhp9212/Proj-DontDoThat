@@ -452,7 +452,7 @@ Whisper words of wisdom, let it be
  		 </div>
  		</div>
 	</div>
-
+	</div>
 	<span>&nbsp;<hr></span>
 	
 	
