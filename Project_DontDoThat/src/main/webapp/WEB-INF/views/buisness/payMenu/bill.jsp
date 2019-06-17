@@ -7,10 +7,12 @@
 		var month = today.getMonth()+1
 		if(month<10) month='0'+month
 		var all_price = 0
-		for(var j=0; j<100; ++j){
+		var price = 0
+		var hidden
+		var length = $('input[name="count"]').length
+		for(var j=0; j<length; ++j){
 			var hidden = $('input[name="' + j + '"]')
-			if(hidden.length==0) break;
-			var price = 0
+			price = 0
 			for(var i=0; i<hidden.length; ++i){
 				price += Number(hidden[i].value)
 			}
@@ -31,6 +33,7 @@
 		</div>
 		<c:forEach var="reservation_list" items="${buisness_bill}" varStatus="num">
 		<c:set var="have" value=""/>
+		<input type="hidden" name="count">
 		<c:forEach var="reservation" items="${reservation_list.value}">
 		<c:if test="${fn:substring(reservation.checkOut_date,0,7)==reservation_list.key}">
 		<c:set var="have" value="have"/>
@@ -73,8 +76,8 @@
 													<c:if test="${reservation.room_num==room.num}">
 													<a href="general_info.do?accomodation_num=${accomodation.key}">${accomodation.value.accomodation_name}</a>
 													 - ${room.roomclass} * ${reservation.rooms}
-													<input type="hidden" name="${num.index}" value="${reservation.payment}">
-													<c:set var="price" value="${reservation.payment}"/>
+													<input type="hidden" name="${num.index}" value="${room.price*reservation.rooms}">
+													<c:set var="price" value="${room.price*reservation.rooms}"/>
 													</c:if>
 													</c:forEach>
 												</c:if>

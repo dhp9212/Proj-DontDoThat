@@ -26,8 +26,13 @@ public class HomepageController {
 		return "forward:home.do";
 	}
 	@RequestMapping(value="insertInit2.do")
-	public String insertInit2(HttpServletRequest req) {
-		standardInformationMapper.roomSysout(req);
+	public String insertInit2() {
+		standardInformationMapper.roomSysout();
+		return "forward:home.do";
+	}
+	@RequestMapping(value="insertInit3.do")
+	public String insertInit3() {
+		standardInformationMapper.reservationSysout();
 		return "forward:home.do";
 	}
 }

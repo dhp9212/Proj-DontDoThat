@@ -28,7 +28,7 @@
 				<c:forEach var="account" items="${buisness_a_account}">
 				<c:if test="${account.key==reservation.account_num}">
 				<div class="col-sm-2">
-					<button type="button" class="btn" data-toggle="modal" data-target="#myModal${num.count}">
+					<button type="button" class="btn pt-0" data-toggle="modal" data-target="#myModal${num.count}">
 						고객정보 보기
 					</button>
 					<div class="modal" id="myModal${num.count}">
