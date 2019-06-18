@@ -9,12 +9,12 @@
 	<div class="col-lg-12" align="center">예약하신 숙소가 없습니다.</div>
 	</c:when>
 	<c:otherwise>
-<c:forEach var="dto" items="${listReservation}" varStatus="status">
+		<c:forEach var="dto" items="${listReservation}" varStatus="status">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="col-lg-4">
-					<div class="col-lg-8"><h3>${dto.accomodation_name}</h3></div><br>
-					<div class="col-lg-4">${dto.payment}</div>
+					<div class="col-lg-12"><h3>${dto.accomodation_name}</h3></div><br>
+					<div class="col-lg-12">${dto.payment}</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="row">
@@ -31,13 +31,14 @@
 				</div>
 			</div>
 			<div class="col-lg-2">
-					<div class="col-lg-12" align="center">
-						<button type="button" class="btn btn-primary" onclick="javascript:check(${dto.num});">예약 취소</button>
-					</div>
+				<div class="col-lg-12" align="center">
+					<button type="button" class="btn btn-primary" onclick="javascript:check(${dto.num});">예약 취소</button>
+				</div>
 			</div>
+			</form>
 		</div>
 	</div>
-</c:forEach>
+		</c:forEach>
 	<div>페이지 : 
 <c:if test="${listCount > 0}">
 	<c:if test="${startPage > pageBlock}">
