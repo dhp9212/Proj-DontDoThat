@@ -15,7 +15,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
 	   
-	    //자동 저장
+	    /* //자동 저장
 	    var dynaframe = null;
 	    
 	    function createIframe(){
@@ -37,7 +37,7 @@
 	    function setNickNameData(nickName){
 	    	document.getElementById("nickName").value = nickName;
 	    }
-	    
+	     */
 	    //닉네임, 생일, 국가/지역 저장
 	    $(document).ready(function(){
 	    	$('input[type="text"]').on("blur", function(){
@@ -96,7 +96,6 @@
 		    reader.readAsDataURL(input.files[0]);
 		    s.submit();
 		  };
-	    
 		
 	    $(document).ready(function(){
 	    	//주소 변경
@@ -114,6 +113,7 @@
 	    $(document).ready(function(){
 	    	//신용카드 추가
 	    	$("#appendCreditCard").click(function appendCreditCard(){
+	    		if($('.creditCardSetting').children('label').length>6) return
 	    		var offset = $(".paymentHead").offset();
 			    $("html, body").stop().animate({scrollTop:offset.top},1000);
 	    		var state = $(".appendCreditCard").css("display");
@@ -183,6 +183,7 @@
 	    			alert("카드 날짜를 정확하게 입력해주세요!")
 	    			return false;
 	    		}
+	    		alert(kindOfCreditCard)
 	    		document.s3.submit()
 			});
 	    	
