@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 .mybutton23 {
            display: inline-block;
@@ -29,6 +30,8 @@
 	}
 </script>
 <br>
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy/MM/dd" var="nowDate" />  
 <div class="container" style="width:70%;">
 	<table style="border:1px solid #BDBDBD; background-color:white">
 			<tr>
@@ -40,6 +43,8 @@
 				<td align="center">후기 작성</td>
 			</tr>
 		<c:if test="${not empty listReservation}">
+			
+			
 			<c:forEach var="dcc" items="${listReservation}">
 				<tr>
 					<td align="center">${dcc.num}</td>
@@ -49,17 +54,22 @@
 					<td align="center">${dcc.checkOut_date}</td>
 					<td align="center">
 						<c:choose>
+							<c:when test="${nowDate >= dcc.checkOut_date}">
+								<a href="javascript:writeReview('${dcc.num}','${dcc.accomodation_num}','${dcc.checkIn_date}')"
+								class="mybutton23">작성하기</a>
+							</c:when>
 							<c:when test="${dcc.check_review == 1}">
 								<div class="mybutton23">작성완료</div>
 							</c:when>
 							<c:otherwise>
-								<a href="javascript:writeReview('${dcc.num}','${dcc.accomodation_num}','${dcc.checkIn_date}')"
-								class="mybutton23">작성하기</a>
+								<div class="mybutton23">작성불가</div>
 							</c:otherwise>
 						</c:choose>
 					</td>
 				</tr>
 			</c:forEach>
+			
+			
 		</c:if>
 		<c:if test="${empty listReservation}">
 			<tr>

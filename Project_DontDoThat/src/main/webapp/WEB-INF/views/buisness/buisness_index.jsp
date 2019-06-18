@@ -13,19 +13,5 @@
 		</c:forEach>
 		</table>
 	</div>
-	<div>
-		<table id="2" style="height:70%;" class="hide">
-			<tr>
-				<td>예약</td>
-			</tr>		
-		</table>
-	</div>
-	<div>
-		<table id="3" style="height:70%;" class="hide">
-			<tr>
-				<td>이용후기</td>
-			</tr>		
-		</table>
-	</div>
 </div>
 <%@ include file="_buisness_bottom.jsp"%>
