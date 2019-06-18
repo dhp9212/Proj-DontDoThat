@@ -38,14 +38,12 @@
 		div.center_top{
 		width:400px;
      	height:auto;
-     	border:1px solid green;
      	margin:0px 0px 15px;
 		}
 		
 		.center_bottom{
 		width:400px;
      	height:auto;
-     	border:1px solid blue;
      	margin:0px 0px 15px;
 		}
 		
@@ -61,15 +59,29 @@
 		color : red;
 		display : none;
 		}
+		
+		#backButton{
+		color:#0033cc;
+		background-color:white;
+		border:none;
+		}
+		
+		#start{
+		color:white;
+		background-color:#0033cc;
+		width:175px;
+		border:none;
+		padding:4px;
+		}
 	</style>
 </head>
 <body>
-	<div>
+	<div><br><br><br><br>
 		<div class="center" align="center">
 			<div class="center_top">
 				<div class="center_top-back-DDT.comAccount-menu">
-					<input type="button" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="login.do">DDT.com Account</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="backButton" type="button" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="login.do" style="color:#0033cc;"><b>DDT.com Account</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -88,8 +100,10 @@
 							<label>
 								비밀번호 설정
 							</label>
+							<span style="font-size:0.8em; color:gray;">- 8자 이상</span>
 							<div>
 							<input type="password" name="setPassword" required="required">
+							
 							</div>
 							<div class="passwordLengthLimit">
 								비밀번호는 최소 8자 이상이어야 합니다.
@@ -99,13 +113,15 @@
 							<label>
 								비밀번호 확인
 							</label>
+							<span style="font-size:0.8em; color:gray;">- 8자 이상</span>
 							<div>
 							<input type="password" name="confirmPassword" required="required">
+							
 							</div>
 							<div class="notPasswordMatch">
 								비밀번호가 일치하지 않습니다. 다시 입력해주세요.
 							</div>
-						</div>
+						</div><br>
 						<div>
 							<button id="start" name="signUpButton" onclick="javascript:passwordCheck()">회원 가입</button>
 						</div><br>
@@ -126,7 +142,7 @@
 						<a href="privacy.do">개인정보 보호 정책</a>
 						에 동의하시는 것으로 간주됩니다.	
 					</p>
-					<div>
+				<!-- 	<div>
 						<p>
 							<a href="">DDT.com 비즈니스</a>
 							를 들어보셨나요?
@@ -135,7 +151,7 @@
 							DDT.com에서 숙소를 제공해보세요! 
 							<a href="">내 숙소 등록</a>
 						</p>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

@@ -7,15 +7,6 @@
 <title>회원등록</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
-			/* function check(){
-				if (f.email.value==""){
-					alert("이메일 주소를 입력하세요")
-					f.email.focus()
-					return
-				}
-				document.f.submit()
-			} */
-			
 			$(document).ready(function(){ //DOM이 준비되고
 			    $('#toggleButton').click(function(){ // ID가 toggleButton인 요소를 클릭하면
 			        var state = $('#dropdown_menu').css('display'); // state 변수에 ID가 moreMenu인 요소의 display의 속성을 '대입'
@@ -26,30 +17,13 @@
 			        }
 			    });
 			});
-			
-			
-		/* 	$(function (){ $("#start").ready(function(){
-				$("#hide").show(); 
-				}); 
-			});
-			
-			function check(){
-				if (f.email.value==""){
-					alert("이메일을 입력해 주세요!!")
-					f.email.focus()
-					return
-				}
-				document.f.submit()
-			} */
 		
 			function goBack(){
 				window.history.back();
 			}
 			
-			
 			$(document).ready(function(){
 					$("#start").click(function emailCheck() { // ID가 start인 요소를 클릭하면
-
 						var email = document.getElementById("email").value;//id가 email인 것의 값을 가져온다.
 						var validation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;//유효성 검사
 						var state = $("#userEmailError").css("display");// state 변수에 ID가 moreMenu인 요소의 display의 속성을 '대입'
@@ -57,17 +31,8 @@
 						if(validation.test(email)==false){ //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우		
 					        if(state == "none"){ // state가 none 상태일경우 
 					            $(".userEmailError").show(); // class가 userEmailError인 요소를 show();
-					           /*  if($('input[name=hasEmail]').val()!='${hasEmail}'){
-					            
-					            } */
 					            $(".userHasEmail").hide();
-					            //$(".userEmailNone").hide();
-					            /* if(dto.getEmail() == null){ // DB에 해당 이메일이 없다면
-					            	$(".userEmailNone").show(); // class가 userEmailNone인 요소를 show();
-					            } */
-					        }/* else { // 그 외에는
-					            $(".userEmailError").hide(); // class가 userEmailError인 요소를 hide();         
-					        } */
+					        }
 					   		document.addjoin.email.focus();
 					        return false;
 						}else{
@@ -81,40 +46,27 @@
 				if($('input[name=email]').val()==0){
 				$(".userHasEmail").hide();
 				}
-				/* else if($('input[name=hasEmail]').val()!=null){
-					$(".userHasEmail").hide();
-				} */
 			});
 	</script>
 	<style type="text/css">
      	#center_center{
      	width:400px;
      	height:auto;
-     	border:1px solid green;
      	margin:0px 0px 15px;
      	}
-     	#center
-     	
      	.hide.label{
      	color:purple;
-     	
      	}
-     	
      	#hide{
      	color:red;
      	}
-     	
      	p#guide{
      	width:300px;
-     	border:1px solid grren;
      	}
-     	
      	#bottom_content{
      	width:400px;
      	height:auto;
-     	border:1px solid blue;
      	}
-     	
      	#fb{
      	padding:10px 12px;
      	}
@@ -124,25 +76,36 @@
      	#nv{
      	padding:10px 12px;
      	}
-     	
      	.userEmailError{
 		color : red;
 		display : none;
 		}
-		
 		.userHasEmail{
 		color : red;
 		display : none;
+		}
+		#backButton{
+		color:#0033cc;
+		background-color:white;
+		border:none;
+		}
+		#start{
+		color:white;
+		background-color:#0033cc;
+		width:175px;
+		border:none;
+		padding:4px;
 		}
      </style>
 </head>
 <body>
 <input type="hidden" name="hasEmail" value="${hasEmail}">
 	<div align="center" id="backGround">
+		<br><br><br><br>
 		<div id="center_center">
 			<div id="center_top">
-				<input type="button" name="goBack" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="login.do">DDT.com Account</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="backButton" type="button" name="goBack" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="login.do" style="color:#0033cc;"><b>DDT.com Account</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -165,7 +128,7 @@
 						하세요.
 					</label>
 				</div>
-			</div>
+			</div><br>
 			<input id="start" name="next" type="button" value="시작하기" onclick="javascript:emailCheck()"/><br><br>
 			<div id="center_bottom">
 				이미 가입하셨나요?&nbsp;&nbsp;<a href="login.do">로그인</a>
@@ -183,7 +146,7 @@
 							<a href="privacy.do">개인정보 보호 정책</a>
 							에 동의하시는 것으로 간주됩니다.	
 						</p>
-						<div>
+						<!-- <div>
 							<p>
 								<a href="">DDT.com 비즈니스</a>
 								를 들어보셨나요?
@@ -192,7 +155,7 @@
 								DDT.com에서 숙소를 제공해보세요! 
 								<a href="">내 숙소 등록</a>
 							</p>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>		

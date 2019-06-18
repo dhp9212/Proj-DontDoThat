@@ -40,7 +40,12 @@
 	    
 	    //닉네임, 생일, 국가/지역 저장
 	    $(document).ready(function(){
-	    	//닉네임
+	    	$('input[type="text"]').on("blur", function(){
+	    		if($(this).parents('form').attr('name')=='s3' || $(this).parents('form').attr('name')=='s4') return
+	    		$(this).parents('form').submit()
+	    	})
+	    	
+	    	/* //닉네임
 	    	$("#nickName").keydown(function(key){
 	    		if(key.keyCode == 13){
 	    			s0.submit();
@@ -76,7 +81,7 @@
 			});
 	    	
 	    	//비밀번호
-	    	
+	    	 */
 	    });
 	    
 	    //실시간 프로필 사진 바꾸기
@@ -153,6 +158,7 @@
 		        document.s4.submit()
 		        alert("비밀번호가 변경되었습니다.")
 			});
+	    	
 	    	//신용카드 변경
 	    	$("#creditCardSave").click(function creditCardSave(){
 	    		var selectPayment = $('select[name=kindOfCreditCard]').val();
@@ -199,9 +205,6 @@
 			      var offset = $(".passwordAndCurrencyHead").offset();
 			      $("html, body").stop().animate({scrollTop:offset.top},1000);
 		    });
-		    
-			    
-
 		  }); // end of ready()
 	</script>
 	
@@ -274,7 +277,6 @@
 		padding: 5px 10px;
 		margin : 10px;
 		}
-		
 		.passwordChangeForm{
 		display:none;
 		}
@@ -300,7 +302,6 @@
 				<a href="#">보안 설정</a><br> -->
 			</div>
 			
-			
 			<!-- 상세정보 설정 -->
 			<div class="detaieldMySettings">
 				<!-- 상세정보 타이틀 -->
@@ -319,14 +320,13 @@
 						<form name="s" action="accountUpdateImage.do" method="post" enctype="multipart/form-data">
 							프로필 사진<br>
 							<img src="${pageContext.request.contextPath}/resources/img/profileImage/${userSession.profilePhoto}" id="fileName" border="0" width="180" height="180" alt="프로필 등록"><br>
-							<input type="file" name="profilePhoto" id="profilePhoto" accept='image/*' onchange='openFile(event)'>
+							<input style="border:none; background-color:white;" type="file" name="profilePhoto" id="profilePhoto" accept='image/*' onchange='openFile(event)'>
 							<span style="color:gray"> - 이용자의 눈에 가장 먼저 들어오는 프로필 사진! 나를 가장 잘 표현하는 이미지를 올려주세요.</span>
 							<!-- <input type="file" name="profilePhoto" id="ajaxFile" onchange="ajaxFileChange()" style="display:none;"> -->
 							<!-- <input type="button" onClick="ajaxFileUpload();" value="사진 변경"/> -->
 						</form>
 					</div><br>
-			
-				
+
 				<form name="s0" action="accountUpdateNames.do" method="post" enctype="multipart/form-data">
 					<!-- 닉네임 -->
 					<div class="nickNameSetting">
@@ -342,11 +342,9 @@
 						<span style="color:gray"> - 생년월일을 8자리로 입력 해주세요. ex) 19901010</span>
 					</div><br>
 				</form>
-			
 				<form name="s1" action="accountUpdateCountry.do" method="post" enctype="multipart/form-data">
 					<!-- 국가/지역 -->
 					<div class="countrySetting">
-					
 						국가/지역<br>
 						<select class="country" name="country">
 							<option value='${userSession.country}' selected disabled>${userSession.countryName}</option>
@@ -597,12 +595,9 @@
 							<option value='HK'>홍콩</option>					
 						</select>
 						<span style="color:gray"> - 다른 분들이 참고할 수 있도록 국적을 알려주세요.</span>
-						
 					</div><br>
 				</form>
 				</div>
-			
-			
 			
 				<!-- 숙소 예약용 정보 타이틀 -->
 				<div class="reservationInformationHead">
@@ -622,8 +617,9 @@
 						</div><br>
 						<!-- 전화번호 -->
 						<div class="telSetting">
-							전화번호<span style="color:gray"> - "-" 없이 숫자만 입력해주세요. ex)01012345678</span><br>
+							전화번호<br>
 							<input type="text" name="tel" id="tel" value="${userSession.tel}" onkeypress="JavaScript:press(this.form)">
+							<span style="color:gray"> - "-" 없이 숫자만 입력해주세요. ex)01012345678</span>
 						</div><br>
 						<!-- 이메일 -->
 						<div class="emailSetting">
@@ -644,9 +640,6 @@
 					</form>
 				</div>
 				
-			
-			
-				
 				<!-- 결제 수단 설정 타이틀 -->
 				<div class="paymentHead">
 					<div class="paymentTitle">
@@ -663,7 +656,8 @@
 						<div class="creditCardSetting" style="background-color:lavender;">
 							<c:forEach var="cardItem" items="${userSession.cardList}">
 								<label>${cardItem.kindOfCreditCard}&nbsp;${cardItem.numOfCreditCard}&nbsp;${cardItem.expirationDate}</label>&nbsp;
-								<label>${userSession.name}</label>	
+								<label>${userSession.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								<button name="creditCardDelete">지우기</button><!-- style="border:1px solid green; color:white; background-color:#669999;" -->
 								<br/>
 							</c:forEach>
 						</div><br>
@@ -682,21 +676,20 @@
 							</select><br><br>
 							신용카드 번호<br>
 							<input type="text" name="numOfCreditCard" value="${numOfCreditCard}" placeholder="0000-0000-0000-0000" maxlength="19">
-								<span style="color:gray"> ex) 0000-0000-0000-0000 </span><br>
+								<span style="color:gray"> - ex) 0000-0000-0000-0000 </span><br>
 								<label id="notNumOfCreditCardMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
 							만료 날짜<br>
 							<input type="text" name="expirationDate" value="${expirationDate}"placeholder="01/19" maxlength="5">
 								<span style="color:gray"> - 월/년 기입 ex) 01/19 </span><br>
 								<label id="notExpirationDateMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
-							<input type="button" value="변경 저장" name="creditCardSave" id="creditCardSave" >
+							<input type="button" value="변경 저장" name="creditCardSave" id="creditCardSave">
 							<input type="reset" value="취소" name="cancel"><br>
 						</div><br>
 						<div class="appendCreditCardButton">
-							<input type="button" name="appendCreditCard" id="appendCreditCard" value="카드 추가" >
+							<input type="button" name="appendCreditCard" id="appendCreditCard" value="카드 추가">
 						</div><br>
 					</form>
 				</div>
-		
 			
 				<form name="s4" action="accountUpdatePassword.do" method="post" enctype="multipart/form-data">
 					<!-- 비밀번호 및 통화 타이틀 -->

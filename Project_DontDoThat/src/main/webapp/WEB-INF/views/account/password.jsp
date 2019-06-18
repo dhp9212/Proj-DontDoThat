@@ -32,14 +32,12 @@
 		div.center_content{
 		width:400px;
      	height:auto;
-     	border:1px solid green;
      	margin:0px 0px 15px;
 		}
 		
 		.bottom_content{
 		width:400px;
      	height:auto;
-     	border:1px solid blue;
      	margin:0px 0px 15px;
 		}
 		
@@ -47,18 +45,32 @@
 		color : red;
 		display : none;
 		}
+		
+		#backButton{
+		color:#0033cc;
+		background-color:white;
+		border:none;
+		}
+		
+		#start{
+		color:white;
+		background-color:#0033cc;
+		width:175px;
+		border:none;
+		padding:4px;
+		}
 
 	</style>
 </head>
 <body>
 <input type="hidden" name="wrongPassword" value="${wrongPassword}">
 	<div id="backGround" align="center">
-		<!-- 가운데로 정렬 -->
+		<!-- 가운데로 정렬 --><br><br><br><br>
 		<div class="center_content" align="center">
 			<!-- 뒤로가기, 로그인, 메뉴 -->
 			<div id="center_top">
-				<input type="button" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="login.do">DDT.com Account</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="backButton" type="button" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="login.do" style="color:#0033cc;"><b>DDT.com Account</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -79,7 +91,7 @@
 					</div>
 					<div class="emailAndPasswordAreDifferent">
 						이메일 주소와 비밀번호의 조합이 일치하지 않습니다.
-					</div>
+					</div><br>
 					<input id="start" type="submit" value="로그인"/><br><br>
 					<div id="center_bottom">
 						<div>

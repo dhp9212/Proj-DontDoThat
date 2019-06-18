@@ -49,14 +49,13 @@
 		div.center_content{
 		width:400px;
      	height:auto;
-     	border:1px solid green;
      	margin:0px 0px 15px;
 		}
 		
 		.bottom_content{
 		width:400px;
      	height:auto;
-     	border:1px solid blue;
+     	/* border:1px solid blue; */
      	margin:0px 0px 15px;
 		}
 		
@@ -70,6 +69,19 @@
 		}
 		#backButton{
 		align : left;
+		color:#0033cc;
+		background-color:white;
+		border:none;
+		}
+		
+		
+		#start{
+		color:white;
+		background-color:#0033cc;
+		width:175px;
+		border:none;
+		padding:4px;
+		margin-left:6px;
 		}
 		
 	</style>
@@ -77,12 +89,12 @@
 <body>
 <input type="hidden" name="emailNone" value="${emailCheckNone}">
 	<div id="backGround" align="center">
-		<!-- 가운데로 정렬 -->
+		<!-- 가운데로 정렬 --><br><br><br><br>
 		<div class="center_content">
 			<!-- 뒤로가기, 로그인, 메뉴 -->
 			<div id="center_top">
-				<input type="button" id="backButton" name="back" onclick="goBack();" value="<"/>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a>DDT.com Account</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<strong><input type="button" id="backButton" name="back" onclick="goBack();" value="<"/></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a style="color:#0033cc;"><b>DDT.com Account</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -106,7 +118,7 @@
 						<a href="signUp.do">회원가입</a> 
 						후 서비스를 이용해 주세요.
 					</div>
-				</div>
+				</div><br>
 				<input id="start" name="next" type="button" value="다음" title="nextButton" onclick="javascript:emailCheck()"/>
 				<br><br>
 				<div id="center_bottom">
