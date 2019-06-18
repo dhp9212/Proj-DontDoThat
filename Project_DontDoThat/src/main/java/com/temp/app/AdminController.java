@@ -1,4 +1,4 @@
-package com.temp.app;
+﻿package com.temp.app;
 
 import java.util.List;
 
@@ -18,7 +18,6 @@ public class AdminController {
 	private CustomServiceMapper customServiceMapper;
 	
 
-	
 	@RequestMapping(value = "/adminMain.do")
 	public String adminmain() throws Exception{
 		return "admin/main";
