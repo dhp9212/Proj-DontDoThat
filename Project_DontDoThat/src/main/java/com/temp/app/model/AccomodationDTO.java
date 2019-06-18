@@ -27,7 +27,14 @@ public class AccomodationDTO implements Serializable {
 	private String nearby;
 	private List<RoomDTO> roomList;
 	private int minPrice;
+	private int grade;
 	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
 	public int getNum() {
 		return num;
 	}
