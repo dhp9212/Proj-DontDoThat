@@ -17,7 +17,7 @@
 		select reservation.*, accomodation.accomodation_name
     	from reservation join accomodation
     	on accomodation.num = reservation.accomodation_num 
-    	where reservation.account_num = #{num}
+    	where reservation.account_num = #{num} order by reservation.checkin_date desc
 	</select>
 	<update id="updateReservation" parameterType="int">
 		update reservation set check_review=1 where num = #{num}
