@@ -44,7 +44,7 @@ public class BuisnessController {
 	String reviewPath = "buisness/reviewMenu/";
 	@Autowired
 	AccomodationMapper accomodationMapper;
-	@Autowired
+	@Autowired 
 	ReservationMapper reservationMapper;
 	@Autowired
 	MessageMapper adminMessageMapper;
