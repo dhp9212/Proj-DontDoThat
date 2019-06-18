@@ -153,10 +153,10 @@ public class AccomodationController {
 		req.setAttribute("roomList", list);
 		
 		//�̿��ı� ��������
-		List<ReviewGradeDTO> listReview = reviewMapper.listReview((String.valueOf(num)));
-		List<ReviewDTO> list10Review = reviewMapper.list10Review((String.valueOf(num)));
-		int countReview = reviewMapper.countReview((String.valueOf(num)));
-		GradeDTO averageReview = reviewMapper.averageReview((String.valueOf(num)));
+		List<ReviewGradeDTO> listReview = reviewMapper.listReview(num);
+		List<ReviewDTO> list10Review = reviewMapper.list10Review(num);
+		int countReview = reviewMapper.countReview(num);
+		GradeDTO averageReview = reviewMapper.averageReview(num);
 		req.setAttribute("listReview", listReview);
 		req.setAttribute("list10Review", list10Review);
 		req.setAttribute("countReview", countReview);

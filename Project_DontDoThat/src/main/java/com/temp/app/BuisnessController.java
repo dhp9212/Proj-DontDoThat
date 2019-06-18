@@ -128,17 +128,16 @@ public class BuisnessController {
 	}
 	@RequestMapping(value="custom_review.do")
 	public String custom_review(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		String accommodation = (String)session.getAttribute("accommodation");
-		if(accommodation == null) {
-			accommodation = "text";
+
+		if(req.getParameter("accomodation_num") != null) {
+			int accommodation = Integer.parseInt(req.getParameter("accomodation_num"));
+			List<ReviewGradeDTO> reviewlist = reviewMapper.listReview(accommodation);
+			int reviewcount = reviewMapper.countReview(accommodation);
+			GradeDTO reviewaverage = reviewMapper.averageReview(accommodation);
+			req.setAttribute("reviewlist", reviewlist);
+			req.setAttribute("reviewcount", reviewcount);
+			req.setAttribute("reviewaverage", reviewaverage);
 		}
-		List<ReviewGradeDTO> reviewlist = reviewMapper.listReview(accommodation);
-		int reviewcount = reviewMapper.countReview(accommodation);
-		GradeDTO reviewaverage = reviewMapper.averageReview(accommodation);
-		req.setAttribute("reviewlist", reviewlist);
-		req.setAttribute("reviewcount", reviewcount);
-		req.setAttribute("reviewaverage", reviewaverage);
 		return reviewPath + "custom_review"; 
 	}
 	@RequestMapping(value="custom_experience.do")
@@ -150,28 +149,28 @@ public class BuisnessController {
 		//
 		LinkedHashMap<String, List<String>> sc = new LinkedHashMap<String, List<String>>();
 		List<String> sc_cate = new ArrayList<String>();
-		sc_cate.add("ìš”ê¸ˆ & ê°ì‹¤ ì¬ê³  í˜„í™©");
-		sc_cate.add("í”„ë¡œëª¨ì…˜");
-		sc_cate.add("ì˜ˆì•½ ê´€ë ¨(ì·¨ì†Œ, ë³€ê²½, ê¸°íƒ€ ì§ˆë¬¸ ë“±)");
-		sc_cate.add("ê¸°íšŒ ìš”ì¸(ë§¤ì¶œ ê´€ë ¨)");
-		sc_cate.add("ê³ ê° ì´ìš© í›„ê¸°");
-		sc_cate.add("ì¬ë¬´ ê´€ë ¨(ê²°ì œ ë° ì²­êµ¬ì„œ)");
-		sc_cate.add("ë¶„ì„ ë„êµ¬");
-		sc_cate.add("ìˆ™ì†Œ ìƒì„¸ ì •ë³´");
-		sc_cate.add("ê³„ì • ê´€ë ¨");
+		sc_cate.add("¿ä±İ & °´½Ç Àç°í ÇöÈ²");
+		sc_cate.add("ÇÁ·Î¸ğ¼Ç");
+		sc_cate.add("¿¹¾à °ü·Ã(Ãë¼Ò, º¯°æ, ±âÅ¸ Áú¹® µî)");
+		sc_cate.add("±âÈ¸ ¿äÀÎ(¸ÅÃâ °ü·Ã)");
+		sc_cate.add("°í°´ ÀÌ¿ë ÈÄ±â");
+		sc_cate.add("Àç¹« °ü·Ã(°áÁ¦ ¹× Ã»±¸¼­)");
+		sc_cate.add("ºĞ¼® µµ±¸");
+		sc_cate.add("¼÷¼Ò »ó¼¼ Á¤º¸");
+		sc_cate.add("°èÁ¤ °ü·Ã");
 		req.setAttribute("sc_cate", sc_cate);
 		
-		String a[] = new String[] {"ê°ì‹¤ ì¬ê³  ì¶”ê°€/ë³€ê²½", "ìš”ê¸ˆ ìƒì„±/ë³€ê²½", "ê°ì‹¤ ì •ì±…",
-				"ê¸°íƒ€", "ìš”ê¸ˆ & ê°ì‹¤ ì¬ê³  í˜„í™©"};
-		sc.put("ìš”ê¸ˆ & ê°ì‹¤ ì¬ê³  í˜„í™©", admin_message_input (a));
-		String b[] = new String[] {"ì·¨ì†Œ", "ë„ì°© ì‹œê°„ ìš”ì²­", "ë³€ê²½",
-				"ê²°ì œ", "ê¸°íƒ€"};
-		sc.put("ì˜ˆì•½ ê´€ë ¨(ì·¨ì†Œ, ë³€ê²½, ê¸°íƒ€ ì§ˆë¬¸ ë“±)", admin_message_input (b));
-		String c[] = new String[] {"ì²­êµ¬ì„œ ì¼ë°˜ ë¬¸ì˜", "ì²­êµ¬ì„œ ì •ì • ê´€ë ¨ ë¬¸ì˜"};
-		sc.put("ì¬ë¬´ ê´€ë ¨(ê²°ì œ ë° ì²­êµ¬ì„œ)", admin_message_input (c));
-		String d[] = new String[] {"ë¶€ê°€ì„¸(VAT)", "ë„ì‹œì„¸/ì¶”ê°€ ìš”ê¸ˆ", "ì‚¬ì§„", "ê°ì‹¤ ìƒì„¸ ì •ë³´",
-				"ìˆ™ì†Œ ì •ì±…(ì£¼ì°¨, ì¸í„°ë„· ë“±)", "ê¸°íƒ€"};
-		sc.put("ìˆ™ì†Œ ìƒì„¸ ì •ë³´", admin_message_input (d));
+		String a[] = new String[] {"°´½Ç Àç°í Ãß°¡/º¯°æ", "¿ä±İ »ı¼º/º¯°æ", "°´½Ç Á¤Ã¥",
+				"±âÅ¸", "¿ä±İ & °´½Ç Àç°í ÇöÈ²"};
+		sc.put("¿ä±İ & °´½Ç Àç°í ÇöÈ²", admin_message_input (a));
+		String b[] = new String[] {"Ãë¼Ò", "µµÂø ½Ã°£ ¿äÃ»", "º¯°æ",
+				"°áÁ¦", "±âÅ¸"};
+		sc.put("¿¹¾à °ü·Ã(Ãë¼Ò, º¯°æ, ±âÅ¸ Áú¹® µî)", admin_message_input (b));
+		String c[] = new String[] {"Ã»±¸¼­ ÀÏ¹İ ¹®ÀÇ", "Ã»±¸¼­ Á¤Á¤ °ü·Ã ¹®ÀÇ"};
+		sc.put("Àç¹« °ü·Ã(°áÁ¦ ¹× Ã»±¸¼­)", admin_message_input (c));
+		String d[] = new String[] {"ºÎ°¡¼¼(VAT)", "µµ½Ã¼¼/Ãß°¡ ¿ä±İ", "»çÁø", "°´½Ç »ó¼¼ Á¤º¸",
+				"¼÷¼Ò Á¤Ã¥(ÁÖÂ÷, ÀÎÅÍ³İ µî)", "±âÅ¸"};
+		sc.put("¼÷¼Ò »ó¼¼ Á¤º¸", admin_message_input (d));
 		req.setAttribute("sc", sc);
 		//
 		HttpSession session = req.getSession();
@@ -185,28 +184,28 @@ public class BuisnessController {
 		//
 		LinkedHashMap<String, List<String>> sc = new LinkedHashMap<String, List<String>>();
 		List<String> sc_cate = new ArrayList<String>();
-		sc_cate.add("ìš”ê¸ˆ & ê°ì‹¤ ì¬ê³  í˜„í™©");
-		sc_cate.add("í”„ë¡œëª¨ì…˜");
-		sc_cate.add("ì˜ˆì•½ ê´€ë ¨(ì·¨ì†Œ, ë³€ê²½, ê¸°íƒ€ ì§ˆë¬¸ ë“±)");
-		sc_cate.add("ê¸°íšŒ ìš”ì¸(ë§¤ì¶œ ê´€ë ¨)");
-		sc_cate.add("ê³ ê° ì´ìš© í›„ê¸°");
-		sc_cate.add("ì¬ë¬´ ê´€ë ¨(ê²°ì œ ë° ì²­êµ¬ì„œ)");
-		sc_cate.add("ë¶„ì„ ë„êµ¬");
-		sc_cate.add("ìˆ™ì†Œ ìƒì„¸ ì •ë³´");
-		sc_cate.add("ê³„ì • ê´€ë ¨");
+		sc_cate.add("¿ä±İ & °´½Ç Àç°í ÇöÈ²");
+		sc_cate.add("ÇÁ·Î¸ğ¼Ç");
+		sc_cate.add("¿¹¾à °ü·Ã(Ãë¼Ò, º¯°æ, ±âÅ¸ Áú¹® µî)");
+		sc_cate.add("±âÈ¸ ¿äÀÎ(¸ÅÃâ °ü·Ã)");
+		sc_cate.add("°í°´ ÀÌ¿ë ÈÄ±â");
+		sc_cate.add("Àç¹« °ü·Ã(°áÁ¦ ¹× Ã»±¸¼­)");
+		sc_cate.add("ºĞ¼® µµ±¸");
+		sc_cate.add("¼÷¼Ò »ó¼¼ Á¤º¸");
+		sc_cate.add("°èÁ¤ °ü·Ã");
 		req.setAttribute("sc_cate", sc_cate);
 		
-		String a[] = new String[] {"ê°ì‹¤ ì¬ê³  ì¶”ê°€/ë³€ê²½", "ìš”ê¸ˆ ìƒì„±/ë³€ê²½", "ê°ì‹¤ ì •ì±…",
-				"ê¸°íƒ€", "ìš”ê¸ˆ & ê°ì‹¤ ì¬ê³  í˜„í™©"};
-		sc.put("ìš”ê¸ˆ & ê°ì‹¤ ì¬ê³  í˜„í™©", admin_message_input (a));
-		String b[] = new String[] {"ì·¨ì†Œ", "ë„ì°© ì‹œê°„ ìš”ì²­", "ë³€ê²½",
-				"ê²°ì œ", "ê¸°íƒ€"};
-		sc.put("ì˜ˆì•½ ê´€ë ¨(ì·¨ì†Œ, ë³€ê²½, ê¸°íƒ€ ì§ˆë¬¸ ë“±)", admin_message_input (b));
-		String c[] = new String[] {"ì²­êµ¬ì„œ ì¼ë°˜ ë¬¸ì˜", "ì²­êµ¬ì„œ ì •ì • ê´€ë ¨ ë¬¸ì˜"};
-		sc.put("ì¬ë¬´ ê´€ë ¨(ê²°ì œ ë° ì²­êµ¬ì„œ)", admin_message_input (c));
-		String d[] = new String[] {"ë¶€ê°€ì„¸(VAT)", "ë„ì‹œì„¸/ì¶”ê°€ ìš”ê¸ˆ", "ì‚¬ì§„", "ê°ì‹¤ ìƒì„¸ ì •ë³´",
-				"ìˆ™ì†Œ ì •ì±…(ì£¼ì°¨, ì¸í„°ë„· ë“±)", "ê¸°íƒ€"};
-		sc.put("ìˆ™ì†Œ ìƒì„¸ ì •ë³´", admin_message_input (d));
+		String a[] = new String[] {"°´½Ç Àç°í Ãß°¡/º¯°æ", "¿ä±İ »ı¼º/º¯°æ", "°´½Ç Á¤Ã¥",
+				"±âÅ¸", "¿ä±İ & °´½Ç Àç°í ÇöÈ²"};
+		sc.put("¿ä±İ & °´½Ç Àç°í ÇöÈ²", admin_message_input (a));
+		String b[] = new String[] {"Ãë¼Ò", "µµÂø ½Ã°£ ¿äÃ»", "º¯°æ",
+				"°áÁ¦", "±âÅ¸"};
+		sc.put("¿¹¾à °ü·Ã(Ãë¼Ò, º¯°æ, ±âÅ¸ Áú¹® µî)", admin_message_input (b));
+		String c[] = new String[] {"Ã»±¸¼­ ÀÏ¹İ ¹®ÀÇ", "Ã»±¸¼­ Á¤Á¤ °ü·Ã ¹®ÀÇ"};
+		sc.put("Àç¹« °ü·Ã(°áÁ¦ ¹× Ã»±¸¼­)", admin_message_input (c));
+		String d[] = new String[] {"ºÎ°¡¼¼(VAT)", "µµ½Ã¼¼/Ãß°¡ ¿ä±İ", "»çÁø", "°´½Ç »ó¼¼ Á¤º¸",
+				"¼÷¼Ò Á¤Ã¥(ÁÖÂ÷, ÀÎÅÍ³İ µî)", "±âÅ¸"};
+		sc.put("¼÷¼Ò »ó¼¼ Á¤º¸", admin_message_input (d));
 		req.setAttribute("sc", sc);
 		//
 		List<MessageDTO> list = adminMessageMapper.listMessage("admin");
@@ -227,17 +226,17 @@ public class BuisnessController {
 	      MimeMessageHelper messageHelper 
 	                        = new MimeMessageHelper(message, true, "UTF-8");
 	 
-	      messageHelper.setFrom("Gnikcah6@gmail.com");  // ë³´ë‚´ëŠ”ì‚¬ëŒ ìƒëµí•˜ê±°ë‚˜ í•˜ë©´ ì •ìƒì‘ë™ì„ ì•ˆí•¨
-	      messageHelper.setTo(req.getParameter("email"));     // ë°›ëŠ”ì‚¬ëŒ ì´ë©”ì¼
-	      messageHelper.setSubject("Hacking.comì—ì„œ ì˜ˆì•½í•˜ì‹  ìˆ™ì†Œ "+req.getParameter("accomodation")+"ì— ë¬¸ì˜í•˜ì‹  ì‚¬í•­ì— ëŒ€í•œ ë‹µë³€"); // ë©”ì¼ì œëª©ì€ ìƒëµì´ ê°€ëŠ¥í•˜ë‹¤
-	      messageHelper.setText(req.getParameter("content"));  // ë©”ì¼ ë‚´ìš©
+	      messageHelper.setFrom("Gnikcah6@gmail.com");  // º¸³»´Â»ç¶÷ »ı·«ÇÏ°Å³ª ÇÏ¸é Á¤»óÀÛµ¿À» ¾ÈÇÔ
+	      messageHelper.setTo(req.getParameter("email"));     // ¹Ş´Â»ç¶÷ ÀÌ¸ŞÀÏ
+	      messageHelper.setSubject("Hacking.com¿¡¼­ ¿¹¾àÇÏ½Å ¼÷¼Ò "+req.getParameter("accomodation")+"¿¡ ¹®ÀÇÇÏ½Å »çÇ×¿¡ ´ëÇÑ ´äº¯"); // ¸ŞÀÏÁ¦¸ñÀº »ı·«ÀÌ °¡´ÉÇÏ´Ù
+	      messageHelper.setText(req.getParameter("content"));  // ¸ŞÀÏ ³»¿ë
 	     
 	      mailSender.send(message);
 	    } catch(Exception e){
 	      System.out.println(e);
 	    }
 	 	customServiceMapper.updateCMessage(Integer.parseInt(req.getParameter("no")));
-	    req.setAttribute("msg", "ì„±ê³µì ìœ¼ë¡œ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
+	    req.setAttribute("msg", "¼º°øÀûÀ¸·Î Àü¼ÛÇÏ¿´½À´Ï´Ù.");
 		req.setAttribute("url", "custom_message.do");
 		return "message";
 	}
@@ -262,15 +261,15 @@ public class BuisnessController {
 		try {
 			int res = adminMessageMapper.writeMessage(dto);
 			if(res>0) {
-				msg = "ë©”ì‹œì§€ë¥¼ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.";
+				msg = "¸Ş½ÃÁö¸¦ Àü¼ÛÇÏ¿´½À´Ï´Ù.";
 				url = "custom_message.do";
 			}else {
-				msg = "ë©”ì‹œì§€ ì „ì†¡ì„ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.";
+				msg = "¸Ş½ÃÁö Àü¼ÛÀ» ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
 				url = "custom_message.do";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
+			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
 			url = "start.app";
 		}
 		req.setAttribute("msg", msg);
@@ -284,17 +283,17 @@ public class BuisnessController {
 	      MimeMessageHelper messageHelper 
 	                        = new MimeMessageHelper(message, true, "UTF-8");
 	 
-	      messageHelper.setFrom("Gnikcah6@gmail.com");  // ë³´ë‚´ëŠ”ì‚¬ëŒ ìƒëµí•˜ê±°ë‚˜ í•˜ë©´ ì •ìƒì‘ë™ì„ ì•ˆí•¨
-	      messageHelper.setTo(req.getParameter("remail"));     // ë°›ëŠ”ì‚¬ëŒ ì´ë©”ì¼
-	      messageHelper.setSubject("Hacking.comì—ì„œ ë¬¸ì˜í•˜ì‹  ì‚¬í•­ì— ëŒ€í•´ ë‹µë³€ë“œë¦½ë‹ˆë‹¤."); // ë©”ì¼ì œëª©ì€ ìƒëµì´ ê°€ëŠ¥í•˜ë‹¤
-	      messageHelper.setText(req.getParameter("myreply"));  // ë©”ì¼ ë‚´ìš©
+	      messageHelper.setFrom("Gnikcah6@gmail.com");  // º¸³»´Â»ç¶÷ »ı·«ÇÏ°Å³ª ÇÏ¸é Á¤»óÀÛµ¿À» ¾ÈÇÔ
+	      messageHelper.setTo(req.getParameter("remail"));     // ¹Ş´Â»ç¶÷ ÀÌ¸ŞÀÏ
+	      messageHelper.setSubject("Hacking.com¿¡¼­ ¹®ÀÇÇÏ½Å »çÇ×¿¡ ´ëÇØ ´äº¯µå¸³´Ï´Ù."); // ¸ŞÀÏÁ¦¸ñÀº »ı·«ÀÌ °¡´ÉÇÏ´Ù
+	      messageHelper.setText(req.getParameter("myreply"));  // ¸ŞÀÏ ³»¿ë
 	     
 	      mailSender.send(message);
 	    } catch(Exception e){
 	      System.out.println(e);
 	    }
 	 	adminMessageMapper.updateMessage(Integer.parseInt(req.getParameter("rno")));
-	    req.setAttribute("msg", "ì„±ê³µì ìœ¼ë¡œ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
+	    req.setAttribute("msg", "¼º°øÀûÀ¸·Î Àü¼ÛÇÏ¿´½À´Ï´Ù.");
 		req.setAttribute("url", "admin_message.do");
 		return "message";
 	}
@@ -306,12 +305,12 @@ public class BuisnessController {
 			if(res > 0) {
 				return "redirect:admin_message.do";
 			}else {
-				msg = "ë©”ì‹œì§€ ì‚­ì œ ì‹¤íŒ¨!";
+				msg = "¸Ş½ÃÁö »èÁ¦ ½ÇÆĞ!";
 				url = "admin_message.do";
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
+			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
 			url = "start.app";
 		}
 		req.setAttribute("msg", msg);

@@ -15,16 +15,16 @@ public class ReviewMapper {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<ReviewGradeDTO> listReview(String accommodation){
+	public List<ReviewGradeDTO> listReview(int accommodation){
 		return sqlSession.selectList("listReview", accommodation);
 	}
-	public List<ReviewDTO> list10Review(String accommodation){
+	public List<ReviewDTO> list10Review(int accommodation){
 		return sqlSession.selectList("list10Review", accommodation);
 	}
-	public int countReview(String accommodation) {
+	public int countReview(int accommodation) {
 		return sqlSession.selectOne("countReview", accommodation);
 	}
-	public GradeDTO averageReview(String accommodation){
+	public GradeDTO averageReview(int accommodation){
 		return sqlSession.selectOne("averageReview", accommodation);
 	}
 	public int insertReview(ReviewDTO dto) { 

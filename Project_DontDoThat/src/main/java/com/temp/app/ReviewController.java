@@ -42,7 +42,7 @@ public class ReviewController {
 	}
 	@RequestMapping(value="/reviewList.do")
 	public String reviewList(HttpServletRequest req) throws Exception{
-		String accommodation = req.getParameter("accommodation");
+		int accommodation = Integer.parseInt(req.getParameter("accommodation"));
 		List<ReviewGradeDTO> reviewlist = reviewMapper.listReview(accommodation);
 		int reviewcount = reviewMapper.countReview(accommodation);
 		GradeDTO reviewaverage = reviewMapper.averageReview(accommodation);
@@ -74,7 +74,7 @@ public class ReviewController {
 		AccountDTO user = (AccountDTO)session.getAttribute("userSession");
 		String writer = user.getNickName();
 		if(writer == null) {
-			dto.setWriter("익명");
+			dto.setWriter("�씡紐�");
 		}else {
 			dto.setWriter(writer);
 		}
@@ -86,13 +86,13 @@ public class ReviewController {
 		int res = reviewMapper.insertGrade(dto1);
 			if(res > 0) {
 				accomodationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
-				msg = "리뷰 작성 성공!";
+				msg = "由щ럭 �옉�꽦 �꽦怨�!";
 			}else {
-				msg = "리뷰 작성 실패!";
+				msg = "由щ럭 �옉�꽦 �떎�뙣!";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			req.setAttribute("msg", "DB서버 오류 발생!! 관리자에게 문의하세요");
+			req.setAttribute("msg", "DB�꽌踰� �삤瑜� 諛쒖깮!! 愿�由ъ옄�뿉寃� 臾몄쓽�븯�꽭�슂");
 			req.setAttribute("url", "start.app");
 			return "message";
 		}
