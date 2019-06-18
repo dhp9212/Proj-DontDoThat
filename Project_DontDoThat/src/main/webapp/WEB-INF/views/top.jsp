@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -53,7 +53,9 @@
 						</c:if>
 						<c:if test="${userSession != null}">
 						<li><a href="insertRoom.do">내 숙소 등록</a></li>
-						<img style="width:50px; height:50px;" src="<%=request.getContextPath()%>/resources/img/profileImage/${userSession.profilePhoto}">
+						<c:if test="${not empty userSession.profilePhoto}">
+							<img style="width:50px; height:50px;" src="<%=request.getContextPath()%>/resources/img/profileImage/${userSession.profilePhoto}">
+						</c:if>
 						<li id="myAccount" style=""><a href="#">나의 계정</a>
 							<ul>
 								<li><a href="mySettings.do">마이페이지</a></li>
