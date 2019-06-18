@@ -4,11 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../_buisness_top.jsp"%>
-<script type="text/javascript">
-</script>
-<font size="5"><b>고객 이용 후기</b></font><br><br>
-손님들이 숙소를 어떻게 평가했는지 확인하십시오. 이용 후기를 읽고 답변하실 수 있습니다.<br>
-<a href="review_policy.do">여기를 클릭</a>하여 당사 이용 후기 정책을 살펴보세요<br>
 <style>
 		.jb-wrap {
 			width: 75%;
@@ -120,10 +115,40 @@
 		
 		.dc{
 		 text-indent: 15px;
-		 margin-top: 15px;
+		 border-top: 15px;
 		}
 		
+	/* 	.dff :before {
+		content: "";
+		 float: left;
+		 position: absolute; 
+		 top: 0;
+		 left: -12px;
+		 width: 0;
+		 height: 0;
+		 border-color: transparent #FFFFFF transparent transparent;
+		 border-style: solid;
+		 border-width: 12px 12px 12px 0;
+		}
+		
+		.dfc :before {
+		content: "";
+		 float: left;
+		 position: absolute; 
+		 top: 0;
+		 left: -12px;
+		 width: 0;
+		 height: 0;
+		 border-color: transparent #E9EFF7 transparent transparent;
+		 border-style: solid;
+		 border-width: 12px 12px 12px 0;
+		} */
+	
 </style>
+<%-- <span class="container">
+	<img src="<%=request.getContextPath()%>/resources/img/review_score_badge1.png" alt="" width="12%">
+	<span class="centered"><font color="white">${grade}</font></span>
+</span> --%>
 <fmt:formatNumber var="avg" value="${(reviewaverage.clean+
 				reviewaverage.comfortable+reviewaverage.location+reviewaverage.facilities+
 				reviewaverage.kind+reviewaverage.value+reviewaverage.wifi)/7}"
@@ -131,13 +156,19 @@
 <fmt:formatNumber var="clean" value="${reviewaverage.clean}" pattern=".0"/>
 <fmt:formatNumber var="comfortable" value="${reviewaverage.comfortable}" pattern=".0"/>
 <fmt:formatNumber var="location" value="${reviewaverage.location}" pattern=".0"/>
-<fmt:formatNumber var="facilities" value="${reviewaverage.facilities}" pattern=".0"/>
+<fmt:formatNumber var="facilitie" value="${reviewaverage.facilities}" pattern=".0"/>
 <fmt:formatNumber var="kind" value="${reviewaverage.kind}" pattern=".0"/>
 <fmt:formatNumber var="value" value="${reviewaverage.value}" pattern=".0"/>
 <fmt:formatNumber var="wifi" value="${reviewaverage.wifi}" pattern=".0"/>				
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
-<div style="float:left">
-	<table width="200">
+<div class="container" align="center">
+<div class="row" style="width:100%">
+<div class="col-lg-3">
+	<%@ include file="custom_review_top.jsp"%>
+</div>
+<c:if test="${not empty reviewlist}">
+<div class="col-lg-2" >
+	<table>
 		<tr>
 			<td align="center"><font size="4"><b>이용 후기 평점</b></font></td>
 		</tr>
@@ -154,7 +185,14 @@
 					<div class="jb-text-table">
 						<div class="jb-text-table-row">
 							<div class="jb-text-table-cell">
-								<p><font color="white">${avg}</font></p>
+								<p><font color="white">
+									<c:choose>
+										<c:when test="${avg == '.0'}">
+										0
+										</c:when>
+										<c:otherwise>${avg}</c:otherwise>
+									</c:choose>
+								</font></p>
 							</div>
 						</div>
 					</div>
@@ -167,7 +205,7 @@
 		</tr>
 		<tr>
 			<td>
-				<table width="200">
+				<table>
 					<tr>
 						<td>청결도</td>
 						<td align="right"><font size="5"><b>${clean}&nbsp;&nbsp;</b></font></td>
@@ -191,10 +229,10 @@
 					</tr>
 					<tr>
 						<td>시설</td>
-						<td align="right"><font size="5"><b>${facilities}&nbsp;&nbsp;</b></font></td>
+						<td align="right"><font size="5"><b>${facilitie}&nbsp;&nbsp;</b></font></td>
 					</tr>
 					<tr>
-						<td colspan="2"><progress value="${facilities}" max="10"></progress></td>
+						<td colspan="2"><progress value="${facilitie}" max="10"></progress></td>
 					</tr>
 					<tr>
 						<td>직원 친절도</td>
@@ -222,21 +260,10 @@
 		</tr>
 	</table>
 </div>
-<span class="dfc" style="float:center">
-<table width="600" style="border-collapse:collapse; background-color:#E9EFF7;">
-	<tr>
-		<td align="center">
-			<table width="96%" style="border:1px solid #D8D8D8; background-color:#FFFFFF;">
-				<tr>
-					<td align="center"><img src="<%=request.getContextPath()%>/resources/img/policy_icon.png"></td>
-					<td><font size=6 color="#383838">100% 검증된 이용후기</font><br>
-					실제 이용객 • 실제 숙박 • 실제 의견<br>
-					더보기
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
+</c:if>
+<c:if test="${not empty reviewlist}">
+<div class="col-lg-7">
+<table style="border-collapse:collapse; background-color:#E9EFF7;">
 	<tr><td>
 <c:forEach var="dto" items="${reviewlist}">
 	<br>
@@ -249,7 +276,7 @@
 			<td rowspan="5" valign="top" width="100">${dto.writer}</td>
 			<td>
 			<div class="dff">
-				<table style="border:1px solid #BDBDBD; background-color:#FFFFFF;">
+				<table style="border:1px solid #BDBDBD; background-color:#FFFFFF;" >
 					<tr>
 						<td height="10" width="10">
 							<div class="imgb">
@@ -258,8 +285,8 @@
 			  			</td>
 						<td align="left"><font size="3" color="#424242">&nbsp;"${dto.subject}"</font></td>
 					</tr>
-					<tr style="border:1px dotted #BDBDBD; background-color:#E9F0FA;">
-						<td colspan="2">
+					<tr style="background-color:#E9F0FA;">
+						<td style="border:1px dotted #BDBDBD;" colspan="2">
 							<ul class="tags">
 			  					<li>휴가여행</li>
 			  					<li>친구끼리 여행</li>
@@ -269,18 +296,18 @@
 			 			 </td>
 					</tr>
 					<tr>
-						<td class="dc"><img src='<%=request.getContextPath()%>/resources/img/minus.png' width="15px" height="15px"></td>
-						<td width="96%">${dto.content_m}</td>
+						<td class="dc" colspan="2"><img src='<%=request.getContextPath()%>/resources/img/minus.png' width="15px" height="15px">
+						${dto.content_m}</td>
 					</tr>
 					<tr>
-						<td class="dc"><img src='<%=request.getContextPath()%>/resources/img/plus.png' width="15px" height="15px"></td>
-						<td width="96%">${dto.content_p}</td>
+						<td class="dc" colspan="2"><img src='<%=request.getContextPath()%>/resources/img/plus.png' width="15px" height="15px">
+						${dto.content_p}</td>
 					</tr>
 					<tr>
 						<td class="dc" colspan="2"><c:set var="myimage" value="${fn:split(dto.image,',')}"/>
 							<c:forEach var="image" items="${myimage}" varStatus="cs">
   								<img src="${pageContext.request.contextPath}/resources/img/${image}" style="border-radius:5px;" width="100">
-  								<c:if test="${cs.count%3 == 0}"></td></tr><tr><td class="dc" colspan="2"></c:if>
+  								<c:if test="${cs.count%3 == 0}"><br>&nbsp;&nbsp;&nbsp;</c:if>
 							</c:forEach> 
 						</td>
 					</tr>
@@ -295,5 +322,7 @@
 </c:forEach>
 	</td></tr>
 </table>
-</span>
-<%@ include file="../_buisness_bottom.jsp"%>
+</div>
+</c:if>
+</div>
+</div>
