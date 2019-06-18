@@ -203,7 +203,7 @@
 				${getAccomodationInfo.address}, ${getAccomodationInfo.city}, ${getAccomodationInfo.country}
  		 	</div>
  		 	<div class="col-lg-3 now" style="text-align:right;">
- 		 		<button type="button" class="btn btn-primary" id="optionBtn">지금 예약</button> 
+ 		 		<button type="button" class="btn btn-primary" id="optionBtn" onclick="location.href='#option'">지금 예약</button> 
  		 	</div>
  		 </div>
 	</div>
