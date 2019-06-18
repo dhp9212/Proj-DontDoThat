@@ -32,7 +32,7 @@ public class AccomodationMapper {
 
     public int insertAccomodation(MultipartHttpServletRequest mr, AccomodationDTO aDTO) {
         HttpSession session = mr.getSession();
-        String upPath = session.getServletContext().getRealPath("resources/img");
+        String upPath = session.getServletContext().getRealPath("resources/img/output");
         String accomodation_image = mr.getParameter("image");
         List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
         
