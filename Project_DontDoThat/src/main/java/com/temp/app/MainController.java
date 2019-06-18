@@ -5,10 +5,13 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,11 +21,13 @@ import com.temp.app.model.AnswerDTO;
 import com.temp.app.model.CategoryAccomodationDTO;
 import com.temp.app.model.CityDTO;
 import com.temp.app.model.CountryDTO;
+import com.temp.app.model.CstmDTO;
 import com.temp.app.model.CurrencyDTO;
 import com.temp.app.model.FacilityDTO;
 import com.temp.app.model.LanguageDTO;
 import com.temp.app.model.QA_AnswerDTO;
 import com.temp.app.model.QA_SubCateDTO;
+import com.temp.app.model.ReservationDTO;
 import com.temp.app.model.RoomInfoDTO;
 import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.CategoryMapper;
@@ -43,7 +48,8 @@ public class MainController {
 	private AccomodationMapper accomodationMapper;
 	@Autowired
 	private CustomServiceMapper customeServiceMapper; 
-	
+	@Autowired
+	private JavaMailSender mailSender;
 	// session values
 	private static Hashtable<String, List<String>> categoryRoom = new Hashtable<String, List<String>>();
 	private static Hashtable<String, List<String>> facilities = new Hashtable<String, List<String>>();
@@ -159,9 +165,80 @@ public class MainController {
 		}
 		lhm.put(str, d);
 	    req.setAttribute("lhm", lhm);
+	    
+	    HttpSession session = req.getSession();
+	    AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
+	    int num = dto.getNum();    
+        List<ReservationDTO> listReservation = accomodationMapper.listReservation(num);
+        req.setAttribute("listReservation", listReservation);
+   
 		return "custom/cstm";
 	}
+	@RequestMapping(value="/write_customer_message.do")
+	public String write_customer_message(HttpServletRequest req) {
+		String data = req.getParameter("reservation");
+		String[] sp = data.split("%");
+		int reservation = Integer.parseInt(sp[0]);
+		int accomodation_num = Integer.parseInt(sp[1]);
+		int account_num = accomodationMapper.getAccount_num(accomodation_num);
+		String accomodation_name = sp[2];
+		String name = req.getParameter("name");
+		String tel = req.getParameter("tel");
+		String email = req.getParameter("email");
+		String content = req.getParameter("content");
+		
+		CstmDTO f = new CstmDTO();
+		f.setReservation(reservation);
+		f.setAccount_num(account_num);
+		f.setAccomodation_name(accomodation_name);
+		f.setName(name);
+		f.setTel(tel);
+		f.setEmail(email);
+		f.setContent(content);
+		
+		customeServiceMapper.writeCMessage(f);
+		req.setAttribute("msg", "성공적으로 전송하였습니다.");
+		req.setAttribute("url", "customerService.do");
+		return "message";
+	}
 	
+	@RequestMapping(value="/write_customerService.do")
+	public String write_customerService(HttpServletRequest req){
+		String setfrom = req.getParameter("email");         
+	    String tomail  = "Gnikcah6@gmail.com";   // 받는 사람 이메일
+	    String title = setfrom;	   
+	    String num = req.getParameter("num");
+	    String tel = req.getParameter("tel");
+	    String name = req.getParameter("name");
+	    String content = null;
+	    if(num == "" && tel == "") {
+	        content = "(이름: "+name+") "+req.getParameter("content");    // 내용
+	    }else if(num == "" && tel != "") {
+	    	content =  "(이름: "+name+", 전화번호: "+tel+") "+req.getParameter("content"); 
+	    }else if(num != "" && tel == "") {
+	    	content =  "(이름: "+name+", 예약번호: "+num+") "+req.getParameter("content"); 
+	    }else {
+	    	content =  "(이름: "+name+", 예약번호: "+num+", 전화번호: "+tel+") "+req.getParameter("content"); 
+	    }
+	    
+	    try {
+	      MimeMessage message = mailSender.createMimeMessage();
+	      MimeMessageHelper messageHelper 
+	                        = new MimeMessageHelper(message, true, "UTF-8");
+	 
+	      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+	      messageHelper.setTo(tomail);     // 받는사람 이메일
+	      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+	      messageHelper.setText(content);  // 메일 내용
+	     
+	      mailSender.send(message);
+	    } catch(Exception e){
+	      System.out.println(e);
+	    }
+	    req.setAttribute("msg", "성공적으로 전송하였습니다.");
+		req.setAttribute("url", "customerService.do");
+		return "message";
+	}
 	
 	@RequestMapping(value="/accomodation_category_search.do")
 	public ModelAndView accomodation_category_search(HttpServletRequest req) {
