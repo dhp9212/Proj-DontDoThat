@@ -37,4 +37,13 @@
 	<delete id="deleteAnswer" parameterType="int">
 		delete from answer where no=#{no}
 	</delete>
+	<insert id="writeCMessage" parameterType="CstmDTO">
+		insert into customer_message values(customer_message_seq.nextval, #{reservation}, #{account_num}, #{accomodation_name}, #{name}, #{tel}, #{email}, #{content}, sysdate, #{check_reply, jdbcType=VARCHAR})
+	</insert>
+	<update id="updateCMessage" parameterType="int">
+		update customer_message set check_reply=1 where no = #{no}
+	</update>
+	<select id="listCMessage" resultType="CstmDTO" parameterType="int">
+		select * from customer_message where account_num = #{account_num}
+	</select>
 </mapper>

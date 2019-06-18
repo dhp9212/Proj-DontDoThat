@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.temp.app.model.CstmDTO;
 import com.temp.app.model.QA_AnswerDTO;
 import com.temp.app.model.QA_SubCateDTO;
 
@@ -55,5 +56,14 @@ public class CustomServiceMapper {
 	}
 	public int deleteAnswer(int no) {
 		return sqlSession.delete("deleteAnswer", no);
+	}
+	public int writeCMessage(CstmDTO dto) {
+		return sqlSession.insert("writeCMessage", dto);
+	}
+	public int updateCMessage(int no) {
+		return sqlSession.update("updateCMessage", no);
+	}
+	public List<CstmDTO> listCMessage(int accomodation_num){
+		return sqlSession.selectList("listCMessage", accomodation_num);
 	}
 }

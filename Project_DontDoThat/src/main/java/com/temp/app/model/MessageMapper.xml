@@ -13,10 +13,14 @@
 		#{content},
 		#{image, jdbcType=VARCHAR},
 		#{mbId},
-		sysdate)
+		sysdate,
+		#{reply, jdbcType=VARCHAR})
 	</insert>
+	<update id="updateMessage" parameterType="int">
+		update message set reply=1 where no = #{no}
+	</update>
 	<select id="listMessage" parameterType="String" resultType="MessageDTO">
-		select * from message where mbId=#{mbId}
+		select * from message where mbId=#{mbId} order by write_date desc
 	</select>
 	<delete id="deleteMessage" parameterType="int">
 		delete from message where no=#{no}

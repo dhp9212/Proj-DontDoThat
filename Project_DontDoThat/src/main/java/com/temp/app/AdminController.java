@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.temp.app.model.QA_AnswerDTO;
 import com.temp.app.model.QA_SubCateDTO;
-import com.temp.app.service.AccountMapper;
 import com.temp.app.service.CustomServiceMapper;
 
 @Controller
 public class AdminController {
-	@Autowired
-	private AccountMapper accountMapper;
 	@Autowired
 	private CustomServiceMapper customServiceMapper;
 	
@@ -38,7 +35,7 @@ public class AdminController {
 			return "admin/Q&A";
 		}catch (Exception e) {
 			e.printStackTrace();
-			req.setAttribute("msg", "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä");
+			req.setAttribute("msg", "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”");
 			req.setAttribute("url", "start.app");
 			return "message";
 		}
@@ -52,21 +49,21 @@ public class AdminController {
 				if (subcate == null) {
 				int res = customServiceMapper.insertMainCategory(maincate);
 					if(res>0) {
-						msg = "Ä«Å×°í¸® µî·Ï ¼º°ø!!";
+						msg = "ì¹´í…Œê³ ë¦¬ ë“±ë¡ ì„±ê³µ!!";
 					}else {
-						msg = "Ä«Å×°í¸® µî·Ï ½ÇÆĞ!!";
+						msg = "ì¹´í…Œê³ ë¦¬ ë“±ë¡ ì‹¤íŒ¨!!";
 					}
 				}else {
 				int res = customServiceMapper.insertSubCategory(maincate, subcate);
 					if(res>0) {
-						msg = "Ä«Å×°í¸® µî·Ï ¼º°ø!!";
+						msg = "ì¹´í…Œê³ ë¦¬ ë“±ë¡ ì„±ê³µ!!";
 					}else {
-						msg = "Ä«Å×°í¸® µî·Ï ½ÇÆĞ!!";
+						msg = "ì¹´í…Œê³ ë¦¬ ë“±ë¡ ì‹¤íŒ¨!!";
 					}
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
-				msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+				msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
 				url = "start.app";
 			}
 		req.setAttribute("msg", msg);
@@ -85,12 +82,12 @@ public class AdminController {
 			if(res>0) {
 				return "forward:listAnswer.admin";
 			}else {
-				msg = "Ä«Å×°í¸® µî·Ï ½ÇÆĞ!!";
+				msg = "ì¹´í…Œê³ ë¦¬ ë“±ë¡ ì‹¤íŒ¨!!";
 				url =  "Q&A.admin";
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+			msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
 			url = "start.app";
 		}
 		req.setAttribute("msg", msg);
@@ -106,12 +103,12 @@ public class AdminController {
 			if(res>0) {
 				return "forward:listAnswer.admin";
 			}else {
-				msg = "Ä«Å×°í¸® »èÁ¦ ½ÇÆĞ!!";
+				msg = "ì¹´í…Œê³ ë¦¬ ì‚­ì œ ì‹¤íŒ¨!!";
 				url =  "forward:listAnswer.admin";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+			msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
 			url = "start.app";
 		}
 		req.setAttribute("msg", msg);
@@ -135,12 +132,12 @@ public class AdminController {
 			if(res>0) {
 				return "redirect:Q&A.admin";
 			}else {
-				msg = "Ä«Å×°í¸® »èÁ¦ ½ÇÆĞ!!";
+				msg = "ì¹´í…Œê³ ë¦¬ ì‚­ì œ ì‹¤íŒ¨!!";
 				url = "Q&A.admin";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+			msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
 			url = "start.app";
 		}
 		req.setAttribute("msg", msg);
@@ -165,7 +162,7 @@ public class AdminController {
 			return "forward:Q&A.admin";
 		} catch (Exception e) {
 			e.printStackTrace();
-			req.setAttribute("msg", "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä");
+			req.setAttribute("msg", "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”");
 			req.setAttribute("url", "start.app");
 			return "message";
 		}

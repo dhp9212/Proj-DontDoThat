@@ -9,6 +9,7 @@ public class MessageDTO {
 	String image;
 	String mbId;
 	String write_date;
+	int reply;
 	
 	public int getNo() {
 		return no;
@@ -57,5 +58,11 @@ public class MessageDTO {
 	}
 	public void setWrite_date(String write_date) {
 		this.write_date = write_date;
+	}
+	public int getReply() {
+		return reply;
+	}
+	public void setReply(int reply) {
+		this.reply = reply;
 	}
 }

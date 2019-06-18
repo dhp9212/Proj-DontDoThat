@@ -43,10 +43,12 @@ public class ReservationMapper {
 							break;
 						}
 					}
+					for(RoomDTO roomDTO : room_list) {
+						if(roomDTO.getNum()==reservationDTO.getRoom_num()) {
+							myRoom_list.add(roomDTO);
+						}
+					}
 				}
-			}
-			for(RoomDTO roomDTO : room_list) {
-				if(roomDTO.getAccomodation_num()==accomodationDTO.getNum()) myRoom_list.add(roomDTO);
 			}
 		}
 		req.setAttribute("buisness_"+mode+"_reservation", myReservation);

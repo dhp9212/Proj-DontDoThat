@@ -19,6 +19,9 @@ public class MessageMapper {
 	public int writeMessage(MessageDTO dto) {
 		return sqlSession.insert("writeMessage", dto);
 	}
+	public int updateMessage(int no) {
+		return sqlSession.update("updateMessage", no);
+	}
 	public int deleteMessage(int no) {
 		return sqlSession.delete("deleteMessage", no);
 	}

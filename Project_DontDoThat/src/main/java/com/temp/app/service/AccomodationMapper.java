@@ -36,15 +36,12 @@ public class AccomodationMapper {
         String accomodation_image = mr.getParameter("image");
         List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
         
-        //占쎌뵠甕곤옙 占쎈쾻嚥≪빖猷욑옙釉� 占쎄텢占쎌뒠占쎈막 筌랃옙, 燁삳똻�뒲占쎄숲
         Integer count = 0;
         Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
         String image = "";
         
         for(MultipartFile mf : accomodatation_files) {
-            //占쎈솁占쎌뵬占쎌뵠 占쎌뵠沃섎챷占� 占쏙옙占쎌뿯占쎌뵠 占쎈툡占쎈빒野껋럩�뒭 占쎈뼄占쎌벉占쎈솁占쎌뵬嚥∽옙
             if(!mf.getContentType().substring(0, 5).equals("image")) continue;
-            //占쎈솁占쎌뵬筌롫�苑� 揶쏉옙 �겫袁⑷퐤占쎌뜎 獄쏅뗀占쏙옙 揶쏉옙 筌띾벊肉� 占쏙옙占쎌삢  + 占쎈솁占쎌뵬占쎈쾺疫뀐옙
             count = count+1;
             imageCheck(mf, accomodation_image, upPath, count, change_index);
         }
@@ -107,41 +104,36 @@ public class AccomodationMapper {
 		
 		return sqlSession.selectList("getRoomList", map);
 	}
-	//
 	public void updateAccomodation_facility(String accomodation_num, String accomodation_facility) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("accomodation_facility", accomodation_facility);
 		sqlSession.update("updateAccomodation_facility", map);
 	}
-	//
 	public void updateContent(String accomodation_num, String content) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("content", content);
 		sqlSession.update("updateContent", map);
 	}
-	//
 	public void updatePolicy(String accomodation_num, Map<String, String> map) {
 		sqlSession.update("updatePolicy", map);
 	}
-	//
 	public void updateNearby(String accomodation_num, String nearby) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("accomodation_num", accomodation_num);
 		map.put("nearby", nearby);
 		sqlSession.update("updateNearby", map);
 	}
-	//
 	public void updateImage(MultipartHttpServletRequest mr) {
 		HttpSession session = mr.getSession();
 		String accomodation_image = mr.getParameter("accomodation_image");
 		String accomodation_num = (String)session.getAttribute("accomodation_num");
-		//
+		
 		Integer count = 0;
 		Hashtable<Integer, String> change_index = new Hashtable<Integer, String>();
 		
-		String upPath = session.getServletContext().getRealPath("resources/img");
+		String upPath = session.getServletContext().getRealPath("resources/img/output");
 		List<MultipartFile> accomodatation_files = mr.getFiles("accomodation_files");
 		String image = "";
 		if(accomodatation_files.size()!=0) {
@@ -184,7 +176,7 @@ public class AccomodationMapper {
 	//
 	public void updateRoom_image(MultipartHttpServletRequest mr, Integer count) {
 		HttpSession session = mr.getSession();
-		String upPath = session.getServletContext().getRealPath("resources/img");
+		String upPath = session.getServletContext().getRealPath("resources/img/output");
 		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
 		Enumeration<String> key = room_list.keys();
 		while(key.hasMoreElements()) {
@@ -343,5 +335,8 @@ public class AccomodationMapper {
     }
     public int updateReservation(int num) {
 		return sqlSession.update("updateReservation", num);
+	}
+    public int getAccount_num(int accomodation_num){
+		return sqlSession.selectOne("getAccount_num", accomodation_num);
 	}
 }

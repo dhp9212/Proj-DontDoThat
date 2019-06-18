@@ -2,7 +2,7 @@ package com.temp.app.model;
 
 public class GradeDTO {
 	int num; 
-	int accommodation;
+	String accommodation;
 	int review;
 	double clean; 
 	double comfortable;
@@ -18,10 +18,10 @@ public class GradeDTO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getAccommodation() {
+	public String getAccommodation() {
 		return accommodation;
 	}
-	public void setAccommodation(int accommodation) {
+	public void setAccommodation(String accommodation) {
 		this.accommodation = accommodation;
 	}
 	public int getReview() {

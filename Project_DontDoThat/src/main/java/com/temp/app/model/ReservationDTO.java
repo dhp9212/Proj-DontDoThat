@@ -1,6 +1,6 @@
 package com.temp.app.model;
 
-public class ReservationDTO {
+public class ReservationDTO implements Comparable<ReservationDTO>{
 	private int num;
 	private int account_num;
 	private int accomodation_num;
@@ -127,5 +127,9 @@ public class ReservationDTO {
 	}
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+	@Override
+	public int compareTo(ReservationDTO reservationDTO) {
+		return this.checkOut_date.compareToIgnoreCase(reservationDTO.getCheckOut_date());
 	}
 }

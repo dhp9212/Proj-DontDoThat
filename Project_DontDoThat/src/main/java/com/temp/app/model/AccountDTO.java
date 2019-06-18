@@ -139,8 +139,6 @@ public class AccountDTO {
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
-	
-	
 	public List<Card> getCardList() {
 		return cardList;
 	}

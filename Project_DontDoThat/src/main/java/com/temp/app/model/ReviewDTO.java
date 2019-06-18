@@ -7,7 +7,7 @@ public class ReviewDTO {
 	String content_p;
 	String content_m;
 	String ip;
-	int accommodation; 
+	String accommodation; 
 	String lodge_date;
 	String write_date;
 	String image;
@@ -50,10 +50,10 @@ public class ReviewDTO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	public int getAccommodation() {
+	public String getAccommodation() {
 		return accommodation;
 	}
-	public void setAccommodation(int accommodation) {
+	public void setAccommodation(String accommodation) {
 		this.accommodation = accommodation;
 	}
 	public String getLodge_date() {
