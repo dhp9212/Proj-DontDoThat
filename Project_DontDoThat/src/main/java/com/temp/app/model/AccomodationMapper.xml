@@ -93,17 +93,13 @@
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
 		select * 
-		from (select rownum as rn, A.*, B.minprice , C.grade
+		from (select rownum as rn, A.*, B.minprice 
 			  from accomodation A inner join
 			  	   (select min(price) as minprice, 
 			  	   		   accomodation_num 
 			  	    from room 
 			  	    group by accomodation_num) B
 			  on A.num = B.accomodation_num
-			  left outer join  (select clean+comfortable+
-			  location+facilities+kind+value+
-			  wifi as grade, accommodation from grade)
-			  C on A.num = C.accommodation
 			  where country = #{input_place}
 			  or city = #{input_place_city} 
 			  order by B.minprice
@@ -180,10 +176,14 @@
         select * from room
     </select>
     <select id="listReservation" resultType="ReservationDTO" parameterType="Map">
-        select * from (select rownum rn, A.*, B.accomodation_name from reservation A, accomodation B where A.account_num = #{num} and A.accomodation_num = B.num) 
-        where rn between ${startRow} and ${endRow}
+        select *
+		from (select * from reservation order by checkIn_date desc) A, accomodation B 
+		where A.account_num = #{num} and A.accomodation_num = B.num) 
     </select>
     <select id="getCountReservation" resultType="int" parameterType="int">
         select count(*) from (select A.*, B.accomodation_name from reservation A, accomodation B where A.account_num = #{num} and A.accomodation_num = B.num)
+    </select>
+    <select id="getAccount_num" parameterType="int" resultType="int">
+    	select account_num from accomodation where num = #{num}
     </select>
 </mapper>
