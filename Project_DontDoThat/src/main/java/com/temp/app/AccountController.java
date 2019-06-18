@@ -40,30 +40,28 @@ public class AccountController {
 	 private JavaMailSender mailSender;
 	
 	@RequestMapping(value = "/signUp.do")
-	public String signUpForm() {//ȸ�� ���� ��
+	public String signUpForm() {//회占쏙옙 占쏙옙占쏙옙 占쏙옙
 		
 		return "account/signUp";
 	}
 	
-	//ȸ�� üũ
+	//회占쏙옙 체크
 	@RequestMapping(value = "/checkAccount.do", method = RequestMethod.POST)
 	public String checkAccountOk(HttpServletRequest req) {
-		String email = req.getParameter("email");//�Էµ� email���� �����´�.
+		String email = req.getParameter("email");//占쌉력듸옙 email占쏙옙占쏙옙 占쏙옙占쏙옙占승댐옙.
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 		AccountDTO dto = accountMapper.checkEmail(email);
 		if(dto == null) {
-			System.out.println("AccountController�� checkAccount.do���� dto ���� null �Դϴ�. " + dto);
 			req.setAttribute("email", email);
-			return "account/passwordSettings";//ȸ���� �ƴ϶�� password.jsp �������� �̵�
+			return "account/passwordSettings";//회占쏙옙占쏙옙 占싣니띰옙占� password.jsp 占쏙옙占쏙옙占쏙옙占쏙옙 占싱듸옙
 		}else {
-			System.out.println("AccountController�� checkAccount.do���� email �� : " + dto.getEmail());
 			req.setAttribute("email", email);
 			return "redirect:signUp.do";
 		}
 	}
 	
-	//�α��� �� �̵�
+	//占싸깍옙占쏙옙 占쏙옙 占싱듸옙
 	@RequestMapping(value = "/login.do")
 	public String login(HttpServletRequest req) {
 		String email = req.getParameter("email");
@@ -76,7 +74,7 @@ public class AccountController {
 		return "account/login";
 	}
 	
-	//��й�ȣ �Է� ��
+	//占쏙옙橘占싫� 占쌉뤄옙 占쏙옙
 	@RequestMapping(value = "/password.do")
 	public String password(HttpServletRequest req) {
 		String ret = "";
@@ -89,7 +87,7 @@ public class AccountController {
 		
 		if(dto == null) {
 			// not exist email = not a member
-			String none = "����";
+			String none = "없음";
 			req.setAttribute("emailCheckNone", none);
 			ret = "account/login";
 		}else {
@@ -101,34 +99,29 @@ public class AccountController {
 		return ret;
 	}
 	
-	//�ӽ� ��й�ȣ �߼�
 		@RequestMapping(value = "/temporaryPassword.do")
 		public ModelAndView temporaryPassword(HttpServletRequest req) {
 			HttpSession session = req.getSession();
 			AccountDTO dto = (AccountDTO)session.getAttribute("dto");
 			ModelAndView mv = new ModelAndView();
 				
-		    String uuid = UUID.randomUUID().toString().replaceAll("-", ""); // -�� ������ �־���. 
-		    uuid = uuid.substring(0, 10); //uuid�� �տ������� 10�ڸ� �߶���. 
+		    String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		    uuid = uuid.substring(0, 10);
 			    
 			String setfrom = "Gnikcah6@gmail.com";         
-		    String tomail  = (String)session.getAttribute("email");     // �޴� ��� �̸���
-		    String title   = "�ӽ� ��й�ȣ";    // ����
-		    String content = uuid;   // ����
-		    System.out.println("�ӽ� ��й�ȣ ���� = " + uuid);
+		    String tomail  = (String)session.getAttribute("email");
+		    String title   = "임시 비밀번호";
+		    String content = uuid; 
 		    dto.setPassword(uuid);
 		    accountMapper.updateTemporaryPassword(dto);
-		    
-		    System.out.println("session �̸��� �� : " + tomail);
-		    System.out.println("�ӽ� ��й�ȣ ������Ʈ = " + dto.getPassword());
 		    try {
 		      MimeMessage message = mailSender.createMimeMessage();
 		      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 		 
-		      messageHelper.setFrom(setfrom);  // �����»�� �����ϰų� �ϸ� �����۵��� ����
-		      messageHelper.setTo(tomail);     // �޴»�� �̸���
-		      messageHelper.setSubject(title); // ���������� ������ �����ϴ�
-		      messageHelper.setText(content);  // ���� ����
+		      messageHelper.setFrom(setfrom);
+		      messageHelper.setTo(tomail);
+		      messageHelper.setSubject(title);
+		      messageHelper.setText(content);
 		     
 		      mailSender.send(message);
 		    } catch(Exception e){
@@ -138,7 +131,6 @@ public class AccountController {
 		    return mv; 
 		}
 	
-	//�α��� Ok(��й�ȣ �Է� ��)
 	@RequestMapping(value = "/loginOk.do")
 	public ModelAndView loginOk(HttpServletRequest req) throws Exception {
 		HttpSession session = req.getSession();
@@ -157,7 +149,6 @@ public class AccountController {
 			}
 			
 			session.setAttribute("userSession", dto);
-			System.out.println("payment zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz : " + dto.getPayment());
 			// if credit card exist
 			if(dto.getPayment() != null) {
 				if(!dto.getPayment().equals("")) {
@@ -165,18 +156,16 @@ public class AccountController {
 					String[] cards = dto.getPayment().split("#");
 					for(int i = 0; i < cards.length; i++) {
 						String[] cardElement = cards[i].split(",");
-						System.out.println("cardlength : " +cards.length);
 						cardList.add(new Card(cardElement[0], cardElement[1], cardElement[2]));
 					}
 					dto.setCardList(cardList);
 				}
 			}
 			
-			//�ڱ� �̸��� �´� ���� ����Ʈ ���ǵ��
 			session.setAttribute("accomodation_list", accomodationMapper.getAccomodation(dto.getNum()));
 			mv.setViewName("forward:/");
 		}else {
-			String wrongPassword = "��й�ȣ Ʋ��";
+			String wrongPassword = "비밀번호 틀림";
 			req.setAttribute("email", dto.getEmail());
 			req.setAttribute("wrongPassword", wrongPassword);
 			mv.setViewName("account/password");
@@ -184,7 +173,7 @@ public class AccountController {
 		return mv;
 	}
 	
-	//�α׾ƿ�
+	//占싸그아울옙
 	@RequestMapping(value="logoutOk.do")
 	public ModelAndView logout(HttpServletRequest req) throws Exception{
 		req.getSession().removeAttribute("email");
@@ -193,7 +182,7 @@ public class AccountController {
 		return mav;
 	}
 	
-	//��й�ȣ ���� �Ϸ�
+	//占쏙옙橘占싫� 占쏙옙占쏙옙 占싹뤄옙
 	@RequestMapping(value = "/passwordSettingsOk.do", method = RequestMethod.POST)
 	public ModelAndView passwordOk(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
@@ -223,190 +212,24 @@ public class AccountController {
 		return mav;
 	}
 	
-	//�� ���� ���� �������� �̵�
 	@RequestMapping(value = "/mySettings.do")
 	public String mySettings(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
-	
 		return "account/mySettings";
 	}
-	
-//	//������ ���� ������
-//	@RequestMapping(value = "/accountUpdate.do")
-//	public ModelAndView accountUpdateOk(HttpServletRequest req) throws IOException,ServerException {
-//		ModelAndView mav = new ModelAndView();
-//		HttpSession session = req.getSession();
-//		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
-//		MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest)req;
-//		
-//		MultipartFile mf  = mhsr.getFile("profilePhoto");
-//		String path = req.getSession().getServletContext().getRealPath("/resources/img/profileImage/");
-//		//"D:\\maven\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_DontDoThat\\resources\\img\\profileImage";//req.getRealPath("/resources/img/profileImage");//"d:/image/";
-//		if(mf != null) {
-//			String organizedfilePath= "";
-//			try {
-//				if(mf.getSize() > 0) {
-//					organizedfilePath = mf.getOriginalFilename();
-//					File realUpload = new File(path, organizedfilePath);
-//					if(!realUpload.exists()) {
-//						realUpload.mkdirs();
-//					}
-//					mf.transferTo(realUpload);
-//					
-//					dto.setProfilePhoto(organizedfilePath);
-//					accountMapper.updateProfilePhoto(dto);
-//					req.setAttribute("profilePhoto", dto.getProfilePhoto());
-//					System.out.println("������ �̹��� �� : " + dto.getProfilePhoto());
-//					System.out.println("���� null�� üũ" + mhsr);
-//				}
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}else {
-//			req.setAttribute("profilePhoto", dto.getProfilePhoto());
-//		}
-//		
-//		String nickName = req.getParameter("nickName");//�г���
-//		String birthday = req.getParameter("birthday");//����
-//		String country = req.getParameter("country");//����/����
-//		
-//		String name = req.getParameter("name");//�̸�
-//		String tel = req.getParameter("tel");//��ȭ��ȣ
-//		String email = req.getParameter("email");//�̸���
-//		String address = req.getParameter("address");//�ּ�
-//		
-//		String selectPayment = req.getParameter("payment");//ī�� ����
-//		String nameOfCreditCard = req.getParameter("nameOfCreditCard");//ī�� ��ȣ
-//		String expirationDate = req.getParameter("expirationDate");//���� ����
-//
-//		
-//		String payment = selectPayment + " " + nameOfCreditCard + " " + expirationDate;//��������
-//		String smoke = req.getParameter("smoke");//�� ����
-//		String starRating = req.getParameter("starRating");//���� ����
-//		String disabled = req.getParameter("disabled");//����� ���� �ü� ����
-//		String preferredFacility = req.getParameter("preferredFacility");//��ȣ�ϴ� �ü�
-//		String reservationTarget = req.getParameter("reservationTarget");//���� ���
-//		
-//		String currency = req.getParameter("currency");//��ȭ(��, �޷�, ��)���
-//		String password = req.getParameter("confirmPassword");//��й�ȣ
-//		
-//		
-//		session.getAttribute("currencyList");
-//		
-//		if(nickName != null) {// || !nickName.trim().equals("")
-//			System.out.println("nickName = " + nickName);
-//			dto = (AccountDTO)session.getAttribute("userSession");
-//			dto.setNickName(req.getParameter("nickName"));
-//			accountMapper.updateNickName(dto);
-//			req.setAttribute("nickName", dto.getNickName());
-//			System.out.println("birthday = " + birthday);
-//			dto.setBirthday(req.getParameter("birthday"));
-//			accountMapper.updateBirthday(dto);
-//			System.out.println("dto.getBirthday : " + dto.getBirthday());
-//			req.setAttribute("birthday", dto.getBirthday());
-//		}else if(country != null){
-//			System.out.println("country = " + country);
-//			dto.setCountry(req.getParameter("country"));
-//			//accountMapper.updateCountry(dto);			
-//			req.setAttribute("country", dto.getCountry());
-//		}else if(name != null) {
-//			System.out.println("name = " + name);
-//			dto.setName(req.getParameter("name"));
-//			accountMapper.updateName(dto);
-//			req.setAttribute("name", dto.getName());
-//			System.out.println("tel = " + tel);
-//			dto.setTel(req.getParameter("tel"));
-//			accountMapper.updateTel(dto);
-//			req.setAttribute("tel", dto.getTel());
-//			System.out.println("address = " + address);
-//			dto.setAddress(req.getParameter("address"));
-//			accountMapper.updateAddress(dto);
-//			req.setAttribute("address", dto.getAddress());
-//		}else if(payment != null || !payment.trim().equals("")) {
-//			System.out.println("payment = " + payment);
-//			
-//			dto.setPayment(payment);
-//			accountMapper.updatePayment(dto);
-//			
-//			// 0 : kind of card
-//			// 1 : # of card
-//			// 2 : expire date
-////			String[] pay = payment.split(" ");
-////			req.setAttribute("selectCard", pay[0]);
-////			req.setAttribute("nameOfCreditCard", pay[1]);
-////			req.setAttribute("expirationDate", pay[2]);
-//			req.setAttribute("payment", dto.getPayment());
-//		}else if(smoke != null || !smoke.trim().equals("")) {
-//			System.out.println("smoke = " + smoke);
-//			dto.setSmoke(req.getParameter("smoke"));
-//			//accountMapper.updateSmoke(dto);
-//			req.setAttribute("smoke", dto.getSmoke());
-//		}else if(starRating != null || !starRating.trim().equals("")) {
-//			System.out.println("starRating = " + starRating);
-//			dto.setStarRating(Integer.parseInt(req.getParameter("starRating")));
-//			//accountMapper.updateStarRating(dto);
-//			req.setAttribute("starRating", dto.getStarRating());
-//		}else if(disabled != null || !disabled.trim().equals("")) {
-//			System.out.println("disabled = " + disabled);
-//			dto.setDisabled(req.getParameter("disabled"));
-//			//accountMapper.updateDisabled(dto);
-//			req.setAttribute("disabled", dto.getDisabled());
-//		}else if(preferredFacility != null || !preferredFacility.trim().equals("")) {
-//			System.out.println("preferredFacility = " + preferredFacility);
-//			dto.setPreferredFacility(req.getParameter("preferredFacility"));
-//			//accountMapper.updatePreferredFacility(dto);
-//			req.setAttribute("preferredFacility", dto.getPreferredFacility());
-//		}else if(reservationTarget  != null || !reservationTarget .trim().equals("")) {
-//			System.out.println("reservationTarget  = " + reservationTarget );
-//			dto.setReservationTarget (req.getParameter("reservationTarget "));
-//			//accountMapper.updateReservationTarget(dto);
-//			req.setAttribute("reservationTarget", dto.getReservationTarget());
-//		}else if(currency != null || !currency.trim().equals("")) {
-//			System.out.println("currency = " + currency);
-//			dto.setCurrency(req.getParameter("currency"));
-//			//accountMapper.updateCurrency(dto);
-//			req.setAttribute("currency", dto.getCurrency());
-//		}else if(password != null || !password.trim().equals("")) {
-//			System.out.println("password = " + password);
-//			dto.setPassword(req.getParameter("confirmPassword"));
-//			accountMapper.updatePassword(dto);
-//			req.setAttribute("password", dto.getPassword());
-//		}
-//		
-////		if(password == null || password.trim().equals("")) {
-////			System.out.println("password = " + password);
-////		}else {
-////			System.out.println("password = " + password);
-////			dto.setPassword(req.getParameter("confirmPassword"));
-////			accountMapper.updatePassword(dto);
-////			req.setAttribute("password", dto.getPassword());
-////		}
-//		
-//		mav.setViewName("forward:/mySettings.do");
-//		return mav;
-//	}
-	
-	
-	//�̿� ���
 	@RequestMapping(value = "/terms.do")
 	public String terms() {
 		return "account/terms";
 	}
 	
-	//�������� ��ȣ��å
 	@RequestMapping(value = "/privacy.do")
 	public String privacy() {
 		return "account/privacy";
 	}
 	
-	//�׽�Ʈ ������
 	@RequestMapping(value = "/testPage.do")
 	public String testPage() {
 		return "test/testPage";
 	}
-	
-	
 	
 	@RequestMapping(value = "/accountUpdateImage.do")
 	public ModelAndView accountUpdateImage(HttpServletRequest req) throws IOException,ServerException {
@@ -432,8 +255,6 @@ public class AccountController {
 					dto.setProfilePhoto(organizedfilePath);
 					accountMapper.updateProfilePhoto(dto);
 					req.setAttribute("profilePhoto", dto.getProfilePhoto());
-					System.out.println("������ �̹��� �� : " + dto.getProfilePhoto());
-					System.out.println("���� null�� üũ" + mhsr);
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -452,8 +273,8 @@ public class AccountController {
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
 		
-		String nickName = req.getParameter("nickName");//�г���
-		String birthday = req.getParameter("birthday");//����
+		String nickName = req.getParameter("nickName");//占싻놂옙占쏙옙
+		String birthday = req.getParameter("birthday");//占쏙옙占쏙옙
 		
 		// if nickName form is not null, update DB
 		if(nickName != null) {
@@ -530,8 +351,6 @@ public class AccountController {
 		String numOfCreditCard = req.getParameter("numOfCreditCard");
 		String expirationDate = req.getParameter("expirationDate");
 		
-		System.out.println("here");
-		
 		String payment = dto.getPayment();
 		
 		// if payment already exist add tokenizer /
@@ -571,9 +390,8 @@ public class AccountController {
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
 		
-		String password = req.getParameter("confirmPassword");//��й�ȣ
+		String password = req.getParameter("confirmPassword");//占쏙옙橘占싫�
 		if(password != null || !password.trim().equals("")) {
-			System.out.println("password = " + password);
 			dto.setPassword(req.getParameter("confirmPassword"));
 			accountMapper.updatePassword(dto);
 			req.setAttribute("password", dto.getPassword());
