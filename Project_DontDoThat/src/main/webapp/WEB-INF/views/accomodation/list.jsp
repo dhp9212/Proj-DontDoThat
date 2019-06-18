@@ -1,7 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../top.jsp" %>
+<style>
+	.imgb{
+   			position: relative;
+    		background-image: url('<%=request.getContextPath()%>/resources/img/review_score_badge1.png');
+    		background-repeat: no-repeat;
+    		height: 30px;
+    		width: 30px;
+		}
+	.content{
+    	 position: absolute;
+   		 top:50%;
+   		 left:50%;
+    	 transform: translate(-50%, -50%);                                                                   
+   		 color: white;
+   	 	 text-align: center;
+   	 	 text-valign: middle;
+   	 	}	
+</style>
 <br/>
 <div class="col-lg-4">
 	<div class="panel panel-default sidesearch">
@@ -99,13 +118,23 @@
 					  	
 					  	<div class="col-lg-8">
 					  		<div class="row">
-							  	<div class="col-lg-8">
+							  	<div class="col-lg-9">
 								  	<a href="search_accomodation_content.do?num=${dto.num}">
 								  		<h3>[${dto.category_accomodation}]${dto.accomodation_name}</h3>
 								  	</a>
 							  	</div>
-							  	<div class="col-lg-4">
-							  		이용 후기 평점 넣어야됨
+							  	<div class="col-lg-3">
+							  	<fmt:formatNumber var="avg" value="${dto.grade/7}" pattern=".0"/>
+							  		<c:choose>
+							  			<c:when test="${avg == '.0'}">
+							  				없음
+							  			</c:when>
+							  			<c:otherwise>
+							  				<div class="imgb">
+				  		   				    	<div class="content">${avg}</div>
+							  				</div>
+							  			</c:otherwise>
+							  		</c:choose>
 							  	</div>
 						  	</div>
   	                      	<div class="row">${dto.city}</div>
