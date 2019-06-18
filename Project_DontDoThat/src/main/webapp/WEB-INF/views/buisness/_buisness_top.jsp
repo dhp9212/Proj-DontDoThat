@@ -40,15 +40,6 @@
 			<nav class="navbar navbar-expand-sm float-right">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-					  <form class="form-inline" action="/action_page.php">
-					    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-					    <button class="btn btn-success" type="submit" style="margin: 0 10 0 0;">Search</button>
-					  </form>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link text_white" href="#">사용자</a>
-					</li>
-					<li class="nav-item">
 						<div class="dropdown">
 							<button type="button" class="btn text_white dropdown-toggle" data-toggle="dropdown">
 								숙소
@@ -64,11 +55,6 @@
 			</nav>
 		</div>
 	</div>
-	<c:if test="${!empty accomodation_num}">
-	<div class="row" style="background-color:#000080;">
-		<div style="margin:0 10 0 30;" class="col-sm-11"><a href="general_info.do"><font class="text-white">숙소 정보</font></a></div>
-	</div>
-	</c:if>
 	<div class="row" style="background-color:blue;">
 		<div class="col-sm-4">
 			<nav class="navbar navbar-expand-sm">
@@ -88,15 +74,20 @@
 		<div class="col-sm-8" style="padding: 0 60 0 0;">
 			<nav class="navbar navbar-expand-sm float-right">
 				<ul class="navbar-nav">
-					<li class="nav-item dropdown">
-					    <a class="nav-link text_white dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					    	메세지
-					    </a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="custom_message.do">고객 메세지</a>
-							<a class="dropdown-item" href="admin_message.do">dontDoThat 메세지</a>
-						</div>
-					</li>
+					<c:if test="${userSession.email == 'admin@admin.com'}">
+						<li class="nav-item dropdown">
+							<a class="nav-link text_white dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						    	관리자
+						    </a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="Q&A.admin">Q&A설정</a>
+								<a class="dropdown-item" href="admin_message.do">dontDoThat 메세지</a>
+							</div>
+						</li>
+					</c:if>
+				    <li class="nav-item">
+				     	<a class="nav-link text_white" href="custom_message.do">메시지</a>
+				  	</li>
 					<li class="nav-item dropdown">
 					    <a class="nav-link text_white dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
 					    	재무
