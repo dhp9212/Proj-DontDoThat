@@ -93,13 +93,17 @@
 	</select>
 	<select id="listAccomodation" resultType="AccomodationDTO" parameterType="HashMap">
 		select * 
-		from (select rownum as rn, A.*, B.minprice 
+		from (select rownum as rn, A.*, B.minprice , C.grade
 			  from accomodation A inner join
 			  	   (select min(price) as minprice, 
 			  	   		   accomodation_num 
 			  	    from room 
 			  	    group by accomodation_num) B
 			  on A.num = B.accomodation_num
+			  left outer join  (select clean+comfortable+
+			  location+facilities+kind+value+
+			  wifi as grade, accommodation from grade)
+			  C on A.num = C.accommodation
 			  where country = #{input_place}
 			  or city = #{input_place_city} 
 			  order by B.minprice
