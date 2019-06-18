@@ -9,34 +9,35 @@
 	<div class="col-lg-12" align="center">예약하신 숙소가 없습니다.</div>
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="dto" items="${listReservation}" varStatus="status">
+<c:forEach var="dto" items="${listReservation}" varStatus="status">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="col-lg-4">
-				<div class="row">
-					<div class="col-lg-4"><h3>${dto.accomodation_name}</h3></div><br>
+					<div class="col-lg-8"><h3>${dto.accomodation_name}</h3></div><br>
 					<div class="col-lg-4">${dto.payment}</div>
-				</div>
 			</div>
-			<div class="col-lg-8">
-				<div class="col-lg-8">
-					<div class="col-lg-4" align="center">체크인</div>
-					<div class="col-lg-4" align="center">체크아웃</div>
-				</div><br>
-				<div class="col-lg-8">
-					<div class="col-lg-4" align="center">${dto.checkIn_date}</div>
-					<div class="col-lg-4" align="center">${dto.checkOut_date}</div>
-				</div><br>
-				<div class="col-lg-8">
-					<div class="col-lg-8" align="center">
-						<button type="button" class="btn btn-primary" onclick="javascript:check(${dto.num});">예약 취소</button>
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="col-lg-6" align="center">체크인</div>
+						<div class="col-lg-6" align="center">체크아웃</div>
 					</div>
 				</div>
+				<div class="row">
+				<div class="col-lg-12">
+					<div class="col-lg-6" align="center">${dto.checkIn_date}</div>
+					<div class="col-lg-6" align="center">${dto.checkOut_date}</div>
+				</div>
+				</div>
 			</div>
-			</form>
+			<div class="col-lg-2">
+					<div class="col-lg-12" align="center">
+						<button type="button" class="btn btn-primary" onclick="javascript:check(${dto.num});">예약 취소</button>
+					</div>
+			</div>
 		</div>
 	</div>
-		</c:forEach>
+</c:forEach>
 	<div>페이지 : 
 <c:if test="${listCount > 0}">
 	<c:if test="${startPage > pageBlock}">
