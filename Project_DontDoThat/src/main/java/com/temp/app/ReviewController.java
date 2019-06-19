@@ -20,6 +20,7 @@ import com.temp.app.model.ReservationDTO;
 import com.temp.app.model.ReviewDTO;
 import com.temp.app.model.ReviewGradeDTO;
 import com.temp.app.service.AccomodationMapper;
+import com.temp.app.service.ReservationMapper;
 import com.temp.app.service.ReviewMapper;
 
 @Controller
@@ -28,6 +29,8 @@ public class ReviewController {
 	private ReviewMapper reviewMapper;
 	@Autowired
 	private AccomodationMapper accomodationMapper;
+	@Autowired
+	private ReservationMapper reservationMapper;
 	
 	@RequestMapping(value="/reviewMain.do")
 	public String reviewMain(HttpServletRequest req) throws Exception{
@@ -85,7 +88,7 @@ public class ReviewController {
 		int res = reviewMapper.insertGrade(dto1);
 			if(res > 0) {
 				System.out.println("sadfsdf"+req.getParameter("reservation_num"));
-				accomodationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
+				reservationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
 				msg = "리뷰 작성 성공!";
 				url = "reviewMain.do";
 			}else {

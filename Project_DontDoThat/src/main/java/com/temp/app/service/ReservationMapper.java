@@ -124,4 +124,7 @@ public class ReservationMapper {
 		req.setAttribute("buisness_b_account", myAccount_list);
 		req.setAttribute("buisness_b_room_list", myRoom_list);
 	}
+	 public int updateReservation(int num) {
+			return sqlSession.update("updateReservation", num);
+		}
 }

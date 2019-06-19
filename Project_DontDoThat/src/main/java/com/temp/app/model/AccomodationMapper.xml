@@ -158,9 +158,6 @@
 				#{payment, jdbcType=VARCHAR},
 				#{check_review, jdbcType=VARCHAR})
 	</insert>
-	<update id="updateReservation" parameterType="int">
-		update reservation set check_review=1 where num = #{num}
-	</update>
 	<delete id="deleteReservation" parameterType="int">
 		delete from reservation where num = #{num}
 	</delete>

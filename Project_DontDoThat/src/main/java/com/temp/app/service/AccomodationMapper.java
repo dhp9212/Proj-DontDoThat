@@ -329,13 +329,10 @@ public class AccomodationMapper {
     public int getCountReservation(int num) {
         return sqlSession.selectOne("getCountReservation", num);
     }
-    //추가
+    //異붽�
     public List<ReservationDTO> listReservation(int num) {
         return sqlSession.selectList("getReservation_num", num);
     }
-    public int updateReservation(int num) {
-		return sqlSession.update("updateReservation", num);
-	}
     public int getAccount_num(int accomodation_num){
 		return sqlSession.selectOne("getAccount_num", accomodation_num);
 	}
