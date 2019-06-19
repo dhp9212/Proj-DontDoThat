@@ -54,7 +54,7 @@
 					<td align="center">${dcc.checkOut_date}</td>
 					<td align="center">
 						<c:choose>
-							<c:when test="${nowDate != dcc.checkOut_date}">
+							<c:when test="${now <= dcc.checkOut_date}">
 								<a href="javascript:writeReview('${dcc.num}','${dcc.accomodation_num}','${dcc.checkIn_date}')"
 								class="mybutton23">작성하기</a>
 							</c:when>
