@@ -110,7 +110,7 @@ public class AccountController {
 			    
 			String setfrom = "Gnikcah6@gmail.com";         
 		    String tomail  = (String)session.getAttribute("email");
-		    String title   = "임시 비밀번호";
+		    String title   = "Hacking.com 임시 비밀번호";
 		    String content = uuid; 
 		    dto.setPassword(uuid);
 		    accountMapper.updateTemporaryPassword(dto);

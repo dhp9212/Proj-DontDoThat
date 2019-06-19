@@ -655,10 +655,11 @@
 					<form name="s3" action="accountUpdateCard.do" method="post" enctype="multipart/form-data">
 						<!-- 신용카드 설정 -->
 						<div class="creditCardSetting" style="background-color:lavender;">
-							<c:forEach var="cardItem" items="${userSession.cardList}">
+							<c:forEach var="cardItem" items="${userSession.cardList}">&nbsp;
+								<button style="border:1px solid #0033cc; color:#0033cc; background-color:lavender" name="creditCardDelete">지우기</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- style="border:1px solid green; color:white; background-color:#669999;" -->
 								<label>${cardItem.kindOfCreditCard}&nbsp;${cardItem.numOfCreditCard}&nbsp;${cardItem.expirationDate}</label>&nbsp;
-								<label>${userSession.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-								<button name="creditCardDelete">지우기</button><!-- style="border:1px solid green; color:white; background-color:#669999;" -->
+								<label>${userSession.name}</label>
 								<br/>
 							</c:forEach>
 						</div><br>
@@ -722,7 +723,7 @@
 						</div><br>
 					</div>
 				</form>
-			</div>
+			</div><br><br>
 		</div>
 	</div>
 </body>
