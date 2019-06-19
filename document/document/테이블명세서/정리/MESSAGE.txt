@@ -1,0 +1,11 @@
+create table message
+(no number primary key,
+id varchar2(100),
+subject varchar2(100),
+subject_sub varchar2(100),
+content varchar2(4000),
+image varchar2(300),
+mbId varchar2(50),
+write_date timestamp);
+
+create sequence message_seq;

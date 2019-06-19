@@ -2,7 +2,7 @@
 
 CREATE TABLE ACCOMODATION(
 NUM 				NUMBER PRIMARY KEY,
-CATEGORY_ACCOMODATION 	VARCHAR2(50),
+CATEGORY_ACCOMODATION 		VARCHAR2(50),
 HOMEPAGE 			VARCHAR2(100),
 HEADNAME 			VARCHAR2(30),
 TEL 				VARCHAR2(20),
@@ -22,23 +22,22 @@ ACCOUNT_NUM 			NUMBER,
 NEARBY 				VARCHAR2(4000)
 );
 
-식별키
+식별키 pk
 숙소의 종류
 숙소 홈페이지
-숙소 주인이름
 숙소 전화번호
 숙소 이름
 국가명
 도시명
 숙소 주소
-숙소 우편번호
 숙소 시설
 숙소 이미지
 숙소 소개
 숙소 정책
 숙소 체크인가능시간
 숙소 체크아웃가능시간
-PAYMENT ?
-ACCOUNT_NUM ?
+사용가능한 카드
+숙소 주인번호 fk
+숙소 주인이름
 숙소 근처
 

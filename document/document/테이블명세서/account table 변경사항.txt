@@ -1,1 +1,0 @@
-alter table account modify (payment varchar2(300));

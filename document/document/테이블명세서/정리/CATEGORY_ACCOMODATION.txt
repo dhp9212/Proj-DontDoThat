@@ -1,0 +1,57 @@
+﻿create table CATEGORY_ACCOMODATION(
+	KEY number primary key,
+	NAME varchar2(50) not null,
+	CONTENTS varchar2(200),
+	IMAGE varchar2(100)
+);
+
+create sequence CATEGORY_ACCOMODATION_SEQ;
+
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '아파트', '', 'apart.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '리조트', '', 'resort.jpg'); 
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '빌라', '', 'villa.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '샬레', '', 'chalet.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '코티지', '', 'cottage.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '글램핑', '', 'glamping.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '아파트호텔', '', 'aparthotel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '펜션', '', 'pension.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '게스트하우스', '', 'guesthouse.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '호스텔', '', 'hostel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '모텔', '', 'motel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '베드앤브렉퍼스트', '', 'bedandbreakfast.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '료칸', '', 'ryokan.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '리야드', '', 'riyadh.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '홀리데이파크', '', 'holidaypark.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '홈스테이', '', 'homestay.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '캠프장', '', 'camp.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '컨트리 하우스', '', 'countryhouse.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '팜스테이', '', 'farmstay.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '보트호텔', '', 'boathotel.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '럭셔리 텐트', '', 'luxurytent.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '취사 가능한 숙소', '', 'cookinghome.jpg');
+insert into CATEGORY_ACCOMODATION values(CATEGORY_ACCOMODATION_SEQ.nextval, '타이니 하우스', '', 'tinyhouse.jpg');
+
+
+update CATEGORY_ACCOMODATION set image = 'apart.jpg' where name = '아파트';
+update CATEGORY_ACCOMODATION set image = 'resort.jpg' where name = '리조트';
+update CATEGORY_ACCOMODATION set image = 'villa.jpg' where name = '빌라';
+update CATEGORY_ACCOMODATION set image = 'chalet.jpg' where name = '샬레';
+update CATEGORY_ACCOMODATION set image = 'cottage.jpg' where name = '코티지';
+update CATEGORY_ACCOMODATION set image = 'glamping.jpg' where name = '글램핑';
+update CATEGORY_ACCOMODATION set image = 'aparthotel.jpg' where name = '아파트호텔';
+update CATEGORY_ACCOMODATION set image = 'pension.jpg' where name = '펜션';
+update CATEGORY_ACCOMODATION set image = 'guesthouse.jpg' where name = '게스트하우스';
+update CATEGORY_ACCOMODATION set image = 'hostel.jpg' where name = '호스텔';
+update CATEGORY_ACCOMODATION set image = 'motel.jpg' where name = '모텔';
+update CATEGORY_ACCOMODATION set image = 'bedandbreakfast.jpg' where name = '베드앤브렉퍼스트';
+update CATEGORY_ACCOMODATION set image = 'ryokan.jpg' where name = '료칸';
+update CATEGORY_ACCOMODATION set image = 'riyadh.jpg' where name = '리야드';
+update CATEGORY_ACCOMODATION set image = 'holidaypark.jpg' where name = '홀리데이파크';
+update CATEGORY_ACCOMODATION set image = 'homestay.jpg' where name = '홈스테이';
+update CATEGORY_ACCOMODATION set image = 'camp.jpg' where name = '캠프장';
+update CATEGORY_ACCOMODATION set image = 'countryhouse.jpg' where name = '컨트리 하우스';
+update CATEGORY_ACCOMODATION set image = 'farmstay.jpg' where name = '팜스테이';
+update CATEGORY_ACCOMODATION set image = 'boathotel.jpg' where name = '보트호텔';
+update CATEGORY_ACCOMODATION set image = 'luxurytent.jpg' where name = '럭셔리 텐트';
+update CATEGORY_ACCOMODATION set image = 'cookinghome.jpg' where name = '취사 가능한 숙소';
+update CATEGORY_ACCOMODATION set image = 'tinyhouse.jpg' where name = '타이니 하우스';

@@ -1,3 +1,7 @@
+﻿create sequence ACCOUNT_seq
+start with 1
+increment by 1;
+
 CREATE TABLE ACCOUNT(
 NUM		NUMBER PRIMARY KEY,
 EMAIL		VARCHAR2(30),
@@ -8,4 +12,19 @@ PROFILEPHOTO	VARCHAR2(500),
 NICKNAME	VARCHAR2(50),
 COUNTRY	VARCHAR2(100),
 ADDRESS		VARCHAR2(100),
-PAYMENT	VARCHAR2(50),
+PAYMENT		VARCHAR2(300)
+);
+
+
+식별키 pk
+이메일
+패스워드
+이름
+전화번호
+프로필사진파일이름
+닉네임
+국가
+주소
+등록된카드
+
+
