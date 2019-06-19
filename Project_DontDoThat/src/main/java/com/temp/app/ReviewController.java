@@ -35,7 +35,6 @@ public class ReviewController {
 	    AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
 	    int num = dto.getNum();   
         List<ReservationDTO> listReservation = accomodationMapper.listReservation(num);
-        System.out.println(listReservation.size());
         req.setAttribute("listReservation", listReservation);
         
 		return "review/main";
@@ -74,29 +73,33 @@ public class ReviewController {
 		AccountDTO user = (AccountDTO)session.getAttribute("userSession");
 		String writer = user.getNickName();
 		if(writer == null) {
-			dto.setWriter("�씡紐�");
+			dto.setWriter("익명");
 		}else {
 			dto.setWriter(writer);
 		}
 		dto.setIp(req.getRemoteAddr());
-		String msg = null;
+		String msg = null, url = null;
 		try {
 		int review = reviewMapper.insertReview(dto);
 		dto1.setReview(review);
 		int res = reviewMapper.insertGrade(dto1);
 			if(res > 0) {
+				System.out.println("sadfsdf"+req.getParameter("reservation_num"));
 				accomodationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
-				msg = "由щ럭 �옉�꽦 �꽦怨�!";
+				msg = "리뷰 작성 성공!";
+				url = "reviewMain.do";
 			}else {
-				msg = "由щ럭 �옉�꽦 �떎�뙣!";
+				msg = "리뷰 작성 실패!";
+				url = "reviewMain.do";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			req.setAttribute("msg", "DB�꽌踰� �삤瑜� 諛쒖깮!! 愿�由ъ옄�뿉寃� 臾몄쓽�븯�꽭�슂");
-			req.setAttribute("url", "start.app");
+			msg = "DB서버 오류 발생!! 관리자에게 문의하세요";
+			url = "start.app";
 			return "message";
 		}
 		req.setAttribute("msg", msg);
+		req.setAttribute("url", url);
 		return "popupclose";
 	}
 }

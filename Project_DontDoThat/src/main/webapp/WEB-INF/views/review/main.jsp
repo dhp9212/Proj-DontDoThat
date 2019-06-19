@@ -19,7 +19,7 @@
 	function writeReview(reservation_num, accomodation_num, lodge_date){
 		var myform = document.v6;
 		window.open("" ,"v6", 
-		       "toolbar=no, width=500, height=600"); 
+		       "toolbar=no, width=540, height=600"); 
 		myform.action = "reviewWrite.do"; 
 		myform.method = "post";
 		myform.target = "v6";
@@ -54,7 +54,7 @@
 					<td align="center">${dcc.checkOut_date}</td>
 					<td align="center">
 						<c:choose>
-							<c:when test="${nowDate >= dcc.checkOut_date}">
+							<c:when test="${nowDate != dcc.checkOut_date}">
 								<a href="javascript:writeReview('${dcc.num}','${dcc.accomodation_num}','${dcc.checkIn_date}')"
 								class="mybutton23">작성하기</a>
 							</c:when>

@@ -158,6 +158,9 @@
 				#{payment, jdbcType=VARCHAR},
 				#{check_review, jdbcType=VARCHAR})
 	</insert>
+	<update id="updateReservation" parameterType="int">
+		update reservation set check_review=1 where num = #{num}
+	</update>
 	<delete id="deleteReservation" parameterType="int">
 		delete from reservation where num = #{num}
 	</delete>
@@ -180,15 +183,12 @@
         select * from room
     </select>
     <select id="listReservation" resultType="ReservationDTO" parameterType="Map">
-        select * from (select rownum rn, A.*, B.accomodation_name 
-        			   from (select * from reservation order by checkIn_date desc) A, accomodation B 
-        			   where A.account_num = #{num} and A.accomodation_num = B.num) 
-        where rn between ${startRow} and ${endRow}
+        select *
+		from (select * from reservation order by checkIn_date desc) A, accomodation B 
+		where A.account_num = #{num} and A.accomodation_num = B.num) 
     </select>
     <select id="getCountReservation" resultType="int" parameterType="int">
-        select count(*) 
-        from (select A.*, B.accomodation_name from reservation A, accomodation B 
-        	  where A.account_num = #{num} and A.accomodation_num = B.num)
+        select count(*) from (select A.*, B.accomodation_name from reservation A, accomodation B where A.account_num = #{num} and A.accomodation_num = B.num)
     </select>
     <select id="getAccount_num" parameterType="int" resultType="int">
     	select account_num from accomodation where num = #{num}

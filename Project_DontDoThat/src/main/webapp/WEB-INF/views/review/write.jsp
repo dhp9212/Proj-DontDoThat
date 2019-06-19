@@ -180,6 +180,9 @@
 		</td></tr>
 	</c:forEach>	
 </table>
-	<a href="javascript:writeReview();" class="mybutton23">전송</a>
+	<br>
+	<div class="col-lg-12" align="right">
+		<a href="javascript:writeReview();" class="mybutton23">전송</a>
+	</div>
 </form>
 </div>
