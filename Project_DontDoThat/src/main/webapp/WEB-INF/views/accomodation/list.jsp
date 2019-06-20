@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -124,23 +124,39 @@
 					  	
 					  	<div class="col-lg-8">
 					  		<div class="row">
-							  	<div class="col-lg-9">
+							  	<div class="col-lg-7">
 								  	<a href="search_accomodation_content.do?num=${dto.num}">
 								  		<h3>[${dto.category_accomodation}]${dto.accomodation_name}</h3>
 								  	</a>
 							  	</div>
-							  	<div class="col-lg-3">
-							  	<fmt:formatNumber var="avg" value="${dto.grade/7}" pattern=".0"/>
-							  		<c:choose>
-							  			<c:when test="${avg == '.0'}">
-							  				없음
-							  			</c:when>
-							  			<c:otherwise>
+							  	<div class="col-lg-5">
+							  		<div class="col-lg-10 mr-0" style="text-align:right">
+							  		<fmt:formatNumber var="avg" value="${dto.grade/7}" pattern=".0"/>
+							  			<c:choose>
+											<c:when test="${avg >= '8'}">
+												<font size="4" color="#003580">매우 좋음</font>
+											</c:when>
+											<c:when test="${avg >= '6'}">
+												<font size="4" color="#003580">좋음</font>
+											</c:when>
+											<c:when test="${avg >= '4'}">
+												<font size="4" color="#003580">보통</font>
+											</c:when>
+											<c:when test="${avg >= '2'}">
+												<font size="4" color="#003580">미흡</font>
+											</c:when>
+											<c:when test="${avg < '2' and avg != '.0'}">
+												<font size="4" color="#003580">쓰레기</font>
+											</c:when>
+										</c:choose>
+							  		</div>
+							  		<div class="col-lg-2">
+							  			<c:if test="${avg != '.0'}">
 							  				<div class="imgb">
 				  		   				    	<div class="content">${avg}</div>
-							  				</div>
-							  			</c:otherwise>
-							  		</c:choose>
+				  		   				    </div>
+			  		   					</c:if>
+			  		   				</div>
 							  	</div>
 						  	</div>
   	                      	<div class="row">${dto.city}</div>
