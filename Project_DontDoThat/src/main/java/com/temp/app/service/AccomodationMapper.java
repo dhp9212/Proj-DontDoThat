@@ -326,8 +326,27 @@ public class AccomodationMapper {
         map.put("endRow", endRow);
         return sqlSession.selectList("listReservation", map);
     }
+    public List<ReservationDTO> allListReservation(int startRow, int endRow) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startRow", startRow);
+        map.put("endRow", endRow);
+        return sqlSession.selectList("allListReservation", map);
+    }
+    public List<ReservationDTO> searchListReservation(int startRow, int endRow, int content) {
+    	Map<String, Integer> map = new HashMap<String, Integer>();
+    	map.put("num", content);
+    	map.put("startRow", startRow);
+        map.put("endRow", endRow);
+        return sqlSession.selectList("searchListReservation", map);
+    }
     public int getCountReservation(int num) {
         return sqlSession.selectOne("getCountReservation", num);
+    }
+    public int getAllCountReservation() {
+        return sqlSession.selectOne("getAllCountReservation");
+    }
+    public int getAllSearchCountReservation(int content) {
+        return sqlSession.selectOne("getAllSearchCountReservation", content);
     }
     public List<ReservationDTO> listReservation(int num) {
         return sqlSession.selectList("getReservation_num", num);

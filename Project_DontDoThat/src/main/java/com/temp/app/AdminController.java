@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.temp.app.model.QA_AnswerDTO;
 import com.temp.app.model.QA_SubCateDTO;
+import com.temp.app.model.ReservationDTO;
+import com.temp.app.service.AccomodationMapper;
 import com.temp.app.service.CustomServiceMapper;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private CustomServiceMapper customServiceMapper;
-	
+	@Autowired
+	private AccomodationMapper accomodationMapper;
 
 	@RequestMapping(value = "/adminMain.do")
 	public String adminmain() throws Exception{
@@ -166,4 +169,77 @@ public class AdminController {
 			return "message";
 		}
 	}
+    @RequestMapping(value="/allListReservation.do")
+    public String allListReservation(HttpServletRequest req) throws Exception {
+        String pageNum = req.getParameter("pageNum");
+        if (pageNum == null) {
+            pageNum = "1";
+        }
+        int currentPage = Integer.parseInt(pageNum);
+        int pageSize = 10;
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int listCount = accomodationMapper.getAllCountReservation();
+        int endRow = currentPage * pageSize;
+        if (endRow > listCount) endRow = listCount;
+        List<ReservationDTO> list = accomodationMapper.allListReservation(startRow, endRow);
+        req.setAttribute("listReservation", list);
+        if (listCount > 0) {
+            int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
+            int pageBlock = 10;
+            int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+            int endPage = startPage + pageBlock - 1;
+            if (endPage > pageCount) endPage = pageCount;
+            req.setAttribute("listCount", listCount);
+            req.setAttribute("pageCount", pageCount);
+            req.setAttribute("startRow", startRow);
+            req.setAttribute("endRow", endRow);
+            req.setAttribute("startPage", startPage);
+            req.setAttribute("endPage", endPage);
+        }
+        return "admin/reservation";
+    }
+    @RequestMapping(value="/deleteReservation.do")
+    public String deleteReservation(HttpServletRequest req) throws Exception{
+        int num = Integer.parseInt(req.getParameter("num"));
+        int res = accomodationMapper.deleteReservation(num);
+        try {
+            if (res > 0) {
+                return "redirect:allListReservation.do";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+		}
+        return null;
+	}
+    @RequestMapping(value="/searchReservation.do")
+    public String searchReservation(HttpServletRequest req) throws Exception{
+    	  String content = req.getParameter("content");
+    	  System.out.println("예약번호:"+content);
+    	  String pageNum = req.getParameter("pageNum");
+          if (pageNum == null) {
+              pageNum = "1";
+          }
+          int currentPage = Integer.parseInt(pageNum);
+          int pageSize = 10;
+          int startRow = (currentPage - 1) * pageSize + 1;
+          int listCount = accomodationMapper.getAllSearchCountReservation(Integer.parseInt(content));
+          int endRow = currentPage * pageSize;
+          if (endRow > listCount) endRow = listCount;
+          List<ReservationDTO> list = accomodationMapper.searchListReservation(startRow, endRow, Integer.parseInt(content));
+          req.setAttribute("listReservation", list);
+          if (listCount > 0) {
+              int pageCount = listCount / pageSize + (listCount % pageSize == 0 ? 0 : 1);
+              int pageBlock = 10;
+              int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+              int endPage = startPage + pageBlock - 1;
+              if (endPage > pageCount) endPage = pageCount;
+              req.setAttribute("listCount", listCount);
+              req.setAttribute("pageCount", pageCount);
+              req.setAttribute("startRow", startRow);
+              req.setAttribute("endRow", endRow);
+              req.setAttribute("startPage", startPage);
+              req.setAttribute("endPage", endPage);
+          }
+          return "admin/searchReservation";
+    }
 }
