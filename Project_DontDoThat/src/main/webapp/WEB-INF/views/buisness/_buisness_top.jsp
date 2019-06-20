@@ -74,7 +74,7 @@
 		<div class="col-sm-8" style="padding: 0 60 0 0;">
 			<nav class="navbar navbar-expand-sm float-right">
 				<ul class="navbar-nav">
-					<c:if test="${userSession.email == 'admin@admin.com'}">
+					<c:if test="${userSession.email == 'admin'}">
 						<li class="nav-item dropdown">
 							<a class="nav-link text_white dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
 						    	관리자
