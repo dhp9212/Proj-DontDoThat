@@ -174,7 +174,7 @@ public class AccomodationMapper {
 		updateRoom_image(mr, count);
 	}
 	//
-	public void updateRoom_image(MultipartHttpServletRequest mr, Integer count) {
+	private void updateRoom_image(MultipartHttpServletRequest mr, Integer count) {
 		HttpSession session = mr.getSession();
 		String upPath = session.getServletContext().getRealPath("resources/img/output");
 		Hashtable<String, RoomDTO> room_list = (Hashtable)session.getAttribute("room_list");
@@ -329,10 +329,12 @@ public class AccomodationMapper {
     public int getCountReservation(int num) {
         return sqlSession.selectOne("getCountReservation", num);
     }
-    //異붽�
     public List<ReservationDTO> listReservation(int num) {
         return sqlSession.selectList("getReservation_num", num);
     }
+    public int updateReservation(int num) {
+		return sqlSession.update("updateReservation", num);
+	}
     public int getAccount_num(int accomodation_num){
 		return sqlSession.selectOne("getAccount_num", accomodation_num);
 	}
