@@ -100,9 +100,9 @@
 							<label>
 								비밀번호 설정
 							</label>
-							<span style="font-size:0.8em; color:gray;">- 8자 이상</span>
+							
 							<div>
-							<input type="password" name="setPassword" required="required">
+							<input type="password" name="setPassword" required="required" placeholder="비밀번호를 8자 이상 입력해주세요">
 							
 							</div>
 							<div class="passwordLengthLimit">
@@ -113,9 +113,8 @@
 							<label>
 								비밀번호 확인
 							</label>
-							<span style="font-size:0.8em; color:gray;">- 8자 이상</span>
 							<div>
-							<input type="password" name="confirmPassword" required="required">
+							<input type="password" name="confirmPassword" required="required" placeholder="비밀번호를 8자 이상 입력해주세요">
 							
 							</div>
 							<div class="notPasswordMatch">
