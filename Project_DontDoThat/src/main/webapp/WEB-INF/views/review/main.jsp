@@ -14,6 +14,28 @@
            text-decoration: none;
            border-radius: 5px;
     }
+.mybutton24 {
+           display: inline-block;
+           width: 100px;
+           text-align: center;
+           line-height: 20px;
+           padding: 8px;
+           background-color: #2222FF;
+           color: #fff;
+           text-decoration: none;
+           border-radius: 5px;
+    }
+.mybutton25 {
+           display: inline-block;
+           width: 100px;
+           text-align: center;
+           line-height: 20px;
+           padding: 8px;
+           background-color: #b40404;
+           color: #fff;
+           text-decoration: none;
+           border-radius: 5px;
+    }
 </style>
 <script type="text/javascript">
 	function writeReview(reservation_num, accomodation_num, lodge_date){
@@ -55,15 +77,18 @@
 					<td align="center">
 						<c:choose>
 							<c:when test="${dcc.check_review == 1}">
-								<div class="mybutton23">작성완료</div>
+								<div class="mybutton24">작성완료</div>
 							</c:when>
-							<c:when test="${now >= dcc.checkOut_date}">
+							<c:when test="${nowDate >= dcc.checkOut_date}">
 								<a href="javascript:writeReview('${dcc.num}','${dcc.accomodation_num}','${dcc.checkIn_date}')"
 								class="mybutton23">작성하기</a>
 							</c:when>
-							<c:otherwise>
-								<div class="mybutton23">작성불가</div>
-							</c:otherwise>
+							<c:when test="${nowDate <= dcc.checkOut_date}">
+								<div class="mybutton25">작성불가</div>
+							</c:when>
+							<%-- <c:otherwise>
+								<div class="mybutton25">작성불가</div>
+							</c:otherwise> --%>
 						</c:choose>
 					</td>
 				</tr>

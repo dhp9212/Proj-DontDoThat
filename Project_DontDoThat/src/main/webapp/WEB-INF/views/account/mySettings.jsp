@@ -21,6 +21,9 @@
 	    		if($(this).parents('form').attr('name')=='s3' || $(this).parents('form').attr('name')=='s4') return
 	    		$(this).parents('form').submit()
 	    	})
+            $('.country').on('change', function(){
+                s1.submit();
+            });
 	    });
 	    
 	    //실시간 프로필 사진 바꾸기
@@ -111,11 +114,9 @@
 	    		}
 	    	})
 	    	$('.card_button').on('click', function(){
-	    		alert($(this).prev().attr('name'))
 	    		$(this).prev().remove()
 	    		var str = ''
 	    		var hidden = $('input[name="card_value"]')
-	    		alert(hidden.length)
 	    		for(var i=0; i<hidden.length; ++i){
 	    			if(str=='') str += hidden[i].value
 	    			else str += "#"+hidden[i].value 
@@ -147,7 +148,7 @@
 	    			return false;
 	    		}
 	    		var checkED = expirationDate.split('/')
-	    		if(checkED[0]>12){
+	    		if(checkED[0]>12 || checkED[0]==0){
 	    			$('input[name=expirationDate]').val('')
 	    			alert("카드 날짜를 정확하게 입력해주세요!")
 	    			return false;
@@ -625,12 +626,13 @@
 						<!-- 신용카드 설정 -->
 						<div class="creditCardSetting" style="background-color:lavender;">
 							<c:forEach var="cardItem" items="${userSession.cardList}">
-							<span>&nbsp;
+							<span>
 								<input type="hidden" name="card_value" value="${cardItem.kindOfCreditCard},${cardItem.numOfCreditCard},${cardItem.expirationDate}" >
-								<input type="button" class="card_button" value="지우기" style="border:1px solid #0033cc; color:#0033cc; background-color:lavender">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<label>${cardItem.kindOfCreditCard}&nbsp;${cardItem.numOfCreditCard}&nbsp;${cardItem.expirationDate}</label>&nbsp;
-								<label>${userSession.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="button" class="card_button" value="지우기" style="border:1px solid #0033cc; color:#0033cc; background-color:lavender">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label>${cardItem.kindOfCreditCard}&nbsp;${cardItem.numOfCreditCard}&nbsp;${cardItem.expirationDate}</label>&nbsp;
+                                <label>${userSession.name}</label>
+                                <label>${userSession.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
 								<br/>
 							</span>
 							</c:forEach>
@@ -688,7 +690,7 @@
 						</div><br>
 					</div>
 				</form>
-			</div><br><br>
+			</div>
 		</div>
 	</div>
 <form name="updatePayment" action="updateAccount_payment.do" method="post">

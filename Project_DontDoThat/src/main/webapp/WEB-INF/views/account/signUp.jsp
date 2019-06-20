@@ -21,30 +21,23 @@
 			function goBack(){
 				window.history.back();
 			}
-			
-			$(document).ready(function(){
-					$("#start").click(function emailCheck() { // ID가 start인 요소를 클릭하면
-						var email = document.getElementById("email").value;//id가 email인 것의 값을 가져온다.
-						var validation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;//유효성 검사
-						var state = $("#userEmailError").css("display");// state 변수에 ID가 moreMenu인 요소의 display의 속성을 '대입'
-						
-						if(validation.test(email)==false){ //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우		
-					        if(state == "none"){ // state가 none 상태일경우 
-					            $(".userEmailError").show(); // class가 userEmailError인 요소를 show();
-					            $(".userHasEmail").hide();
-					        }
-					   		document.addjoin.email.focus();
-					        return false;
-						}else{
-							$(".userEmailError").hide();
-						}
-						document.c.submit()
-				});
-				if($('input[name=hasEmail]').val()=='${hasEmail}'){
-					$(".userHasEmail").show();
+			function check(){
+				var email = document.getElementById("email").value;//id가 email인 것의 값을 가져온다.
+				var validation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;//유효성 검사
+				var state = $("#userEmailError").css("display");// state 변수에 ID가 moreMenu인 요소의 display의 속성을 '대입'
+				
+				if(validation.test(email)==false){ //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우		
+			        if(state == "none"){ // state가 none 상태일경우 
+			            $(".userEmailError").show(); // class가 userEmailError인 요소를 show();
+			            $(".userHasEmail").hide();
+			        }
+			   		return false
 				}
+				return true
+			}
+			$(document).ready(function(){
 				if($('input[name=email]').val()==0){
-				$(".userHasEmail").hide();
+					$(".userHasEmail").hide();
 				}
 			});
 	</script>
@@ -112,7 +105,7 @@
 			</div>
 			<h1>회원 가입</h1>
 			<p id="guide">회원으로 가입하여 DDT.com 서비스를 간편하게 이용하세요.</p>
-		<form name="c" action="checkAccount.do" method="post">
+		<form name="c" action="checkAccount.do" method="post" onsubmit="return check()">
 			<div id="center_email">
 				<div>
 					<label>이메일 주소</label>
@@ -129,7 +122,7 @@
 					</label>
 				</div>
 			</div><br>
-			<input id="start" name="next" type="button" value="시작하기" onclick="javascript:emailCheck()"/><br><br>
+			<input id="start" name="next" type="submit" value="시작하기" onclick="javascript:emailCheck()" style="cursor:pointer;"/><br><br>
 			<div id="center_bottom">
 				이미 가입하셨나요?&nbsp;&nbsp;<a href="login.do">로그인</a>
 			</div><br>

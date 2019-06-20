@@ -92,7 +92,7 @@
 					<div class="emailAndPasswordAreDifferent">
 						이메일 주소와 비밀번호의 조합이 일치하지 않습니다.
 					</div><br>
-					<input id="start" type="submit" value="로그인"/><br><br>
+					<input id="start" type="submit" value="로그인" style="cursor: pointer;"/><br><br>
 					<div id="center_bottom">
 						<div>
 							<a href="temporaryPassword.do" id="temporaryPassword" onkeypress="JavaScript:press(this.form)">비밀번호를 잊으셨나요?</a>

@@ -18,28 +18,21 @@
 			}
 		}
 		
+		function check(){
+			var email = document.getElementById("email").value;//id가 email인 것의 값을 가져온다.
+			var validation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;//유효성 검사
+			var state = $("#userEmailError").css("display");// state 변수에 ID가 moreMenu인 요소의 display의 속성을 '대입'
+			
+			if(validation.test(email)==false){ //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우		
+		        if(state == "none"){ // state가 none 상태일경우 
+		            $(".userEmailError").show(); // class가 userEmailError인 요소를 show();
+		            $(".userEmailNone").hide();
+		        }
+		   		return false
+			}
+			return true
+		}
 		$(document).ready(function(){
-			$("#start").click(function emailCheck(){ // ID가 start인 요소를 클릭하면
-				var email = document.getElementById("email").value;//id가 email인 것의 값을 가져온다.
-				var validation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;//유효성 검사
-				var state = $("#userEmailError").css("display"); // state 변수에 ID가 moreMenu인 요소의 display의 속성을 '대입'
-				if(validation.test(email)==false){ //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우		
-			        if(state == "none"){ // state가 none 상태일경우 
-			            $(".userEmailError").show(); // class가 userEmailError인 요소를 show();
-			            $(".userEmailNone").hide();
-			            /* if(dto.getEmail() == null){ // DB에 해당 이메일이 없다면
-			            	$(".userEmailNone").show(); // class가 userEmailNone인 요소를 show();
-			            } */
-			        }/* else { // 그 외에는
-			            $(".userEmailError").hide(); // class가 userEmailError인 요소를 hide();         
-			        } */
-			   		document.addjoin.email.focus();
-			        return false;
-				}else{
-					$(".userEmailError").hide();
-				}
-				document.l.submit()
-			});
 			if($('input[name=emailNone]').val()=='없음'){
 				$(".userEmailNone").show();
 			}
@@ -104,7 +97,7 @@
 			<div id="center_center">
 				<h1>로그인</h1>
 				<p id="guide">DDT.com 계정으로 로그인하여 서비스를 이용하실 수 있습니다.</p>
-			<form name="l" action="password.do" method="post" >
+			<form name="l" action="password.do" method="post" onsubmit="return check()">
 				<div id="center_email">
 					<div>
 						<label>이메일 주소</label>
@@ -119,7 +112,7 @@
 						후 서비스를 이용해 주세요.
 					</div>
 				</div><br>
-				<input id="start" name="next" type="button" value="다음" title="nextButton" onclick="javascript:emailCheck()"/>
+				<input id="start" name="next" type="submit" value="다음" title="nextButton" style="cursor:pointer;"/>
 				<br><br>
 				<div id="center_bottom">
 					<div>
