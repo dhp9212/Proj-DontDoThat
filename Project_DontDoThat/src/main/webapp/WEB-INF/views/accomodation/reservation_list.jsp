@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../top.jsp" %>
+
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy/MM/dd" var="nowDate" /> 
+
 <div class="col-lg-12">
 	<div class="col-lg-12"><h1>예약</h1></div>
 <c:choose>
@@ -32,7 +37,9 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="col-lg-12" align="center">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancelModal${dto.num }">예약 취소</button>
+					<c:if test="${nowDate <= dto.checkOut_date}">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancelModal${dto.num }">예약 취소</button>
+					</c:if>
 				</div>
 			</div>
 			</form>

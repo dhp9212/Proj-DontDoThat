@@ -185,8 +185,9 @@
         			   where A.account_num = #{num} and A.accomodation_num = B.num) 
         where rn between ${startRow} and ${endRow} -->
         
-        select *
-		from (select rownum rn, 
+        select * from(
+        select rownum rn, D.*
+		from (select 
 					 A.*,
 					 B.category_accomodation,
 					 B.accomodation_name, 
@@ -197,13 +198,15 @@
 					 B.address,
 					 C.roomname,
 					 C.roomclass
-		      from (select * from reservation order by checkIn_date desc) A, 
+		      from reservation A, 
 			   accomodation B,
 			   room C
 		      where A.account_num = #{num} 
 		      and A.accomodation_num = B.num
 		      and A.room_num = C.num
-		      and B.num = C.accomodation_num) 
+		      and B.num = C.accomodation_num
+		      order by A.checkIn_date desc) D
+		)
 		where rn between ${startRow} and ${endRow}
         
     </select>
