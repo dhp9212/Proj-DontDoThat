@@ -185,6 +185,114 @@
 			</form>
 		</div>
 	</div>
+<div class="col-lg-4">
+	<div class="panel panel-default sidesearch">
+		<div class="panel-body">
+			<div class="col-lg-12 searchlabel"><h1>검색</h1></div>
+			<form name="search_form" method="post" action="accomodation_list.do">
+			<div class="col-lg-12">여행지/숙소 이름</div>
+			<div class="col-lg-12"><input type="text" id="input_place" name="input_place" autocomplete="off" value="${input_place}"></div>
+			<div class="col-lg-12">체크인 날짜</div>
+			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }" readonly></div>
+			<div class="col-lg-12">체크아웃 날짜</div>
+			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }" readonly></div>
+			<div class="col-lg-12 days">1박 선택</div>
+			<!-- <div class="col-lg-12">
+				<select name="adult">
+				<option value="1">성인 1명</option>
+				<option value="2">성인 2명</option>
+				<option value="3">성인 3명</option>
+				<option value="4">성인 4명</option>
+				<option value="5">성인 5명</option>
+				<option value="6">성인 6명</option>
+				<option value="7">성인 7명</option>
+				<option value="8">성인 8명</option>
+				<option value="9">성인 9명</option>
+				<option value="10">성인 10명</option>
+				</select>
+			</div>
+			<div class="col-lg-12">&nbsp;</div>
+			<div class="col-lg-6">
+				<select name="child">
+				<option value="0">동반아동 없음</option>
+				<option value="1">아동 1명</option>
+				<option value="2">아동 2명</option>
+				<option value="3">아동 3명</option>
+				<option value="4">아동 4명</option>
+				<option value="5">아동 5명</option>
+				<option value="6">아동 6명</option>
+				<option value="7">아동 7명</option>
+				<option value="8">아동 8명</option>
+				<option value="9">아동 9명</option>
+				<option value="10">아동 10명</option>
+			</select>
+			</div>
+			<div class="col-lg-6">
+				<select name="room">
+				<option value="1">객실 1개</option>
+				<option value="2">객실 2개</option>
+				<option value="3">객실 3개</option>
+				<option value="4">객실 4개</option>
+				<option value="5">객실 5개</option>
+				<option value="6">객실 6개</option>
+				<option value="7">객실 7개</option>
+				<option value="8">객실 8개</option>
+				<option value="9">객실 9개</option>
+				<option value="10">객실 10개</option>
+				</select>
+			</div> -->
+			<div class="col-lg-12">&nbsp;</div>
+			<div class="col-lg-12"><input type="button" value="검색" style="width:100%; height:50px;" onclick="javascript:search_form.submit()"></div>
+			</form>
+		</div>
+	</div>
+	<c:if test="${not empty listReview}">
+		<div class="col-lg-2">
+		<fmt:formatNumber var="grade" value="${(averageReview.clean+
+				averageReview.comfortable+averageReview.location+averageReview.facilities+
+				averageReview.kind+averageReview.value+averageReview.wifi)/7}"
+				pattern=".0"/>	
+			<div class="imgb">
+		        <div class="content">
+		        	<c:choose>
+		        		<c:when test="${grade == .0}">0</c:when>
+		        		<c:otherwise>${grade}</c:otherwise>
+		        	</c:choose>
+		        </div>
+			</div>
+		</div>
+	<div class="col-lg-10" style="line-height:15px; padding:0px;">
+		<c:choose>
+			<c:when test="${grade >= '8'}">
+				<font size="4" color="#003580">매우 좋음</font>
+			</c:when>
+			<c:when test="${grade >= '6'}">
+				<font size="4" color="#003580">좋음</font>
+			</c:when>
+			<c:when test="${grade >= '4'}">
+				<font size="4" color="#003580">보통</font>
+			</c:when>
+			<c:when test="${grade >= '2'}">
+				<font size="4" color="#003580">미흡</font>
+			</c:when>
+			<c:otherwise>
+				<font size="4" color="#003580">쓰레기</font>
+			</c:otherwise>
+		</c:choose>
+		<p><font size="2" color="#848484">${countReview}개 이용 후기</font>
+	</div>
+	<div class="col-lg-12" style="line-height:20px;">
+		<c:forEach var="dv3" items="${list10Review}" varStatus="dv3s">
+			<div class="col-lg-12" style="border-top:1px solid #E6E6E6;">
+			<br>
+			<c:if test="${dv3s.count == 1}"><div class="col-lg-12" style="padding:0px; height:30px;"><b>투숙객이 뽑은 최고의 장점</b></div><br></c:if>
+			<div class="col-lg-12" style="padding-top:0px; padding-left:0px; padding-right:0px; padding-bottom:10px;">"${dv3.content_p}"</div>
+			<font size="2" color="#A4A4A4">${dv3.writer}</font><br>
+			<p>
+			</div>			
+		</c:forEach>
+	</div>
+	</c:if>
 </div>
 <div class="col-lg-8">
 
