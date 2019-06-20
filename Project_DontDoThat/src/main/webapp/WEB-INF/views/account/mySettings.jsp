@@ -68,6 +68,13 @@
 	    });
 	    
 	    $(document).ready(function(){
+	    	//tel
+	    	$('#tel').on('keydown', function(){
+	    		if(!(event.keyCode==46 || event.keyCode==8)){
+		    		var length = this.value.length
+		    		if(length==3 || length==8) this.value += '-'
+	    		}
+	    	})
 	    	//비밀번호 변경
 	    	$("#passwordChangeButton").click(function passwordChangeButton(){
 	    		var offset = $(".passwordAndCurrencyHead").offset();
@@ -122,6 +129,7 @@
 	    			else str += "#"+hidden[i].value 
 	    		}
 	    		$('input[name="payment"]').val(str)
+	    		alert('신용카드 정보를 삭제했습니다.')
 	    		updatePayment.submit()
 	    	})
 	    	$("#creditCardSave").click(function creditCardSave(){
@@ -588,8 +596,8 @@
 						</div><br>
 						<!-- 전화번호 -->
 						<div class="telSetting">
-							전화번호<br>
-							<input type="text" name="tel" id="tel" value="${userSession.tel}" onkeypress="JavaScript:press(this.form)">
+							휴대전화번호<br>
+							<input type="text" name="tel" id="tel" value="${userSession.tel}" onkeypress="JavaScript:press(this.form)" maxlength="13">
 							<span style="color:gray"> - "-" 없이 숫자만 입력해주세요. ex)01012345678</span>
 						</div><br>
 						<!-- 이메일 -->
