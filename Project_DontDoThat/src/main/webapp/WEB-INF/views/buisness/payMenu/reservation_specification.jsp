@@ -5,9 +5,19 @@
 	$(document).ready(function(){
 		var price = $('.price')
 		for(var i=0; i<price.length; ++i){
-			setComma($(price).eq(i).text())
+			var str = setComma($(price).eq(i).text())
+			$(price).eq(i).text(str+' 원')
 		}
 	})
+	var rgx2 = /(\d+)(\d{3})/; 
+	function setComma(inNum){
+	     var outNum;
+	     outNum = inNum; 
+	     while (rgx2.test(outNum)) {
+	          outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
+	     }
+	     return outNum;
+	}
 </script>
 <div class="container-fluid" style="background-color:#fafafa">
 	<div class="container" style="overflow: auto; height: 80%; padding: 15;">

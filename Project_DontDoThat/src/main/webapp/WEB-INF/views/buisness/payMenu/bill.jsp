@@ -9,6 +9,7 @@
 		var all_price = 0
 		var price = 0
 		var hidden
+		var myPrice
 		var length = $('input[name="count"]').length
 		for(var j=0; j<length; ++j){
 			var hidden = $('input[name="' + j + '"]')
@@ -18,11 +19,27 @@
 			}
 			price = price/100*15
 			all_price += price
-			if($('#'+j).prev().prev().text()==month) $('#'+j).text('현재까지 : ' + price + '원')
-			else $('#'+j).text(price + '원')
+			myPrice = setComma(''+price)
+			if($('#'+j).prev().prev().text()=='2019/'+month) $('#'+j).text('현재까지 : ' + myPrice + '원')
+			else $('#'+j).text(myPrice + '원')
 		}
-		$('#total').text(all_price + '원')
+		
+		var price = $('.price')
+		for(var i=0; i<price.length; ++i){
+			var str = setComma($(price).eq(i).text())
+			$(price).eq(i).text(str+' 원')
+		}
+		$('#total').text(setComma(''+all_price) + '원')
 	})
+	var rgx2 = /(\d+)(\d{3})/;
+	function setComma(inNum){
+	     var outNum
+	     outNum = inNum
+	     while (rgx2.test(outNum)) {
+	         outNum = outNum.replace(rgx2, '$1' + ',' + '$2')
+	     }
+	     return outNum;
+	}
 </script>
 <div class="container-fluid" style="background-color:#fafafa">
 	<div class="container" style="overflow: auto; height: 80%; padding: 15;">
@@ -91,14 +108,15 @@
 														고객정보
 													</button>
 													<div class="dropdown-menu">
-														<a class="dropdown-item">${account.value.name}</a>
+														<a class="dropdown-item">${reservation.first_name}${reservation.last_name}</a>
 														<a class="dropdown-item">${account.value.email}</a>
+														<a class="dropdown-item">${reservation.country}</a>
 													</div>
 												</div>
 												</c:if>
 												</c:forEach>
 											</td>
-											<td>${price}</td>
+											<td class="price">${price}</td>
 										</tr>
 										</c:if>
 										</c:forEach>
