@@ -74,7 +74,6 @@ public class MainController {
 			}
 		}
 		List<CategoryAccomodationDTO> categoryAccomodationList = categoryMapper.selectCategodyAccomodation();
-		System.out.println(categoryAccomodationList.size());
 		List<CountryDTO> countryList = standardInformationMapper.selectCountry();
 		List<CityDTO> cityList = standardInformationMapper.selectCity();
 		List<CityDTO> cityListShuffled = cityList;
@@ -110,10 +109,6 @@ public class MainController {
 		String place = req.getParameter("input_place");
 		String start_date = req.getParameter("start_date");
 		String end_date = req.getParameter("end_date");
-		
-		System.out.println(place);
-		System.out.println(start_date);
-		System.out.println(start_date);
 		
 		req.setAttribute("place", place);
 		req.setAttribute("start_date", start_date);
@@ -192,7 +187,7 @@ public class MainController {
 		f.setContent(content);
 		
 		customeServiceMapper.writeCMessage(f);
-		req.setAttribute("msg", "ì„±ê³µì ìœ¼ë¡œ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
+		req.setAttribute("msg", "¼º°øÀûÀ¸·Î Àü¼ÛÇÏ¿´½À´Ï´Ù.");
 		req.setAttribute("url", "customerService.do");
 		return "message";
 	}
@@ -200,20 +195,20 @@ public class MainController {
 	@RequestMapping(value="/write_customerService.do")
 	public String write_customerService(HttpServletRequest req){
 		String setfrom = req.getParameter("email");         
-	    String tomail  = "Gnikcah6@gmail.com";   // è«›ì…ë’— ï¿½ê¶—ï¿½ì—º ï¿½ì” ï§ë¶¿ì”ª
+	    String tomail  = "Gnikcah6@gmail.com";
 	    String title = setfrom;	   
 	    String num = req.getParameter("num");
 	    String tel = req.getParameter("tel");
 	    String name = req.getParameter("name");
 	    String content = null;
 	    if(num == "" && tel == "") {
-	        content = "(ì´ë¦„: "+name+") "+req.getParameter("content");    // ë‚´ìš©
+	        content = "(ÀÌ¸§: "+name+") "+req.getParameter("content");    // ³»¿ë
 	    }else if(num == "" && tel != "") {
-	    	content =  "(ì´ë¦„: "+name+", ì „í™”ë²ˆí˜¸: "+tel+") "+req.getParameter("content"); 
+	    	content =  "(ÀÌ¸§: "+name+", ÀüÈ­¹øÈ£: "+tel+") "+req.getParameter("content"); 
 	    }else if(num != "" && tel == "") {
-	    	content =  "(ì´ë¦„: "+name+", ì˜ˆì•½ë²ˆí˜¸: "+num+") "+req.getParameter("content"); 
+	    	content =  "(ÀÌ¸§: "+name+", ¿¹¾à¹øÈ£: "+num+") "+req.getParameter("content"); 
 	    }else {
-	    	content =  "(ì´ë¦„: "+name+", ì˜ˆì•½ë²ˆí˜¸: "+num+", ì „í™”ë²ˆí˜¸: "+tel+") "+req.getParameter("content"); 
+	    	content =  "(ÀÌ¸§: "+name+", ¿¹¾à¹øÈ£: "+num+", ÀüÈ­¹øÈ£: "+tel+") "+req.getParameter("content"); 
 	    }
 	    
 	    try {
@@ -221,16 +216,16 @@ public class MainController {
 	      MimeMessageHelper messageHelper 
 	                        = new MimeMessageHelper(message, true, "UTF-8");
 	 
-	      messageHelper.setFrom(setfrom);  // ë³´ë‚´ëŠ”ì‚¬ëŒ ìƒëµí•˜ê±°ë‚˜ í•˜ë©´ ì •ìƒì‘ë™ì„ ì•ˆí•¨
-	      messageHelper.setTo(tomail);     // ë°›ëŠ”ì‚¬ëŒ ì´ë©”ì¼
-	      messageHelper.setSubject(title); // ë©”ì¼ì œëª©ì€ ìƒëµì´ ê°€ëŠ¥í•˜ë‹¤
-	      messageHelper.setText(content);  // ë©”ì¼ ë‚´ìš©
+	      messageHelper.setFrom(setfrom);  // º¸³»´Â»ç¶÷ »ı·«ÇÏ°Å³ª ÇÏ¸é Á¤»óÀÛµ¿À» ¾ÈÇÔ
+	      messageHelper.setTo(tomail);     // ¹Ş´Â»ç¶÷ ÀÌ¸ŞÀÏ
+	      messageHelper.setSubject(title); // ¸ŞÀÏÁ¦¸ñÀº »ı·«ÀÌ °¡´ÉÇÏ´Ù
+	      messageHelper.setText(content);  // ¸ŞÀÏ ³»¿ë
 	     
 	      mailSender.send(message);
 	    } catch(Exception e){
 	      System.out.println(e);
 	    }
-	    req.setAttribute("msg", "ì„±ê³µì ìœ¼ë¡œ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
+	    req.setAttribute("msg", "¼º°øÀûÀ¸·Î Àü¼ÛÇÏ¿´½À´Ï´Ù.");
 		req.setAttribute("url", "customerService.do");
 		return "message";
 	}

@@ -205,17 +205,6 @@
 		</tr>
 		<tr>
 			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
-				<img src='<%=request.getContextPath()%>/resources/img/icon2.png' width="60px" style="vertical-align:middle">
-			</td>
-			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><font class="font1">예약 관리하기</font><br>
-				<font class="font2">온라인으로 쉽게 날짜를 변경하고 객실을 추가하거나 예약을 취소하실 수 있습니다.</font>
-				<div id="moreRegion">
-				</div>
-				</td>
-			<td valign="top" style="border-right:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="b"><i id="b_arrow"class="arr-down"></i></span></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right" style="border-left:1px solid #BDBDBD; border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;">
 				<img src='<%=request.getContextPath()%>/resources/img/icon3.png' width="60px" style="vertical-align:middle">
 			</td>
 			<td valign="top" style="border-top:1px solid #BDBDBD;border-bottom:1px solid #BDBDBD;"><span class="c"><font class="font1">숙소에 문의하기</font></span><br>

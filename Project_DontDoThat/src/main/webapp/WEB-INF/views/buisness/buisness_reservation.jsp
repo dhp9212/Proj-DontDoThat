@@ -48,9 +48,9 @@
 											<th>나라</th>
 										</tr>
 										<tr>
-											<td>${account.value.name}</td>
+											<td>${reservation.first_name}${reservation.last_name}</td>
 											<td>${account.value.email}</td>
-											<td>${account.value.country}</td>
+											<td>${reservation.country}</td>
 										</tr>
 									</table>
 								</div>

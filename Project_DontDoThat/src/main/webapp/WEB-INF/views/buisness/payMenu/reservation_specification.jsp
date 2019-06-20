@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../_buisness_top.jsp"%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var price = $('.price')
+		for(var i=0; i<price.length; ++i){
+			setComma($(price).eq(i).text())
+		}
+	})
+</script>
 <div class="container-fluid" style="background-color:#fafafa">
 	<div class="container" style="overflow: auto; height: 80%; padding: 15;">
 		<div class="row border-bottom" style="font-size:16;" align="center">
@@ -28,13 +36,13 @@
 				</c:if>
 				</c:forEach>
 				<div class="col-sm-3">${reservation.checkIn_date} ~ ${reservation.checkOut_date}</div>
-				<div class="col-sm-2">${room_price*reservation.rooms}</div>
+				<div class="col-sm-2 price">${room_price*reservation.rooms}</div>
 			</div>
 		<c:set var="total" value="${total + room_price*reservation.rooms}"/>
 		</c:forEach>
 		<div class="row border-top">
 			<div class="col-sm-10" align="right">예약 완료 금액 </div>
-			<div class="col-sm-2" align="center"> ${total}</div>
+			<div class="col-sm-2 price" align="center">${total}</div>
 		</div>
 	</div>
 </div>
