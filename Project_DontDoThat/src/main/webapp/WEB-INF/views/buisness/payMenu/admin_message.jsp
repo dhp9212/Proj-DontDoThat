@@ -32,7 +32,7 @@
 	function mypopup(subject, subject_sub, content, image){
 		var url = "<%=request.getContextPath()%>/resources/img/";
 		v3.mysubject.value = subject;
-		if(subject_sub != ''){
+		if(subject_sub == ''){
 			subject_sub = "없음";
 		}
 		v3.mysubject_sub.value = subject_sub;
