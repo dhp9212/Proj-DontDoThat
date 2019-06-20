@@ -4,7 +4,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.temp.app.model">
-	<select id="listReview" parameterType="String" resultType="ReviewGradeDTO">
+	<select id="listReview" parameterType="int" resultType="ReviewGradeDTO">
 		SELECT review.num, review.writer, review.subject, review.content_p,
 			review.content_m, review.ip, review.accommodation, review.lodge_date,
 			review.write_date, review.image, review.recom, review.reply, 
@@ -14,10 +14,10 @@
 		ON review.num = grade.review
 		WHERE review.accommodation=#{accommodation}
 	</select>
-	<select id="list10Review" parameterType="String" resultType="ReviewDTO">
+	<select id="list10Review" parameterType="int" resultType="ReviewDTO">
 		select * from (
 		select rownum rn, A.* from(
-		select * from review)A)
+		select * from review where review.accommodation=#{accommodation})A)
 		where rn between 1 and 10
 	</select>
 	<select id="countReview" parameterType="String" resultType="int">
