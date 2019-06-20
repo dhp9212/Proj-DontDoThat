@@ -98,11 +98,6 @@ public class MainController {
 		session.setAttribute("categoryAccomodationList", categoryAccomodationList);
 		
 		ModelAndView mav = new ModelAndView();
-		//mav.addObject("categoryAccomodationList", categoryAccomodationList);
-		//mav.addObject("countryList", countryList);
-		//mav.addObject("cityList", cityList);
-		//mav.addObject("currencyList", currencyList);
-		//mav.addObject("languageList", languageList);
 		
 		mav.setViewName("home");
 		
@@ -205,7 +200,7 @@ public class MainController {
 	@RequestMapping(value="/write_customerService.do")
 	public String write_customerService(HttpServletRequest req){
 		String setfrom = req.getParameter("email");         
-	    String tomail  = "Gnikcah6@gmail.com";   // 받는 사람 이메일
+	    String tomail  = "Gnikcah6@gmail.com";   // 諛쏅뒗 �궗�엺 �씠硫붿씪
 	    String title = setfrom;	   
 	    String num = req.getParameter("num");
 	    String tel = req.getParameter("tel");
@@ -253,13 +248,13 @@ public class MainController {
 	
 	
 	
-	public void setCardList() {
+	private void setCardList() {
 		if(cardList.size() == 0) {
 			cardList = categoryMapper.selectCardList();
 		}
 	}
 
-	public void setCategoryRoom(){
+	private void setCategoryRoom(){
 		if(categoryRoom.size()==0) {
 			List<RoomInfoDTO> list = categoryMapper.selectCategoryRoom();
 			List<String> list2 = new ArrayList<String>();
@@ -280,7 +275,7 @@ public class MainController {
 		}
 	}
 	
-	public void setFacilities(){
+	private void setFacilities(){
 		if(facilities.size()==0) {
 			List<FacilityDTO> list = categoryMapper.selectFacility();
 			List<String> facilityList = new ArrayList<String>();

@@ -40,28 +40,26 @@ public class AccountController {
 	 private JavaMailSender mailSender;
 	
 	@RequestMapping(value = "/signUp.do")
-	public String signUpForm() {//회占쏙옙 占쏙옙占쏙옙 占쏙옙
+	public String signUpForm() {
 		
 		return "account/signUp";
 	}
 	
-	//회占쏙옙 체크
 	@RequestMapping(value = "/checkAccount.do", method = RequestMethod.POST)
 	public String checkAccountOk(HttpServletRequest req) {
-		String email = req.getParameter("email");//占쌉력듸옙 email占쏙옙占쏙옙 占쏙옙占쏙옙占승댐옙.
+		String email = req.getParameter("email");
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 		AccountDTO dto = accountMapper.checkEmail(email);
 		if(dto == null) {
 			req.setAttribute("email", email);
-			return "account/passwordSettings";//회占쏙옙占쏙옙 占싣니띰옙占� password.jsp 占쏙옙占쏙옙占쏙옙占쏙옙 占싱듸옙
+			return "account/passwordSettings";
 		}else {
 			req.setAttribute("email", email);
 			return "redirect:signUp.do";
 		}
 	}
 	
-	//占싸깍옙占쏙옙 占쏙옙 占싱듸옙
 	@RequestMapping(value = "/login.do")
 	public String login(HttpServletRequest req) {
 		String email = req.getParameter("email");
@@ -74,7 +72,6 @@ public class AccountController {
 		return "account/login";
 	}
 	
-	//占쏙옙橘占싫� 占쌉뤄옙 占쏙옙
 	@RequestMapping(value = "/password.do")
 	public String password(HttpServletRequest req) {
 		String ret = "";
@@ -173,7 +170,6 @@ public class AccountController {
 		return mv;
 	}
 	
-	//占싸그아울옙
 	@RequestMapping(value="logoutOk.do")
 	public ModelAndView logout(HttpServletRequest req) throws Exception{
 		req.getSession().removeAttribute("email");
@@ -182,7 +178,6 @@ public class AccountController {
 		return mav;
 	}
 	
-	//占쏙옙橘占싫� 占쏙옙占쏙옙 占싹뤄옙
 	@RequestMapping(value = "/passwordSettingsOk.do", method = RequestMethod.POST)
 	public ModelAndView passwordOk(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
@@ -273,8 +268,8 @@ public class AccountController {
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
 		
-		String nickName = req.getParameter("nickName");//占싻놂옙占쏙옙
-		String birthday = req.getParameter("birthday");//占쏙옙占쏙옙
+		String nickName = req.getParameter("nickName");
+		String birthday = req.getParameter("birthday");
 		
 		// if nickName form is not null, update DB
 		if(nickName != null) {
@@ -390,7 +385,7 @@ public class AccountController {
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
 		
-		String password = req.getParameter("confirmPassword");//占쏙옙橘占싫�
+		String password = req.getParameter("confirmPassword");
 		if(password != null || !password.trim().equals("")) {
 			dto.setPassword(req.getParameter("confirmPassword"));
 			accountMapper.updatePassword(dto);

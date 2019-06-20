@@ -20,7 +20,6 @@ import com.temp.app.model.ReservationDTO;
 import com.temp.app.model.ReviewDTO;
 import com.temp.app.model.ReviewGradeDTO;
 import com.temp.app.service.AccomodationMapper;
-import com.temp.app.service.ReservationMapper;
 import com.temp.app.service.ReviewMapper;
 
 @Controller
@@ -29,8 +28,6 @@ public class ReviewController {
 	private ReviewMapper reviewMapper;
 	@Autowired
 	private AccomodationMapper accomodationMapper;
-	@Autowired
-	private ReservationMapper reservationMapper;
 	
 	@RequestMapping(value="/reviewMain.do")
 	public String reviewMain(HttpServletRequest req) throws Exception{
@@ -38,6 +35,7 @@ public class ReviewController {
 	    AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
 	    int num = dto.getNum();   
         List<ReservationDTO> listReservation = accomodationMapper.listReservation(num);
+        System.out.println(listReservation.size());
         req.setAttribute("listReservation", listReservation);
         
 		return "review/main";
@@ -81,28 +79,24 @@ public class ReviewController {
 			dto.setWriter(writer);
 		}
 		dto.setIp(req.getRemoteAddr());
-		String msg = null, url = null;
+		String msg = null;
 		try {
 		int review = reviewMapper.insertReview(dto);
 		dto1.setReview(review);
 		int res = reviewMapper.insertGrade(dto1);
 			if(res > 0) {
-				System.out.println("sadfsdf"+req.getParameter("reservation_num"));
-				reservationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
+				accomodationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
 				msg = "리뷰 작성 성공!";
-				url = "reviewMain.do";
 			}else {
 				msg = "리뷰 작성 실패!";
-				url = "reviewMain.do";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			msg = "DB서버 오류 발생!! 관리자에게 문의하세요";
-			url = "start.app";
+			req.setAttribute("url", "start.app");
 			return "message";
 		}
 		req.setAttribute("msg", msg);
-		req.setAttribute("url", url);
 		return "popupclose";
 	}
 }

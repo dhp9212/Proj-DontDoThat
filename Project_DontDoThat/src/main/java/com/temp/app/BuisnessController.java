@@ -57,8 +57,7 @@ public class BuisnessController {
 	HttpSession session;
 	
 	@RequestMapping(value="buisness_index.do")
-	public String index(HttpServletRequest req) {
-		session = req.getSession();
+	public String index() {
 		return "buisness/buisness_index";
 	}
 	@RequestMapping(value="buisness_reservation.do")
@@ -72,11 +71,10 @@ public class BuisnessController {
 	}
 	@RequestMapping(value="accomodation_facility.do")
 	public String accomodation_facility(HttpServletRequest req) {
-		session = req.getSession();
 		return accomodationPath + "accomodation_facility";
 	}
 	@RequestMapping(value="nearby.do")
-	public String unearby() {
+	public String nearby() {
 		return accomodationPath + "nearby";
 	}
 	@RequestMapping(value="general_info.do")
@@ -121,10 +119,6 @@ public class BuisnessController {
 	@RequestMapping(value="review_policy.do")
 	public String review_policy() {
 		return accomodationPath + "review_policy";
-	}
-	@RequestMapping(value="profile.do")
-	public String profile() {
-		return accomodationPath + "profile";
 	}
 	@RequestMapping(value="custom_review.do")
 	public String custom_review(HttpServletRequest req) {
