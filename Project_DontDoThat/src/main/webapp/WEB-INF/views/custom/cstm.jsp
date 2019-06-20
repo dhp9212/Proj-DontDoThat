@@ -57,8 +57,6 @@
 .arr-down  {transform:rotate(45deg);   -webkit-transform:rotate(45deg);}
 	
 </style>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
    <script type="text/javascript">
    		function sendMessage(){
    			if(f8.reservation.value=="fc2"){
