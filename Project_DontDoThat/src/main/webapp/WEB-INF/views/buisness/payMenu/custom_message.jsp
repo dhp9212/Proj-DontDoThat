@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../_buisness_top.jsp"%>
 <style>
@@ -90,7 +90,8 @@
 					<td align="center">${dcc.tel}</td>
 					<td align="center">${dcc.email}</td>
 					<td width="200px" height="30px" style="overflow:hidden; text-overflow:ellipsis;
-					 		display:inline-block;"><button type="button" 
+					 		display:inline-block;"><button type="button" onclick="javascript:writem('${dcc.no}','${dcc.accomodation_name}',
+								 '${dcc.email}','${dcc.content}')"
 					 		class="btn btn-sm" data-toggle="modal" data-target="#myContent">
 							 ${dcc.content}</button></td>
 					<td align="center">${dcc.send_date}</td>
@@ -100,8 +101,7 @@
 								<div class="mybutton23">답변완료</div>
 							</c:when>
 							<c:otherwise>
-								<button type="button" onclick="javascript:writem('${dcc.no}','${dcc.accomodation_name}',
-								 '${dcc.email}','${dcc.content}')" class="btn mybutton23 btn-sm"
+								<button type="button" class="btn mybutton23 btn-sm"
 								data-toggle="modal" data-target="#myModal">답변하기</button>
 							</c:otherwise>
 						</c:choose>
