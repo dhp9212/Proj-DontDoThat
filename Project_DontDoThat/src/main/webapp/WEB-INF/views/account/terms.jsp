@@ -5,15 +5,23 @@
 <head>
 <meta charset="EUC-KR">
 <title>이용약관</title>
-<style type="text/css">
-	.terms{
-	width:60%;
-	heigth:auto;
-	padding:40px;
-	}
-</style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		function goBack()
+		{//뒤로가기
+			window.history.back();
+		}
+	</script>
+	<style type="text/css">
+		.terms{
+		width:60%;
+		heigth:auto;
+		padding:40px;
+		}
+	</style>
 </head>
 <body>
+<strong><input type="button" id="backButton" name="back" onclick="goBack();" value="뒤로 이동" style="border:1px solid #0033cc; color:#0033cc; background-color:lavender"/></strong>
 	<div class="terms" >
 		<h1>개인정보보호정책</h1>
 	Booking.com은 고객님의 개인 정보를 소중하게 생각하고 있습니다. 그런 귀중한 정보를 기꺼이 제공해주신 고객님의 믿음에 어긋나지 않도록, 공유해주신 모든 개인 정보를 안전하게 보호하는 데 최선을 다할 것임을 약속드립니다. 당사는 고객의 이익을 최우선으로 여기며, 고객님의 개인정보를 언제나 투명하고 공정하게 처리합니다.

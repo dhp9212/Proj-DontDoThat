@@ -4,15 +4,23 @@
 <html>
 <head>
 <title>개인정보 보호정책</title>
-<style type="text/css">
-	.privacy{
-	width:60%;
-	heigth:auto;
-	padding:40px;
-	}
-</style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		function goBack()
+		{//뒤로가기
+			window.history.back();
+		}
+	</script>
+	<style type="text/css">
+		.privacy{
+		width:60%;
+		heigth:auto;
+		padding:40px;
+		}
+	</style>
 </head>
 <body>
+<strong><input type="button" id="backButton" name="back" onclick="goBack();" value="뒤로 이동" style="border:1px solid #0033cc; color:#0033cc; background-color:lavender"/></strong>
 	<div class="privacy">
 		<h1>여행 이용약관</h1>
 목차
