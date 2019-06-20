@@ -20,10 +20,10 @@
 		select * from review where review.accommodation=#{accommodation})A)
 		where rn between 1 and 10
 	</select>
-	<select id="countReview" parameterType="String" resultType="int">
+	<select id="countReview" parameterType="int" resultType="int">
 		select count(*) from review where accommodation=#{accommodation}
 	</select>
-	<select id="averageReview" parameterType="String" resultType="GradeDTO">
+	<select id="averageReview" parameterType="int" resultType="GradeDTO">
 		select avg(clean) as clean, avg(comfortable) as comfortable,
 		avg(location) as location, avg(facilities) as facilities, avg(kind) as kind,
 		avg(value) as value, avg(wifi) as wifi from grade where accommodation=#{accommodation}
