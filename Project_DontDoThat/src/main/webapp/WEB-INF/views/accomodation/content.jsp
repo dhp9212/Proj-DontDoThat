@@ -185,67 +185,6 @@
 			</form>
 		</div>
 	</div>
-<div class="col-lg-4">
-	<div class="panel panel-default sidesearch">
-		<div class="panel-body">
-			<div class="col-lg-12 searchlabel"><h1>검색</h1></div>
-			<form name="search_form" method="post" action="accomodation_list.do">
-			<div class="col-lg-12">여행지/숙소 이름</div>
-			<div class="col-lg-12"><input type="text" id="input_place" name="input_place" autocomplete="off" value="${input_place}"></div>
-			<div class="col-lg-12">체크인 날짜</div>
-			<div class="col-lg-12"><input type="text" name="start_date" autocomplete="off" value="${start_date }" readonly></div>
-			<div class="col-lg-12">체크아웃 날짜</div>
-			<div class="col-lg-12"><input type="text"  name="end_date" autocomplete="off" value="${end_date }" readonly></div>
-			<div class="col-lg-12 days">1박 선택</div>
-			<!-- <div class="col-lg-12">
-				<select name="adult">
-				<option value="1">성인 1명</option>
-				<option value="2">성인 2명</option>
-				<option value="3">성인 3명</option>
-				<option value="4">성인 4명</option>
-				<option value="5">성인 5명</option>
-				<option value="6">성인 6명</option>
-				<option value="7">성인 7명</option>
-				<option value="8">성인 8명</option>
-				<option value="9">성인 9명</option>
-				<option value="10">성인 10명</option>
-				</select>
-			</div>
-			<div class="col-lg-12">&nbsp;</div>
-			<div class="col-lg-6">
-				<select name="child">
-				<option value="0">동반아동 없음</option>
-				<option value="1">아동 1명</option>
-				<option value="2">아동 2명</option>
-				<option value="3">아동 3명</option>
-				<option value="4">아동 4명</option>
-				<option value="5">아동 5명</option>
-				<option value="6">아동 6명</option>
-				<option value="7">아동 7명</option>
-				<option value="8">아동 8명</option>
-				<option value="9">아동 9명</option>
-				<option value="10">아동 10명</option>
-			</select>
-			</div>
-			<div class="col-lg-6">
-				<select name="room">
-				<option value="1">객실 1개</option>
-				<option value="2">객실 2개</option>
-				<option value="3">객실 3개</option>
-				<option value="4">객실 4개</option>
-				<option value="5">객실 5개</option>
-				<option value="6">객실 6개</option>
-				<option value="7">객실 7개</option>
-				<option value="8">객실 8개</option>
-				<option value="9">객실 9개</option>
-				<option value="10">객실 10개</option>
-				</select>
-			</div> -->
-			<div class="col-lg-12">&nbsp;</div>
-			<div class="col-lg-12"><input type="button" value="검색" style="width:100%; height:50px;" onclick="javascript:search_form.submit()"></div>
-			</form>
-		</div>
-	</div>
 	<c:if test="${not empty listReview}">
 		<div class="col-lg-2">
 		<fmt:formatNumber var="grade" value="${(averageReview.clean+
