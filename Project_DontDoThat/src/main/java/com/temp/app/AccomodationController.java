@@ -2,7 +2,6 @@ package com.temp.app;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.temp.app.model.AccomodationDTO;
+import com.temp.app.model.AccountDTO;
 import com.temp.app.model.GradeDTO;
 import com.temp.app.model.ReservationDTO;
 import com.temp.app.model.ReviewDTO;
@@ -137,7 +136,6 @@ public class AccomodationController {
 		AccomodationDTO dto = accomodationMapper.getAccomodationInfo(num);
 		req.setAttribute("getAccomodationInfo", dto);
 		
-		int accomodation_num = num;
 		String start_date = (String)session.getAttribute("start_date");
 		String end_date = (String)session.getAttribute("end_date");
 		
@@ -152,7 +150,7 @@ public class AccomodationController {
 		System.out.println(list.size());
 		req.setAttribute("roomList", list);
 		
-		//�̿��ı� ��������
+		//
 		List<ReviewGradeDTO> listReview = reviewMapper.listReview(num);
 		List<ReviewDTO> list10Review = reviewMapper.list10Review(num);
 		int countReview = reviewMapper.countReview(num);
@@ -186,7 +184,10 @@ public class AccomodationController {
     }
     @RequestMapping(value="/reservation_list.do")
     public String listReservation(HttpServletRequest req) throws Exception {
-        int num = Integer.parseInt(req.getParameter("num"));
+    	HttpSession session = req.getSession();
+    	AccountDTO user = (AccountDTO)session.getAttribute("userSession");
+        int num = user.getNum();
+        
         String pageNum = req.getParameter("pageNum");
         if (pageNum == null) {
             pageNum = "1";
@@ -220,7 +221,7 @@ public class AccomodationController {
         int res = accomodationMapper.deleteReservation(num);
         try {
             if (res > 0) {
-                return "redirect:home.do";
+                return "forward:/reservation_list.do";
             }
         } catch (Exception e) {
             e.printStackTrace();

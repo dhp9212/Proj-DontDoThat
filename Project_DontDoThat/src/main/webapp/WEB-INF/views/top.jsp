@@ -59,10 +59,10 @@
 						<li id="myAccount" style=""><a href="#">나의 계정</a>
 							<ul>
 								<li><a href="mySettings.do">마이페이지</a></li>
-							<c:if test="${!empty accomodation_list or userSession.email == 'admin'}">
+							<c:if test="${!empty accomodation_list}">
 								<li><a href="buisness_index.do">사업자 홈페이지</a></li>
 							</c:if>
-								<li><a href="reservation_list.do?num=${userSession.num}">예약</a></li>
+								<li><a href="reservation_list.do">예약</a></li>
 								<li><a href="reviewMain.do">이용 후기</a></li>
 								<li><a href="customerService.do">고객 서비스 지원</a></li>
 								<li><a href="logoutOk.do">로그 아웃</a></li>

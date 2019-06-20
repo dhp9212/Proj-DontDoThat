@@ -17,9 +17,68 @@ public class ReservationDTO implements Comparable<ReservationDTO>{
 	private int adults;
 	private int children;
 	private String payment;
-	private String accomodation_name;
+	
 	private int check_review;
 	
+	// additional information
+	private String category_accomodation;
+	private String accomodation_name;
+	private String accomodation_country;
+	private String city;
+	private String content;
+	private String headname;
+	private String address;
+	private String roomname;
+	private String roomclass;
+	
+	public String getCategory_accomodation() {
+		return category_accomodation;
+	}
+	public void setCategory_accomodation(String category_accomodation) {
+		this.category_accomodation = category_accomodation;
+	}
+	public String getAccomodation_country() {
+		return accomodation_country;
+	}
+	public void setAccomodation_country(String accomodation_country) {
+		this.accomodation_country = accomodation_country;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getHeadname() {
+		return headname;
+	}
+	public void setHeadname(String headname) {
+		this.headname = headname;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getRoomname() {
+		return roomname;
+	}
+	public void setRoomname(String roomname) {
+		this.roomname = roomname;
+	}
+	public String getRoomclass() {
+		return roomclass;
+	}
+	public void setRoomclass(String roomclass) {
+		this.roomclass = roomclass;
+	}
 	public int getCheck_review() {
 		return check_review;
 	}

@@ -9,12 +9,12 @@
 	<div class="col-lg-12" align="center">예약하신 숙소가 없습니다.</div>
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="dto" items="${listReservation}" varStatus="status">
+	<c:forEach var="dto" items="${listReservation}" varStatus="status">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="col-lg-4">
-					<div class="col-lg-12"><h3>${dto.accomodation_name}</h3></div><br>
-					<div class="col-lg-12">${dto.payment}</div>
+					<div class="col-lg-12"><h3><a href="#" data-toggle="modal" data-target="#infoModal${dto.num }">${dto.accomodation_name}</a></h3></div><br>
+					<div class="col-lg-12">예약금액 : ${dto.payment}</div> 
 			</div>
 			<div class="col-lg-6">
 				<div class="row">
@@ -32,13 +32,84 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="col-lg-12" align="center">
-					<button type="button" class="btn btn-primary" onclick="javascript:check(${dto.num});">예약 취소</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancelModal${dto.num }">예약 취소</button>
 				</div>
 			</div>
 			</form>
 		</div>
 	</div>
-		</c:forEach>
+
+
+	<!-- InfoModal -->
+<div id="infoModal${dto.num}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">[${dto.category_accomodation}] ${dto.accomodation_name}</h4>
+      </div>
+      <div class="modal-body">
+		<div class="col-lg-12">소재 : ${dto.accomodation_country} > ${dto.city}</div>
+		<div class="col-lg-12">주소 : ${dto.address}</div>
+		<div class="col-lg-12">대표 : ${dto.headname}</div>
+		<div class="col-lg-12">소개</div>
+		<div class="row">
+			<div class="col-lg-12">${dto.content }</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+	<!-- CancelModal -->
+<div id="cancelModal${dto.num}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">예약을 취소하시겠습니까</h4>
+      </div>
+      <div class="modal-body">
+      	
+        <div class="col-lg-12"><h3>${dto.accomodation_name}</h3></div><br>
+		<div class="col-lg-12">예약금액 : ${dto.payment}</div>
+		<div class="col-lg-12">[${dto.roomclass}] ${dto.roomname}</div>
+		<div class="col-lg-12">예약한 방 수 : ${dto.rooms}</div>
+		<div class="row">
+			<div class="col-lg-6" align="center">체크인</div>
+			<div class="col-lg-6" align="center">체크아웃</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6" align="center">${dto.checkIn_date}</div>
+			<div class="col-lg-6" align="center">${dto.checkOut_date}</div>
+		</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="javascript:check(${dto.num});">예약취소</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+	
+	
+	
+	
+	
+	
+	
+	</c:forEach>
 	<div>페이지 : 
 <c:if test="${listCount > 0}">
 	<c:if test="${startPage > pageBlock}">
@@ -55,6 +126,7 @@
 	</c:otherwise>
 </c:choose>
 </div>
+
 	<script type="text/javascript">
 	function check(num) {
 		location.href = "reservation_delete.do?num=" + num
