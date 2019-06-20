@@ -98,16 +98,22 @@
 
 		</div>
 	<div class="btn-group sortbar">
-					  <button type="button" class="btn btn-primary" id="selected" onclick="sorting('cost','descend')">요금</button>
-					  <button type="button" class="btn btn-primary" onclick="sorting('comment','descend')">후기 평점</button>
-					  <button type="button" class="btn btn-primary" onclick="">후기 평점 + 요금</button>
+					  <button type="button" class="btn btn-primary" name="btnCost" id="selected" onclick="cost_sorting('descend')">요금</button>
+					  <button type="button" class="btn btn-primary" name="btnComment" onclick="comment_sorting('descend')">후기 평점</button>
+					  <button type="button" class="btn btn-primary" name="btnCommentAndCost" onclick="commentAndCost_sorting('descend')">후기 평점 + 요금</button>
 					  <!-- <button type="button" class="btn btn-primary" onclick="">성급</button>
 					  <button type="button" class="btn btn-primary" onclick="">성급 + 요금</button> -->
 	</div>
 					<br/>
 	<div class="sortList">
 			<c:forEach var="dto" items="${listAccomodation}" varStatus="status">
-				<div class="sortItem" data-cost="${dto.minPrice}" data-comment="${dto.minPrice}">
+				<c:if test='${dto.grade == ""}'>
+					<c:set var="score" value="0"/>
+				</c:if>
+				<c:if test='${dto.grade != ""}'>
+					<c:set var="score" value="${dto.grade}"/>
+				</c:if>
+				<div class="sortItem" data-cost="${dto.minPrice}" data-comment="${score}" data-cc="${score/dto.minPrice}">
 					<div class="panel panel-default">
 					  <div class="panel-body itemspanel">
 					  	<div class="col-lg-4">
@@ -297,17 +303,19 @@
 	});
 
 	
-	function sorting(standard, direction){
+/* 	function sorting(standard, direction){
+		alert(standard)
+		alert(direction)
 		var items = $('.sortItem')
 		var dataSrc = 'data-'+standard
 		var sortedList
 		if(direction == 'ascend'){
 			sortedList = getSortedAscend('.sortItem', dataSrc)
-			$('#selected').attr('onclick', 'sorting("'+standard+'","descend")')
+			$('#selected').attr('onclick', standard+'_sorting("descend")')
 		}
 		else if(direction == 'descend'){
-			sortedList = getSortedDescend('.sortItem', 'data-cost')
-			$('#selected').attr('onclick', 'sorting("'+standard+'","ascend")')
+			sortedList = getSortedDescend('.sortItem', dataSrc)
+			$('#selected').attr('onclick', standard+'_sorting("ascend")')
 		}
 		
 		var listContainer = $('.sortList')
@@ -315,6 +323,59 @@
 			listContainer.append(sortedList[i])
 		}
 	}
+	 */
+	function cost_sorting(direction){
+		var items = $('.sortItem')
+		var dataSrc = 'data-cost'
+		var sortedList
+		if(direction == 'ascend'){
+			sortedList = getSortedAscend('.sortItem', dataSrc)
+			$('button[name="btnCost"]').attr('onclick', 'cost_sorting("descend")')
+		}
+		else if(direction == 'descend'){
+			sortedList = getSortedDescend('.sortItem', dataSrc)
+			$('button[name="btnCost"]').attr('onclick', 'cost_sorting("ascend")')
+		}
+		var listContainer = $('.sortList')
+		for(i = 0; i < sortedList.length; i++){
+			listContainer.append(sortedList[i])
+		}
+	}
+	function comment_sorting(direction){
+		var items = $('.sortItem')
+		var dataSrc = 'data-comment'
+		var sortedList
+		if(direction == 'ascend'){
+			sortedList = getSortedAscend('.sortItem', dataSrc)
+			$('button[name="btnComment"]').attr('onclick', 'comment_sorting("descend")')
+		}
+		else if(direction == 'descend'){
+			sortedList = getSortedDescend('.sortItem', dataSrc)
+			$('button[name="btnComment"]').attr('onclick', 'comment_sorting("ascend")')
+		}
+		var listContainer = $('.sortList')
+		for(i = 0; i < sortedList.length; i++){
+			listContainer.append(sortedList[i])
+		}
+	}
+	function commentAndCost_sorting(direction){
+		var items = $('.sortItem')
+		var dataSrc = 'data-cc'
+		var sortedList
+		if(direction == 'ascend'){
+			sortedList = getSortedAscend('.sortItem', dataSrc)
+			$('button[name="btnCommentAndCost"]').attr('onclick', 'commentAndCost_sorting("descend")')
+		}
+		else if(direction == 'descend'){
+			sortedList = getSortedDescend('.sortItem', dataSrc)
+			$('button[name="btnCommentAndCost"]').attr('onclick', 'commentAndCost_sorting("ascend")')
+		}
+		var listContainer = $('.sortList')
+		for(i = 0; i < sortedList.length; i++){
+			listContainer.append(sortedList[i])
+		}
+	}
+	
 	
 	function getSortedAscend(selector, attrName) {
 	    return $($(selector).toArray().sort(function(a, b){
