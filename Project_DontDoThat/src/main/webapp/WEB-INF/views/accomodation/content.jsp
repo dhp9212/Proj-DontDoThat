@@ -469,6 +469,7 @@ Whisper words of wisdom, let it be
 	</div>
 </div>
 <span>&nbsp;<hr></span>
+<c:if test="${fn:length(listReview) != 0}">
 <div class="col-lg-12">
 	<div id="aftercomment">
 	<h3>이곳 최신 이용 후기</h3>
@@ -549,7 +550,7 @@ Whisper words of wisdom, let it be
 		</div>
 	</div>
 </div>
-	
+</c:if>
 	<script>
 	function myMap() {
 		var mapProp= {
