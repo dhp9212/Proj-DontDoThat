@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.temp.app.model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="top.jsp"%>
+<%@ include file="../buisness/_buisness_top.jsp"%>
 <style>
 	body {
 	  height: 100vh;
@@ -49,14 +49,14 @@
 <input type="hidden" id="fhcate" name="hcate">
 <input type="hidden" id="fmcaten" name="mcate">
 </form>
-<div style="width:30%;float:left;">
+<div style="width:40%;float:left;">
 <table>
 	<tr><td>
 		<table align="center">
 			<form name="fh" action="inputMainCate_Ok.admin" method="post">
 			<tr>
 				<th>Q&A 카테고리</th>
-				<td><input type="text" name="hcate" size="20" maxlength="20" value="추가할 메인카테고리명을 적어주세요">
+				<td><input type="text" name="hcate" size="20" maxlength="20" placeholder="추가할 메인카테고리명을 적어주세요">
 				&nbsp;<input type="submit" value="추가"></td>
 			</tr>
 			</form>
@@ -104,8 +104,8 @@
 %>	
 	</table>
 </div>
-<div style="width:70%; float:right">
-<table width="90%">
+<div style="width:60%; float:right">
+<table width="100%">
 	<tr>
 		<th>답변 목록</th>
 	</tr>
@@ -134,6 +134,3 @@
 		</c:forEach>
 </table>
 </div>
-</div>
-
-<%@ include file="bottom.jsp"%>
