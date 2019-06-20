@@ -11,16 +11,77 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/pattern.js"></script>
   
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
+	   
+	    /* //자동 저장
+	    var dynaframe = null;
+	    
+	    function createIframe(){
+	    	dynaframe.width = "50";
+	    	dynaframe.height = "50";
+	    	dynaframe.frameborder = "1";
+	    	
+	    	document.body.appendChild(dynaframe);
+	    }
+	    
+	    function ajaxGetNickName(){
+	    	if(dynaframe == null){
+	    		createIframe();
+	    	}
+	    	var nickName = document.getElementById("nickName").value;
+	    	dynaframe.src = "accountUpdate.do?nickName = " + nickName;
+	    }
+	    
+	    function setNickNameData(nickName){
+	    	document.getElementById("nickName").value = nickName;
+	    }
+	     */
 	    //닉네임, 생일, 국가/지역 저장
 	    $(document).ready(function(){
 	    	$('input[type="text"]').on("blur", function(){
 	    		if($(this).parents('form').attr('name')=='s3' || $(this).parents('form').attr('name')=='s4') return
 	    		$(this).parents('form').submit()
 	    	})
+	    	
+	    	/* //닉네임
+	    	$("#nickName").keydown(function(key){
+	    		if(key.keyCode == 13){
+	    			s0.submit();
+	    		}
+	    	});
+	    	//생일
+			$("#birthday").keydown(function(key){
+				if(key.keyCode == 13){
+					s0.submit();
+				}
+			});
+	    	//국가/지역
+			$('.country').on('change', function(){
+				s1.submit();
+			});
+	    	//이름
+			$("#name").keydown(function(key){
+				if(key.keyCode == 13){
+					s2.submit();
+				}
+			});
+	    	//전화번호
+			$("#tel").keydown(function(key){
+				if(key.keyCode == 13){
+					s2.submit();
+				}
+			});
+	    	//주소
+			$("#address").keydown(function(key){
+				if(key.keyCode == 13){
+					s2.submit();
+				}
+			});
+	    	
+	    	//비밀번호
+	    	 */
 	    });
 	    
 	    //실시간 프로필 사진 바꾸기
@@ -99,30 +160,6 @@
 			});
 	    	
 	    	//신용카드 변경
-	    	$('input[name="numOfCreditCard"]').on('keydown', function(){
-	    		if(!(event.keyCode==46 || event.keyCode==8)){
-		    		var length = this.value.length
-		    		if(length==4 || length==9 || length==14) this.value += '-'
-	    		}
-	    	})
-	    	$('input[name="expirationDate"]').on('keydown', function(){
-	    		if(!(event.keyCode==46 || event.keyCode==8)){
-	    			if(this.value.length==2) this.value += '/'
-	    		}
-	    	})
-	    	$('.card_button').on('click', function(){
-	    		alert($(this).prev().attr('name'))
-	    		$(this).prev().remove()
-	    		var str = ''
-	    		var hidden = $('input[name="card_value"]')
-	    		alert(hidden.length)
-	    		for(var i=0; i<hidden.length; ++i){
-	    			if(str=='') str += hidden[i].value
-	    			else str += "#"+hidden[i].value 
-	    		}
-	    		$('input[name="payment"]').val(str)
-	    		updatePayment.submit()
-	    	})
 	    	$("#creditCardSave").click(function creditCardSave(){
 	    		var selectPayment = $('select[name=kindOfCreditCard]').val();
 	    		var numOfCreditCard = $('input[name=numOfCreditCard]').val();
@@ -134,7 +171,7 @@
 	    		var nameOfCreditCardState = $("#notNumOfCreditCardMatch").css("display");
 	    		var expirationDateState = $("#notExpirationDate").css("display");
 	    		
-	    		if(selectPayment == ''){
+	    		if(selectPayment == "선택"){
 	    			alert("신용카드 종류를 선택해주세요")
 	    			return false;
 	    		}
@@ -143,12 +180,6 @@
 	    			return false;
 	    		}
 	    		if(notSlash.test(expirationDate)==false && expirationDate.length < 5){
-	    			alert("카드 날짜를 정확하게 입력해주세요!")
-	    			return false;
-	    		}
-	    		var checkED = expirationDate.split('/')
-	    		if(checkED[0]>12){
-	    			$('input[name=expirationDate]').val('')
 	    			alert("카드 날짜를 정확하게 입력해주세요!")
 	    			return false;
 	    		}
@@ -624,14 +655,12 @@
 					<form name="s3" action="accountUpdateCard.do" method="post" enctype="multipart/form-data">
 						<!-- 신용카드 설정 -->
 						<div class="creditCardSetting" style="background-color:lavender;">
-							<c:forEach var="cardItem" items="${userSession.cardList}">
-							<span>
+							<c:forEach var="cardItem" items="${userSession.cardList}">&nbsp;
+								<button style="border:1px solid #0033cc; color:#0033cc; background-color:lavender" name="creditCardDelete">지우기</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- style="border:1px solid green; color:white; background-color:#669999;" -->
 								<label>${cardItem.kindOfCreditCard}&nbsp;${cardItem.numOfCreditCard}&nbsp;${cardItem.expirationDate}</label>&nbsp;
-								<label>${userSession.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="hidden" name="card_value" value="${cardItem.kindOfCreditCard},${cardItem.numOfCreditCard},${cardItem.expirationDate}">
-								<input type="button" class="card_button" value="지우기"><!-- style="border:1px solid green; color:white; background-color:#669999;" -->
+								<label>${userSession.name}</label>
 								<br/>
-							</span>
 							</c:forEach>
 						</div><br>
 						<!-- <div class="guidanceCreditCard">
@@ -648,11 +677,11 @@
 								<option value='UnionPay'>UnionPay</option>
 							</select><br><br>
 							신용카드 번호<br>
-							<input type="text" class="onlyNumber" name="numOfCreditCard" value="${numOfCreditCard}" placeholder="0000-0000-0000-0000" maxlength="19">
+							<input type="text" name="numOfCreditCard" value="${numOfCreditCard}" placeholder="0000-0000-0000-0000" maxlength="19">
 								<span style="color:gray"> - ex) 0000-0000-0000-0000 </span><br>
 								<label id="notNumOfCreditCardMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
 							만료 날짜<br>
-							<input type="text" class="onlyNumber" name="expirationDate" value="${expirationDate}"placeholder="01/19" maxlength="5">
+							<input type="text" name="expirationDate" value="${expirationDate}"placeholder="01/19" maxlength="5">
 								<span style="color:gray"> - 월/년 기입 ex) 01/19 </span><br>
 								<label id="notExpirationDateMatch" style="color:red; display:none;">정확하게 입력해주세요!</label><br>
 							<input type="button" value="변경 저장" name="creditCardSave" id="creditCardSave">
@@ -673,6 +702,13 @@
 					</div>
 					<!-- 비밀번호 및 통화 내용 -->
 					<div class="passwordAndCurrencyContent">
+						<!-- <div class="currencySetting">
+							선호하는 통화<br>
+							<select>
+								<option>대한민국 원</option>
+								<option>일본 엔</option>
+							</select>
+						</div><br> -->
 						<div class="passwordChange">
 							<div class="passwordChangeForm">
 								새로운 비밀번호 입력<br>
@@ -687,11 +723,8 @@
 						</div><br>
 					</div>
 				</form>
-			</div>
+			</div><br><br>
 		</div>
 	</div>
-<form name="updatePayment" action="updateAccount_payment.do" method="post">
-	<input type="hidden" name="payment">
-</form>
 </body>
 </html>
