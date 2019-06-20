@@ -67,7 +67,7 @@
 			<select name="country" id="country">
 				<option value="default">-- --국가/지역 선택-- --</option>
 			<c:forEach var="country" items="${countryList}">
-				<option value="${country.name}">${country.name}</option>
+				<option>${country.name}</option>
 			</c:forEach>
 			</select>
 		</div>
@@ -205,7 +205,7 @@
 	    var _val = this.value.trim();
 	    this.value = autoHypenTel(_val);
 	}
-	var country = '${userSession.country}'
+	var country = '${userSession.countryName}'
 	$(function() {
 		if (country != '') {
 			$('#country').val(country).prop('selected', true);
