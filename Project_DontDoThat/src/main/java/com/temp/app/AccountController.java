@@ -84,7 +84,7 @@ public class AccountController {
 		
 		if(dto == null) {
 			// not exist email = not a member
-			String none = "ÏóÜÏùå";
+			String none = "æ¯¿Ω";
 			req.setAttribute("emailCheckNone", none);
 			ret = "account/login";
 		}else {
@@ -107,7 +107,7 @@ public class AccountController {
 			    
 			String setfrom = "Gnikcah6@gmail.com";         
 		    String tomail  = (String)session.getAttribute("email");
-		    String title   = "Hacking.com ÏûÑÏãú ÎπÑÎ∞ÄÎ≤àÌò∏";
+		    String title   = "Hacking.com ¿”Ω√ ∫Òπ–π¯»£";
 		    String content = uuid; 
 		    dto.setPassword(uuid);
 		    accountMapper.updateTemporaryPassword(dto);
@@ -162,7 +162,7 @@ public class AccountController {
 			session.setAttribute("accomodation_list", accomodationMapper.getAccomodation(dto.getNum()));
 			mv.setViewName("forward:/");
 		}else {
-			String wrongPassword = "ÎπÑÎ∞ÄÎ≤àÌò∏ ÌãÄÎ¶º";
+			String wrongPassword = "∫Òπ–π¯»£ ∆≤∏≤";
 			req.setAttribute("email", dto.getEmail());
 			req.setAttribute("wrongPassword", wrongPassword);
 			mv.setViewName("account/password");
@@ -337,7 +337,7 @@ public class AccountController {
 	
 	
 	@RequestMapping(value = "/accountUpdateCard.do")
-	public ModelAndView accountUpdateCard(HttpServletRequest req) throws Exception{
+	public ModelAndView accountUpdateCard(HttpServletRequest req){
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
 		AccountDTO dto = (AccountDTO)session.getAttribute("userSession");
@@ -346,6 +346,13 @@ public class AccountController {
 		String numOfCreditCard = req.getParameter("numOfCreditCard");
 		String expirationDate = req.getParameter("expirationDate");
 		
+		mav.setViewName("forward:/mySettings.do");
+		List<Card> check_cardList = dto.getCardList();
+		for(Card card : check_cardList) {
+			String myCard = "";
+			myCard = card.getKindOfCreditCard() + card.getNumOfCreditCard() + card.getExpirationDate();
+			if(myCard.equals(kindOfCreditCard+numOfCreditCard+expirationDate)) return mav;
+		}
 		String payment = dto.getPayment();
 		
 		// if payment already exist add tokenizer /
@@ -375,7 +382,6 @@ public class AccountController {
 		dto.setCardList(cardList);
 		
 		session.setAttribute("userSession", dto);
-		mav.setViewName("forward:/mySettings.do");
 		return mav;
 	}
 	
@@ -392,8 +398,27 @@ public class AccountController {
 			req.setAttribute("password", dto.getPassword());
 		}
 		
-		mav.setViewName("forward:/mySettings.do");
+		mav.setViewName("account/mySettings");
 		
 		return mav;
+	}
+	@RequestMapping(value = "updateAccount_payment.do")
+	public String updateAccount_payment(HttpServletRequest req) {
+		AccountDTO dto = (AccountDTO)(req.getSession().getAttribute("userSession"));
+		dto.setPayment(req.getParameter("payment"));
+		req.getSession().setAttribute("userSession", dto);
+		accountMapper.updatePayment(dto);
+		if(dto.getPayment().equals("")) {
+			dto.setCardList(null);
+		}else {
+			List<Card> cardList = new ArrayList<Card>();
+			String[] cards = dto.getPayment().split("#");
+			for(String card : cards) {
+				String[] myCard = card.split(",");
+				cardList.add(new Card(myCard[0], myCard[1], myCard[2]));
+			}
+			dto.setCardList(cardList);
+		}
+		return "account/mySettings";
 	}
 }

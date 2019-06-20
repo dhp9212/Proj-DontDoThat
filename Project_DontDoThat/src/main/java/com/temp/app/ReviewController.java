@@ -74,29 +74,30 @@ public class ReviewController {
 		AccountDTO user = (AccountDTO)session.getAttribute("userSession");
 		String writer = user.getNickName();
 		if(writer == null) {
-			dto.setWriter("ìµëª…");
+			dto.setWriter("ÀÍ¸í");
 		}else {
 			dto.setWriter(writer);
 		}
 		dto.setIp(req.getRemoteAddr());
-		String msg = null;
+		String msg = null, url = null;
 		try {
 		int review = reviewMapper.insertReview(dto);
 		dto1.setReview(review);
 		int res = reviewMapper.insertGrade(dto1);
 			if(res > 0) {
 				accomodationMapper.updateReservation(Integer.parseInt(req.getParameter("reservation_num")));
-				msg = "ë¦¬ë·° ì‘ì„± ì„±ê³µ!";
+				msg = "¸®ºä ÀÛ¼º ¼º°ø!";
 			}else {
-				msg = "ë¦¬ë·° ì‘ì„± ì‹¤íŒ¨!";
+				msg = "¸®ºä ÀÛ¼º ½ÇÆĞ!";
 			}
+			url = "reviewMain.do";
 		}catch(Exception e) {
 			e.printStackTrace();
-			msg = "DBì„œë²„ ì˜¤ë¥˜ ë°œìƒ!! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”";
-			req.setAttribute("url", "start.app");
-			return "message";
+			msg = "DB¼­¹ö ¿À·ù ¹ß»ı!! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä";
+			url = "start.app"; 
 		}
 		req.setAttribute("msg", msg);
+		req.setAttribute("url", url);
 		return "popupclose";
 	}
 }
