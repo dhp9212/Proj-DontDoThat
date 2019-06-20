@@ -59,7 +59,7 @@
 						<li id="myAccount" style=""><a href="#">나의 계정</a>
 							<ul>
 								<li><a href="mySettings.do">마이페이지</a></li>
-							<c:if test="${!empty accomodation_list}">
+							<c:if test="${!empty accomodation_list or userSession.email == 'admin'}">
 								<li><a href="buisness_index.do">사업자 홈페이지</a></li>
 							</c:if>
 								<li><a href="reservation_list.do?num=${userSession.num}">예약</a></li>
