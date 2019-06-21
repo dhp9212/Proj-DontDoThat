@@ -44,6 +44,6 @@
 		update customer_message set check_reply=1 where no = #{no}
 	</update>
 	<select id="listCMessage" resultType="CstmDTO" parameterType="int">
-		select * from customer_message where account_num = #{account_num}
+		select * from customer_message where account_num = #{account_num} order by send_date desc
 	</select>
 </mapper>

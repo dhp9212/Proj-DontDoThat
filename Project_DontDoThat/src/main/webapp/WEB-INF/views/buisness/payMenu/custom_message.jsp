@@ -98,11 +98,12 @@
 					<td align="center">
 						<c:choose>
 							<c:when test="${dcc.check_reply == 1}">
-								<div class="mybutton23">답변완료</div>
+								<div class="mybutton23">답변 완료</div>
 							</c:when>
 							<c:otherwise>
-								<button type="button" class="btn mybutton23 btn-sm"
-								data-toggle="modal" data-target="#myModal">답변하기</button>
+								<button type="button" onclick="javascript:writem('${dcc.no}','${dcc.accomodation_name}',
+								 '${dcc.email}','${dcc.content}')"
+								class="btn mybutton23 btn-sm" data-toggle="modal" data-target="#myModal">답변 하기</button>
 							</c:otherwise>
 						</c:choose>
 					</td>
