@@ -49,10 +49,6 @@ public class AccomodationController {
 			categoryName = null;
 		req.setAttribute("categoryName", categoryName);
 		
-		
-		
-		System.out.println("categoryName : " + categoryName);
-		
 		// if date does not exist, set today
 		if(start_date == null || start_date.equals("")) {
 			Calendar cal = Calendar.getInstance();
@@ -94,9 +90,6 @@ public class AccomodationController {
         int endRow = currentPage * pageSize;
         
         if (endRow > listCount) endRow = listCount;
-        ////////////////////////////////////////////////////
-        System.out.println(currentPage + " " + pageSize + " "+ listCount);
-        System.out.println("start = " + startRow + " end = " + endRow);
         
         // Accomodation list & Room list
         List<AccomodationDTO> list = accomodationMapper.listAccomodation(input_place, categoryName, start_date, end_date, startRow, endRow);
@@ -147,7 +140,6 @@ public class AccomodationController {
 		req.setAttribute("imgList", imgList);
 		
 		List<RoomDTO> list = accomodationMapper.getRoomList(num, start_date, end_date);
-		System.out.println(list.size());
 		req.setAttribute("roomList", list);
 		
 		//

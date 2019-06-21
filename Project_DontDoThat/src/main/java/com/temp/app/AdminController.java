@@ -214,7 +214,6 @@ public class AdminController {
     @RequestMapping(value="/searchReservation.do")
     public String searchReservation(HttpServletRequest req) throws Exception{
     	  String content = req.getParameter("content");
-    	  System.out.println("예약번호:"+content);
     	  String pageNum = req.getParameter("pageNum");
           if (pageNum == null) {
               pageNum = "1";

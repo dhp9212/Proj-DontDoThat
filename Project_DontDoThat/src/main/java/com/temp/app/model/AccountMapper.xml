@@ -23,6 +23,9 @@
 		, #{preferredFacility, jdbcType=VARCHAR}
 		, #{reservationTarget, jdbcType=VARCHAR}
 		, #{currency, jdbcType=VARCHAR})
+	<selectKey keyProperty="num" resultType="int" order="AFTER">
+		select ACCOUNT_seq.currval from dual
+	</selectKey>
 	</insert><!-- 최초 회원가입시, 이메일과 비밀번호만으로 회원가입 가능. -->
 	
 	<!-- <update id="updateAccount" parameterType="AccountDTO">

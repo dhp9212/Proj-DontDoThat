@@ -82,6 +82,7 @@
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="Q&A.admin">Q&A설정</a>
 								<a class="dropdown-item" href="admin_message.do">dontDoThat 메세지</a>
+								<a class="dropdown-item" href="allListReservation.do">예약관리</a>
 							</div>
 						</li>
 					</c:if>
@@ -96,7 +97,6 @@
 							<a class="dropdown-item" href="bill.do">청구서</a>
 							<a class="dropdown-item" href="reservation_specification.do">예약 명세서</a>
 							<a class="dropdown-item" href="financial_overview.do">재무 개요</a>
-							<a class="dropdown-item" href="account_info.do">은행 계좌 정보</a>
 						</div>
 					</li>
 			  </ul>

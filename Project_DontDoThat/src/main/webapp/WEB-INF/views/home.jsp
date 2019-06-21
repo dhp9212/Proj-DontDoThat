@@ -37,7 +37,7 @@
 										
 									</a>
 									<div class="caption">
-										<h3><a href="#">${dto.name}</a></h3>
+										<h3>${dto.name}</h3>
 									</div>
 								</article>
 								</c:forEach>

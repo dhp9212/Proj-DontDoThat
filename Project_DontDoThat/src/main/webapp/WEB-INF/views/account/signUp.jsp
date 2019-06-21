@@ -38,6 +38,8 @@
 			$(document).ready(function(){
 				if($('input[name=email]').val()==0){
 					$(".userHasEmail").hide();
+				}else{
+					$(".userHasEmail").show();
 				}
 			});
 	</script>

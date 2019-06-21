@@ -32,7 +32,6 @@
 						숙소 수정메뉴
 					</button>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="homepage.do">개인 홈페이지</a>
 						<a class="dropdown-item" href="accomodation_facility.do">숙소시설 및 서비스</a>
 						<a class="dropdown-item" href="accomodation_content.do">내 숙소 설명 보기</a>
 						<a class="dropdown-item" href="policy.do">정책 변경</a>

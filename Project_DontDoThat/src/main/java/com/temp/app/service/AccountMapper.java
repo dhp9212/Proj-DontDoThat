@@ -14,8 +14,9 @@ public class AccountMapper {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insertAccount(AccountDTO dto) {	
-		return sqlSession.insert("insertAccount", dto);
+	public AccountDTO insertAccount(AccountDTO dto) {	
+		sqlSession.insert("insertAccount", dto);
+		return dto;
 	}
 	
 	public AccountDTO getAccount(int num) {

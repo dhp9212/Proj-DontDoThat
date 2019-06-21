@@ -91,19 +91,18 @@
 					<td align="center">${dcc.email}</td>
 					<td width="200px" height="30px" style="overflow:hidden; text-overflow:ellipsis;
 					 		display:inline-block;"><button type="button" onclick="javascript:writem('${dcc.no}','${dcc.accomodation_name}',
-								 '${dcc.email}','${dcc.content}')"
-					 		class="btn btn-sm" data-toggle="modal" data-target="#myContent">
+								'${dcc.email}','${dcc.content}')" class="btn btn-sm" data-toggle="modal" data-target="#myContent">
 							 ${dcc.content}</button></td>
 					<td align="center">${dcc.send_date}</td>
 					<td align="center">
 						<c:choose>
 							<c:when test="${dcc.check_reply == 1}">
-								<div class="mybutton23">답변 완료</div>
+								<div class="mybutton23">답변완료</div>
 							</c:when>
 							<c:otherwise>
-								<button type="button" onclick="javascript:writem('${dcc.no}','${dcc.accomodation_name}',
-								 '${dcc.email}','${dcc.content}')"
-								class="btn mybutton23 btn-sm" data-toggle="modal" data-target="#myModal">답변 하기</button>
+								<button type="button" class="btn mybutton23 btn-sm"
+								data-toggle="modal" data-target="#myModal" onclick="javascript:writem('${dcc.no}','${dcc.accomodation_name}',
+								 '${dcc.email}','${dcc.content}')">답변하기</button>
 							</c:otherwise>
 						</c:choose>
 					</td>

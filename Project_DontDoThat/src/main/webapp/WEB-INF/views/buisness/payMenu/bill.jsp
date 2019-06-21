@@ -43,6 +43,9 @@
 </script>
 <div class="container-fluid" style="background-color:#fafafa">
 	<div class="container" style="overflow: auto; height: 80%; padding: 15;">
+		<div class="row" style="font-size:16;" align="center">
+			<div class="col-sm-12">지불하실 내역<br></div>
+		</div>
 		<div class="row border-bottom" style="font-size:16;" align="center">
 			<div class="col-sm-1">월</div>
 			<div class="col-sm-8"></div>

@@ -2,18 +2,13 @@ package com.temp.app.model;
 
 public class RoomDTO {
 	private int num;
-	//�����̸�
 	private int accomodation_num;
-	//���̸�
 	private String roomname;
-	//������
 	private String roomclass;
 	private int qty;
 	private int currentQty;
-	//�ο�
 	private int people;
 	private int price;
-	//�ü�
 	private String room_facility;
 	private String room_image;
 	

@@ -24,7 +24,7 @@
 	}
 </style>
 <script type="text/javascript">
-	var image_path = "resources/img/"
+	var image_path = "resources/img/output/"
 	$(document).ready(function() {
 		$(document).on('change', $('input[type=file]'), function(e){
 			var className = e.target.className

@@ -141,7 +141,7 @@ public class AccountController {
 		if(dto.getPassword().equals(password)) {
 			
 			// if country exist
-			if(dto.getCountry() != null && !dto.getCountry().equals("")) {
+			if(dto.getCountry() != null) {
 				dto.setCountryName(standardInformationMapper.getCountryByCode2(dto.getCountry()).getName());
 			}
 			
@@ -200,9 +200,8 @@ public class AccountController {
 		dto.setPreferredFacility("");
 		dto.setReservationTarget("");
 		dto.setCurrency("");
+		dto = accountMapper.insertAccount(dto);
 		session.setAttribute("userSession", dto);
-		int res = accountMapper.insertAccount(dto);
-		mav.addObject(res);
 		mav.setViewName("account/mySettings");
 		return mav;
 	}
@@ -348,10 +347,12 @@ public class AccountController {
 		
 		mav.setViewName("forward:/mySettings.do");
 		List<Card> check_cardList = dto.getCardList();
+		if(check_cardList!=null) {
 		for(Card card : check_cardList) {
-			String myCard = "";
-			myCard = card.getKindOfCreditCard() + card.getNumOfCreditCard() + card.getExpirationDate();
-			if(myCard.equals(kindOfCreditCard+numOfCreditCard+expirationDate)) return mav;
+				String myCard = "";
+				myCard = card.getKindOfCreditCard() + card.getNumOfCreditCard() + card.getExpirationDate();
+				if(myCard.equals(kindOfCreditCard+numOfCreditCard+expirationDate)) return mav;
+			}
 		}
 		String payment = dto.getPayment();
 		

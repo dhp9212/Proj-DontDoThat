@@ -17,11 +17,14 @@
 	<c:forEach var="dto" items="${listReservation}" varStatus="status">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
+			<div class="col-lg-2">
+				예약번호 : <font style="font-weight: bold;">${dto.num}</font>
+			</div>
 			<div class="col-lg-4">
 					<div class="col-lg-12"><h3><a href="#" data-toggle="modal" data-target="#infoModal${dto.num }">${dto.accomodation_name}</a></h3></div><br>
 					<div class="col-lg-12">예약금액 : ${dto.payment}</div> 
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-4">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="col-lg-6" align="center">체크인</div>

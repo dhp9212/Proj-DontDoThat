@@ -17,7 +17,6 @@
 			window.l.nextButton();
 			}
 		}
-		
 		$(document).ready(function(){
 			$("#start").click(function emailCheck(){ // ID가 start인 요소를 클릭하면
 				var email = document.getElementById("email").value;//id가 email인 것의 값을 가져온다.
@@ -31,13 +30,7 @@
 					if(state == "none"){ // state가 none 상태일경우 
 			            $(".userEmailError").show(); // class가 userEmailError인 요소를 show();
 			            $(".userEmailNone").hide();
-			            /* if(dto.getEmail() == null){ // DB에 해당 이메일이 없다면
-			            	$(".userEmailNone").show(); // class가 userEmailNone인 요소를 show();
-			            } */
-			        }/* else { // 그 외에는
-			            $(".userEmailError").hide(); // class가 userEmailError인 요소를 hide();         
-			        } */
-			   		document.addjoin.email.focus();
+					}
 			        return false;
 				}else{
 					$(".userEmailError").hide();
